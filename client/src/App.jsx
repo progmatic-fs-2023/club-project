@@ -1,29 +1,18 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { API_URL } from './constants';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
 
 function App() {
-  const [isConnect, setIsConnect] = useState(false);
-
-  useEffect(() => {
-    fetch(`${API_URL}`).then((response) => {
-      if (response.ok) setIsConnect(true);
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log(isConnect);
-  }, []);
-
   return (
-    <div>
-      Hello project!
-      <ul>
-        <li>
-          {isConnect ? '✅' : '️❗️'} Connect to backend {!isConnect && 'failed'}
-        </li>
-      </ul>
-    </div>
+    <Routes> 
+      <Route element={<Layout/>}>
+        <Route path="/" element={<div>HOME</div>} />
+        <Route path="/events" element={<div>EVENTS</div>} />
+        <Route path="/services" element={<div>SERVICES</div>} />
+      </Route>
+    </Routes>
   );
 }
 
