@@ -4,8 +4,9 @@ import { API_URL } from './constants';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 
+
 function App() {
-  return (
+  return ( 
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<div>HOME</div>} />
