@@ -9,8 +9,8 @@
     "serve": "node -r dotenv/config dist/server.js",
     "lint": "eslint src --ext .js",
     "lint:fix": "eslint --fix src --ext .js",
-    "format": "prettier '{,!(dist)/**/}*.{js,jsx}' --check",
-    "format:fix": "prettier '{,!(dist)/**/}*.{js,jsx}' --write",
+    "format": "prettier \"{,!(dist)/**/}*.{js,jsx}\" --check",
+    "format:fix": "prettier \"{,!(dist)/**/}*.{js,jsx}\" --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
