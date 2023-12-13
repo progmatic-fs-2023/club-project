@@ -8,13 +8,15 @@
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --ext js,jsx --fix --report-unused-disable-directives --max-warnings 0",
-    "format": "prettier --check *js",
-    "format:fix": "prettier --write \"{,!(node_modules)/**/}*.js\"",
+    "format": "prettier \"{,!(dist)/**/}*.{js,jsx}\" --check",
+    "format:fix": "prettier \"{,!(dist)/**/}*.{js,jsx}\" --write",
     "preview": "vite preview"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
+    "install": "^0.13.0",
     "jwt-decode": "^4.0.0",
+    "npm": "^10.2.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
