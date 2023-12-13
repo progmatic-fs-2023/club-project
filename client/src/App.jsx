@@ -1,11 +1,6 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import { API_URL } from './constants';
-import { Routes, Route } from 'react-router-dom';
-import MainCarousel from './components/MainCarousel.jsx';
-import Layout from './components/Layout.jsx';
-import NavBar from './components/NavBar.jsx';
-
+import MainCarousel from './components/MainCarousel';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
@@ -17,8 +12,8 @@ function App() {
       </Route>
     </Routes> */
     <>
-    <NavBar />
-    < MainCarousel />
+      <NavBar />
+      <MainCarousel />
     </>
   );
 }
