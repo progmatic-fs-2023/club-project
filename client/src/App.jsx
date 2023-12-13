@@ -1,6 +1,7 @@
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
 import MainCarousel from './components/MainCarousel';
-import NavBar from './components/NavBar';
+import Layout from './components/Layout';
 
 function App() {
   return (

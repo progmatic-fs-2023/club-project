@@ -1,11 +1,8 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
 import './Layout.css';
 
 function Layout() {
@@ -17,14 +14,17 @@ function Layout() {
         <NavLink to="/services">Services</NavLink>
       </nav> */}
       <Navbar expand="lg" className="bg-body-tertiary" fixed="top" id="navbar">
-        <Container id='container'>
-          <Navbar.Brand href="/"> <img
+        <Container id="container">
+          <Navbar.Brand href="/">
+            {' '}
+            <img
               src="/src/components/door_logo.png"
               width="50"
               height="50"
               className="d-inline-block align-top"
               alt="React Bootstrap logo"
-            /></Navbar.Brand>
+            />
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -35,8 +35,12 @@ function Layout() {
               <Nav.Link href="contact">Contact</Nav.Link>
             </Nav>
             <Nav className="">
-              <Nav.Link href="signin"><Button>Sign in</Button></Nav.Link>
-              <Nav.Link href="signup"><Button>Sign up</Button></Nav.Link>
+              <Nav.Link href="signin">
+                <Button>Sign in</Button>
+              </Nav.Link>
+              <Nav.Link href="signup">
+                <Button>Sign up</Button>
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
