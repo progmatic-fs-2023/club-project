@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-import './Layout.css';
 
 function Layout() {
   return (
@@ -23,11 +22,21 @@ function Layout() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto p-2">
-              <Nav.Link as={NavLink} to="/">Home</Nav.Link>
-              <Nav.Link as={NavLink} to="events">Events</Nav.Link>
-              <Nav.Link as={NavLink} to="services">Services</Nav.Link>
-              <Nav.Link as={NavLink} to="aboutus">About us</Nav.Link>
-              <Nav.Link as={NavLink} to="contact">Contact</Nav.Link>
+              <Nav.Link as={NavLink} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="events">
+                Events
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="services">
+                Services
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="aboutus">
+                About us
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="contact">
+                Contact
+              </Nav.Link>
             </Nav>
             <Nav className="">
               <Nav.Link as={NavLink} to="signin">
