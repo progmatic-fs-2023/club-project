@@ -1,6 +1,5 @@
 #navbar {
-    
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 /* #container {
@@ -16,5 +15,13 @@
 } */
 
 .me-auto {
-    margin-left: 300px;
+  margin-left: 300px;
+}
+
+.footer-color {
+  color: white;
+}
+
+.footer-list {
+  list-style-type: none;
 }
