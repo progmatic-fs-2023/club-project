@@ -18,14 +18,9 @@
   font-size:3em;
 }
 
-.carousel-item {
-  display: flex;
-}
-
 .carousel-item img {
   height: 100vh;
   min-height: 700px;
-  width: 100%;
   object-fit: cover;
 }
 .carousel-caption p {
@@ -39,23 +34,6 @@
 
 .carousel-control-next-icon, .carousel-control-prev-icon{
   filter: none !important
-}
-
-.logo_img {
-  max-width: 100px;
-}
-
-/* #navbar-body {
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  background-color: transparent;
-}
- */
-#basic-navbar-nav {
-
-justify-content: end !important;
 }
 
 .nav-link {

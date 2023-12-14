@@ -3,10 +3,10 @@ import Button from 'react-bootstrap/Button';
 
 function MainCarousel() {
   return (
-    <Carousel data-bs-theme="dark" interval="300000" wrap="true" pause="false">
+    <Carousel data-bs-theme="dark" interval="3000" wrap="true" pause="false">
       <Carousel.Item>
-        <img className="d-block w-100" src=".\src\assets\golf_1.jpg" alt="First slide" />
-        <Carousel.Caption>
+        <img className="d-flex w-100" src=".\src\assets\golf_1.jpg" alt="First slide" />
+        <Carousel.Caption >
           <h5>First slide label</h5>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
           <div>
@@ -21,7 +21,7 @@ function MainCarousel() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src=".\src\assets\golf_2.jpg" alt="Second slide" />
+        <img className="d-flex w-100" src=".\src\assets\golf_2.jpg" alt="Second slide" />
         <Carousel.Caption>
           <h5>Second slide label</h5>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -37,7 +37,7 @@ function MainCarousel() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src=".\src\assets\golf_3.jpg" alt="Third slide" />
+        <img className="d-flex w-100" src=".\src\assets\golf_3.jpg" alt="Third slide" />
         <Carousel.Caption>
           <h5>Third slide label</h5>
           <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>

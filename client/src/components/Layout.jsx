@@ -12,11 +12,11 @@ function Layout() {
           <Navbar.Brand as={NavLink} to="/">
             {' '}
             <img
-              src="/src/components/door_logo_w.png"
+              src="/src/assets/door_logo_w.png"
               width="50"
               height="50"
               className="d-inline-block align-top"
-              alt="React Bootstrap logo"
+              alt="club logo"
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
