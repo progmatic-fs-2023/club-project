@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
+
 
 function Layout() {
   return (
