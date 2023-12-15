@@ -20,7 +20,7 @@ function RegistrationModal() {
 
   const handleSubmit = () => {
     // event.preventDefault();
-    console.log(inputs);
+    // alert(inputs);
   };
 
   return (
