@@ -13,17 +13,15 @@ function LoginModal() {
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name } = event.target;
+    const { value } = event.target;
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = () => {
+    // event.preventDefault();
     console.log(inputs);
   };
-
- 
 
   return (
     <>
@@ -36,15 +34,27 @@ function LoginModal() {
           <Modal.Title>Sign in</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form >
+          <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <FloatingLabel label="Username" className="mb-3">
-                <Form.Control name="username" value={inputs.username || ""} onChange={handleChange}type="text" placeholder="Username" />
+                <Form.Control
+                  name="username"
+                  value={inputs.username || ''}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Username"
+                />
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3">
               <FloatingLabel label="Password" className="mb-3">
-                <Form.Control name="password1" value={inputs.password1 || ""} onChange={handleChange}type="password" placeholder="password" />
+                <Form.Control
+                  name="password1"
+                  value={inputs.password1 || ''}
+                  onChange={handleChange}
+                  type="password"
+                  placeholder="password"
+                />
               </FloatingLabel>
             </Form.Group>
           </Form>
@@ -53,7 +63,14 @@ function LoginModal() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button type="submit" variant="primary" onClick={() => {handleClose(); handleSubmit(event)}}>
+          <Button
+            type="submit"
+            variant="primary"
+            onClick={() => {
+              handleClose();
+              handleSubmit();
+            }}
+          >
             Sign in
           </Button>
         </Modal.Footer>

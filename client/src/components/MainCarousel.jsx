@@ -6,7 +6,7 @@ function MainCarousel() {
     <Carousel data-bs-theme="dark" interval="3000" wrap="true" pause="false">
       <Carousel.Item>
         <img className="d-flex w-100" src=".\src\assets\golf_1.jpg" alt="First slide" />
-        <Carousel.Caption >
+        <Carousel.Caption>
           <h5>First slide label</h5>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
           <div>
