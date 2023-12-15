@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
+import './Layout.css';
 
 function Layout() {
   return (
@@ -59,11 +60,11 @@ function Layout() {
               <Navbar.Brand href="/">
                 {' '}
                 <img
-                  src="/src/components/door_logo_w.png"
+                  src="/src/assets/door_logo_w.png"
                   width="120"
                   height="120"
                   className="d-inline-block align-center"
-                  alt="React Bootstrap logo"
+                  alt="club logo"
                 />
               </Navbar.Brand>
             </Col>
