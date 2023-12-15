@@ -3,11 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import RegistrationModal from './RegistrationModal';
+import LoginModal from './LoginModal';
 
 function Layout() {
   return (
     <div>
-      <Navbar expand="lg" className="bg-transparent" fixed="top">
+      <Navbar expand="lg" className="bg-dark  bg-opacity-75" fixed="top">
         <Container>
           <Navbar.Brand as={NavLink} to="/">
             {' '}
@@ -39,12 +41,8 @@ function Layout() {
               </Nav.Link>
             </Nav>
             <Nav className="">
-              <Nav.Link as={NavLink} to="signin">
-                <Button>Sign in</Button>
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="signup">
-                <Button>Sign up</Button>
-              </Nav.Link>
+              <LoginModal />
+              <RegistrationModal />
             </Nav>
           </Navbar.Collapse>
         </Container>
