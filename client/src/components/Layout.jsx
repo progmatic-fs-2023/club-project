@@ -7,7 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
 
-
 function Layout() {
   return (
     <div>
