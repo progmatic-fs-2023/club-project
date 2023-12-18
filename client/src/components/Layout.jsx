@@ -12,7 +12,7 @@ function Layout() {
   return (
     <div>
       <Navbar
-      variant="dark"
+        variant="dark"
         collapseOnSelect
         expand="xxl"
         className="bg-dark bg-opacity-75 fs-4"
@@ -30,7 +30,7 @@ function Layout() {
               alt="Club logo"
             />
           </Navbar.Brand>
-          <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mx-auto p-2 d-flex flex-wrap">
               <Nav.Link as={NavLink} to="/" href="#home">
@@ -58,7 +58,7 @@ function Layout() {
             <Nav.Link className="" href="#login&signup">
               <LoginModal />
               <RegistrationModal />
-            </Nav.Link >
+            </Nav.Link>
           </Navbar.Collapse>
         </Container>
       </Navbar>

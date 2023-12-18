@@ -25,7 +25,7 @@ function LoginModal() {
 
   return (
     <>
-      <Button className='mx-3 max-vw-25 fs-4' variant="outline-light" onClick={handleShow}>
+      <Button className="mx-3 max-vw-25 fs-4" variant="outline-light" onClick={handleShow}>
         Login
       </Button>
 
