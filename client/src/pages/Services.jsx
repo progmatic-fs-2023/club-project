@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+
+import Container from 'react-bootstrap/Container';
 import AllServices from '../components/AllServices';
 import ServiceSearchBar from '../components/ServiceSearchBar';
-import Container from 'react-bootstrap/Container';
 
 function Services() {
   return (
