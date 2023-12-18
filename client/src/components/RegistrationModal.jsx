@@ -25,7 +25,7 @@ function RegistrationModal() {
 
   return (
     <>
-      <Button variant="outline-light" onClick={handleShow}>
+      <Button className='fs-4 max-vw-25' variant="outline-light" onClick={handleShow}>
         Sign up
       </Button>
 

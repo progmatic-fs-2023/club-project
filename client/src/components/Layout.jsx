@@ -11,41 +11,54 @@ import './Layout.css';
 function Layout() {
   return (
     <div>
-      <Navbar expand="lg" className="bg-dark  bg-opacity-75" fixed="top">
-        <Container>
+      <Navbar
+      variant="dark"
+        collapseOnSelect
+        expand="xxl"
+        className="bg-dark bg-opacity-75 fs-4"
+        style={{ height: 'auto' }}
+        fixed="top"
+      >
+        <Container className="min-vw-100 mx-auto p-4">
           <Navbar.Brand as={NavLink} to="/">
             {' '}
             <img
               src="/src/assets/door_logo_w.png"
-              width="50"
-              height="50"
+              width="60"
+              height="60"
               className="d-inline-block align-top"
               alt="Club logo"
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mx-auto p-2">
-              <Nav.Link as={NavLink} to="/">
+          <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mx-auto p-2 d-flex flex-wrap">
+              <Nav.Link as={NavLink} to="/" href="#home">
                 Home
               </Nav.Link>
-              <Nav.Link as={NavLink} to="events">
+              <Nav.Link as={NavLink} to="events" href="#events">
                 Events
               </Nav.Link>
-              <Nav.Link as={NavLink} to="services">
+              <Nav.Link as={NavLink} to="services" href="#services">
                 Services
               </Nav.Link>
-              <Nav.Link as={NavLink} to="aboutus">
+              <Nav.Link as={NavLink} to="gallery" href="#gallery">
+                Gallery
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="membership" href="#membership">
+                Membership
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="aboutus" href="#aboutus">
                 About us
               </Nav.Link>
-              <Nav.Link as={NavLink} to="contact">
+              <Nav.Link as={NavLink} to="contact" href="#contact">
                 Contact
               </Nav.Link>
             </Nav>
-            <Nav className="">
+            <Nav.Link className="" href="#login&signup">
               <LoginModal />
               <RegistrationModal />
-            </Nav>
+            </Nav.Link >
           </Navbar.Collapse>
         </Container>
       </Navbar>
