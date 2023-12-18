@@ -25,13 +25,13 @@ function LoginModal() {
 
   return (
     <>
-      <Button variant="outline-light" onClick={handleShow}>
-        Sign in
+      <Button className="mx-3 max-vw-25 fs-4" variant="outline-light" onClick={handleShow}>
+        Login
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign in</Modal.Title>
+          <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -71,7 +71,7 @@ function LoginModal() {
               handleSubmit();
             }}
           >
-            Sign in
+            Log in
           </Button>
         </Modal.Footer>
       </Modal>
