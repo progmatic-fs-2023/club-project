@@ -6,8 +6,8 @@ function MainCarousel() {
     <Carousel data-bs-theme="dark" interval="300000" wrap="true" pause="false">
       <Carousel.Item>
         <img className="d-flex w-100" src=".\src\assets\golf_1.jpg" alt="First slide" />
-        <Carousel.Caption>
-          <h5 style={{fontFamily: "'Yeseva One', cursive"}}>First slide label</h5>
+        <Carousel.Caption >
+        <h5 style={{fontFamily: "'Yeseva One', cursive"}}>First slide label</h5>
           <p style={{fontFamily: "'Josefin Sans', sans-serif",fontWeight: 400,}}>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
           <div>
             <Button variant="secondary" size="lg">
