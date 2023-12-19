@@ -8,14 +8,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
 import './Layout.css';
-import Profile from './Profile';
 
 function Layout() {
   const [show, setShow] = useState("inline-block");
   console.log(show)
 
   const handleCloseButton = () => setShow("none");
-  const handleShow = () => setShow(true);
 
   return (
     <div>
@@ -23,7 +21,7 @@ function Layout() {
         variant="dark"
         collapseOnSelect
         expand="xl"
-        className="bg-dark bg-opacity-75 fs-4"
+        className="bg-dark bg-opacity-75 fs-4 py-0"
         style={{ height: 'auto' }}
         fixed="top"
       >
@@ -32,8 +30,8 @@ function Layout() {
             {' '}
             <img
               src="/src/assets/door_logo_w.png"
-              width="60"
-              height="60"
+              width="50"
+              height="50"
               className="d-inline-block align-top"
               alt="Club logo"
             />
@@ -64,7 +62,16 @@ function Layout() {
               </Nav.Link>
             </Nav>
             <Nav.Link className="" href="#login&signup">
-              <Profile showButton={show}/>
+            <Navbar.Brand as={NavLink} to="/profile" style={{display: `${show == "inline-block" ? "none" : "inline-block"}`}}>
+            {' '}
+            <img
+              src="/src/assets/manager.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+              alt="profile logo"
+            />
+          </Navbar.Brand>
               <LoginModal showButton={show} setShowButton ={handleCloseButton} />
               <RegistrationModal showButton={show}/>
             </Nav.Link>
