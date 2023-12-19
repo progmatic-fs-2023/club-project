@@ -2,24 +2,32 @@ import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import { Row, Col, Button } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
+import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
 import './Layout.css';
+import Profile from './Profile';
 
 function Layout() {
+  const [show, setShow] = useState("inline-block");
+  console.log(show)
+
+  const handleCloseButton = () => setShow("none");
+  const handleShow = () => setShow(true);
+
   return (
     <div>
       <Navbar
         variant="dark"
         collapseOnSelect
-        expand="xxl"
+        expand="xl"
         className="bg-dark bg-opacity-75 fs-4"
         style={{ height: 'auto' }}
         fixed="top"
       >
-        <Container className="min-vw-100 mx-auto p-4">
+        <Container className="min-vw-100 mx-auto py-1 px-4">
           <Navbar.Brand as={NavLink} to="/">
             {' '}
             <img
@@ -56,8 +64,9 @@ function Layout() {
               </Nav.Link>
             </Nav>
             <Nav.Link className="" href="#login&signup">
-              <LoginModal />
-              <RegistrationModal />
+              <Profile showButton={show}/>
+              <LoginModal showButton={show} setShowButton ={handleCloseButton} />
+              <RegistrationModal showButton={show}/>
             </Nav.Link>
           </Navbar.Collapse>
         </Container>

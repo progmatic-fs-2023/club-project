@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
-function LoginModal() {
+function LoginModal({showButton, setShowButton}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,7 +25,7 @@ function LoginModal() {
 
   return (
     <>
-      <Button className="mx-3 max-vw-25 fs-4" variant="outline-light" onClick={handleShow}>
+      <Button style={{display: `${showButton}`}} className="mx-3 max-vw-25 fs-5" variant="outline-light" onClick={handleShow}>
         Login
       </Button>
 
@@ -69,6 +69,7 @@ function LoginModal() {
             onClick={() => {
               handleClose();
               handleSubmit();
+              setShowButton()
             }}
           >
             Log in
