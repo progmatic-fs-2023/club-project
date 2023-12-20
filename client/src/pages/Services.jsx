@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import AllServices from '../components/AllServices';
 import ServiceSearchBar from '../components/ServiceSearchBar';
@@ -109,12 +109,13 @@ const servicesList = [
     service: {
       name: 'MOVIE',
       serviceImg: './src/assets/cat_tennis.jpg',
-      details: 'Movie new actor ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      details:
+        'Movie new actor ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum movie New actor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
     },
   },
-]; 
+];
 
 /*   useEffect(() => {
     const fetchServices = async () => {
@@ -130,33 +131,34 @@ const servicesList = [
    },[]) */
 
 function Services() {
-const [services, setServices] = useState(servicesList)
-const [noResults, setNoResults] = useState(false);
+  const [services, setServices] = useState(servicesList);
+  const [noResults, setNoResults] = useState(false);
 
-const onSearch = (searchText) => {
-  let filteredList = [...servicesList];
+  const onSearch = (searchText) => {
+    let filteredList = [...servicesList];
 
-  if (searchText.length >= 3) {
-    filteredList = filteredList.filter((service) =>
-    service.service.name.toLowerCase().includes(searchText.toLowerCase()) ||
-    service.service.details.toLowerCase().includes(searchText.toLowerCase()) ||
-    service.service.moreDetails.toLowerCase().includes(searchText.toLowerCase())
-  );
+    if (searchText.length >= 3) {
+      filteredList = filteredList.filter(
+        (service) =>
+          service.service.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          service.service.details.toLowerCase().includes(searchText.toLowerCase()) ||
+          service.service.moreDetails.toLowerCase().includes(searchText.toLowerCase()),
+      );
 
-    setNoResults(filteredList.length === 0);
-  } else {
-    setNoResults(false);
-  }
+      setNoResults(filteredList.length === 0);
+    } else {
+      setNoResults(false);
+    }
 
-  setServices(filteredList);
-};
+    setServices(filteredList);
+  };
 
-return (
+  return (
     <Container>
       <div className="mt-5">
         <ServiceSearchBar onSearch={onSearch} />
         {noResults && <p>No results found</p>}
-        <AllServices services={services}/>
+        <AllServices services={services} />
       </div>
     </Container>
   );
