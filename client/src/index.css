@@ -9,7 +9,7 @@
 }
 
 .carousel-caption {
-  top: 20rem !important;
+  top: 15rem !important;
 }
 
 .carousel-caption h5 {
@@ -18,11 +18,11 @@
   font-size:3em;
 }
 
-.carousel-item img {
+ .carousel-item img {
   height: 100vh;
   min-height: 700px;
   object-fit: cover;
-}
+} 
 .carousel-caption p {
   color: #eee;
   font-size: 1.5em;
@@ -36,10 +36,3 @@
   filter: none !important
 }
 
-.nav-link {
-  color: #ccc !important;
-}
-
-.nav-link:hover {
-  color: white !important;
-}
