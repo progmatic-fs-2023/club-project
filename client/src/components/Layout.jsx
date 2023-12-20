@@ -14,18 +14,18 @@ function Layout() {
       <Navbar
         variant="dark"
         collapseOnSelect
-        expand="xxl"
-        className="bg-dark bg-opacity-75 fs-4"
+        expand="md"
+        className="bg-dark bg-opacity-75 fs-5"
         style={{ height: 'auto' }}
         fixed="top"
       >
-        <Container className="min-vw-100 mx-auto p-4">
+        <Container className="min-vw-100 mx-auto p-2">
           <Navbar.Brand as={NavLink} to="/">
             {' '}
             <img
               src="/src/assets/door_logo_w.png"
-              width="60"
-              height="60"
+              width="50"
+              height="50"
               className="d-inline-block align-top"
               alt="Club logo"
             />

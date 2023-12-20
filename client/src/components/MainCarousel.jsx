@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 
 function MainCarousel() {
   return (
-    <Carousel data-bs-theme="dark" interval="300000" wrap="true" pause="false">
+    <Carousel data-bs-theme="dark" interval="3000" wrap="true" pause="false">
       <Carousel.Item>
         <img className="d-flex w-100" src=".\src\assets\golf_1.jpg" alt="First slide" />
         <Carousel.Caption>
