@@ -10,10 +10,9 @@ import LoginModal from './LoginModal';
 import './Layout.css';
 
 function Layout() {
-  const [show, setShow] = useState("inline-block");
-  console.log(show)
+  const [show, setShow] = useState('inline-block');
 
-  const handleCloseButton = () => setShow("none");
+  const handleCloseButton = () => setShow('none');
 
   return (
     <div>
@@ -62,18 +61,22 @@ function Layout() {
               </Nav.Link>
             </Nav>
             <Nav.Link className="" href="#login&signup">
-            <Navbar.Brand as={NavLink} to="/profile" style={{display: `${show == "inline-block" ? "none" : "inline-block"}`}}>
-            {' '}
-            <img
-              src="/src/assets/manager.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-              alt="profile logo"
-            />
-          </Navbar.Brand>
-              <LoginModal showButton={show} setShowButton ={handleCloseButton} />
-              <RegistrationModal showButton={show}/>
+              <Navbar.Brand
+                as={NavLink}
+                to="/profile"
+                style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+              >
+                {' '}
+                <img
+                  src="/src/assets/manager.png"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                  alt="profile logo"
+                />
+              </Navbar.Brand>
+              <LoginModal showButton={show} setShowButton={handleCloseButton} />
+              <RegistrationModal showButton={show} />
             </Nav.Link>
           </Navbar.Collapse>
         </Container>

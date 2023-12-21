@@ -1,8 +1,8 @@
 function CategoryHeader(children) {
   const { categoryName } = children;
-  
+
   const divStyle = {
-       color: '#9e9739',
+    color: '#9e9739',
     height: '50px',
     borderBottom: '2px dotted #9e9739',
   };

@@ -1,4 +1,3 @@
-
 import Container from 'react-bootstrap/Container';
 import AllServices from '../components/AllServices';
 import ServiceSearchBar from '../components/ServiceSearchBar';
