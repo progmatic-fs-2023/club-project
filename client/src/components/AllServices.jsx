@@ -137,7 +137,7 @@ function AllServices() {
             <Row xs={1} md={2} lg={4}>
               {items.map((item) => (
                 <Col>
-                  <ServiceCard name={item.service.name} details={item.service.details}  />
+                  <ServiceCard name={item.service.name} details={item.service.details} />
                 </Col>
               ))}
             </Row>

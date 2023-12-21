@@ -15,6 +15,7 @@ function App() {
         <Route path="/membership" element={<div>MEMBERSHIP</div>} />
         <Route path="/aboutus" element={<div>ABOUT US</div>} />
         <Route path="/contact" element={<div>CONTACT</div>} />
+        <Route path="/profile" element={<div>PROFILE</div>} />
       </Route>
     </Routes>
   );
