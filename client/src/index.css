@@ -36,3 +36,15 @@
   filter: none !important
 }
 
+.navyblue-btn {
+  background-color: #0d1341;
+  color: #ffffff;
+}
+
+.navyblue-btn:hover{
+  background-color: #2d3781;
+  color: #ffffff;
+}
+
+
+

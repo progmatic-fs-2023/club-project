@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
 import ServiceCard from './ServiceCard';
 import CategoryHeader from './CategoryHeader';
+import ScrollToTopButton from "./ScrollToTopButton";
 
 function AllServices({ services }) {
   const groupedByCategory = services.reduce((acc, item) => {
@@ -16,14 +17,19 @@ function AllServices({ services }) {
 
   return (
     <div>
+      <ScrollToTopButton />
       {Object.entries(groupedByCategory).map(([category, items]) => (
         <div>
           <CategoryHeader categoryName={category} />
           <div className="container text-left p-3">
-            <Row xs={1} md={2} lg={3} xl={4} className="m-1">
+            <Row xs={1} md={2} lg={3} xl={4}>
               {items.map((item) => (
-                <Col>
-                  <ServiceCard name={item.service.name} details={item.service.details} />
+                <Col className="p-3">
+                  <ServiceCard
+                    name={item.service.name}
+                    serviceImg={item.service.serviceImg}
+                    details={item.service.details}
+                  />
                 </Col>
               ))}
             </Row>
@@ -35,8 +41,7 @@ function AllServices({ services }) {
 }
 
 AllServices.propTypes = {
-  services: PropTypes.string.isRequired,
-  reduce: PropTypes.string.isRequired,
+  services: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired,
 };
 
 export default AllServices;

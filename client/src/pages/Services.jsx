@@ -8,8 +8,8 @@ const servicesList = [
     id: 1,
     category: 'SPORT',
     service: {
-      name: 'TENNIS',
-      serviceImg: 'https://placekitten.com/g/400/400',
+      name: 'GOLF',
+      serviceImg: 'src/assets/as_golf.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -19,8 +19,8 @@ const servicesList = [
     id: 2,
     category: 'SPORT',
     service: {
-      name: 'POOL',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'TENNIS',
+      serviceImg: 'src/assets/as_tennis.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -30,8 +30,8 @@ const servicesList = [
     id: 3,
     category: 'SPORT',
     service: {
-      name: 'FITNESS',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'SQUASH',
+      serviceImg: 'src/assets/as_golf.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -41,8 +41,8 @@ const servicesList = [
     id: 4,
     category: 'SPORT',
     service: {
-      name: 'GOLF',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'BOWLING',
+      serviceImg: 'src/assets/as_golf.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -50,65 +50,187 @@ const servicesList = [
   },
   {
     id: 5,
-    category: 'BEAUTY/RELAXATION',
+    category: 'SPORT',
     service: {
-      name: 'SPA',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'POOL',
+      serviceImg: 'src/assets/as_golf.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
-        'Lorem ipsum dolor sit new consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
     },
   },
   {
     id: 6,
-    category: 'BEAUTY/RELAXATION',
+    category: 'SPORT',
     service: {
-      name: 'MASSAGE',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'RIDING',
+      serviceImg: 'src/assets/as_golf.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
     },
   },
   {
     id: 7,
-    category: 'BEAUTY/RELAXATION',
+    category: 'SPORT',
     service: {
-      name: 'HAIRDRESSING',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'ARCHERY',
+      serviceImg: 'src/assets/as_golf.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
-        'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
     },
   },
   {
     id: 8,
-    category: 'RECREATION',
+    category: 'SPORT',
     service: {
-      name: 'SAILING',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'YOGA',
+      serviceImg: 'src/assets/as_golf.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
     },
   },
   {
     id: 9,
+    category: 'SPORT',
+    service: {
+      name: 'CRICKET',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
+    },
+  },
+  {
+    id: 10,
+    category: 'SPORT',
+    service: {
+      name: 'Gym',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
+    },
+  },
+  {
+    id: 11,
+    category: 'BEAUTY/RELAX',
+    service: {
+      name: 'Massage',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
+    },
+  },
+  {
+    id: 12,
+    category: 'BEAUTY/RELAX',
+    service: {
+      name: 'manicure/pedicure',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
+    },
+  },
+  {
+    id: 13,
+    category: 'BEAUTY/RELAX',
+    service: {
+      name: 'hairdressing',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
+    },
+  },
+  {
+    id: 14,
+    category: 'BEAUTY/RELAX',
+    service: {
+      name: 'cosmetic',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
+    },
+  },
+  {
+    id: 15,
+    category: 'BEAUTY/RELAX',
+    service: {
+      name: 'sauna',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
+    },
+  },
+  {
+    id: 16,
+    category: 'BEAUTY/RELAX',
+    service: {
+      name: 'day spa',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
+    },
+  },
+  {
+    id: 17,
     category: 'RECREATION',
     service: {
-      name: 'BILIARD',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'RESTAURANT/BAR',
+      serviceImg: 'src/assets/as_golf.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
     },
   },
   {
-    id: 10,
+    id: 18,
     category: 'RECREATION',
     service: {
-      name: 'MOVIE',
-      serviceImg: './src/assets/cat_tennis.jpg',
+      name: 'LIBRARY',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+    },
+  },
+  {
+    id: 19,
+    category: 'RECREATION',
+    service: {
+      name: 'cigar room',
+      serviceImg: 'src/assets/as_golf.webp',
+      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+    },
+  },
+  {
+    id: 20,
+    category: 'RECREATION',
+    service: {
+      name: 'cinema hall',
+      serviceImg: 'src/assets/as_golf.webp',
+      details:
+        'Movie new actor ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+      moreDetails:
+        'Lorem ipsum movie New actor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+    },
+  },
+  {
+    id: 21,
+    category: 'RECREATION',
+    service: {
+      name: 'chauffeur service',
+      serviceImg: 'src/assets/as_golf.webp',
       details:
         'Movie new actor ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -137,7 +259,7 @@ function Services() {
   const onSearch = (searchText) => {
     let filteredList = [...servicesList];
 
-    if (searchText.length >= 3) {
+    if (searchText.length >= 2) {
       filteredList = filteredList.filter(
         (service) =>
           service.service.name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -153,14 +275,22 @@ function Services() {
     setServices(filteredList);
   };
 
+  const containerStyle = {
+    backgroundImage: 'url(./src/assets/services_bg.webp)',
+    backgroundSize: 'cover',
+  };
+
   return (
-    <Container>
-      <div className="mt-5">
-        <ServiceSearchBar onSearch={onSearch} />
-        {noResults && <p>No results found</p>}
-        <AllServices services={services} />
-      </div>
-    </Container>
+    <div style={containerStyle}>
+      <Container>
+        <div style={{ marginTop: '15vh' }}>
+          <ServiceSearchBar onSearch={onSearch} />
+          <p className="m-3">Type at least 2 characters to initiate the search.</p>
+          {noResults && <p>No results found</p>}
+          <AllServices services={services} />
+        </div>
+      </Container>
+    </div>
   );
 }
 

@@ -5,7 +5,7 @@ function MainCarousel() {
   return (
     <Carousel data-bs-theme="dark" interval="3000" wrap="true" pause="false">
       <Carousel.Item>
-        <img className="d-flex w-100" src=".\src\assets\golf_1.jpg" alt="First slide" />
+        <img className="d-flex w-100" src=".\src\assets\golf_1.webp" alt="First slide" />
         <Carousel.Caption>
           <h5 style={{ fontFamily: "'Yeseva One', cursive" }}>First slide label</h5>
           <p style={{ fontFamily: "'Josefin Sans', sans-serif", fontWeight: 400 }}>
@@ -23,7 +23,7 @@ function MainCarousel() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-flex w-100" src=".\src\assets\golf_2.jpg" alt="Second slide" />
+        <img className="d-flex w-100" src=".\src\assets\golf_2.webp" alt="Second slide" />
         <Carousel.Caption>
           <h5 style={{ fontFamily: "'Yeseva One', cursive" }}>Second slide label</h5>
           <p style={{ fontFamily: "'Josefin Sans', sans-serif", fontWeight: 400 }}>
@@ -41,7 +41,7 @@ function MainCarousel() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-flex w-100" src=".\src\assets\golf_3.jpg" alt="Third slide" />
+        <img className="d-flex w-100" src=".\src\assets\golf_3.webp" alt="Third slide" />
         <Carousel.Caption>
           <h5 style={{ fontFamily: "'Yeseva One', cursive" }}>Third slide label</h5>
           <p style={{ fontFamily: "'Josefin Sans', sans-serif", fontWeight: 400 }}>
