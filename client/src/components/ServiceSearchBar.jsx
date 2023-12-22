@@ -1,12 +1,39 @@
-import { Button } from 'react-bootstrap';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import '../index.css';
 
-function ServiceSearchBar() {
+function ServiceSearchBar({ onSearch }) {
+  const [inputText, setInputText] = useState('');
+
   return (
-    <div className="m-5">
-      <input className="p-1 mt-5" type="text" placeholder="Search services..." />
-      <Button variant="light p-2">search</Button>
+    <div className="container">
+      <div className="justify-content-center">
+        <div className="col-12 col-md-8 col-lg-5">
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search services..."
+              value={inputText}
+              onChange={(event) => {
+                onSearch(event.target.value);
+                setInputText(event.target.value);
+              }}
+              aria-label="search services"
+              aria-describedby="button-addon2"
+            />
+            <button className="btn navyblue-btn" type="button" id="button-addon2">
+              SEARCH
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+
+ServiceSearchBar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
 
 export default ServiceSearchBar;
