@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
 import ServiceCard from './ServiceCard';
 import CategoryHeader from './CategoryHeader';
-import ScrollToTopButton from "./ScrollToTopButton";
+import ScrollToTopButton from './ScrollToTopButton';
 
 function AllServices({ services }) {
   const groupedByCategory = services.reduce((acc, item) => {

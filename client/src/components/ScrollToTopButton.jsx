@@ -5,7 +5,7 @@ function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleScroll = () => {
-    const {scrollY} = window;
+    const { scrollY } = window;
     const footerPosition = document.querySelector('footer').getBoundingClientRect().top;
     /*     const containerBottomPosition = document.querySelector('container').getBoundingClientRect().bottom;
      */
@@ -41,7 +41,14 @@ function ScrollToTopButton() {
   };
 
   return (
-    <button style={buttonStyle} type="button" className="btn btn-light" onClick={scrollToTop} title="Go to top" aria-label="Scroll to top">
+    <button
+      style={buttonStyle}
+      type="button"
+      className="btn btn-light"
+      onClick={scrollToTop}
+      title="Go to top"
+      aria-label="Scroll to top"
+    >
       <FaArrowUp />
     </button>
   );

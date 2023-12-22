@@ -23,7 +23,7 @@ function ServiceCard({ name, serviceImg, details }) {
 ServiceCard.propTypes = {
   name: PropTypes.string.isRequired,
   details: PropTypes.string.isRequired,
-  serviceImg: PropTypes.string.isRequired
+  serviceImg: PropTypes.string.isRequired,
 };
 
 export default ServiceCard;
