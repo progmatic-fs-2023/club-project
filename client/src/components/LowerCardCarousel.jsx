@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 const cardStyle = {
   margin: '20px auto',
-  height: '350px',
+  height: '500px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-end',
@@ -29,6 +29,7 @@ const contentStyle = {
 
 const sliderStyle = {
   background: '#091d29',
+  direction: 'rtr',
 };
 
 const buttonContainerStyle = {
@@ -40,7 +41,7 @@ function generateCardId(title, index) {
   return `${title}-${index}`;
 }
 
-function CardCarousel() {
+function LowerCardCarousel() {
   const sliderRef = useRef(null);
 
   const handleCardEnter = () => {
@@ -57,40 +58,40 @@ function CardCarousel() {
 
   const cards = [
     {
-      image: './src/assets/newyear.jpg',
-      title: 'Doors New Years Party',
+      image: './src/assets/tennis.jpg',
+      title: 'Tennis Courses',
       description: 'Description',
-      buttonText: 'Learn more',
+      buttonText: 'Booking',
     },
     {
-      image: './src/assets/masquerade.jpg',
-      title: 'Masquerade',
+      image: './src/assets/sauna.jpg',
+      title: 'Sauna',
       description: 'Description',
-      buttonText: 'Learn more',
+      buttonText: 'Booking',
     },
     {
-      image: './src/assets/violin.jpg',
-      title: 'Violin Concert',
+      image: './src/assets/manicure.jpg',
+      title: 'Manicure-Pedicure',
       description: 'Description',
-      buttonText: 'Learn more',
+      buttonText: 'Booking',
     },
     {
-      image: './src/assets/wine.jpg',
-      title: 'Wine-tasting',
+      image: './src/assets/gym.jpg',
+      title: 'Gym',
       description: 'Description',
-      buttonText: 'Learn more',
+      buttonText: 'Booking',
     },
     {
-      image: './src/assets/reading.jpg',
-      title: 'Reading Club',
+      image: './src/assets/horse.jpg',
+      title: 'Horse Riding',
       description: 'Description',
-      buttonText: 'Learn more',
+      buttonText: 'Booking',
     },
     {
-      image: './src/assets/golfchamp.jpg',
-      title: 'Golf Championship',
+      image: './src/assets/archery.jpg',
+      title: 'Archery',
       description: 'Description',
-      buttonText: 'Learn more',
+      buttonText: 'Booking',
     },
   ];
 
@@ -105,13 +106,13 @@ function CardCarousel() {
           color: 'white',
         }}
       >
-        EVENTS
+        SERVICES
       </div>
 
       <Slider
         dots={false}
         infinite
-        speed={5000}
+        speed={8000}
         slidesToShow={5}
         slidesToScroll={1}
         autoplay
@@ -149,7 +150,7 @@ function CardCarousel() {
 
       <div style={buttonContainerStyle}>
         <Button variant="primary" size="lg">
-          All Events
+          All Services
           <span style={{ marginLeft: '5px' }}>&rarr;</span>
         </Button>
       </div>
@@ -157,4 +158,4 @@ function CardCarousel() {
   );
 }
 
-export default CardCarousel;
+export default LowerCardCarousel;

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainCarousel from './components/MainCarousel';
 import Layout from './components/Layout';
 import CardCarousel from './components/CardCarousel';
+import LowerCardCarousel from './components/LowerCardCarousel';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <div>
               <MainCarousel />
               <CardCarousel />
+              <LowerCardCarousel />
             </div>
           }
         />
