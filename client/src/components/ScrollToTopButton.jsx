@@ -9,7 +9,7 @@ function ScrollToTopButton() {
 
     if (scrollY > 40) {
       setIsVisible(true);
-    }  else {
+    } else {
       setIsVisible(false);
     }
   };
