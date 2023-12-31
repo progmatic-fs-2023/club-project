@@ -17,14 +17,13 @@ function AllServices({ services }) {
 
   return (
     <div>
-      <ScrollToTopButton />
       {Object.entries(groupedByCategory).map(([category, items]) => (
-        <div>
+        <div key={category}>
           <CategoryHeader categoryName={category} />
           <div className="container text-left p-3">
             <Row xs={1} md={2} lg={3} xl={4}>
               {items.map((item) => (
-                <Col className="p-3">
+                <Col className="p-3" key={item.service.name}>
                   <ServiceCard
                     name={item.service.name}
                     serviceImg={item.service.serviceImg}
@@ -36,6 +35,7 @@ function AllServices({ services }) {
           </div>
         </div>
       ))}
+      <ScrollToTopButton />
     </div>
   );
 }
