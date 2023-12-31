@@ -286,7 +286,7 @@ function Services() {
         <div style={{ marginTop: '10vh' }}>
           <ServiceSearchBar onSearch={onSearch} />
           <p className="m-3">Type at least 2 characters to initiate the search.</p>
-          {noResults && <p className="m-3">No results found</p>}
+          {noResults && <p style={{ margin: '0 1rem', paddingBottom: '1rem' }}>No results found</p>}
           <AllServices services={services} />
         </div>
       </Container>
