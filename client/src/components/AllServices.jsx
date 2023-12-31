@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ServiceCard from './ServiceCard';
 import CategoryHeader from './CategoryHeader';
 import ScrollToTopButton from './ScrollToTopButton';
+import { NavLink } from 'react-router-dom';
 
 function AllServices({ services }) {
   const groupedByCategory = services.reduce((acc, item) => {
@@ -24,12 +25,15 @@ function AllServices({ services }) {
           <div className="container text-left p-3">
             <Row xs={1} md={2} lg={3} xl={4}>
               {items.map((item) => (
+                
                 <Col className="p-3">
+                  <NavLink to={item.service.name}>
                   <ServiceCard
                     name={item.service.name}
                     serviceImg={item.service.serviceImg}
                     details={item.service.details}
                   />
+                    </NavLink> 
                 </Col>
               ))}
             </Row>
