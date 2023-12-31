@@ -31,7 +31,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'SQUASH',
-      serviceImg: 'src/assets/as_golf.webp',
+      serviceImg: 'src/assets/as_squash.jpg',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -42,7 +42,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'BOWLING',
-      serviceImg: 'src/assets/as_golf.webp',
+      serviceImg: 'src/assets/as_bowling.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -283,10 +283,10 @@ function Services() {
   return (
     <div style={containerStyle}>
       <Container>
-        <div style={{ marginTop: '15vh' }}>
+        <div style={{ marginTop: '10vh' }}>
           <ServiceSearchBar onSearch={onSearch} />
           <p className="m-3">Type at least 2 characters to initiate the search.</p>
-          {noResults && <p>No results found</p>}
+          {noResults && <p className="m-3">No results found</p>}
           <AllServices services={services} />
         </div>
       </Container>

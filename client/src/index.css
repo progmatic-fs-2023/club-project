@@ -4,47 +4,30 @@
   box-sizing: border-box;
 }
 
- body{
-  min-width:400px;       
+body {
+  min-width: 400px;
 }
 
-.carousel-caption {
-  top: 15rem !important;
-}
-
-.carousel-caption h5 {
-  text-transform:uppercase;
-  color: #eee;
-  font-size:3em;
-}
-
- .carousel-item img {
+.carousel-item img {
   height: 100vh;
   min-height: 700px;
   object-fit: cover;
-} 
-.carousel-caption p {
-  color: #eee;
-  font-size: 1.5em;
 }
 
-[data-bs-theme=dark] .carousel .carousel-indicators [data-bs-target], [data-bs-theme=dark].carousel .carousel-indicators [data-bs-target] {
-  background-color: white !important;
-}
-
-.carousel-control-next-icon, .carousel-control-prev-icon{
-  filter: none !important
+.form-control:focus {
+  border-color: #0d1341;
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
+    inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
 
 .navyblue-btn {
   background-color: #0d1341;
   color: #ffffff;
+  border: 0px;
 }
 
-.navyblue-btn:hover{
+.navyblue-btn:hover {
   background-color: #2d3781;
   color: #ffffff;
 }
-
-
 

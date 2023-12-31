@@ -6,7 +6,7 @@ function ServiceSearchBar({ onSearch }) {
   const [inputText, setInputText] = useState('');
 
   return (
-    <div className="container">
+    <div className="container pt-5">
       <div className="justify-content-center">
         <div className="col-12 col-md-8 col-lg-5">
           <div className="input-group">

@@ -7,8 +7,11 @@ function ServiceCard({ name, serviceImg, details }) {
       <div className="ver_mas text-center position-absolute w-100 bottom-0">
         <span className="lnr lnr-eye" />
       </div>
-      <article className="text-left p-3 position-absolute bottom-0">
-        <h2 className="fs-4 border-bottom border-1 border-white text-white fw-bold text-uppercase">
+      <article className="text-left p-3  position-absolute bottom-0">
+        <h2
+          className="fs-5 border-bottom border-1 pb-1 border-white text-white fw-bold text-uppercase"
+          
+        >
           {name}
         </h2>
         <h4 className="fs-6 text-white" style={{ fontWeight: 400 }}>
