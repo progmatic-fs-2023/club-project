@@ -9,8 +9,27 @@ function Service({ servicesList }) {
 
   const service = servicesList.find((item) => item.service.name == serviceName);
   console.log(service);
-  const servicePrev = servicesList.find((item) => item.id == service.id-1)
-  console.log(servicePrev);
+
+  let servicePrev = []
+  
+  if (service.id == 1) {
+    servicePrev = servicesList.find((item) => item.id == service.id)
+  } else {
+    servicePrev = servicesList.find((item) => item.id == service.id-1)
+    
+  }
+
+  let serviceNext = []
+
+  if (service.id == servicesList.length) {
+    serviceNext = servicesList.find((item) => item.id == service.id)
+  } else {
+    serviceNext = servicesList.find((item) => item.id == service.id+1)
+    
+  }
+
+  // const servicePrev = servicesList.find((item) => item.id == service.id-1)
+  console.log();
   return (
     <>
       <Image
@@ -46,8 +65,8 @@ function Service({ servicesList }) {
                   Services
                 </Button>
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/services">
-                <Button className="fs-5 max-vw-25 bg-secondary" variant="outline-light">
+              <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
+                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
                   Next
                 </Button>
               </Nav.Link>

@@ -142,7 +142,7 @@ const servicesList = [
     id: 12,
     category: 'BEAUTY/RELAX',
     service: {
-      name: 'manicure/pedicure',
+      name: 'manicure&pedicure',
       serviceImg: 'src/assets/as_golf.webp',
       headerImg: '../src/assets/golf_page.jpg',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
@@ -202,7 +202,7 @@ const servicesList = [
     id: 17,
     category: 'RECREATION',
     service: {
-      name: 'RESTAURANT/BAR',
+      name: 'RESTAURANT&BAR',
       serviceImg: 'src/assets/as_golf.webp',
       headerImg: '../src/assets/golf_page.jpg',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
