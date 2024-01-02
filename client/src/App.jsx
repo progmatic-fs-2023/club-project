@@ -269,7 +269,7 @@ function App() {
         <Route path="/" element={<MainCarousel />} />
         <Route path="/events" element={<div>EVENTS</div>} />
         <Route path="/services" element={<Services servicesList={servicesList} />} />
-        <Route path="/services/:serviceName" element={<Service servicesList={servicesList} /> } />
+        <Route path="/services/:serviceName" element={<Service servicesList={servicesList} />} />
         <Route path="/gallery" element={<div>GALLERY</div>} />
         <Route path="/membership" element={<div>MEMBERSHIP</div>} />
         <Route path="/aboutus" element={<div>ABOUT US</div>} />

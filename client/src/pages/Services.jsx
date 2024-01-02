@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
+import PropTypes from 'prop-types';
 import AllServices from '../components/AllServices';
 import ServiceSearchBar from '../components/ServiceSearchBar';
 
@@ -16,7 +17,7 @@ import ServiceSearchBar from '../components/ServiceSearchBar';
       fetchServices();
    },[]) */
 
-function Services( {servicesList} ) {
+function Services({ servicesList }) {
   const [services, setServices] = useState(servicesList);
   const [noResults, setNoResults] = useState(false);
 
@@ -57,5 +58,9 @@ function Services( {servicesList} ) {
     </div>
   );
 }
+
+Services.propTypes = {
+  servicesList: PropTypes.string.isRequired,
+};
 
 export default Services;
