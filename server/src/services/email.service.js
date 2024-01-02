@@ -1,6 +1,6 @@
 import { Client } from 'pg';
 import nodemailer from 'nodemailer';
-import "dotenv/config";
+import 'dotenv/config';
 
 // PostgreSQL adatbázis kapcsolódási információk
 const dbClient = new Client({
@@ -22,12 +22,9 @@ const transporter = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false, // Ne ellenőrizze a tanúsítványt
   },
+});
 
-});  
-
-
- export const sendVerificationEmail = async (email, token) => {
-
+export const sendVerificationEmail = async (email, token) => {
   const mailOptions = {
     from: 'info.door8projekt@gmail.com',
     to: email,
@@ -47,9 +44,7 @@ const transporter = nodemailer.createTransport({
       console.log(`Email sent: ${info.response}`);
       // res.status(200).json({
       //   message: 'Verification email sent.',
-      // }); 
+      // });
     }
-  }); 
+  });
 };
-
-

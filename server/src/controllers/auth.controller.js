@@ -3,13 +3,12 @@ import bcrypt from 'bcryptjs';
 import HttpError from '../utils/HttpError';
 import 'dotenv/config';
 import jwt from 'jsonwebtoken';
-import crypto from "crypto";
+import crypto from 'crypto';
 import * as emailService from '../services/email.service';
-
 
 export const registerUser = async (req, res) => {
   try {
-    const { first_name, last_name, username, password, gender, email, phone} = req.body;
+    const { first_name, last_name, username, password, gender, email, phone } = req.body;
 
     const passwordHash = await bcrypt.hash(password, 10);
 
@@ -19,7 +18,7 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    const emailtoken = crypto.randomBytes(64).toString("hex");
+    const emailtoken = crypto.randomBytes(64).toString('hex');
 
     await userService.createUser({
       first_name,
@@ -30,11 +29,11 @@ export const registerUser = async (req, res) => {
       email,
       phone,
       isverified: false,
-      emailtoken
+      emailtoken,
     });
 
     await emailService.sendVerificationEmail(email, emailtoken);
-  
+
     res.status(201).json({
       message: 'User created.',
     });
@@ -73,10 +72,10 @@ export const loginUser = async (req, res, next) => {
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
 
-    res.cookie("jwt", token, {
-      httpOnly:true,
-      maxAge : 3 * 60 * 60 * 1000,
-    })
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      maxAge: 3 * 60 * 60 * 1000,
+    });
 
     res.status(200).json({
       message: 'Login successful.',
@@ -86,5 +85,3 @@ export const loginUser = async (req, res, next) => {
     next(new HttpError(err.message));
   }
 };
-
-
