@@ -12,7 +12,7 @@ const servicesList = [
     service: {
       name: 'GOLF',
       serviceImg: '../src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      headerImg: '../src/assets/golf_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -24,7 +24,7 @@ const servicesList = [
     service: {
       name: 'TENNIS',
       serviceImg: '../src/assets/as_tennis.webp',
-      headerImg: '../src/assets/tennis_page.jpg',
+      headerImg: '../src/assets/tennis_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -35,8 +35,8 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'SQUASH',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/squash_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -47,8 +47,8 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'BOWLING',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/bowling_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -59,8 +59,8 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'POOL',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/pool_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -70,9 +70,9 @@ const servicesList = [
     id: 6,
     category: 'SPORT',
     service: {
-      name: 'RIDING',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'HORSE RIDING',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/riding_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -83,8 +83,8 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'ARCHERY',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/archery_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -95,8 +95,8 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'YOGA',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/yoga_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -107,8 +107,8 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'CRICKET',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/cricket_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -118,9 +118,9 @@ const servicesList = [
     id: 10,
     category: 'SPORT',
     service: {
-      name: 'Gym',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'GYM',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/gym_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -130,9 +130,9 @@ const servicesList = [
     id: 11,
     category: 'BEAUTY/RELAX',
     service: {
-      name: 'Massage',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'MASSAGE',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/massage_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -142,9 +142,9 @@ const servicesList = [
     id: 12,
     category: 'BEAUTY/RELAX',
     service: {
-      name: 'manicure&pedicure',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'MANICURE & PEDICURE',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/man&ped_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -154,9 +154,9 @@ const servicesList = [
     id: 13,
     category: 'BEAUTY/RELAX',
     service: {
-      name: 'hairdressing',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'HAIRDRESSING',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/hairdressing_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -166,9 +166,9 @@ const servicesList = [
     id: 14,
     category: 'BEAUTY/RELAX',
     service: {
-      name: 'cosmetic',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'COSMETIC',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/cosmetic_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -178,9 +178,9 @@ const servicesList = [
     id: 15,
     category: 'BEAUTY/RELAX',
     service: {
-      name: 'sauna',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'SAUNA',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/sauna_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -190,9 +190,9 @@ const servicesList = [
     id: 16,
     category: 'BEAUTY/RELAX',
     service: {
-      name: 'day spa',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'DAY SPA',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/dayspa_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -202,9 +202,9 @@ const servicesList = [
     id: 17,
     category: 'RECREATION',
     service: {
-      name: 'RESTAURANT&BAR',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'RESTAURANT & BAR',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/restaurant_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -215,8 +215,8 @@ const servicesList = [
     category: 'RECREATION',
     service: {
       name: 'LIBRARY',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/library_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -226,9 +226,9 @@ const servicesList = [
     id: 19,
     category: 'RECREATION',
     service: {
-      name: 'cigar room',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'CIGAR ROOM',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/cigarroom_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -238,9 +238,9 @@ const servicesList = [
     id: 20,
     category: 'RECREATION',
     service: {
-      name: 'cinema hall',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'CINEMA HALL',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/cinema_page.webp',
       details:
         'Movie new actor ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -251,9 +251,9 @@ const servicesList = [
     id: 21,
     category: 'RECREATION',
     service: {
-      name: 'chauffeur service',
-      serviceImg: 'src/assets/as_golf.webp',
-      headerImg: '../src/assets/golf_page.jpg',
+      name: 'DRIVER SERVICE',
+      serviceImg: '../src/assets/as_golf.webp',
+      headerImg: '../src/assets/driver_page.webp',
       details:
         'Movie new actor ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:

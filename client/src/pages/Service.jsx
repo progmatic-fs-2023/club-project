@@ -2,33 +2,31 @@ import { useParams, NavLink } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 function Service({ servicesList }) {
   const { serviceName } = useParams();
-  // const service = servicesList[serviceId-1]
 
   const service = servicesList.find((item) => item.service.name == serviceName);
   console.log(service);
 
-  let servicePrev = []
-  
+  let servicePrev = [];
+
   if (service.id == 1) {
-    servicePrev = servicesList.find((item) => item.id == service.id)
+    servicePrev = servicesList.find((item) => item.id == servicesList.length);
   } else {
-    servicePrev = servicesList.find((item) => item.id == service.id-1)
-    
+    servicePrev = servicesList.find((item) => item.id == service.id - 1);
   }
 
-  let serviceNext = []
+  let serviceNext = [];
 
   if (service.id == servicesList.length) {
-    serviceNext = servicesList.find((item) => item.id == service.id)
+    serviceNext = servicesList.find((item) => item.id == 1);
   } else {
-    serviceNext = servicesList.find((item) => item.id == service.id+1)
-    
+    serviceNext = servicesList.find((item) => item.id == service.id + 1);
   }
 
-  // const servicePrev = servicesList.find((item) => item.id == service.id-1)
   console.log();
   return (
     <>
@@ -39,7 +37,7 @@ function Service({ servicesList }) {
         fluid
       />
       <div className="bg-secondary bg-opacity-25 p-5 d-flex flex-column align-items-center">
-        <h3>{service.category}</h3>
+        <h4 className="fst-italic">{service.category}</h4>
         <h1 className="fw-bold" style={{ color: '#0d2241', borderBottom: '5px solid #a5a51e' }}>
           {service.service.name}{' '}
         </h1>
@@ -53,15 +51,26 @@ function Service({ servicesList }) {
           />
           <div className="px-3">
             {/* style={{ backgroundColor: '#0d2241', color: "#a5a51e" }} */}
-            <p>{service.service.moreDetails}</p>
+            <Tabs defaultActiveKey="moreDetails" className="mb-3">
+              <Tab eventKey="moreDetails" title="More details">
+                {service.service.moreDetails}
+              </Tab>
+              <Tab eventKey="moreDetails1" title="More details">
+              {service.service.moreDetails}
+              </Tab>
+              <Tab eventKey="moreDetails2" title="More details">
+              {service.service.moreDetails}
+              </Tab>
+            </Tabs>
+            <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
             <Nav className="d-flex justify-content-evenly">
               <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
-                <Button className="fs-5 max-vw-25 bg-secondary" variant="outline-light">
+                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
                   Prev
                 </Button>
               </Nav.Link>
               <Nav.Link as={NavLink} to="/services">
-                <Button className="fs-5 max-vw-25 bg-secondary" variant="outline-light">
+                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
                   Services
                 </Button>
               </Nav.Link>
