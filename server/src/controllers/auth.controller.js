@@ -1,22 +1,27 @@
-import * as authService from '../services/auth.service';
+import * as userService from '../services/users.service';
 import bcrypt from 'bcryptjs';
 import HttpError from '../utils/HttpError';
-import "dotenv/config";
-import jwt from "jsonwebtoken";
+import 'dotenv/config';
+import jwt from 'jsonwebtoken';
+import crypto from "crypto";
+import * as emailService from '../services/email.service';
+
 
 export const registerUser = async (req, res) => {
   try {
-    const { first_name, last_name, username, password, gender, email, phone } = req.body;
+    const { first_name, last_name, username, password, gender, email, phone} = req.body;
 
     const passwordHash = await bcrypt.hash(password, 10);
 
-    if (await authService.isUsernameExist({ username })) {
+    if (await userService.isUsernameExist({ username })) {
       res.status(400).json({
         message: 'Username already exists.',
       });
     }
 
-    await authService.createUser({
+    const emailtoken = crypto.randomBytes(64).toString("hex");
+
+    await userService.createUser({
       first_name,
       last_name,
       username,
@@ -24,8 +29,12 @@ export const registerUser = async (req, res) => {
       gender,
       email,
       phone,
+      isverified: false,
+      emailtoken
     });
 
+    await emailService.sendVerificationEmail(email, emailtoken);
+  
     res.status(201).json({
       message: 'User created.',
     });
@@ -40,7 +49,6 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res, next) => {
   const { username, password } = req.body;
 
-
   if (!username || !password) {
     res.status(400).json({
       message: 'Failed to login.',
@@ -48,30 +56,35 @@ export const loginUser = async (req, res, next) => {
     });
   }
   try {
-    const user = await authService.findUserByUsername({username});
+    const user = await userService.findUserByUsername({ username });
     console.log('User:', user);
     if (!user) {
       return next(new HttpError('Username or password not correct.', 401));
-      }
-     const matchedPassword= await bcrypt.compare(password, user.password)
+    }
+    const matchedPassword = await bcrypt.compare(password, user.password);
 
-
-     if (!matchedPassword) {
+    if (!matchedPassword) {
       return next(new HttpError('Username or password not correct.', 401));
-      }
-      const payload = {
-        id:user.id,
-        username:user.username
-        }
+    }
+    const payload = {
+      id: user.id,
+      username: user.username,
+    };
 
-     const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "3h"});
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
 
-      res.status(200).json({
-        message: 'Login successful.',
-        user,
-        token,
-      });
+    res.cookie("jwt", token, {
+      httpOnly:true,
+      maxAge : 3 * 60 * 60 * 1000,
+    })
+
+    res.status(200).json({
+      message: 'Login successful.',
+      user,
+    });
   } catch (err) {
     next(new HttpError(err.message));
   }
 };
+
+
