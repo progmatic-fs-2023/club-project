@@ -48,10 +48,10 @@ function Services({ servicesList }) {
   return (
     <div style={containerStyle}>
       <Container>
-        <div style={{ marginTop: '15vh' }}>
+        <div style={{ marginTop: '10vh' }}>
           <ServiceSearchBar onSearch={onSearch} />
           <p className="m-3">Type at least 2 characters to initiate the search.</p>
-          {noResults && <p>No results found</p>}
+          {noResults && <p style={{ margin: '0 1rem', paddingBottom: '1rem' }}>No results found</p>}
           <AllServices services={services} />
         </div>
       </Container>

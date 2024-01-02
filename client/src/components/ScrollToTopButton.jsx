@@ -6,12 +6,8 @@ function ScrollToTopButton() {
 
   const handleScroll = () => {
     const { scrollY } = window;
-    const footerPosition = document.querySelector('footer').getBoundingClientRect().top;
-    /*     const containerBottomPosition = document.querySelector('container').getBoundingClientRect().bottom;
-     */
-    if (scrollY > 40 && footerPosition > window.innerHeight) {
-      setIsVisible(true);
-    } else if (footerPosition <= window.innerHeight) {
+
+    if (scrollY > 40) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -35,7 +31,7 @@ function ScrollToTopButton() {
   const buttonStyle = {
     position: isVisible ? 'fixed' : 'absolute',
     bottom: isVisible ? '20px' : 'auto',
-    right: '20px',
+    right: '15px',
     opacity: isVisible ? 1 : 0,
     pointerEvents: isVisible ? 'auto' : 'none',
   };
