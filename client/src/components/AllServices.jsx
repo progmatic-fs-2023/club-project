@@ -1,6 +1,7 @@
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import ServiceCard from './ServiceCard';
 import CategoryHeader from './CategoryHeader';
 import ScrollToTopButton from './ScrollToTopButton';
@@ -23,12 +24,14 @@ function AllServices({ services }) {
           <div className="container text-left p-3">
             <Row xs={1} md={2} lg={3} xl={4}>
               {items.map((item) => (
-                <Col className="p-3" key={item.service.name}>
-                  <ServiceCard
-                    name={item.service.name}
-                    serviceImg={item.service.serviceImg}
-                    details={item.service.details}
-                  />
+                <Col className="p-3">
+                  <NavLink to={item.service.name}>
+                    <ServiceCard
+                      name={item.service.name}
+                      serviceImg={item.service.serviceImg}
+                      details={item.service.details}
+                    />
+                  </NavLink>
                 </Col>
               ))}
             </Row>
