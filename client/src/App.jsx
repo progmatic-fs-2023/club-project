@@ -40,7 +40,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'SQUASH',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_squash.webp',
       headerImg: '../src/assets/squash_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -52,7 +52,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'BOWLING',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_bowling.webp',
       headerImg: '../src/assets/bowling_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -64,7 +64,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'POOL',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_pool.webp',
       headerImg: '../src/assets/pool_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -76,7 +76,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'HORSE RIDING',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_riding.webp',
       headerImg: '../src/assets/riding_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -88,7 +88,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'ARCHERY',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_archery.webp',
       headerImg: '../src/assets/archery_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -100,7 +100,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'YOGA',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_yoga.webp',
       headerImg: '../src/assets/yoga_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -112,7 +112,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'CRICKET',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_cricket.webp',
       headerImg: '../src/assets/cricket_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -124,7 +124,7 @@ const servicesList = [
     category: 'SPORT',
     service: {
       name: 'GYM',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_gym.webp',
       headerImg: '../src/assets/gym_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -148,7 +148,7 @@ const servicesList = [
     category: 'BEAUTY/RELAX',
     service: {
       name: 'MANICURE & PEDICURE',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_manicure.webp',
       headerImg: '../src/assets/man&ped_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -160,7 +160,7 @@ const servicesList = [
     category: 'BEAUTY/RELAX',
     service: {
       name: 'HAIRDRESSING',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_hairdressing.webp',
       headerImg: '../src/assets/hairdressing_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -172,7 +172,7 @@ const servicesList = [
     category: 'BEAUTY/RELAX',
     service: {
       name: 'COSMETIC',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_cosmetic.webp',
       headerImg: '../src/assets/cosmetic_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -184,7 +184,7 @@ const servicesList = [
     category: 'BEAUTY/RELAX',
     service: {
       name: 'SAUNA',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_sauna.webp',
       headerImg: '../src/assets/sauna_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -196,7 +196,7 @@ const servicesList = [
     category: 'BEAUTY/RELAX',
     service: {
       name: 'DAY SPA',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_day_spa.webp',
       headerImg: '../src/assets/dayspa_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -208,7 +208,7 @@ const servicesList = [
     category: 'RECREATION',
     service: {
       name: 'RESTAURANT & BAR',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_restaurant.webp',
       headerImg: '../src/assets/restaurant_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -232,7 +232,7 @@ const servicesList = [
     category: 'RECREATION',
     service: {
       name: 'CIGAR ROOM',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_cigar_room.webp',
       headerImg: '../src/assets/cigarroom_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -244,7 +244,7 @@ const servicesList = [
     category: 'RECREATION',
     service: {
       name: 'CINEMA HALL',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_cinema.webp',
       headerImg: '../src/assets/cinema_page.webp',
       details:
         'Movie new actor ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
@@ -257,7 +257,7 @@ const servicesList = [
     category: 'RECREATION',
     service: {
       name: 'DRIVER SERVICE',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_driver_service.webp',
       headerImg: '../src/assets/driver_page.webp',
       details:
         'Movie new actor ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
