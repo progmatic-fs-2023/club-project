@@ -267,7 +267,6 @@ const servicesList = [
   },
 ];
 
-
 function App() {
   return (
     <Routes>
@@ -282,7 +281,6 @@ function App() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<div>PROFILE</div>} />
-
       </Route>
     </Routes>
   );
