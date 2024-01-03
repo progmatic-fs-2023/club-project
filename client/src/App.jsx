@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainCarousel from './components/MainCarousel';
 import Layout from './components/Layout';
 import Services from './pages/Services';
+import Events from './pages/Events';
 import Service from './pages/Service';
 
 const servicesList = [
@@ -267,7 +268,7 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<MainCarousel />} />
-        <Route path="/events" element={<div>EVENTS</div>} />
+        <Route path="/events" element={<Events />} />
         <Route path="/services" element={<Services servicesList={servicesList} />} />
         <Route path="/services/:serviceName" element={<Service servicesList={servicesList} />} />
         <Route path="/gallery" element={<div>GALLERY</div>} />

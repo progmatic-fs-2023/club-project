@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../index.css';
 
-function ServiceSearchBar({ onSearch }) {
+function SearchBar({ onSearch }) {
   const [inputText, setInputText] = useState('');
 
   return (
@@ -32,8 +32,8 @@ function ServiceSearchBar({ onSearch }) {
   );
 }
 
-ServiceSearchBar.propTypes = {
+SearchBar.propTypes = {
   onSearch: PropTypes.func.isRequired,
 };
 
-export default ServiceSearchBar;
+export default SearchBar;

@@ -3,9 +3,9 @@ import './ServiceCard.css';
 
 function ServiceCard({ name, serviceImg, details }) {
   return (
-    <div className="container_foto hover-overlay hover-zoom">
+    <div className="container_foto hover-overlay hover-zoom position-relative">
       <div className="ver_mas text-center position-absolute w-100 bottom-0">
-        <span className="lnr lnr-eye" />
+        <span className="lnr lnr-eye position-relative w-100 fs-1" />
       </div>
       <article className="text-left p-3  position-absolute bottom-0">
         <h2 className="fs-5 border-bottom border-1 pb-1 border-white text-white fw-bold text-uppercase">
@@ -15,7 +15,7 @@ function ServiceCard({ name, serviceImg, details }) {
           {details}
         </h4>
       </article>
-      <img src={serviceImg} alt="" className="w-100 top-0 left-0" />
+      <img src={serviceImg} alt="service" className="w-100 top-0 left-0" />
     </div>
   );
 }
