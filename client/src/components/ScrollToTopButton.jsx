@@ -7,7 +7,7 @@ function ScrollToTopButton() {
   const handleScroll = () => {
     const { scrollY } = window;
 
-    if (scrollY > 40) {
+    if (scrollY > 60) {
       setIsVisible(true);
     } else {
       setIsVisible(false);

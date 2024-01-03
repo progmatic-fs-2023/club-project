@@ -21,7 +21,7 @@ function AllServices({ services }) {
         <div key={category}>
           <CategoryHeader categoryName={category} />
           <div className="container text-left p-3">
-            <Row xs={1} md={2} lg={3} xl={4}>
+            <Row xs={1} md={2} lg={3} xl={3}>
               {items.map((item) => (
                 <Col className="p-3" key={item.service.name}>
                   <ServiceCard

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import AllServices from '../components/AllServices';
-import ServiceSearchBar from '../components/ServiceSearchBar';
+import SearchBar from '../components/SearchBar';
 
 const servicesList = [
   {
@@ -284,7 +284,7 @@ function Services() {
     <div style={containerStyle}>
       <Container>
         <div style={{ marginTop: '10vh' }}>
-          <ServiceSearchBar onSearch={onSearch} />
+          <SearchBar onSearch={onSearch} />
           <p className="m-3">Type at least 2 characters to initiate the search.</p>
           {noResults && <p style={{ margin: '0 1rem', paddingBottom: '1rem' }}>No results found</p>}
           <AllServices services={services} />
