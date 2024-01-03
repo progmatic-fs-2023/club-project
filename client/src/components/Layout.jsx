@@ -20,8 +20,8 @@ function Layout() {
         variant="dark"
         collapseOnSelect
         expand="xl"
-        className="bg-dark bg-opacity-75 fs-4 py-0"
-        style={{ height: 'auto' }}
+        className="fs-4 py-0"
+        style={{ height: 'auto', backgroundColor: '#0d2241', opacity: '85%' }}
         fixed="top"
       >
         <Container className="min-vw-100 mx-auto py-1 px-4">
