@@ -2,6 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import { Row, Col, Button } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
+import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import RegistrationModal from './RegistrationModal';
@@ -9,10 +10,21 @@ import LoginModal from './LoginModal';
 import './Layout.css';
 
 function Layout() {
+  const [show, setShow] = useState('inline-block');
+
+  const handleCloseButton = () => setShow('none');
+
   return (
     <div>
-      <Navbar expand="lg" className="bg-dark  bg-opacity-75" fixed="top">
-        <Container>
+      <Navbar
+        variant="dark"
+        collapseOnSelect
+        expand="xl"
+        className="fs-4 py-0"
+        style={{ height: 'auto', backgroundColor: '#0d2241', opacity: '85%' }}
+        fixed="top"
+      >
+        <Container className="min-vw-100 mx-auto py-1 px-4">
           <Navbar.Brand as={NavLink} to="/">
             {' '}
             <img
@@ -23,29 +35,49 @@ function Layout() {
               alt="Club logo"
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mx-auto p-2">
-              <Nav.Link as={NavLink} to="/">
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mx-auto p-2 d-flex flex-wrap">
+              <Nav.Link as={NavLink} to="/" href="#home">
                 Home
               </Nav.Link>
-              <Nav.Link as={NavLink} to="events">
+              <Nav.Link as={NavLink} to="events" href="#events">
                 Events
               </Nav.Link>
-              <Nav.Link as={NavLink} to="services">
+              <Nav.Link as={NavLink} to="services" href="#services">
                 Services
               </Nav.Link>
-              <Nav.Link as={NavLink} to="aboutus">
+              <Nav.Link as={NavLink} to="gallery" href="#gallery">
+                Gallery
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="membership" href="#membership">
+                Membership
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="aboutus" href="#aboutus">
                 About us
               </Nav.Link>
-              <Nav.Link as={NavLink} to="contact">
+              <Nav.Link as={NavLink} to="contact" href="#contact">
                 Contact
               </Nav.Link>
             </Nav>
-            <Nav className="">
-              <LoginModal />
-              <RegistrationModal />
-            </Nav>
+            <Nav.Link className="" href="#login&signup">
+              <Navbar.Brand
+                as={NavLink}
+                to="/profile"
+                style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+              >
+                {' '}
+                <img
+                  src="/src/assets/manager.png"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                  alt="profile logo"
+                />
+              </Navbar.Brand>
+              <LoginModal showButton={show} setShowButton={handleCloseButton} />
+              <RegistrationModal showButton={show} />
+            </Nav.Link>
           </Navbar.Collapse>
         </Container>
       </Navbar>
