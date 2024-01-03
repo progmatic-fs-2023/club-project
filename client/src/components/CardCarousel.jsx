@@ -28,7 +28,7 @@ const contentStyle = {
 };
 
 const sliderStyle = {
-  background: '#091d29',
+  background: '#212529',
 };
 
 const buttonContainerStyle = {
@@ -101,7 +101,7 @@ function CardCarousel() {
           textAlign: 'center',
           fontSize: '24px',
           fontWeight: 'bold',
-          backgroundColor: '#091d29',
+          backgroundColor: '#212529',
           color: 'white',
         }}
       >
