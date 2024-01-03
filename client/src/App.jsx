@@ -2,6 +2,10 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import MainCarousel from './components/MainCarousel';
 import Layout from './components/Layout';
+
+import Contact from './pages/Contact';
+import AboutUs from './pages/AboutUs';
+
 import Services from './pages/Services';
 import Events from './pages/Events';
 import Service from './pages/Service';
@@ -268,13 +272,14 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<MainCarousel />} />
+
         <Route path="/events" element={<Events />} />
         <Route path="/services" element={<Services servicesList={servicesList} />} />
         <Route path="/services/:serviceName" element={<Service servicesList={servicesList} />} />
         <Route path="/gallery" element={<div>GALLERY</div>} />
         <Route path="/membership" element={<div>MEMBERSHIP</div>} />
-        <Route path="/aboutus" element={<div>ABOUT US</div>} />
-        <Route path="/contact" element={<div>CONTACT</div>} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<div>PROFILE</div>} />
       </Route>
     </Routes>
