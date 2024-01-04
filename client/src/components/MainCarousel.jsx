@@ -3,19 +3,18 @@ import Button from 'react-bootstrap/Button';
 
 function MainCarousel() {
   return (
-    <Carousel data-bs-theme="light" interval="4000" wrap="true" pause="false">
+    <Carousel data-bs-theme="light" interval="7000" wrap="true" pause="false">
       <Carousel.Item>
-        <img className="d-flex w-100" src=".\src\assets\golf_5.webp" alt="door club" />
+        <img
+          className="w-100 object-fit-cover vh-100"
+          src=".\src\assets\main_carousel_1.webp"
+          alt="country club"
+        />
         <Carousel.Caption style={{ top: '40vh' }}>
-          <h5
-            style={{ fontFamily: "'Yeseva One', cursive", fontSize: '2.5em' }}
-            className="text-uppercase"
-          >
+          <h5 style={{ fontFamily: "'Yeseva One', cursive" }} className="text-uppercase fs-1">
             Play on a championship course
           </h5>
-          <p
-            style={{ fontFamily: "'Josefin Sans', sans-serif", fontWeight: 300, fontSize: '1.5em' }}
-          >
+          <p style={{ fontFamily: "'Josefin Sans', sans-serif" }} className="fw-normal fs-4">
             Tiger Woods and Door Club offers a course where players of all skill levels are invited
             to come together to experience the breathtaking Black Mountain landscape.
           </p>
@@ -27,52 +26,64 @@ function MainCarousel() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-flex w-100" src=".\src\assets\golf_1.webp" alt="Second slide" />
+        <img
+          className="w-100 object-fit-cover vh-100"
+          src=".\src\assets\main_carousel_2.jpg"
+          alt="nordic spa"
+        />
         <Carousel.Caption style={{ top: '40vh' }}>
-          <h5
-            style={{ fontFamily: "'Yeseva One', cursive", fontSize: '2.5em' }}
-            className="text-uppercase"
-          >
-            Second slide label
+          <h5 style={{ fontFamily: "'Yeseva One', cursive" }} className="text-uppercase fs-1">
+            spend time with us in Eden
           </h5>
-          <p
-            style={{ fontFamily: "'Josefin Sans', sans-serif", fontWeight: 300, fontSize: '1.5em' }}
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <p style={{ fontFamily: "'Josefin Sans', sans-serif" }} className="fw-normal fs-4">
+            Our comprehensive services are at your disposal so that you can find any relaxation you
+            desire at the DOOR Club.
           </p>
           <div>
-            <Button variant="secondary" size="lg">
-              ONLINE BOOKING
-            </Button>{' '}
-            <div className="pt-2">
-              <Button variant="outline-light">Light</Button>
-              <Button variant="outline-light">Light</Button>
-            </div>
+            <Button className="navyblue-btn" size="lg">
+              Explore our services
+            </Button>
           </div>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-flex w-100" src=".\src\assets\golf_3.webp" alt="Third slide" />
+        <img
+          className="w-100 object-fit-cover vh-100"
+          src=".\src\assets\main_carousel_3.webp"
+          alt="golf court"
+        />
         <Carousel.Caption style={{ top: '40vh' }}>
-          <h5
-            style={{ fontFamily: "'Yeseva One', cursive", fontSize: '2.5em' }}
-            className="text-uppercase"
-          >
+          <h5 style={{ fontFamily: "'Yeseva One', cursive" }} className="text-uppercase fs-1">
             Third slide label
           </h5>
-          <p
-            style={{ fontFamily: "'Josefin Sans', sans-serif", fontWeight: 300, fontSize: '1.5em' }}
-          >
+          <p style={{ fontFamily: "'Josefin Sans', sans-serif" }} className="fw-normal fs-4">
             Praesent commodo cursus magna, vel scelerisque nisl consectetur.
           </p>
           <div>
-            <Button variant="secondary" size="lg">
+            <Button className="navyblue-btn text-uppercase" size="lg">
               ONLINE BOOKING
             </Button>
-            <div className="pt-2">
-              <Button variant="outline-light">Light</Button>
-              <Button variant="outline-light">Light</Button>
-            </div>
+          </div>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="w-100 object-fit-cover vh-100"
+          src=".\src\assets\main_carousel_4.webp"
+          alt="golf court"
+        />
+        <Carousel.Caption style={{ top: '40vh' }}>
+          <h5 style={{ fontFamily: "'Yeseva One', cursive" }} className="text-uppercase fs-1">
+            Taste the world&apos;s finest wines
+          </h5>
+          <p style={{ fontFamily: "'Josefin Sans', sans-serif" }} className="fw-normal fs-4">
+            Among our events, wine tastings often feature where you can sample excellent beverages
+            from various renowned wine regions worldwide, guided by sommeliers.
+          </p>
+          <div>
+            <Button className="navyblue-btn text-uppercase" size="lg">
+              Explore our events
+            </Button>
           </div>
         </Carousel.Caption>
       </Carousel.Item>
