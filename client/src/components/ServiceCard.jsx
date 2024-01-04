@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import './ServiceCard.css';
 import { NavLink } from 'react-router-dom';
 
 function ServiceCard({ name, serviceImg, details }) {

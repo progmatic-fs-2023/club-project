@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 
 function MainCarousel() {
   return (
-    <Carousel data-bs-theme="light" interval="7000" wrap="true" pause="false">
+    <Carousel data-bs-theme="light" interval="700000" wrap="true" pause="false">
       <Carousel.Item>
         <img
           className="w-100 object-fit-cover vh-100"
