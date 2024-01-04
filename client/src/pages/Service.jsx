@@ -30,26 +30,23 @@ function Service({ servicesList }) {
   return (
     <>
       <Image
-        className="w-100"
-        style={{ height: '250px', objectFit: 'cover' }}
+        className="header-image w-100 object-fit-cover"
         src={service.service.headerImg}
         fluid
       />
       <div className="bg-secondary bg-opacity-25 p-5 d-flex flex-column align-items-center">
         <h4 className="fst-italic">{service.category}</h4>
-        <h1 className="fw-bold" style={{ color: '#0d2241', borderBottom: '5px solid #a5a51e' }}>
+        <h1 className="py-1 fw-bold border-5 border-bottom border-warning" style={{ color: '#0d2241'}}>
           {service.service.name}{' '}
         </h1>
         <div className="d-flex justify-content-evenly p-3">
           <Image
-            className="w-25 h-25 mx-3"
-            style={{ objectFit: 'cover' }}
+            className="w-25 h-25 mx-3 object-fit-cover"
             src={service.service.serviceImg}
             fluid
             rounded
           />
           <div className="px-3">
-            {/* style={{ backgroundColor: '#0d2241', color: "#a5a51e" }} */}
             <Tabs defaultActiveKey="moreDetails" className="mb-3">
               <Tab eventKey="moreDetails" title="More details">
                 {service.service.moreDetails}

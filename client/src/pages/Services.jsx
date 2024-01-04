@@ -40,18 +40,13 @@ function Services({ servicesList }) {
     setServices(filteredList);
   };
 
-  const containerStyle = {
-    backgroundImage: 'url(./src/assets/services_bg.webp)',
-    backgroundSize: 'cover',
-  };
-
   return (
-    <div style={containerStyle}>
+    <div className='bg-services d-flex grow-1 py-5'>
       <Container>
-        <div style={{ marginTop: '10vh' }}>
+        <div >
           <SearchBar onSearch={onSearch} />
           <p className="m-3">Type at least 2 characters to initiate the search.</p>
-          {noResults && <p style={{ margin: '0 1rem', paddingBottom: '1rem' }}>No results found</p>}
+          {noResults && <p className='m-3 text-danger'>No results found</p>}
           <AllServices services={services} />
         </div>
       </Container>
