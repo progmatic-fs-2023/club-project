@@ -25,6 +25,7 @@
 .ver_mas {
   background-color: #0d2241;
   height: 65px;
+  z-index: 1001;
   opacity: 0;
   transform: translate(0px, 65px);
   -webkit-transform: translate(0px, 65px);

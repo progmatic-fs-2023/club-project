@@ -2,13 +2,12 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import MainCarousel from './components/MainCarousel';
 import Layout from './components/Layout';
-
 import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
-
 import Services from './pages/Services';
 import Events from './pages/Events';
 import Service from './pages/Service';
+import Event from './pages/Event';
 
 const servicesList = [
   {
@@ -267,13 +266,52 @@ const servicesList = [
   },
 ];
 
+const eventsList = [
+  {
+    id: 1,
+    name: 'A Tasting of Wines From Italy',
+    startTime: '2024-01-11 17:30:0.000',
+    endTime: '2024-01-11 20:30:0.000',
+    availableSeats: 0,
+    eventImg: '../src/assets/as_golf.webp',
+    headerImg: '../src/assets/wine_page.webp',
+    details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+    moreDetails:
+      'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+  },
+  {
+    id: 2,
+    name: 'VOICE & THE VIOLIN: Jason Peterson & LARISA Suarez',
+    startTime: '2024-01-25 19:00:0.000',
+    endTime: '2024-01-25 22:30:0.000',
+    availableSeats: 0,
+    eventImg: '../src/assets/as_golf.webp',
+    headerImg: '../src/assets/violin_page.webp',
+    details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+    moreDetails:
+      'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+  },
+  {
+    id: 3,
+    name: 'The Art of Living: Presentation & Book Signing with Christian Micheals',
+    startTime: '2024-01-18 13:00:0.000',
+    endTime: '2024-01-18 14:30:0.000',
+    availableSeats: 35,
+    eventImg: '../src/assets/as_golf.webp',
+    headerImg: '../src/assets/book_page.webp',
+    details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+    moreDetails:
+      'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+  },
+];
+
 function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<MainCarousel />} />
-
-        <Route path="/events" element={<Events />} />
+        <Route path="/events" element={<Events eventsList={eventsList} />} />
+        <Route path="/events/:eventName" element={<Event eventsList={eventsList} />} />
         <Route path="/services" element={<Services servicesList={servicesList} />} />
         <Route path="/services/:serviceName" element={<Service servicesList={servicesList} />} />
         <Route path="/gallery" element={<div>GALLERY</div>} />

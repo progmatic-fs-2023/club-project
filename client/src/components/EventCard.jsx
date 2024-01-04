@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import './ServiceCard.css';
+import { NavLink } from 'react-router-dom';
 
 function EventCard({ name, startDate, startTime, endTime, eventImg, availableSeats, details }) {
   const isSoldOut = availableSeats === 0;
@@ -15,10 +16,11 @@ function EventCard({ name, startDate, startTime, endTime, eventImg, availableSea
           SOLD OUT
         </div>
       )}
-
-      <div className="ver_mas position-absolute w-100 bottom-0 d-flex align-items-center justify-content-center">
+      <NavLink to={name}>
+        <div className="ver_mas position-absolute w-100 bottom-0 d-flex align-items-center justify-content-center">
         <span className="lnr lnr-eye position-relative fs-1" />
       </div>
+      </NavLink>
       <div
         className="date-time-overlay position-absolute p-2 m-2 rounded-bottom text-white"
         style={{ fontFamily: 'Josefin Sans' }}
