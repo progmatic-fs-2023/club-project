@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import PropTypes from 'prop-types';
 
-function LoginModal() {
+function LoginModal({ showButton, setShowButton }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,13 +26,18 @@ function LoginModal() {
 
   return (
     <>
-      <Button variant="outline-light" onClick={handleShow}>
-        Sign in
+      <Button
+        style={{ display: `${showButton}` }}
+        className="mx-3 max-vw-25 fs-5"
+        variant="outline-light"
+        onClick={handleShow}
+      >
+        Login
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign in</Modal.Title>
+          <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -69,14 +75,20 @@ function LoginModal() {
             onClick={() => {
               handleClose();
               handleSubmit();
+              setShowButton();
             }}
           >
-            Sign in
+            Log in
           </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
 }
+
+LoginModal.propTypes = {
+  showButton: PropTypes.string.isRequired,
+  setShowButton: PropTypes.func.isRequired,
+};
 
 export default LoginModal;

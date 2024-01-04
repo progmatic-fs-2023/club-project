@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import PropTypes from 'prop-types';
 
-function RegistrationModal() {
+function RegistrationModal({ showButton }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,7 +26,12 @@ function RegistrationModal() {
 
   return (
     <>
-      <Button variant="outline-light" onClick={handleShow}>
+      <Button
+        style={{ display: `${showButton}` }}
+        className="fs-5 max-vw-25 bg-secondary"
+        variant="outline-light"
+        onClick={handleShow}
+      >
         Sign up
       </Button>
 
@@ -172,5 +178,9 @@ function RegistrationModal() {
     </>
   );
 }
+
+RegistrationModal.propTypes = {
+  showButton: PropTypes.string.isRequired,
+};
 
 export default RegistrationModal;
