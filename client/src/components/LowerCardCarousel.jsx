@@ -66,7 +66,7 @@ function LowerCardCarousel() {
     {
       image: './src/assets/sauna.jpg',
       title: 'Sauna',
-      description: 'Description',
+      description: 'Description1',
       buttonText: 'Booking',
     },
     {
