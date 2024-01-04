@@ -7,7 +7,7 @@ function EventCard({ name, startDate, startTime, endTime, eventImg, availableSea
 
   return (
     <div
-      className={`container_foto hover-overlay hover-zoom position-relative ${
+      className={`container_foto hover-overlay hover-zoom position-relative overflow-hidden ${
         isSoldOut ? 'sold-out' : ''
       }`}
     >
@@ -17,8 +17,8 @@ function EventCard({ name, startDate, startTime, endTime, eventImg, availableSea
         </div>
       )}
       <NavLink to={name}>
-        <div className="ver_mas text-center position-absolute w-100 bottom-0">
-          <span className="lnr lnr-eye position-relative w-100 fs-1" />
+        <div className="ver_mas position-absolute w-100 bottom-0 d-flex align-items-center justify-content-center">
+          <span className="lnr lnr-eye position-relative fs-1" />
         </div>
       </NavLink>
       <div
@@ -34,10 +34,7 @@ function EventCard({ name, startDate, startTime, endTime, eventImg, availableSea
         <h2 className="fs-5 border-bottom border-1 pb-1 border-white text-white fw-bold text-uppercase">
           {name}
         </h2>
-        <h4
-          className={`fs-6 text-white ${isSoldOut ? 'sold-out-text' : ''}`}
-          style={{ fontWeight: 400 }}
-        >
+        <h4 className={`fs-6 fw-normal text-white ${isSoldOut ? 'sold-out-text' : ''}`}>
           {details}
         </h4>
       </article>

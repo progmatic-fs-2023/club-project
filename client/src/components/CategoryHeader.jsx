@@ -9,7 +9,7 @@ function CategoryHeader(children) {
 
   return (
     <div className="category-header" style={divStyle}>
-      <h2 className="mt-5" style={{ fontFamily: "'Yeseva One', cursive", fontWeight: 900 }}>
+      <h2 className="mt-5 fw-bold" style={{ fontFamily: "'Yeseva One', cursive" }}>
         {categoryName}
       </h2>
     </div>

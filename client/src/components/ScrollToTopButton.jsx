@@ -7,7 +7,7 @@ function ScrollToTopButton() {
   const handleScroll = () => {
     const { scrollY } = window;
 
-    if (scrollY > 60) {
+    if (scrollY > 100) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -30,10 +30,11 @@ function ScrollToTopButton() {
 
   const buttonStyle = {
     position: isVisible ? 'fixed' : 'absolute',
-    bottom: isVisible ? '20px' : 'auto',
+    bottom: isVisible ? '40px' : 'auto',
     right: '15px',
     opacity: isVisible ? 1 : 0,
     pointerEvents: isVisible ? 'auto' : 'none',
+    zIndex: '1002',
   };
 
   return (

@@ -1,17 +1,16 @@
 .container_foto {
   background-color: rgba(83, 99, 138, 0.7);
-  overflow: hidden;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
 .container_foto article {
   background-color: rgba(0, 0, 0, 0.4) ;
-  z-index: 1;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  z-index: 1;
 }
 
 .container_foto img {
@@ -38,16 +37,16 @@
   -o-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
+  z-index: 1001;
 }
 
 .ver_mas span {
   color: #a5a51e;
-  top: 13px;
 }
 
 .date-time-overlay {
-  z-index:1;
   background-color: #0d2241;
+  z-index:1;
 }
 
 .sold-out-overlay {
@@ -76,12 +75,12 @@
 }
 
 .container_foto:hover .ver_mas {
+  opacity: 1;
   transform: translate(0px, 0px);
   -webkit-transform: translate(0px, 0px);
   -moz-transform: translate(0px, 0px);
   -o-transform: translate(0px, 0px);
   -ms-transform: translate(0px, 0px);
-  opacity: 1;
   z-index: 1001;
 }
 

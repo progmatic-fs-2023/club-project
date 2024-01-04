@@ -40,9 +40,9 @@ const servicesList = [
     id: 3,
     category: 'SPORT',
     service: {
-      name: 'SQUASH',
-      serviceImg: '../src/assets/as_squash.webp',
-      headerImg: '../src/assets/squash_page.webp',
+      name: 'HORSE RIDING',
+      serviceImg: '../src/assets/as_riding.webp',
+      headerImg: '../src/assets/riding_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -76,9 +76,9 @@ const servicesList = [
     id: 6,
     category: 'SPORT',
     service: {
-      name: 'HORSE RIDING',
-      serviceImg: '../src/assets/as_riding.webp',
-      headerImg: '../src/assets/riding_page.webp',
+      name: 'SQUASH',
+      serviceImg: '../src/assets/as_squash.webp',
+      headerImg: '../src/assets/squash_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
         'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.    ',
@@ -137,7 +137,7 @@ const servicesList = [
     category: 'BEAUTY/RELAX',
     service: {
       name: 'MASSAGE',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_massage.webp',
       headerImg: '../src/assets/massage_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:
@@ -221,7 +221,7 @@ const servicesList = [
     category: 'RECREATION',
     service: {
       name: 'LIBRARY',
-      serviceImg: '../src/assets/as_golf.webp',
+      serviceImg: '../src/assets/as_library.webp',
       headerImg: '../src/assets/library_page.webp',
       details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
       moreDetails:

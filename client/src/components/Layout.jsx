@@ -1,13 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
 import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
-import './Layout.css';
 
 function Layout() {
   const [show, setShow] = useState('inline-block');
@@ -100,68 +99,63 @@ function Layout() {
                 />
               </Navbar.Brand>
             </Col>
-            <Col md={3} className="d-flex justify-content-center">
-              <ul>
-                <h5 className="footer-color">Pages</h5>
-                <Nav.Link as={NavLink} to="/">
-                  Home
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="events">
-                  Events
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="/services">
-                  Services
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="/aboutus">
-                  About us
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="/contact">
-                  Contact
-                </Nav.Link>
-              </ul>
+            <Col md={3} className="d-flex flex-column align-items-center text-white">
+              <div className="footer-menu">
+                <h5 className="text-secondary">Pages</h5>
+                <ul className="list-unstyled text-white">
+                  <Nav.Link as={NavLink} to="/">
+                    Home
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="events">
+                    Events
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/services">
+                    Services
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/aboutus">
+                    About us
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/contact">
+                    Contact
+                  </Nav.Link>
+                </ul>
+              </div>
             </Col>
             <Col md={3} className="d-flex justify-content-center">
-              <ul className="footer-color footer-list">
-                <h5>Customer service</h5>
-                <li>☎️: +36708536957</li>
-                <li>✉️: door@gmail.com</li>
-                <hr />
-                <li>
-                  <a href="privacy" className="footer-color">
-                    Privacy policy
-                  </a>
-                </li>
-                <li>
-                  <a href="conditions" className="footer-color">
-                    Conditions of use
-                  </a>
-                </li>
-              </ul>
+              <div className="footer-contact">
+                <h5 className="text-secondary">Customer service</h5>
+                <ul className="list-unstyled text-white">
+                  <li>☎️: +36708536957</li>
+                  <li>✉️: info@doorclub.com</li>
+                  <hr />
+                  <li>
+                    <a href="privacy" className="text-secondary">
+                      Privacy policy
+                    </a>
+                  </li>
+                  <li>
+                    <a href="conditions" className="text-secondary">
+                      Terms of use
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </Col>
             <Col md={3} className="d-flex justify-content-center">
-              <ul className="footer-color footer-list">
-                <h5>Follow us!</h5>
-                <SocialIcon
-                  style={{ height: 40, width: 40, margin: '5px 0' }}
-                  url="https://www.facebook.com/"
-                />
-                <SocialIcon
-                  className="mx-2"
-                  style={{ height: 40, width: 40, margin: '5px 0' }}
-                  url="https://twitter.com/"
-                />
-                <SocialIcon
-                  style={{ height: 40, width: 40, margin: '5px 0' }}
-                  url="https://www.instagram.com/"
-                />
-                <hr />
-                <Button variant="secondary" size="sm" style={{ marginTop: '15px' }}>
-                  Admin page
-                </Button>
-              </ul>
+              <div className="footer-follow-us">
+                <h5 className="text-secondary">Follow us!</h5>
+                <ul className="list-unstyled d-flex">
+                  <SocialIcon className="h-30 w-30 my-1" url="https://www.facebook.com/" />
+                  <SocialIcon className="mx-3 h-30 w-30 my-1" url="https://twitter.com/" />
+                  <SocialIcon className="h-30 w-30 my-1" url="https://www.instagram.com/" />
+                </ul>
+              </div>
             </Col>
           </Row>
         </Container>
+        <div className="text-center p-2 bg-secondary opacity-25">
+          <span className="text-white">© 2023-24 Copyright: The Club Project Team</span>
+        </div>
       </footer>
     </div>
   );
