@@ -1,15 +1,14 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import './Contact.css';
 
 export default function Contact() {
   return (
-    <div className="d-flex flex-grow-1 justify-content-center background-image ">
-      <Container className="py-5 bg-light block-example border border-dark rounded">
+    <div className="d-flex flex-grow-1 justify-content-center">
+      <Container className="py-5 bg-light shadow-lg block-example border border-dark rounded">
         <Row>
           <Col md={6}>
             <h3 className="text-center mt-3">Contact</h3>
-            <form className="p-4 mt-5">
+            <form className=" mt-5">
               <div className="mb-3 text-center">
                 <label htmlFor="nameInput">
                   Name

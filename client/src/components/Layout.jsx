@@ -19,8 +19,7 @@ function Layout() {
         variant="dark"
         collapseOnSelect
         expand="xl"
-        className="fs-4 py-0"
-        style={{ height: 'auto', backgroundColor: '#0d2241', opacity: '85%' }}
+        className="navbar fs-4 py-0 h-auto"
         fixed="top"
       >
         <Container className="min-vw-100 mx-auto py-1 px-4">
@@ -28,9 +27,7 @@ function Layout() {
             {' '}
             <img
               src="/src/assets/door_logo_w.png"
-              width="50"
-              height="50"
-              className="d-inline-block align-top"
+              className="logo d-inline-block align-top"
               alt="Club logo"
             />
           </Navbar.Brand>
@@ -68,9 +65,7 @@ function Layout() {
                 {' '}
                 <img
                   src="/src/assets/manager.png"
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
+                  className="user-icon d-inline-block align-top"
                   alt="profile logo"
                 />
               </Navbar.Brand>
@@ -92,9 +87,7 @@ function Layout() {
                 {' '}
                 <img
                   src="/src/assets/door_logo_w.png"
-                  width="120"
-                  height="120"
-                  className="d-inline-block align-center"
+                  className="footer-logo d-inline-block align-center"
                   alt="club logo"
                 />
               </Navbar.Brand>
