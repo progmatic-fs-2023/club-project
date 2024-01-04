@@ -18,8 +18,8 @@ function EventCard({ name, startDate, startTime, endTime, eventImg, availableSea
       )}
       <NavLink to={name}>
         <div className="ver_mas position-absolute w-100 bottom-0 d-flex align-items-center justify-content-center">
-        <span className="lnr lnr-eye position-relative fs-1" />
-      </div>
+          <span className="lnr lnr-eye position-relative fs-1" />
+        </div>
       </NavLink>
       <div
         className="date-time-overlay position-absolute p-2 m-2 rounded-bottom text-white"
