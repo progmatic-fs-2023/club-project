@@ -2,6 +2,8 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import MainCarousel from './components/MainCarousel';
 import Layout from './components/Layout';
+import CardCarousel from './components/CardCarousel';
+import LowerCardCarousel from './components/LowerCardCarousel';
 import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
 import Services from './pages/Services';
@@ -309,7 +311,16 @@ function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<MainCarousel />} />
+        <Route
+          path="/"
+          element={
+            <div>
+              <MainCarousel />
+              <CardCarousel />
+              <LowerCardCarousel />
+            </div>
+          }
+        />
         <Route path="/events" element={<Events eventsList={eventsList} />} />
         <Route path="/events/:eventName" element={<Event eventsList={eventsList} />} />
         <Route path="/services" element={<Services servicesList={servicesList} />} />
