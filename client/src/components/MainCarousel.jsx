@@ -19,7 +19,7 @@ function MainCarousel() {
             to come together to experience the breathtaking Black Mountain landscape.
           </p>
           <div>
-            <Button className="btn navyblue-btn" size="lg">
+            <Button className="btn" size="lg">
               BOOK TEE TIME
             </Button>
           </div>

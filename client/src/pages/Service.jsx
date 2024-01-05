@@ -29,11 +29,7 @@ function Service({ servicesList }) {
 
   return (
     <>
-      <Image
-        className="header-image w-100 object-fit-cover"
-        src={service.service.headerImg}
-        fluid
-      />
+      <Image className="header-image w-100 object-fit-cover" src={service.service.headerImg} />
       <div className="bg-secondary bg-opacity-25 p-5 d-flex flex-column align-items-center">
         <h4 className="fst-italic">{service.category}</h4>
         <h1
@@ -42,11 +38,10 @@ function Service({ servicesList }) {
         >
           {service.service.name}{' '}
         </h1>
-        <div className="d-flex justify-content-evenly p-3">
+        <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-3">
           <Image
             className="w-25 h-25 mx-3 object-fit-cover"
             src={service.service.serviceImg}
-            fluid
             rounded
           />
           <div className="px-3">
@@ -64,19 +59,13 @@ function Service({ servicesList }) {
             <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
             <Nav className="d-flex justify-content-evenly">
               <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
-                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
-                  Prev
-                </Button>
+                <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
               </Nav.Link>
               <Nav.Link as={NavLink} to="/services">
-                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
-                  Services
-                </Button>
+                <Button className="btn-primary fs-5 max-vw-25">Services</Button>
               </Nav.Link>
               <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
-                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
-                  Next
-                </Button>
+                <Button className="btn-primary fs-5 max-vw-25">Next</Button>
               </Nav.Link>
             </Nav>
           </div>
