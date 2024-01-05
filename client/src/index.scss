@@ -67,7 +67,6 @@ body {
 
 .ver_mas {
   height: 65px;
-  z-index: 1001;
   opacity: 0;
   transform: translate(0px, 65px);
   -webkit-transform: translate(0px, 65px);
@@ -82,7 +81,7 @@ body {
   z-index: 1001;
 }
 
-/*hovers*/
+/* EVENT/SERVICE HOVERS */
 
 .container_foto:hover {
   transform: scale(1.04);
@@ -128,7 +127,8 @@ body {
   width: 30px;
 }
 
-/* footer */
+/* FOOTER */
+
 .footer-logo {
   height: 120px;
   width: 120px;
