@@ -43,7 +43,7 @@ function Event({ eventsList }) {
 
   return (
     <>
-      <Image className="header-image w-100 object-fit-cover" src={event.headerImg} fluid />
+      <Image className="header-image w-100 object-fit-cover" src={event.headerImg} />
       <div className="bg-secondary bg-opacity-25 p-5 d-flex flex-column align-items-center">
         <h1
           className="py-1 fw-bold border-5 border-bottom border-warning"
@@ -58,7 +58,7 @@ function Event({ eventsList }) {
           </div>
         </div>
         <div className="d-flex justify-content-evenly p-3">
-          <Image className="w-25 h-25 mx-3 object-fit-cover" src={event.eventImg} fluid rounded />
+          <Image className="w-25 h-25 mx-3 object-fit-cover" src={event.eventImg} rounded />
           <div className="px-3">
             <Tabs defaultActiveKey="moreDetails" className="mb-3">
               <Tab eventKey="moreDetails" title="More details">
@@ -74,19 +74,13 @@ function Event({ eventsList }) {
             <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
             <Nav className="d-flex justify-content-evenly">
               <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
-                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
-                  Prev
-                </Button>
+                <Button className="fs-5 max-vw-25 btn">Prev</Button>
               </Nav.Link>
               <Nav.Link as={NavLink} to="/events">
-                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
-                  Events
-                </Button>
+                <Button className="fs-5 max-vw-25 btn">Events</Button>
               </Nav.Link>
               <Nav.Link as={NavLink} to={`/events/${eventNext.name}`}>
-                <Button className="fs-5 max-vw-25 navyblue-btn" variant="outline-light">
-                  Next
-                </Button>
+                <Button className="fs-5 max-vw-25 btn">Next</Button>
               </Nav.Link>
             </Nav>
           </div>

@@ -1,3 +1,19 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+
+$primary: #0d1341;
+$info: #a5a51e;
+$primary-bg-hover:#222e85;
+
+$theme-colors: map-merge($theme-colors, (
+  "primary": $primary,
+  "info": $info,
+));
+
+.btn-primary:hover {
+  background-color: lighten($primary, 10%) !important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,11 +24,6 @@ body {
   min-width: 400px;
 }
 
-.form-control:focus {
-  border-color: #0d1341;
-  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
-    inset 5px 5px 9px rgba(94, 104, 121, 0.3);
-}
 
 .navyblue-btn {
   background-color: #0d1341;
@@ -31,17 +42,21 @@ body {
   transition: transform 8s ease-in-out;
 }
 
-/*category header services, events */
+/* CATEGORY HEADER services, events */
 
 .category-header {
   max-width: 60px;
 }
 
-/* event / service card*/
+/* EVENTCARD/SERVICECARD */
 
 .container_foto {
   background-color: rgba(83, 99, 138, 0.7);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.slick-next {
+  display: none!important;
 }
 
 .container_foto article {
@@ -66,7 +81,6 @@ body {
 .ver_mas {
   background-color: #0d2241;
   height: 65px;
-  z-index: 1001;
   opacity: 0;
   transform: translate(0px, 65px);
   -webkit-transform: translate(0px, 65px);
@@ -96,7 +110,7 @@ body {
   z-index: 1000;
 }
 
-/*hovers*/
+/* EVENT/SERVICE HOVERS */
 
 .container_foto:hover {
   transform: scale(1.04);
@@ -143,7 +157,7 @@ body {
   width: 30px;
 }
 
-/* footer */
+/* FOOTER */
 .footer-logo {
   height: 120px;
   width: 120px;
@@ -158,6 +172,27 @@ body {
 .bg-services {
   background-image: url('./src/assets/services_bg.webp');
   background-size: cover;
+}
+
+
+/* @media (max-width: 768px) {
+  .form-select {
+  margin-top: 10px;
+}
+}  */
+
+/* SEARCHBAR */
+.form-control:focus {
+  border-color: #0d1341;
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
+    inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+}
+
+/* FILTERBAR */
+.form-select:focus {
+  border-color: #0d1341;
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
+    inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
 
 /* ABOUT US PAGE */
@@ -223,3 +258,6 @@ body {
 .block-example {
   margin: 250px 0;
 }
+
+@import "../node_modules/bootstrap";
+

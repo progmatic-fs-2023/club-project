@@ -43,12 +43,14 @@ function Services({ servicesList }) {
   return (
     <div className="bg-services d-flex grow-1 py-5">
       <Container>
+        <Container>
+          <p className="pt-5">Type at least 2 characters to initiate the search.</p>
+        </Container>
         <div>
-          <SearchBar onSearch={onSearch} />
-          <p className="m-3">Type at least 2 characters to initiate the search.</p>
-          {noResults && <p className="m-3 text-danger">No results found</p>}
-          <AllServices services={services} />
+          <SearchBar className="search-bar" onSearch={onSearch} />
         </div>
+        {noResults && <p className="m-3 text-danger">No results found</p>}
+        <AllServices services={services} />
       </Container>
     </div>
   );
