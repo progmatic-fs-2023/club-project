@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../index.css';
+import { Button } from 'react-bootstrap';
 
 function SearchBar({ onSearch }) {
   const [inputText, setInputText] = useState('');
@@ -22,9 +22,9 @@ function SearchBar({ onSearch }) {
               aria-label="search services"
               aria-describedby="button-addon2"
             />
-            <button className="btn navyblue-btn" type="button" id="button-addon2">
+            <Button className="btn-primary" type="button" id="button-addon2">
               SEARCH
-            </button>
+            </Button>
           </div>
         </div>
       </div>

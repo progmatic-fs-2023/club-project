@@ -11,17 +11,17 @@ function EventCard({ name, startDate, startTime, endTime, eventImg, availableSea
       }`}
     >
       {isSoldOut && (
-        <div className="sold-out-overlay w-100 h-100 d-flex justify-content-center align-items-center fs-2 fw-bold position-absolute top-0 left-0">
+        <div className="bg-white bg-opacity-50 text-primary z-2 w-100 h-100 d-flex justify-content-center align-items-center fs-2 fw-bold position-absolute top-0 left-0">
           SOLD OUT
         </div>
       )}
       <NavLink to={name}>
-        <div className="ver_mas position-absolute w-100 bottom-0 d-flex align-items-center justify-content-center">
-          <span className="lnr lnr-eye position-relative fs-1" />
+        <div className="ver_mas bg-primary position-absolute w-100 bottom-0 d-flex align-items-center justify-content-center">
+          <span className="lnr lnr-eye position-relative fs-1 text-info" />
         </div>
       </NavLink>
       <div
-        className="date-time-overlay position-absolute p-2 m-2 rounded-bottom text-white"
+        className="z-1 bg-primary position-absolute p-2 m-2 rounded-bottom text-white"
         style={{ fontFamily: 'Josefin Sans' }}
       >
         <div className="fs-3 text-uppercase">{startDate}</div>
