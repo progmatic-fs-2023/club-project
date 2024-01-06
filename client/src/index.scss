@@ -213,4 +213,98 @@ body {
   display: none !important
 }
 
+/* ABOUT US PAGE */
+
+/* Story timeline*/
+
+.main-timeline-2 {
+  position: relative;
+}
+
+.card {
+  min-width: 300px;
+}
+
+.main-timeline-2::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  background-color: #526d71;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
+
+.timeline-2 {
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
+.timeline-2::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -11px;
+  background-color: #9facad;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.left-2 {
+  padding: 0px 40px 20px 0px;
+  left: 0;
+}
+
+.right-2 {
+  padding: 0px 0px 20px 40px;
+  left: 50%;
+}
+
+.right-2::after {
+  left: -14px;
+}
+
+/* Media queries - Responsive timeline on screens less than 800px wide */
+@media screen and (max-width: 800px) {
+  /* Place the timelime to the left */
+  .main-timeline-2::after {
+    left: 31px;
+  }
+
+  /* Full-width containers */
+  .timeline-2 {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  /* Make sure that all arrows are pointing leftwards */
+  .timeline-2::before {
+    left: 60px;
+    border: medium solid white;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
+  }
+
+  /* Make sure all circles are at the same spot */
+  .left-2::after,
+  .right-2::after {
+    left: 18px;
+  }
+
+  .left-2::before {
+    right: auto;
+  }
+
+  /* Make all right containers behave like the left ones */
+  .right-2 {
+    left: 0%;
+  }
+}
+
 @import "../node_modules/bootstrap";
+

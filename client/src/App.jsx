@@ -329,6 +329,22 @@ const eventsList = [
   },
 ];
 
+const famous = [
+  { name: 'John Doe', profession: 'Scientist', year: 1957, id: 1 },
+  { name: 'Jane Doe', profession: 'Musician', year: 1942, id: 2 },
+  { name: 'Ryan Doe', profession: 'Chemist', year: 1968, id: 3 },
+  { name: 'Carolyn Doe', profession: 'Chef', year: 1972, id: 4 },
+  { name: 'Mary Doe', profession: 'Writer', year: 1979, id: 5 },
+  { name: 'Peter Doe', profession: 'Magician', year: 1993, id: 6 },
+];
+
+const charity = [
+  { image: '../src/assets/', organization: 'World Wildlife Fund', money: '1500$', id: 1 },
+  { image: '../src/assets/', organization: `Children's Food Fund`, money: '1800$', id: 2 },
+  { image: '../src/assets/', organization: 'Budapest Bike Maffia', money: '900$', id: 3 },
+  { image: '../src/assets/', organization: 'Greenpeace', money: '600$', id: 4 },
+];
+
 function App() {
   return (
     <Routes>
@@ -340,7 +356,7 @@ function App() {
         <Route path="/services/:serviceName" element={<Service servicesList={servicesList} />} />
         <Route path="/gallery" element={<div>GALLERY</div>} />
         <Route path="/membership" element={<div>MEMBERSHIP</div>} />
-        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/aboutus" element={<AboutUs famous={famous} charity={charity} />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<div>PROFILE</div>} />
       </Route>
