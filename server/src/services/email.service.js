@@ -1,15 +1,14 @@
-import { Client } from 'pg';
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
 
 // PostgreSQL adatbázis kapcsolódási információk
-const dbClient = new Client({
+/* const dbClient = new Client({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   password: process.env.DB_USER_PASSWORD,
   port: process.env.DB_PORT,
-});
+}); */
 
 // E-mail küldési beállítások
 const transporter = nodemailer.createTransport({

@@ -6,8 +6,8 @@ export const isUsernameExist = async ({ username }) => {
 };
 
 export const createUser = async ({
-  first_name,
-  last_name,
+  firstName,
+  lastName,
   username,
   password,
   gender,
@@ -18,7 +18,7 @@ export const createUser = async ({
 }) => {
   const result = await db.query(
     'INSERT INTO users (first_name, last_name, username, password, gender, email, phone, isverified, emailtoken) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-    [first_name, last_name, username, password, gender, email, phone, isverified, emailtoken],
+    [firstName, lastName, username, password, gender, email, phone, isverified, emailtoken],
   );
 
   return result.rows[0];
@@ -52,4 +52,6 @@ export const updateUserVerificationStatus = async (userId, isVerified) => {
     isVerified,
     userId,
   ]);
+
+  return result.rows[0];
 };

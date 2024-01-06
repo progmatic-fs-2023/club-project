@@ -10,20 +10,20 @@ export const authenticateToken = (req, res, next) => {
     });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+  return jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
     if (err) {
       return res.sendStatus(403);
     }
     req.user = payload;
-    next();
+    return next();
   });
 };
 
 export const verifyAccessLevel = (req, res, next) => {
-  if (req.user.id != req.params.id) {
+  if (req.user.id !== req.params.id) {
     return res.status(403).json({
       message: "Can't access user.",
     });
   }
-  next();
+  return next();
 };

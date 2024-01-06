@@ -1,14 +1,14 @@
-import * as userService from '../services/users.service';
+import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import HttpError from '../utils/HttpError';
 import 'dotenv/config';
-import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
+import * as userService from '../services/users.service';
 import * as emailService from '../services/email.service';
 
 export const registerUser = async (req, res) => {
   try {
-    const { first_name, last_name, username, password, gender, email, phone } = req.body;
+    const { firstName, lastName, username, password, gender, email, phone } = req.body;
 
     const passwordHash = await bcrypt.hash(password, 10);
 
@@ -21,8 +21,8 @@ export const registerUser = async (req, res) => {
     const emailtoken = crypto.randomBytes(64).toString('hex');
 
     await userService.createUser({
-      first_name,
-      last_name,
+      firstName,
+      lastName,
       username,
       password: passwordHash,
       gender,
@@ -49,22 +49,25 @@ export const loginUser = async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    res.status(400).json({
+    return res.status(400).json({
       message: 'Failed to login.',
       error: 'Username or password not present.',
     });
   }
+
   try {
     const user = await userService.findUserByUsername({ username });
-    console.log('User:', user);
+
     if (!user) {
       return next(new HttpError('Username or password not correct.', 401));
     }
+
     const matchedPassword = await bcrypt.compare(password, user.password);
 
     if (!matchedPassword) {
       return next(new HttpError('Username or password not correct.', 401));
     }
+
     const payload = {
       id: user.id,
       username: user.username,
@@ -77,11 +80,11 @@ export const loginUser = async (req, res, next) => {
       maxAge: 3 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'Login successful.',
       user,
     });
   } catch (err) {
-    next(new HttpError(err.message));
+    return next(new HttpError(err.message));
   }
 };
