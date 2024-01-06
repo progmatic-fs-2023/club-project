@@ -8,6 +8,8 @@ import Events from './pages/Events';
 import Service from './pages/Service';
 import Event from './pages/Event';
 import Home from './pages/Home';
+import Gallery from './pages/Gallery';
+import Membership from './pages/Membership';
 
 const servicesList = [
   {
@@ -338,8 +340,8 @@ function App() {
         <Route path="/events/:eventName" element={<Event eventsList={eventsList} />} />
         <Route path="/services" element={<Services servicesList={servicesList} />} />
         <Route path="/services/:serviceName" element={<Service servicesList={servicesList} />} />
-        <Route path="/gallery" element={<div>GALLERY</div>} />
-        <Route path="/membership" element={<div>MEMBERSHIP</div>} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/membership" element={<Membership />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<div>PROFILE</div>} />

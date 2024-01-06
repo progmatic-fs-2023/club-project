@@ -1,17 +1,20 @@
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
 
 $primary: #0d2241;
 $complementary: #a5a51e;
 $input-focus-box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
-inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+  inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 $input-focus-border-color: #0d2241;
-$primary-bg-hover:#222e85;
+$primary-bg-hover: #222e85;
 
-$theme-colors: map-merge($theme-colors, (
-        "primary": $primary,
-        "info": $complementary,
-));
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'primary': $primary,
+    'info': $complementary,
+  )
+);
 
 .btn-primary:hover {
   background-color: lighten($primary, 10%) !important;
@@ -210,7 +213,21 @@ body {
 }
 
 .slick-next {
-  display: none !important
+  display: none !important;
 }
 
-@import "../node_modules/bootstrap";
+/* MEMBERSHIP */
+
+.bg-silver {
+  background-color: #808080; /* Szürke */
+}
+
+.bg-gold {
+  background-color: #ffd700; /* Arany */
+}
+
+.bg-platinum {
+  background-color: #e5e4e2; /* Platina */
+}
+
+@import '../node_modules/bootstrap';
