@@ -1,3 +1,22 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+
+$primary: #0d2241;
+$complementary: #a5a51e;
+$input-focus-box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
+inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+$input-focus-border-color: #0d2241;
+$primary-bg-hover:#222e85;
+
+$theme-colors: map-merge($theme-colors, (
+        "primary": $primary,
+        "info": $complementary,
+));
+
+.btn-primary:hover {
+  background-color: lighten($primary, 10%) !important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,23 +25,6 @@
 
 body {
   min-width: 400px;
-}
-
-.form-control:focus {
-  border-color: #0d1341;
-  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
-    inset 5px 5px 9px rgba(94, 104, 121, 0.3);
-}
-
-.navyblue-btn {
-  background-color: #0d1341;
-  color: #ffffff;
-  border: 0px;
-}
-
-.navyblue-btn:hover {
-  background-color: #2d3781;
-  color: #ffffff;
 }
 
 .carousel-item.active img {
@@ -64,9 +66,7 @@ body {
 }
 
 .ver_mas {
-  background-color: #0d2241;
   height: 65px;
-  z-index: 1001;
   opacity: 0;
   transform: translate(0px, 65px);
   -webkit-transform: translate(0px, 65px);
@@ -81,22 +81,7 @@ body {
   z-index: 1001;
 }
 
-.ver_mas span {
-  color: #a5a51e;
-}
-
-.date-time-overlay {
-  background-color: #0d2241;
-  z-index: 1;
-}
-
-.sold-out-overlay {
-  background-color: rgba(255, 255, 255, 0.5);
-  color: #0d2241;
-  z-index: 1000;
-}
-
-/*hovers*/
+/* EVENT/SERVICE HOVERS */
 
 .container_foto:hover {
   transform: scale(1.04);
@@ -129,8 +114,7 @@ body {
 /* Navbar */
 
 .navbar {
-  background-color: #0d2241;
-  opacity: 85%;
+  opacity: 90%;
 }
 
 .logo {
@@ -143,7 +127,8 @@ body {
   width: 30px;
 }
 
-/* footer */
+/* FOOTER */
+
 .footer-logo {
   height: 120px;
   width: 120px;
@@ -222,6 +207,10 @@ body {
 
 .block-example {
   margin: 250px 0;
+}
+
+.slick-next {
+  display: none !important
 }
 
 /* ABOUT US PAGE */
@@ -316,3 +305,6 @@ body {
     left: 0%;
   }
 }
+
+@import "../node_modules/bootstrap";
+

@@ -19,7 +19,7 @@ function Layout() {
         variant="dark"
         collapseOnSelect
         expand="xl"
-        className="navbar fs-4 py-0 h-auto"
+        className="bg-primary navbar fs-4 py-0 h-auto"
         fixed="top"
       >
         <Container className="min-vw-100 mx-auto py-1 px-4">

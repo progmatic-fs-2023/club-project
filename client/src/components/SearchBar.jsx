@@ -1,31 +1,29 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../index.css';
+import { Button } from 'react-bootstrap';
 
 function SearchBar({ onSearch }) {
   const [inputText, setInputText] = useState('');
 
   return (
-    <div className="container pt-5">
-      <div className="justify-content-center">
-        <div className="col-12 col-md-8 col-lg-5">
-          <div className="input-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search services..."
-              value={inputText}
-              onChange={(event) => {
-                onSearch(event.target.value);
-                setInputText(event.target.value);
-              }}
-              aria-label="search services"
-              aria-describedby="button-addon2"
-            />
-            <button className="btn navyblue-btn" type="button" id="button-addon2">
-              SEARCH
-            </button>
-          </div>
+    <div className="container">
+      <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10">
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search services..."
+            value={inputText}
+            onChange={(event) => {
+              onSearch(event.target.value);
+              setInputText(event.target.value);
+            }}
+            aria-label="search services"
+            aria-describedby="button-addon2"
+          />
+          <Button className="btn" type="button" id="button-addon2">
+            SEARCH
+          </Button>
         </div>
       </div>
     </div>

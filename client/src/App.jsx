@@ -1,15 +1,13 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import MainCarousel from './components/MainCarousel';
 import Layout from './components/Layout';
-import CardCarousel from './components/CardCarousel';
-import LowerCardCarousel from './components/LowerCardCarousel';
 import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
 import Services from './pages/Services';
 import Events from './pages/Events';
 import Service from './pages/Service';
 import Event from './pages/Event';
+import Home from './pages/Home';
 
 const servicesList = [
   {
@@ -274,8 +272,8 @@ const eventsList = [
     name: 'A Tasting of Wines From Italy',
     startTime: '2024-01-11 17:30:0.000',
     endTime: '2024-01-11 20:30:0.000',
-    availableSeats: 0,
-    eventImg: '../src/assets/as_golf.webp',
+    availableSeats: 12,
+    eventImg: '../src/assets/ae_wine_tasting.webp',
     headerImg: '../src/assets/wine_page.webp',
     details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
     moreDetails:
@@ -287,7 +285,7 @@ const eventsList = [
     startTime: '2024-01-25 19:00:0.000',
     endTime: '2024-01-25 22:30:0.000',
     availableSeats: 0,
-    eventImg: '../src/assets/as_golf.webp',
+    eventImg: '../src/assets/ae_classical_music.webp',
     headerImg: '../src/assets/violin_page.webp',
     details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
     moreDetails:
@@ -295,11 +293,35 @@ const eventsList = [
   },
   {
     id: 3,
-    name: 'The Art of Living: Presentation & Book Signing with Christian Micheals',
+    name: 'The Art of Living: Book Signing with Christian Micheals',
     startTime: '2024-01-18 13:00:0.000',
     endTime: '2024-01-18 14:30:0.000',
-    availableSeats: 35,
-    eventImg: '../src/assets/as_golf.webp',
+    availableSeats: 0,
+    eventImg: '../src/assets/ae_book_presentation.webp',
+    headerImg: '../src/assets/book_page.webp',
+    details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+    moreDetails:
+      'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+  },
+  {
+    id: 4,
+    name: 'Grand New Year Ball',
+    startTime: '2024-01-04 19:00:0.000',
+    endTime: '2024-01-05 05:30:0.000',
+    availableSeats: 60,
+    eventImg: '../src/assets/ae_ball.webp',
+    headerImg: '../src/assets/book_page.webp',
+    details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
+    moreDetails:
+      'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
+  },
+  {
+    id: 5,
+    name: 'Thomas Schnetzer - The nature of nature',
+    startTime: '2024-02-04 10:00:0.000',
+    endTime: '2024-03-05 18:00:0.000',
+    availableSeats: 45,
+    eventImg: '../src/assets/ae_exhibition.webp',
     headerImg: '../src/assets/book_page.webp',
     details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
     moreDetails:
@@ -327,16 +349,7 @@ function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route
-          path="/"
-          element={
-            <div>
-              <MainCarousel />
-              <CardCarousel />
-              <LowerCardCarousel />
-            </div>
-          }
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events eventsList={eventsList} />} />
         <Route path="/events/:eventName" element={<Event eventsList={eventsList} />} />
         <Route path="/services" element={<Services servicesList={servicesList} />} />
