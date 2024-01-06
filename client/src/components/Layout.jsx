@@ -81,7 +81,7 @@ function Layout() {
 
       <footer className="bg-dark">
         <Container>
-          <Row className="p-5">
+          <Row className="p-5 pb-3">
             <Col md={3} className="d-flex justify-content-center p-4">
               <Navbar.Brand href="/">
                 {' '}

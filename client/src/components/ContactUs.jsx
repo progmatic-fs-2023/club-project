@@ -1,49 +1,105 @@
-import { Container, Row, Col } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 function ContactUs() {
   return (
-    <div className="d-flex flex-grow-1 justify-content-center">
-      <Container className="py-5 bg-light shadow-lg block-example border border-dark rounded">
-        <Row>
-          <Col md={6}>
-            <h3 className="text-center mt-3">Contact</h3>
-            <form className=" mt-5">
-              <div className="mb-3 text-center">
-                <label htmlFor="nameInput">
+    <div>
+      <img
+        className="position-relative w-100"
+        src=".\src\assets\contact_bg.webp"
+        alt="country club"
+        height="850px"
+      />
+      <div className="container pt-5 position-absolute top-50 start-50 translate-middle">
+        <div className="row align-items-center py-5">
+          <div className="col-md-6 mb-5 mb-md-0">
+            <h2 className="text-white fw-bold display-2">Did you have any questions left?</h2>
+            <h4 className="text-white display-5 my-3 ">Get in touch with us.</h4>
+          </div>
+          <div className=" col-md-5 offset-md-1">
+            <form className="mt-5 d-flex flex-column bg-dark bg-opacity-50 p-5">
+              <h3 className="text-white">Contact us</h3>
+              <div className="mb-3">
+                <label
+                  htmlFor="nameInput"
+                  className="d-flex flex-column align-items-start m-1 text-white"
+                >
                   Name
-                  <input type="text" className="form-control" id="nameInput" />
+                  <input
+                    type="text"
+                    name="nameInput"
+                    id="nameInput"
+                    className="form-control rounded-0 border-0 p-2"
+                    placeholder="Your Full Name"
+                    required
+                  />
                 </label>
               </div>
-              <div className="mb-3 text-center">
-                <label htmlFor="subjectInput" className="form-label">
+              <div className="mb-3">
+                <label
+                  htmlFor="emailInput"
+                  className="d-flex flex-column align-items-start m-1 text-white"
+                >
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    id="emailInput"
+                    className="form-control rounded-0 border-0 p-2"
+                    placeholder="Your Email Address"
+                    required
+                  />
+                </label>
+              </div>
+              <div className="mb-3">
+                <label
+                  htmlFor="subjectInput"
+                  className="d-flex flex-column align-items-start m-1 text-white"
+                >
                   Subject
-                  <input type="text" className="form-control" id="subjectInput" />
+                  <input
+                    type="text"
+                    name="subject"
+                    id="subjectInput"
+                    className="form-control rounded-0 border-0 p-2"
+                    placeholder="Add subject"
+                    required
+                  />
                 </label>
               </div>
-              <div className="mb-3 text-center">
-                <label htmlFor="messageInput" className="form-label">
+              <div className="mb-3">
+                <label
+                  htmlFor="messageInput"
+                  className="d-flex flex-column align-items-start m-1 text-white"
+                >
                   Message
-                  <textarea type="text" className="form-control" id="messageInput" rows="3" />
+                  <textarea
+                    type="text"
+                    name="message"
+                    rows="3"
+                    id="messageInput"
+                    className="form-control rounded-0 border-0 p-2"
+                    placeholder="Your Message"
+                    required
+                  />
                 </label>
               </div>
-              <div className="mb-3 text-center">
-                <button type="button" className="btn btn-primary">
+              <div className="d-grid">
+                <Button type="button" className="btn btn-lg m-1 text-white">
                   Send Now
-                </button>
+                </Button>
               </div>
             </form>
-          </Col>
-          <Col md={6} className="text-center">
-            <h3 className="text-center m-3">Location</h3>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2214.1925793262153!2d18.356517600210477!3d47.21089836107917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769f60ab8becdff%3A0x140aa3cfaadddba2!2zU3rDqWtlc2ZlaMOpcnbDoXIsIMOaaiBDc8Ozcmkgw7p0IDE1NiwgODAwMA!5e0!3m2!1shu!2shu!4v1702920539946!5m2!1shu!2shu"
-              className="pb-2 w-75"
-              height="400"
-              title="map"
-            />
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
+      <div className="d-flex w-100">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2214.1925793262153!2d18.356517600210477!3d47.21089836107917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769f60ab8becdff%3A0x140aa3cfaadddba2!2zU3rDqWtlc2ZlaMOpcnbDoXIsIMOaaiBDc8Ozcmkgw7p0IDE1NiwgODAwMA!5e0!3m2!1shu!2shu!4v1702920539946!5m2!1shu!2shu"
+          className="w-100 "
+          height="300"
+          title="map"
+        />
+      </div>
     </div>
   );
 }

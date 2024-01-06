@@ -13,6 +13,9 @@ $theme-colors: map-merge($theme-colors, (
         "info": $complementary,
 ));
 
+.btn-primary {
+  border-radius: 4px!important;
+}
 .btn-primary:hover {
   background-color: lighten($primary, 10%) !important;
 }
@@ -25,12 +28,6 @@ $theme-colors: map-merge($theme-colors, (
 
 body {
   min-width: 400px;
-}
-
-.carousel-item.active img {
-  transform: scale(1.04);
-  transform-origin: top left;
-  transition: transform 8s ease-in-out;
 }
 
 /*category header services, events */
@@ -130,8 +127,8 @@ body {
 /* FOOTER */
 
 .footer-logo {
-  height: 120px;
-  width: 120px;
+  height: 80px;
+  width: 80px;
 }
 
 /*EVENT PAGE*/
@@ -201,6 +198,16 @@ body {
 .about-us-fame-card {
   transition: 0.2s ease-in-out;
   width: 360px;
+}
+/* MAIN CAROUSEL */
+.award-labels {
+  bottom: 0;
+}
+
+.carousel-item.active img {
+  transform: scale(1.04);
+  transform-origin: top left;
+  transition: transform 10s ease-in-out;
 }
 
 /* CONTACT PAGE */
