@@ -10,6 +10,13 @@ import Event from './pages/Event';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
 import Membership from './pages/Membership';
+import AdminLayout from './components/AdminLayout';
+import AdminDashboard from './components/AdminDashboard';
+import AdminFinance from './components/AdminFinance';
+import AdminMembers from './components/AdminMembers';
+import AdminGallery from './components/AdminGallery';
+import AdminServices from './components/AdminServices';
+import AdminEvents from './components/AdminEvents';
 
 const servicesList = [
   {
@@ -361,6 +368,30 @@ function App() {
         <Route path="/aboutus" element={<AboutUs famous={famous} charity={charity} />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<div>PROFILE</div>} />
+      </Route>
+      <Route element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={<AdminDashboard eventsList={eventsList} servicesList={servicesList} />}
+        />
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard eventsList={eventsList} servicesList={servicesList} />}
+        />
+        <Route
+          path="/admin/members"
+          element={<AdminMembers eventsList={eventsList} servicesList={servicesList} />}
+        />
+        <Route
+          path="/admin/finance"
+          element={<AdminFinance eventsList={eventsList} servicesList={servicesList} />}
+        />
+        <Route path="/admin/services" element={<AdminServices servicesList={servicesList} />} />
+        <Route path="/admin/events" element={<AdminEvents eventsList={eventsList} />} />
+        <Route
+          path="/admin/gallery"
+          element={<AdminGallery eventsList={eventsList} servicesList={servicesList} />}
+        />
       </Route>
     </Routes>
   );
