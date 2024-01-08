@@ -14,7 +14,7 @@ function Layout() {
   const handleCloseButton = () => setShow('none');
 
   return (
-    <div>
+    <div className="d-flex flex-column vh-100">
       <Navbar
         variant="dark"
         collapseOnSelect
@@ -75,11 +75,11 @@ function Layout() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div>
+      <div className="bg-services flex-grow-1">
         <Outlet />
       </div>
 
-      <footer className="bg-dark">
+      <footer className="bg-dark bottom-0">
         <Container>
           <Row className="p-5 pb-3">
             <Col md={3} className="d-flex justify-content-center p-4">

@@ -9,7 +9,7 @@ export default function AboutUs(props) {
   const { charity } = props;
 
   return (
-    <div className="d-flex flex-grow-1 pt-5 w-100 bg-light">
+    <div className="d-flex pt-5 w-100">
       <Container>
         <div>
           <AboutUsTimeline />

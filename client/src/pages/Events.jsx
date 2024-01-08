@@ -49,7 +49,7 @@ function Events({ eventsList }) {
   };
 
   return (
-    <div className="py-5 bg-services d-flex align-items-center grow-1">
+    <div className="py-5 d-flex">
       <Container>
         <Container>
           <p className="pt-5">Type at least 2 characters to initiate the search.</p>
