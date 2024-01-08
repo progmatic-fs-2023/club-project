@@ -10,6 +10,7 @@ import Event from './pages/Event';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
 import Membership from './pages/Membership';
+import LandingPage from './pages/LandingPage';
 
 const servicesList = [
   {
@@ -312,7 +313,7 @@ const eventsList = [
     endTime: '2024-01-05 05:30:0.000',
     availableSeats: 60,
     eventImg: '../src/assets/ae_ball.webp',
-    headerImg: '../src/assets/book_page.webp',
+    headerImg: '../src/assets/ball_page.webp',
     details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
     moreDetails:
       'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -324,7 +325,7 @@ const eventsList = [
     endTime: '2024-03-05 18:00:0.000',
     availableSeats: 45,
     eventImg: '../src/assets/ae_exhibition.webp',
-    headerImg: '../src/assets/book_page.webp',
+    headerImg: '../src/assets/nature_page.webp',
     details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
     moreDetails:
       'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
@@ -361,6 +362,7 @@ function App() {
         <Route path="/aboutus" element={<AboutUs famous={famous} charity={charity} />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<div>PROFILE</div>} />
+        <Route path="/landingpage" element={<LandingPage />} />
       </Route>
     </Routes>
   );

@@ -1,6 +1,7 @@
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import EventCard from './EventCard';
 import ScrollToTopButton from './ScrollToTopButton';
 
@@ -22,16 +23,18 @@ function AllEvents({ events }) {
         <Row xs={1} md={2} lg={3} xl={3}>
           {events.map((event) => (
             <Col className="p-3" key={event.name}>
-              <EventCard
-                name={event.name}
-                startDate={formatDate(event.startTime)}
-                endDate={formatDate(event.endTime)}
-                startTime={formatTime(event.startTime)}
-                endTime={formatTime(event.endTime)}
-                eventImg={event.eventImg}
-                availableSeats={event.availableSeats}
-                details={event.details}
-              />
+              <NavLink to={event.name}>
+                <EventCard
+                  name={event.name}
+                  startDate={formatDate(event.startTime)}
+                  endDate={formatDate(event.endTime)}
+                  startTime={formatTime(event.startTime)}
+                  endTime={formatTime(event.endTime)}
+                  eventImg={event.eventImg}
+                  availableSeats={event.availableSeats}
+                  details={event.details}
+                />
+              </NavLink>
             </Col>
           ))}
         </Row>

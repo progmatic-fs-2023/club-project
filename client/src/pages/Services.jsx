@@ -41,7 +41,7 @@ function Services({ servicesList }) {
   };
 
   return (
-    <div className="bg-services d-flex grow-1 py-5">
+    <div className="d-flex py-5">
       <Container>
         <Container>
           <p className="pt-5">Type at least 2 characters to initiate the search.</p>

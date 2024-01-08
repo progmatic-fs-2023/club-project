@@ -28,50 +28,43 @@ function Service({ servicesList }) {
   }
 
   return (
-    <>
+    <div className="d-flex flex-column">
       <Image className="header-image w-100 object-fit-cover" src={service.service.headerImg} />
-      <div className="bg-secondary bg-opacity-25 p-5 d-flex flex-column align-items-center">
-        <h4 className="fst-italic">{service.category}</h4>
-        <h1
-          className="py-1 fw-bold border-5 border-bottom border-warning"
-          style={{ color: '#0d2241' }}
-        >
-          {service.service.name}{' '}
-        </h1>
-        <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-3">
-          <Image
-            className="w-25 h-25 mx-3 object-fit-cover"
-            src={service.service.serviceImg}
-            rounded
-          />
-          <div className="px-3">
-            <Tabs defaultActiveKey="moreDetails" className="mb-3">
-              <Tab eventKey="moreDetails" title="More details">
-                {service.service.moreDetails}
-              </Tab>
-              <Tab eventKey="moreDetails1" title="More details">
-                {service.service.moreDetails}
-              </Tab>
-              <Tab eventKey="moreDetails2" title="More details">
-                {service.service.moreDetails}
-              </Tab>
-            </Tabs>
-            <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
-            <Nav className="d-flex justify-content-evenly">
-              <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
-                <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/services">
-                <Button className="btn-primary fs-5 max-vw-25">Services</Button>
-              </Nav.Link>
-              <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
-                <Button className="btn-primary fs-5 max-vw-25">Next</Button>
-              </Nav.Link>
-            </Nav>
+      <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-5">
+        <Image className="w-25 mx-3" src={service.service.serviceImg} rounded />
+        <div className="px-3">
+          <div className="d-flex flex-column align-items-center">
+            <h4 className="fst-italic">{service.category}</h4>
+            <h1 className="py-1 fw-bold text-primary border-5 border-bottom border-warning text-center ">
+              {service.service.name}{' '}
+            </h1>
           </div>
+          <Tabs defaultActiveKey="moreDetails" className="mb-3">
+            <Tab eventKey="moreDetails" title="More details">
+              {service.service.moreDetails}
+            </Tab>
+            <Tab eventKey="moreDetails1" title="More details">
+              {service.service.moreDetails}
+            </Tab>
+            <Tab eventKey="moreDetails2" title="More details">
+              {service.service.moreDetails}
+            </Tab>
+          </Tabs>
+          <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
+          <Nav className="d-flex justify-content-evenly">
+            <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
+              <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/services">
+              <Button className="btn-primary fs-5 max-vw-25">Services</Button>
+            </Nav.Link>
+            <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
+              <Button className="btn-primary fs-5 max-vw-25">Next</Button>
+            </Nav.Link>
+          </Nav>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
