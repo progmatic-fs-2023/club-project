@@ -8,8 +8,16 @@ import Events from './pages/Events';
 import Service from './pages/Service';
 import Event from './pages/Event';
 import Home from './pages/Home';
+import AdminMember from './pages/AdminMember';
 import Gallery from './pages/Gallery';
 import Membership from './pages/Membership';
+import AdminLayout from './components/AdminLayout';
+import AdminDashboard from './components/AdminDashboard';
+import AdminFinance from './components/AdminFinance';
+import AdminMembers from './components/AdminMembers';
+import AdminGallery from './components/AdminGallery';
+import AdminServices from './components/AdminServices';
+import AdminEvents from './components/AdminEvents';
 
 const servicesList = [
   {
@@ -347,6 +355,49 @@ const charity = [
   { image: '../src/assets/', organization: 'Greenpeace', money: '600$', id: 4 },
 ];
 
+const members = [
+  {
+    id: '001',
+    firstName: 'Buzz',
+    lastName: 'Lightyear',
+    email: 'buzz@buzz.com',
+    address: "Andy's room",
+    membershipLevel: 'gold',
+    membershipStartTime: '2023-11-11 17:30:0.000',
+    membershipEndTime: '2023-12-11 17:30:0.000',
+  },
+  {
+    id: '002',
+    firstName: 'Mike',
+    lastName: 'Wazowski',
+    email: 'mike@monster.com',
+    address: 'Monster inc',
+    membershipLevel: 'platinum',
+    membershipStartTime: '2024-01-08 00:31:42.000',
+    membershipEndTime: '2024-02-08 00:31:42.000',
+  },
+  {
+    id: '003',
+    firstName: 'Sally',
+    lastName: 'Carrera',
+    email: 'sally@porsche.com',
+    address: 'Garage',
+    membershipLevel: 'silver',
+    membershipStartTime: '2024-01-01 02:02:0.000',
+    membershipEndTime: '2024-02-01 02:02:0.000',
+  },
+  {
+    id: '004',
+    firstName: 'Carl',
+    lastName: 'Fredricksen',
+    email: 'up@papa.com',
+    address: 'Paradise Falls',
+    membershipLevel: 'platinum',
+    membershipStartTime: '2021-01-10 15:18:0.000',
+    membershipEndTime: '2021-02-10 15:18:0.000',
+  },
+];
+
 function App() {
   return (
     <Routes>
@@ -361,6 +412,28 @@ function App() {
         <Route path="/aboutus" element={<AboutUs famous={famous} charity={charity} />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<div>PROFILE</div>} />
+      </Route>
+      <Route element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={<AdminDashboard eventsList={eventsList} servicesList={servicesList} />}
+        />
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard eventsList={eventsList} servicesList={servicesList} />}
+        />
+        <Route path="/admin/members" element={<AdminMembers members={members} />} />
+        <Route path="/admin/members/:memberId" element={<AdminMember members={members} />} />
+        <Route
+          path="/admin/finance"
+          element={<AdminFinance eventsList={eventsList} servicesList={servicesList} />}
+        />
+        <Route path="/admin/services" element={<AdminServices servicesList={servicesList} />} />
+        <Route path="/admin/events" element={<AdminEvents eventsList={eventsList} />} />
+        <Route
+          path="/admin/gallery"
+          element={<AdminGallery eventsList={eventsList} servicesList={servicesList} />}
+        />
       </Route>
     </Routes>
   );
