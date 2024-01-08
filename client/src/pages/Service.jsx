@@ -32,7 +32,7 @@ function Service({ servicesList }) {
       <Image className="header-image w-100 object-fit-cover" src={service.service.headerImg} />
       <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-5">
         <Image className="w-25 mx-3" src={service.service.serviceImg} rounded />
-        <div className="px-3">
+        <div className=" px-3">
           <div className="d-flex flex-column align-items-center">
             <h4 className="fst-italic">{service.category}</h4>
             <h1 className="py-1 fw-bold text-primary border-5 border-bottom border-warning text-center ">
