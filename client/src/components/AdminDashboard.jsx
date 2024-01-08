@@ -10,6 +10,7 @@ import {
   LineChart,
   Line,
 } from 'recharts';
+import AdminMemberNewsCard from './AdminMemberNewsCard';
 
 function AdminDashboard() {
   const data = [
@@ -51,22 +52,15 @@ function AdminDashboard() {
         <h3>DASHBOARD</h3>
       </div>
 
-      <div className="main-cards">
-        <div className="card d-flex flex-column justify-content-around p-3 rounded">
-          <h4>PRODUCTS</h4>
-          <h1>300</h1>
+      <div className="row gx-3 gy-4">
+        <div className="col-md">
+          <AdminMemberNewsCard title="MEMBER" count={400} />
         </div>
-        <div className="card d-flex flex-column justify-content-around p-3 rounded">
-          <h4>CATEGORIES</h4>
-          <h1>12</h1>
+        <div className="col-md">
+          <AdminMemberNewsCard title="NEW MEMBERS THIS WEEK" count={20} />
         </div>
-        <div className="card d-flex flex-column justify-content-around p-3 rounded">
-          <h4>CUSTOMERS</h4>
-          <h1>33</h1>
-        </div>
-        <div className="card d-flex flex-column justify-content-around p-3 rounded">
-          <h4>ALERTS</h4>
-          <h1>42</h1>
+        <div className="col-md">
+          <AdminMemberNewsCard title="ALL MEMBERS" count={30} />
         </div>
       </div>
 

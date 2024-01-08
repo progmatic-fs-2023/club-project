@@ -23,7 +23,7 @@ function AdminSidebar({ openSidebarToggle, OpenSidebar }) {
             className="sidebar-logo h-md-15 w-md-15"
           />
         </div>
-        <div className="fs-6 fw-bold mt-2">THE DOOR CLUB</div>
+        <div className="fs-6 fw-bold mt-2 text-white">THE DOOR CLUB</div>
         <span
           className="m-1 fs-5 pe-auto m-3 text-white"
           onClick={OpenSidebar}
@@ -40,7 +40,7 @@ function AdminSidebar({ openSidebarToggle, OpenSidebar }) {
         </span>
       </div>
 
-      <ul className="list-unstyled">
+      <ul className="menu-list list-unstyled">
         <Link to="admin/dashboard" className="link-light-gray text-decoration-none">
           <li className="p-4 fs-6 bg-dark m-0">
             <BsGrid1X2Fill className="m-1 fs-5" /> Dashboard

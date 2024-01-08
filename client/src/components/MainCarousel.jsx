@@ -17,10 +17,8 @@ function MainCarousel() {
           <img src=".\src\assets\qa_label_3.png" alt="award label" />
         </div>
         <Carousel.Caption style={{ top: '40vh' }}>
-          <h5 style={{ fontFamily: "'Yeseva One', cursive" }} className="text-uppercase fs-1">
-            Play on a championship course
-          </h5>
-          <p style={{ fontFamily: "'Josefin Sans', sans-serif" }} className="fw-normal fs-4 p-1">
+          <h5 className="yeseva-font text-uppercase fs-1">Play on a championship course</h5>
+          <p className="josefin-font fw-normal fs-4 p-1">
             Tiger Woods and Door Club offers a course where players of all skill levels are invited
             to come together to experience the breathtaking Black Mountain landscape.
           </p>
@@ -45,10 +43,8 @@ function MainCarousel() {
           <img src=".\src\assets\qa_label_3.png" alt="award label" />
         </div>
         <Carousel.Caption style={{ top: '40vh' }}>
-          <h5 style={{ fontFamily: "'Yeseva One', cursive" }} className="text-uppercase fs-1">
-            spend time with us in Eden
-          </h5>
-          <p style={{ fontFamily: "'Josefin Sans', sans-serif" }} className="fw-normal fs-4 p-1">
+          <h5 className="yeseva-font text-uppercase fs-1">spend time with us in Eden</h5>
+          <p className="josefin-font fw-normal fs-4 p-1">
             Our comprehensive services are at your disposal so that you can find any relaxation you
             desire at the DOOR Club.
           </p>
@@ -73,10 +69,8 @@ function MainCarousel() {
           <img src=".\src\assets\qa_label_3.png" alt="award label" />
         </div>
         <Carousel.Caption style={{ top: '40vh' }}>
-          <h5 style={{ fontFamily: "'Yeseva One', cursive" }} className="text-uppercase fs-1">
-            We have 4 professional courses
-          </h5>
-          <p style={{ fontFamily: "'Josefin Sans', sans-serif" }} className="fw-normal fs-4 p-1">
+          <h5 className="yeseva-font text-uppercase fs-1">We have 4 professional courses</h5>
+          <p className="josefin-font fw-normal fs-4 p-1">
             Discover the beauty of the Black Hill at some of NATURE&apos;S FINEST™ courses that Door
             Club has to offer
           </p>
@@ -101,12 +95,10 @@ function MainCarousel() {
           <img src=".\src\assets\qa_label_3.png" alt="award label" />
         </div>
         <Carousel.Caption style={{ top: '40vh' }}>
-          <h5 style={{ fontFamily: "'Yeseva One', cursive" }} className="text-uppercase fs-1">
-            Taste the world&apos;s finest wines
-          </h5>
-          <p style={{ fontFamily: "'Josefin Sans', sans-serif" }} className="fw-normal fs-4 p-1">
-            Among our nteevents, wine tastings often feature where you can sample excellent
-            beverages from various renowned wine regions worldwide, guided by sommeliers.
+          <h5 className="yeseva-font text-uppercase fs-1">Taste the world&apos;s finest wines</h5>
+          <p className="josefin-font fw-normal fs-4 p-1">
+            Among our events, wine tastings often feature where you can sample excellent beverages
+            from various renowned wine regions worldwide, guided by sommeliers.
           </p>
           <div>
             <Link to="/events">
