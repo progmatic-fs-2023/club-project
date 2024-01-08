@@ -362,6 +362,9 @@ const members = [
     lastName: 'Lightyear',
     email: 'buzz@buzz.com',
     address: "Andy's room",
+    membershipLevel: 'gold',
+    membershipStartTime: '2023-11-11 17:30:0.000',
+    membershipEndTime: '2023-12-11 17:30:0.000',
   },
   {
     id: '002',
