@@ -18,7 +18,7 @@ function AdminSidebar({ openSidebarToggle, OpenSidebar }) {
       <div className="sidebar-title bg-dark d-flex align-items-center justify-content-between text-secondary p-3 px-4 border-bottom border-secondary ">
         <div className="w-25">
           <img
-            src="../src/assets/door_logo_w.png"
+            src="/src/assets/door_logo_w.png"
             alt="door logo"
             className="sidebar-logo h-md-15 w-md-15"
           />

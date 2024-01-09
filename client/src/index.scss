@@ -553,5 +553,19 @@ body {
   height: 0;
 }
 
+/* MEMBER CARD */
+
+.nav-link {
+    color: $dark!important;
+}
+.nav-link.active {
+    background-color: $primary!important;
+    color: white!important;
+}
+
+.nav-tabs .nav-link:hover{
+    color: gray;
+    background-color: white;
+}
 
 @import '../node_modules/bootstrap';

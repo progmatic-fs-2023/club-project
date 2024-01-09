@@ -3,6 +3,17 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
+const formatDateShort = (dateString) => {
+  const options = { day: 'numeric', month: 'short' };
+  const [month, day] = new Date(dateString).toLocaleDateString('en-US', options).split(' ');
+  return `${day} ${month}`;
+};
+
+const formatTime = (dateString) => {
+  const options = { hour: 'numeric', minute: 'numeric' };
+  return new Date(dateString).toLocaleTimeString('en-US', options);
+};
+
 const currentWeek = () => {
   const today = new Date();
   const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
@@ -10,4 +21,4 @@ const currentWeek = () => {
   return { firstDayOfWeek, lastDayOfWeek };
 };
 
-export { formatDate, currentWeek };
+export { formatDate, formatDateShort, formatTime, currentWeek };

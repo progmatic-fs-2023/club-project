@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Form } from 'react-bootstrap';
 import { formatDate, currentWeek } from '../utils/dateUtils';
 import AdminMemberSearch from './AdminMemberSearch';
 import AdminMemberNewsCard from './AdminMemberNewsCard';
@@ -40,6 +40,8 @@ function AdminMembers({ members }) {
     if (header === 'membershipLevel') return 'level';
     if (header === 'membershipStartTime') return 'start date';
     if (header === 'membershipEndTime') return 'end date';
+    if (header === 'isVerified') return 'verified';
+    if (header === 'isPayed') return 'payed';
     return header;
   });
 
@@ -119,29 +121,28 @@ function AdminMembers({ members }) {
         resetSearch={resetSearch}
       />
 
-      <div className="charts mt-3">
-        <Table striped bordered hover className="text-nowrap shadow-sm">
-          <thead>
+      <div className="mt-3 w-100">
+        <Table striped bordered hover responsive className=" text-nowrap shadow-sm">
+          <thead className="table-dark">
             <tr>
               {modifiedHeaders.map((header) => (
                 <th
-                  className="py-3 px-2 bg-dark text-white fw-normal fs-6 text-uppercase text-center"
-                  key={`key-${header}`}
+                  className="py-3 px-2 text-white fw-normal fs-6 text-uppercase text-center"
+                  key={`members-key-${header}`}
                 >
                   {header}
                 </th>
               ))}
-              <th className="py-3 px-2 bg-dark text-white fw-normal fs-6 text-uppercase text-center">
-                {' '}
+              <th className="py-2 px-2 bg-dark text-dark fw-normal fs-6 text-uppercase text-center">
                 \
               </th>
             </tr>
           </thead>
           <tbody>
             {filteredMembers.map((member) => (
-              <tr key={`key-${member}`}>
+              <tr key={`members-key-${member.id}`}>
                 {modifiedHeaders.map((header) => (
-                  <td className="p-3" key={`key-table-${header}`}>
+                  <td className="p-3 text-center" key={`members-key-table-${header}`}>
                     {header === 'level' && (
                       <div>
                         <div>{member.membershipLevel}</div>
@@ -149,17 +150,41 @@ function AdminMembers({ members }) {
                     )}
                     {header === 'start date' && (
                       <div>
-                        <div>{formatDate(member.membershipStartTime)}</div>
+                        <div>
+                          {member.membershipStartTime
+                            ? formatDate(member.membershipStartTime)
+                            : '-'}
+                        </div>
                       </div>
                     )}
                     {header === 'end date' && (
                       <div>
-                        <div>{formatDate(member.membershipEndTime)}</div>
+                        <div>
+                          {member.membershipEndTime ? formatDate(member.membershipEndTime) : '-'}
+                        </div>
                       </div>
+                    )}
+                    {header === 'payed' && (
+                      <Form.Check
+                        type="checkbox"
+                        checked={member.isPayed}
+                        readOnly
+                        key={`members-payed-${member.id}`}
+                      />
+                    )}
+                    {header === 'verified' && (
+                      <Form.Check
+                        type="checkbox"
+                        checked={member.isVerified}
+                        readOnly
+                        key={`members-verified-${member.id}`}
+                      />
                     )}
                     {header !== 'level' &&
                       header !== 'start date' &&
                       header !== 'end date' &&
+                      header !== 'isVerified' &&
+                      header !== 'isPayed' &&
                       member[header]}
                   </td>
                 ))}
@@ -178,7 +203,7 @@ function AdminMembers({ members }) {
 }
 
 AdminMembers.propTypes = {
-  members: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired,
+  members: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default AdminMembers;

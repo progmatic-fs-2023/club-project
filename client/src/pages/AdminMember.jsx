@@ -10,23 +10,42 @@ function AdminMember({ members }) {
 
   return (
     <main className="main-container p-5 text-dark">
-      <div className="w-100 bg-secondary bg-opacity-25 p-5 d-flex flex-column align-items-center">
-        <h4>{member.firstName}</h4>
-        <h4>{member.lastName}</h4>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <a href="/admin/members" className="text-dark">
+              Members
+            </a>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            {`${member.firstName} ${member.lastName}`}
+          </li>
+        </ol>
+      </nav>
 
-        <div className="px-3">
-          <Tabs defaultActiveKey="membership" className="mb-3">
-            <Tab eventKey="personalInfo" title="Personal info">
-              {member.firstName}
-              {member.lastName}
-              {member.email}
-            </Tab>
-            <Tab eventKey="moreDetails" title="Membership details">
-              {member.membershipLevel}
-              {member.membershipStartTime}
-              {member.membershipEndTime}
-            </Tab>
-          </Tabs>
+      <div className="w-100 bg-white shadow-sm p-5 d-flex flex-column rounded">
+        <div className="d-flex text-dark fs-3 mb-2 josefin-font fw-bold">{`${member.firstName} ${member.lastName}`}</div>
+
+        <div className="d-flex flex-column flex-md-row">
+          <img src={member.memberImg} alt="profile" className="rounded shadow-sm" />
+          <div>
+            <Tabs defaultActiveKey="personalInfo" variant="tabs" className="mb-3" fill>
+              <Tab eventKey="personalInfo" title="PERSONAL INFO" className="">
+                <div className="d-flex flex-column">
+                  <div>First name: {member.firstName}</div>
+                  <div>{member.lastName}</div>
+                  <div> {member.email}</div>
+                </div>
+              </Tab>
+              <Tab eventKey="membership" title="MEMBERSHIP DETAILS">
+                <div className="d-flex flex-column">
+                  <div> {member.membershipLevel} </div>
+                  <div>{member.membershipStartTime}</div>
+                  <div> {member.membershipEndTime}</div>
+                </div>
+              </Tab>
+            </Tabs>
+          </div>
         </div>
       </div>
     </main>

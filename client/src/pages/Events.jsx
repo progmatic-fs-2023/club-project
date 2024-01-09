@@ -8,7 +8,7 @@ import AllEvents from '../components/AllEvents';
 function Events({ eventsList }) {
   const [events, setEvents] = useState(eventsList);
   const [noResults, setNoResults] = useState(false);
-  const [sortBy, setSortBy] = useState('startDate'); // Default sorting by startDate
+  const [sortBy, setSortBy] = useState('startDate');
 
   const onSearch = (searchText) => {
     let filteredList = [...eventsList];
@@ -71,7 +71,9 @@ function Events({ eventsList }) {
 }
 
 Events.propTypes = {
-  eventsList: PropTypes.string.isRequired,
+  eventsList: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+  ).isRequired,
 };
 
 export default Events;
