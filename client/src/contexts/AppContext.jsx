@@ -341,7 +341,7 @@ function AppProvider({ children }) {
         const result = await response.json();
         setEvents(result);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);   LINT FIX MIATT KIKAPCSOLVA
       }
     };
 
