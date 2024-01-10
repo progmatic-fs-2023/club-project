@@ -6,6 +6,8 @@ import errorHandler from './middlewares/errorHandler.middleware';
 import apiRouter from './routes/api.route';
 import authRouter from './routes/auth.route';
 import usersRouter from './routes/users.route';
+import eventsRouter from './routes/events.route';
+
 
 const app = express();
 
@@ -18,6 +20,7 @@ app.use(logger);
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+app.use('/events', eventsRouter);
 
 app.use(errorHandler);
 
