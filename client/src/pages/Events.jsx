@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import PropTypes from 'prop-types';
 import FilterBar from '../components/FilterBar';
 import SearchBar from '../components/SearchBar';
 import AllEvents from '../components/AllEvents';
+import { useAppContext } from '../contexts/AppContext';
 
-function Events({ eventsList }) {
-  const [events, setEvents] = useState(eventsList);
+function Events() {
+  const { events, setEvents } = useAppContext();
   const [noResults, setNoResults] = useState(false);
   const [sortBy, setSortBy] = useState('startDate');
 
   const onSearch = (searchText) => {
-    let filteredList = [...eventsList];
+    let filteredList = [...events];
 
     if (searchText.length >= 2) {
       filteredList = filteredList.filter(
@@ -25,12 +25,11 @@ function Events({ eventsList }) {
     } else {
       setNoResults(false);
     }
-
     setEvents(filteredList);
   };
 
-  const handleSortChange = (event) => {
-    const selectedSortBy = event.target.value;
+  const handleSortChange = (e) => {
+    const selectedSortBy = e.target.value;
     setSortBy(selectedSortBy);
 
     const sortedList = [...events];
@@ -69,11 +68,5 @@ function Events({ eventsList }) {
     </div>
   );
 }
-
-Events.propTypes = {
-  eventsList: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-  ).isRequired,
-};
 
 export default Events;

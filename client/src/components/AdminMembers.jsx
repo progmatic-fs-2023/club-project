@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Table, Button, Form } from 'react-bootstrap';
 import { formatDate, currentWeek } from '../utils/dateUtils';
 import AdminMemberSearch from './AdminMemberSearch';
 import AdminMemberNewsCard from './AdminMemberNewsCard';
+import { useAppContext } from '../contexts/AppContext';
 
-function AdminMembers({ members }) {
+function AdminMembers() {
+  const { members } = useAppContext();
   const [searchId, setSearchId] = useState('');
   const [searchFirstName, setSearchFirstName] = useState('');
   const [searchLastName, setSearchLastName] = useState('');
@@ -189,7 +190,11 @@ function AdminMembers({ members }) {
                   </td>
                 ))}
                 <td className="p-3 text-center">
-                  <NavLink to={`/admin/members/${member.id}`}>
+                  <NavLink
+                    to={`/admin/members/${member.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Button variant="primary">Details</Button>
                   </NavLink>
                 </td>
@@ -201,9 +206,5 @@ function AdminMembers({ members }) {
     </main>
   );
 }
-
-AdminMembers.propTypes = {
-  members: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
 
 export default AdminMembers;

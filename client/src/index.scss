@@ -32,6 +32,17 @@ $theme-colors: map-merge(
   background-color: lighten($light-gray, 50%) !important;
 }
 
+.carousel-control-prev, .carousel-control-next{
+  height: 70%;
+  top: 17vh!important
+}
+
+@media screen and (max-width: 768px) {
+  .carousel-control-prev, .carousel-control-next{
+   display: none!important;
+  }
+}
+
 .josefin-font {
   font-family: 'Josefin', sans-serif;
 }
@@ -162,6 +173,11 @@ body {
   background-size: cover;
 }
 
+/* SLIDER */
+.slick-next {
+  display: none !important;
+}
+
 /* ABOUT US PAGE */
 
 /* story */
@@ -228,16 +244,6 @@ body {
   transform: scale(1.04);
   transform-origin: top left;
   transition: transform 10s ease-in-out;
-}
-
-/* CONTACT PAGE */
-
-.block-example {
-  margin: 250px 0;
-}
-
-.slick-next {
-  display: none !important;
 }
 
 /* MEMBERSHIP */
@@ -518,20 +524,6 @@ body {
     display: inline;
   }
 }
-/* Small <= 768px */
-
-@media screen and (max-width: 768px) {
-  .main-cards {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-bottom: 0;
-  }
-
-  .charts {
-    grid-template-columns: 1fr;
-    margin-top: 30px;
-  }
-}
 
 
 /*  ADMIN MEMBERS */
@@ -551,21 +543,6 @@ body {
   display: inline-block;
   width: 0;
   height: 0;
-}
-
-/* MEMBER CARD */
-
-.nav-link {
-    color: $dark!important;
-}
-.nav-link.active {
-    background-color: $primary!important;
-    color: white!important;
-}
-
-.nav-tabs .nav-link:hover{
-    color: gray;
-    background-color: white;
 }
 
 @import '../node_modules/bootstrap';

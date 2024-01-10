@@ -4,27 +4,29 @@ import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import PropTypes from 'prop-types';
+import { useAppContext } from '../contexts/AppContext';
 
-function Event({ eventsList }) {
+function Event() {
+  const { events } = useAppContext();
+
   const { eventName } = useParams();
 
-  const event = eventsList.find((item) => item.name === eventName);
+  const event = events.find((item) => item.name === eventName);
 
   let eventPrev = [];
 
   if (event.id === 1) {
-    eventPrev = eventsList.find((item) => item.id === eventsList.length);
+    eventPrev = events.find((item) => item.id === events.length);
   } else {
-    eventPrev = eventsList.find((item) => item.id === event.id - 1);
+    eventPrev = events.find((item) => item.id === event.id - 1);
   }
 
   let eventNext = [];
 
-  if (event.id === eventsList.length) {
-    eventNext = eventsList.find((item) => item.id === 1);
+  if (event.id === events.length) {
+    eventNext = events.find((item) => item.id === 1);
   } else {
-    eventNext = eventsList.find((item) => item.id === event.id + 1);
+    eventNext = events.find((item) => item.id === event.id + 1);
   }
 
   const formatDate = (dateString) => {
@@ -89,9 +91,5 @@ function Event({ eventsList }) {
     </>
   );
 }
-
-Event.propTypes = {
-  eventsList: PropTypes.string.isRequired,
-};
 
 export default Event;

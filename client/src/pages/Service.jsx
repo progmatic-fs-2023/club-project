@@ -4,27 +4,29 @@ import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import PropTypes from 'prop-types';
+import { useAppContext } from '../contexts/AppContext';
 
-function Service({ servicesList }) {
+function Service() {
+  const { services } = useAppContext();
+
   const { serviceName } = useParams();
 
-  const service = servicesList.find((item) => item.service.name === serviceName);
+  const service = services.find((item) => item.service.name === serviceName);
 
   let servicePrev = [];
 
   if (service.id === 1) {
-    servicePrev = servicesList.find((item) => item.id === servicesList.length);
+    servicePrev = services.find((item) => item.id === services.length);
   } else {
-    servicePrev = servicesList.find((item) => item.id === service.id - 1);
+    servicePrev = services.find((item) => item.id === service.id - 1);
   }
 
   let serviceNext = [];
 
-  if (service.id === servicesList.length) {
-    serviceNext = servicesList.find((item) => item.id === 1);
+  if (service.id === services.length) {
+    serviceNext = services.find((item) => item.id === 1);
   } else {
-    serviceNext = servicesList.find((item) => item.id === service.id + 1);
+    serviceNext = services.find((item) => item.id === service.id + 1);
   }
 
   return (
@@ -74,9 +76,5 @@ function Service({ servicesList }) {
     </>
   );
 }
-
-Service.propTypes = {
-  servicesList: PropTypes.string.isRequired,
-};
 
 export default Service;

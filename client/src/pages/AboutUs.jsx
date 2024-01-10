@@ -1,12 +1,12 @@
 import Container from 'react-bootstrap/Container';
-import PropTypes from 'prop-types';
 import AboutUsTimeline from '../components/AboutUsTimeline';
 import AboutUsWallOfFame from '../components/AboutUsWallOfFame';
 import AboutUsCharity from '../components/AboutUsCharity';
+import { useAppContext } from '../contexts/AppContext';
 
-export default function AboutUs(props) {
-  const { famous } = props;
-  const { charity } = props;
+export default function AboutUs() {
+  const { famous } = useAppContext();
+  const { charity } = useAppContext();
 
   return (
     <div className="d-flex flex-grow-1 pt-5 w-100 bg-light">
@@ -20,11 +20,3 @@ export default function AboutUs(props) {
     </div>
   );
 }
-
-AboutUs.propTypes = {
-  famous: PropTypes.string.isRequired,
-};
-
-AboutUs.propTypes = {
-  charity: PropTypes.string.isRequired,
-};

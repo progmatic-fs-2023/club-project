@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Table, Button, Form } from 'react-bootstrap'; // Import Form from react-bootstrap
 import { formatDate } from '../utils/dateUtils';
+import { useAppContext } from '../contexts/AppContext';
 
-function AdminFinance({ members }) {
+function AdminFinance() {
+  const { members } = useAppContext();
   const [filteredMembers, setFilteredMembers] = useState(members);
   const [isPayedFilter, setIsPayedFilter] = useState(false);
 
@@ -108,7 +109,11 @@ function AdminFinance({ members }) {
                   </td>
                 ))}
                 <td className="p-3 text-center">
-                  <NavLink to={`/admin/members/${member.id}`}>
+                  <NavLink
+                    to={`/admin/members/${member.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Button variant="primary">Details</Button>
                   </NavLink>
                 </td>
@@ -122,7 +127,3 @@ function AdminFinance({ members }) {
 }
 
 export default AdminFinance;
-
-AdminFinance.propTypes = {
-  members: PropTypes.arrayOf(PropTypes.string).isRequired,
-};

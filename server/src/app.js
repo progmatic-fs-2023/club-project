@@ -20,4 +20,5 @@ app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 
 app.use(errorHandler);
+
 export default app;

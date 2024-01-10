@@ -1,12 +1,23 @@
+const formatDateLong = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  };
+  return new Date(dateString).toLocaleDateString('en-US', options);
+};
+
 const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const options = { year: 'numeric', month: 'short', day: '2-digit' };
   return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
 const formatDateShort = (dateString) => {
   const options = { day: 'numeric', month: 'short' };
-  const [month, day] = new Date(dateString).toLocaleDateString('en-US', options).split(' ');
-  return `${day} ${month}`;
+  return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
 const formatTime = (dateString) => {
@@ -21,4 +32,4 @@ const currentWeek = () => {
   return { firstDayOfWeek, lastDayOfWeek };
 };
 
-export { formatDate, formatDateShort, formatTime, currentWeek };
+export { formatDateLong, formatDate, formatDateShort, formatTime, currentWeek };
