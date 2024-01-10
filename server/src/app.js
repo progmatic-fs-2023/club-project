@@ -8,7 +8,6 @@ import authRouter from './routes/auth.route';
 import usersRouter from './routes/users.route';
 import eventsRouter from './routes/events.route';
 
-
 const app = express();
 
 app.use(cors());

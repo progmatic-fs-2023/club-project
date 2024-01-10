@@ -62,4 +62,4 @@ const listAllFame = async () => {
   return response.rows;
 };
 
-export {listAllFame}
+export { listAllFame };

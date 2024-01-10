@@ -1,7 +1,7 @@
 import { listAllEvents } from '../services/events.service';
 import 'dotenv/config';
 
-//GET ALL EVENTS
+// GET ALL EVENTS
 const list = async (req, res) => {
   try {
     const allEvents = await listAllEvents();
