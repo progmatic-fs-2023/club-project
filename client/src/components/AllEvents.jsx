@@ -16,12 +16,12 @@ function AllEvents({ events }) {
               <NavLink to={event.name}>
                 <EventCard
                   name={event.name}
-                  startDate={formatDate(event.startTime)}
-                  endDate={formatDate(event.endTime)}
-                  startTime={formatTime(event.startTime)}
-                  endTime={formatTime(event.endTime)}
-                  eventImg={event.eventImg}
-                  availableSeats={event.availableSeats}
+                  startDate={formatDate(event.starttime)}
+                  endDate={formatDate(event.endtime)}
+                  startTime={formatTime(event.starttime)}
+                  endTime={formatTime(event.endtime)}
+                  eventImg={event.eventimg}
+                  availableSeats={event.availableseats}
                   details={event.details}
                 />
               </NavLink>

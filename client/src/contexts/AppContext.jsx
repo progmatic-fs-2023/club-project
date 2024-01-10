@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const AppContext = createContext();
@@ -20,68 +20,7 @@ function AppProvider({ children }) {
     { image: '../src/assets/', organization: 'Greenpeace', money: '600$', id: 4 },
   ]);
 
-  const [events] = useState([
-    {
-      id: 1,
-      name: 'A Tasting of Wines From Italy',
-      startTime: '2024-01-11 17:30:0.000',
-      endTime: '2024-01-11 20:30:0.000',
-      availableSeats: 12,
-      eventImg: '../src/assets/ae_wine_tasting.webp',
-      headerImg: '../src/assets/wine_page.webp',
-      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
-      moreDetails:
-        'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
-    },
-    {
-      id: 2,
-      name: 'VOICE & THE VIOLIN: Jason Peterson & LARISA Suarez',
-      startTime: '2024-01-25 19:00:0.000',
-      endTime: '2024-01-25 22:30:0.000',
-      availableSeats: 0,
-      eventImg: '../src/assets/ae_classical_music.webp',
-      headerImg: '../src/assets/violin_page.webp',
-      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
-      moreDetails:
-        'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
-    },
-    {
-      id: 3,
-      name: 'The Art of Living: Book Signing with Christian Micheals',
-      startTime: '2024-01-18 13:00:0.000',
-      endTime: '2024-01-18 14:30:0.000',
-      availableSeats: 0,
-      eventImg: '../src/assets/ae_book_presentation.webp',
-      headerImg: '../src/assets/book_page.webp',
-      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
-      moreDetails:
-        'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
-    },
-    {
-      id: 4,
-      name: 'Grand New Year Ball',
-      startTime: '2024-01-04 19:00:0.000',
-      endTime: '2024-01-05 05:30:0.000',
-      availableSeats: 60,
-      eventImg: '../src/assets/ae_ball.webp',
-      headerImg: '../src/assets/book_page.webp',
-      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
-      moreDetails:
-        'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
-    },
-    {
-      id: 5,
-      name: 'Thomas Schnetzer - The nature of nature',
-      startTime: '2024-02-04 10:00:0.000',
-      endTime: '2024-03-05 18:00:0.000',
-      availableSeats: 45,
-      eventImg: '../src/assets/ae_exhibition.webp',
-      headerImg: '../src/assets/book_page.webp',
-      details: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias, cumque?',
-      moreDetails:
-        'Lorem ipsum dolor new amet consectetur, adipisicing elit. Nisi odit perferendis voluptatem recusandae enim dolore deleniti numquam, ratione vel sit accusantium amet cumque, itaque excepturi alias culpa optio nostrum ab quo velit? Laborum nulla, ullam in quaerat quis excepturi perferendis.',
-    },
-  ]);
+  const [events, setEvents] = useState([]);
 
   const [services] = useState([
     {
@@ -395,19 +334,19 @@ function AppProvider({ children }) {
     },
   ]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch('/api/data');
-  //       const result = await response.json();
-  //       setData(result);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/events');
+        const result = await response.json();
+        setEvents(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchEvents();
+  }, []);
 
   const contextValue = useMemo(
     () => ({

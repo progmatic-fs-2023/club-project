@@ -39,15 +39,15 @@ function Event() {
     return new Date(dateString).toLocaleTimeString('en-US', options);
   };
 
-  const startDate = formatDate(event.startTime);
-  const startTime = formatTime(event.startTime);
-  const endTime = formatTime(event.endTime);
+  const startDate = formatDate(event.starttime);
+  const startTime = formatTime(event.starttime);
+  const endTime = formatTime(event.endtime);
 
   return (
     <div className="d-flex flex-column">
-      <Image className="header-image w-100 object-fit-cover" src={event.headerImg} />
+      <Image className="header-image w-100 object-fit-cover" src={event.headerimg} />
       <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-5">
-        <Image className="w-25 mx-3" src={event.eventImg} rounded />
+        <Image className="w-25 mx-3" src={event.eventimg} rounded />
         <div className="px-3">
           <div className="d-flex flex-column align-items-center">
             <h1 className="py-1 fw-bold text-primary border-5 border-bottom border-warning text-center ">
@@ -60,13 +60,13 @@ function Event() {
           </div>
           <Tabs defaultActiveKey="moreDetails" className="mb-3">
             <Tab eventKey="moreDetails" title="More details">
-              {event.moreDetails}
+              {event.moredetails}
             </Tab>
             <Tab eventKey="moreDetails1" title="More details">
-              {event.moreDetails}
+              {event.moredetails}
             </Tab>
             <Tab eventKey="moreDetails2" title="More details">
-              {event.moreDetails}
+              {event.moredetails}
             </Tab>
           </Tabs>
           <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>

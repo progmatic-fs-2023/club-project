@@ -31,7 +31,7 @@ function Service() {
 
   return (
     <div className="d-flex flex-column">
-      <Image className="header-image w-100 object-fit-cover" src={service.service.headerImg} />
+      <Image className="header-image w-100 object-fit-cover" src={services.service.headerimg} />
       <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-5">
         <Image className="w-25 mx-3" src={service.service.serviceImg} rounded />
         <div className=" px-3">
