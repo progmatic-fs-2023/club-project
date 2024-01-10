@@ -39,5 +39,12 @@ export default function AboutUsCharity(props) {
 }
 
 AboutUsCharity.propTypes = {
-  charity: PropTypes.string.isRequired,
+  charity: PropTypes.arrayOf(
+    PropTypes.shape({
+      image: PropTypes.string.isRequired,
+      organization: PropTypes.string.isRequired,
+      money: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
 };

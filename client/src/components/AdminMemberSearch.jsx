@@ -84,7 +84,7 @@ function AdminMemberSearch({
           </div>
         </Col>
         <Col xs={2}>
-          <Button variant="dark" className="my-2" onClick={resetSearch}>
+          <Button variant="primary" className="my-2" onClick={resetSearch}>
             Reset
           </Button>
         </Col>
@@ -96,17 +96,17 @@ function AdminMemberSearch({
 export default AdminMemberSearch;
 
 AdminMemberSearch.propTypes = {
-  searchId: PropTypes.func.isRequired,
+  searchId: PropTypes.string.isRequired,
   setSearchId: PropTypes.func.isRequired,
-  searchFirstName: PropTypes.func.isRequired,
+  searchFirstName: PropTypes.string.isRequired,
   setSearchFirstName: PropTypes.func.isRequired,
-  searchLastName: PropTypes.func.isRequired,
+  searchLastName: PropTypes.string.isRequired,
   setSearchLastName: PropTypes.func.isRequired,
-  searchEmail: PropTypes.func.isRequired,
+  searchEmail: PropTypes.string.isRequired,
   setSearchEmail: PropTypes.func.isRequired,
-  searchAddress: PropTypes.func.isRequired,
+  searchAddress: PropTypes.string.isRequired,
   setSearchAddress: PropTypes.func.isRequired,
-  searchMembershipLevel: PropTypes.func.isRequired,
+  searchMembershipLevel: PropTypes.string.isRequired,
   setSearchMembershipLevel: PropTypes.func.isRequired,
   resetSearch: PropTypes.func.isRequired,
 };

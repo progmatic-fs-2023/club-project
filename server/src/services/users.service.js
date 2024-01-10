@@ -55,3 +55,11 @@ export const updateUserVerificationStatus = async (userId, isVerified) => {
 
   return result.rows[0];
 };
+
+// GET LIST OF FAMOUS
+const listAllFame = async () => {
+  const response = await db.query('SELECT * FROM famous');
+  return response.rows;
+};
+
+export { listAllFame };
