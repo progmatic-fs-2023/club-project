@@ -37,26 +37,14 @@ function App() {
         <Route path="/landingpage" element={<LandingPage />} />
       </Route>
       <Route element={<AdminLayout />}>
-        <Route
-          path="/admin"
-          element={<AdminDashboard eventsList={eventsList} servicesList={servicesList} />}
-        />
-        <Route
-          path="/admin/dashboard"
-          element={<AdminDashboard eventsList={eventsList} servicesList={servicesList} />}
-        />
-        <Route path="/admin/members" element={<AdminMembers members={members} />} />
-        <Route path="/admin/members/:memberId" element={<AdminMember members={members} />} />
-        <Route
-          path="/admin/finance"
-          element={<AdminFinance eventsList={eventsList} servicesList={servicesList} />}
-        />
-        <Route path="/admin/services" element={<AdminServices servicesList={servicesList} />} />
-        <Route path="/admin/events" element={<AdminEvents eventsList={eventsList} />} />
-        <Route
-          path="/admin/gallery"
-          element={<AdminGallery eventsList={eventsList} servicesList={servicesList} />}
-        />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/members" element={<AdminMembers />} />
+        <Route path="/admin/members/:memberId" element={<AdminMember />} />
+        <Route path="/admin/finance" element={<AdminFinance />} />
+        <Route path="/admin/services" element={<AdminServices />} />
+        <Route path="/admin/events" element={<AdminEvents />} />
+        <Route path="/admin/gallery" element={<AdminGallery />} />
       </Route>
       <Route element={<AdminLayout />}>
         <Route path="/admin" element={<AdminDashboard />} />

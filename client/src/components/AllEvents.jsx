@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import EventCard from './EventCard';
 import ScrollToTopButton from './ScrollToTopButton';
-import { formatTime, formatDateShort } from '../utils/dateUtils';
+import { formatTime, formatDate } from '../utils/dateUtils';
 
 function AllEvents({ events }) {
   return (
