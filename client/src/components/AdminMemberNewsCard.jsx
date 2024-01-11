@@ -13,5 +13,5 @@ export default AdminMemberNewsCard;
 
 AdminMemberNewsCard.propTypes = {
   title: PropTypes.string.isRequired,
-  count: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
 };

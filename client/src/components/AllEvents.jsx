@@ -4,19 +4,9 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import EventCard from './EventCard';
 import ScrollToTopButton from './ScrollToTopButton';
+import { formatTime, formatDate } from '../utils/dateUtils';
 
 function AllEvents({ events }) {
-  const formatDate = (dateString) => {
-    const options = { day: 'numeric', month: 'short' };
-    const [month, day] = new Date(dateString).toLocaleDateString('en-US', options).split(' ');
-    return `${day} ${month}`;
-  };
-
-  const formatTime = (dateString) => {
-    const options = { hour: 'numeric', minute: 'numeric' };
-    return new Date(dateString).toLocaleTimeString('en-US', options);
-  };
-
   return (
     <div>
       <div className="container text-left p-3">
@@ -26,12 +16,12 @@ function AllEvents({ events }) {
               <NavLink to={event.name}>
                 <EventCard
                   name={event.name}
-                  startDate={formatDate(event.startTime)}
-                  endDate={formatDate(event.endTime)}
-                  startTime={formatTime(event.startTime)}
-                  endTime={formatTime(event.endTime)}
-                  eventImg={event.eventImg}
-                  availableSeats={event.availableSeats}
+                  startDate={formatDate(event.starttime)}
+                  endDate={formatDate(event.endtime)}
+                  startTime={formatTime(event.starttime)}
+                  endTime={formatTime(event.endtime)}
+                  eventImg={event.eventimg}
+                  availableSeats={event.availableseats}
                   details={event.details}
                 />
               </NavLink>
@@ -45,7 +35,9 @@ function AllEvents({ events }) {
 }
 
 AllEvents.propTypes = {
-  events: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+  ).isRequired,
 };
 
 export default AllEvents;

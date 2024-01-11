@@ -4,27 +4,29 @@ import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import PropTypes from 'prop-types';
+import { useAppContext } from '../contexts/AppContext';
 
-function Event({ eventsList }) {
+function Event() {
+  const { events } = useAppContext();
+
   const { eventName } = useParams();
 
-  const event = eventsList.find((item) => item.name === eventName);
+  const event = events.find((item) => item.name === eventName);
 
   let eventPrev = [];
 
   if (event.id === 1) {
-    eventPrev = eventsList.find((item) => item.id === eventsList.length);
+    eventPrev = events.find((item) => item.id === events.length);
   } else {
-    eventPrev = eventsList.find((item) => item.id === event.id - 1);
+    eventPrev = events.find((item) => item.id === event.id - 1);
   }
 
   let eventNext = [];
 
-  if (event.id === eventsList.length) {
-    eventNext = eventsList.find((item) => item.id === 1);
+  if (event.id === events.length) {
+    eventNext = events.find((item) => item.id === 1);
   } else {
-    eventNext = eventsList.find((item) => item.id === event.id + 1);
+    eventNext = events.find((item) => item.id === event.id + 1);
   }
 
   const formatDate = (dateString) => {
@@ -37,15 +39,15 @@ function Event({ eventsList }) {
     return new Date(dateString).toLocaleTimeString('en-US', options);
   };
 
-  const startDate = formatDate(event.startTime);
-  const startTime = formatTime(event.startTime);
-  const endTime = formatTime(event.endTime);
+  const startDate = formatDate(event.starttime);
+  const startTime = formatTime(event.starttime);
+  const endTime = formatTime(event.endtime);
 
   return (
     <div className="d-flex flex-column">
-      <Image className="header-image w-100 object-fit-cover" src={event.headerImg} />
+      <Image className="header-image w-100 object-fit-cover" src={event.headerimg} />
       <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-5">
-        <Image className="w-25 mx-3" src={event.eventImg} rounded />
+        <Image className="w-25 mx-3" src={event.eventimg} rounded />
         <div className="px-3">
           <div className="d-flex flex-column align-items-center">
             <h1 className="py-1 fw-bold text-primary border-5 border-bottom border-warning text-center ">
@@ -58,13 +60,13 @@ function Event({ eventsList }) {
           </div>
           <Tabs defaultActiveKey="moreDetails" className="mb-3">
             <Tab eventKey="moreDetails" title="More details">
-              {event.moreDetails}
+              {event.moredetails}
             </Tab>
             <Tab eventKey="moreDetails1" title="More details">
-              {event.moreDetails}
+              {event.moredetails}
             </Tab>
             <Tab eventKey="moreDetails2" title="More details">
-              {event.moreDetails}
+              {event.moredetails}
             </Tab>
           </Tabs>
           <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
@@ -84,9 +86,5 @@ function Event({ eventsList }) {
     </div>
   );
 }
-
-Event.propTypes = {
-  eventsList: PropTypes.string.isRequired,
-};
 
 export default Event;

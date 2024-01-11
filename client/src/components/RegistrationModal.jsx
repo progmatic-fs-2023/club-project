@@ -8,6 +8,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import * as formik from 'formik';
 import * as yup from 'yup';
+import { API_URL } from '../constants';
 
 function RegistrationModal({ showButton }) {
   const [show, setShow] = useState(false);
@@ -23,9 +24,19 @@ function RegistrationModal({ showButton }) {
   //   setInputs((values) => ({ ...values, [name]: value }));
   // };
 
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = async (values) => {
     // event.preventDefault();
-    console.log(values);
+    try {
+      await fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+    } catch (error) {
+      // console.error('Network error:', error);
+    }
   };
 
   const { Formik } = formik;
