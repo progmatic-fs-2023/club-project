@@ -46,16 +46,6 @@ function App() {
         <Route path="/admin/events" element={<AdminEvents />} />
         <Route path="/admin/gallery" element={<AdminGallery />} />
       </Route>
-      <Route element={<AdminLayout />}>
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/members" element={<AdminMembers />} />
-        <Route path="/admin/members/:memberId" element={<AdminMember />} />
-        <Route path="/admin/finance" element={<AdminFinance />} />
-        <Route path="/admin/services" element={<AdminServices />} />
-        <Route path="/admin/events" element={<AdminEvents />} />
-        <Route path="/admin/gallery" element={<AdminGallery />} />
-      </Route>
     </Routes>
   );
 }

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Table, Button, Form } from 'react-bootstrap'; // Import Form from react-bootstrap
 import { formatDate } from '../utils/dateUtils';
-import { useAppContext } from '../contexts/AppContext';
+import { useMembersContext } from '../contexts/MembersContext';
 
 function AdminFinance() {
-  const { members } = useAppContext();
+  const { members } = useMembersContext();
   const [filteredMembers, setFilteredMembers] = useState(members);
   const [isPayedFilter, setIsPayedFilter] = useState(false);
 

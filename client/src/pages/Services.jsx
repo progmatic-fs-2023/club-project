@@ -1,25 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import AllServices from '../components/AllServices';
 import SearchBar from '../components/SearchBar';
-import { useAppContext } from '../contexts/AppContext';
-
-/*   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const response = await fetch("URL");
-        const data = await response.json();
-        setServices(data.services);
-      } catch (error) {
-        console.error('Error fetching services:', error);
-      }
-    }
-      fetchServices();
-   },[]) */
+import { API_URL } from '../constants';
 
 function Services() {
-  const { services, setServices } = useAppContext();
+  const [services, setServices] = useState([]);
   const [noResults, setNoResults] = useState(false);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/services`);
+        const result = await response.json();
+
+        setServices(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   const onSearch = (searchText) => {
     let filteredList = [...services];

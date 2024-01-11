@@ -1,4 +1,4 @@
-import { listAllEvents } from '../services/events.service';
+import { listAllEvents, eventByName } from '../services/events.service';
 import 'dotenv/config';
 
 // GET ALL EVENTS
@@ -8,7 +8,7 @@ const list = async (req, res) => {
     if (allEvents) {
       res.json(allEvents);
     } else {
-      res.status(404).json({ message: 'Events do not exist' });
+      res.status(404).json({ message: 'Event do not exist' });
     }
   } catch (err) {
     res.status(500).json({
@@ -17,4 +17,21 @@ const list = async (req, res) => {
   }
 };
 
-export { list };
+// GET EVENT BY NAME
+const getEventByName = async (req, res) => {
+  const { name } = req.params;
+  try {
+    const event = await eventByName(name);
+    if (event) {
+      res.json(event);
+    } else {
+      res.status(404).json({ message: 'Event does not exist' });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+export { list, getEventByName };

@@ -1,4 +1,4 @@
-export function AboutUsTimelineCardLeft1() {
+function AboutUsTimelineCardLeft1() {
   return (
     <div className="card m-4">
       <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(135).webp" alt="story pic" />
@@ -15,7 +15,7 @@ export function AboutUsTimelineCardLeft1() {
   );
 }
 
-export function AboutUsTimelineCardRight1() {
+function AboutUsTimelineCardRight1() {
   return (
     <div className="card m-4">
       <img
@@ -36,7 +36,7 @@ export function AboutUsTimelineCardRight1() {
   );
 }
 
-export function AboutUsTimelineCardLeft2() {
+function AboutUsTimelineCardLeft2() {
   return (
     <div className="card m-4">
       <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(135).webp" alt="story pic" />
@@ -53,7 +53,7 @@ export function AboutUsTimelineCardLeft2() {
   );
 }
 
-export function AboutUsTimelineCardRight2() {
+function AboutUsTimelineCardRight2() {
   return (
     <div className="card m-4">
       <img
@@ -73,3 +73,5 @@ export function AboutUsTimelineCardRight2() {
     </div>
   );
 }
+
+export {AboutUsTimelineCardLeft1, AboutUsTimelineCardLeft2,AboutUsTimelineCardRight1, AboutUsTimelineCardRight2}

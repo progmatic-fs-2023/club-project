@@ -1,10 +1,29 @@
-import { Row, Col } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+import { Row, Col, Container } from 'react-bootstrap';
+import { API_URL } from '../constants';
 
-export default function AboutUsWallOfFame(props) {
-  const { famous } = props;
+function AboutUsWallOfFame() {
+  const [famous, setFamous] = useState([]);
+
+  useEffect(() => {
+    const fetchFamous = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/aboutus`);
+        const result = await response.json();
+  
+        const famousData = result.famous;
+  
+        setFamous(famousData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchFamous();
+  }, []);
 
   return (
+    <Container>
     <div className="d-flex flex-column align-items-center justify-content-center">
       <h2 className="text-center">Wall of fame</h2>
       <p className="m-4 text-center">
@@ -34,16 +53,8 @@ export default function AboutUsWallOfFame(props) {
         ))}
       </Row>
     </div>
+    </Container>
   );
 }
 
-AboutUsWallOfFame.propTypes = {
-  famous: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      profession: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired,
-      id: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-};
+export default AboutUsWallOfFame;

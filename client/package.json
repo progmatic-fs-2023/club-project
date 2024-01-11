@@ -28,6 +28,7 @@
     "react-social-icons": "^6.7.0",
     "recharts": "^2.10.3",
     "slick-carousel": "^1.8.1",
+    "slug": "^8.2.3",
     "swiper": "^11.0.5",
     "uuid": "^9.0.1"
   },
