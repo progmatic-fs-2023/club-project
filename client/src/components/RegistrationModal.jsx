@@ -19,9 +19,29 @@ function RegistrationModal({ showButton }) {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    // event.preventDefault();
-    // alert(inputs);
+  const handleSubmit = async () => {
+    // e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:3000/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputs),
+      });
+      console.log(JSON.stringify(inputs));
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Success:', data);
+      } else {
+        const errorData = await response.json();
+        console.error('Error:', errorData);
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
   };
 
   return (
@@ -44,8 +64,8 @@ function RegistrationModal({ showButton }) {
             <Form.Group className="mb-3">
               <FloatingLabel label="First name *" className="mb-3">
                 <Form.Control
-                  name="firstname"
-                  value={inputs.firstname || ''}
+                  name="Firstname"
+                  value={inputs.firstName || ''}
                   onChange={handleChange}
                   type="text"
                   placeholder="First name"
@@ -55,8 +75,8 @@ function RegistrationModal({ showButton }) {
             <Form.Group className="mb-3">
               <FloatingLabel label="Last name *" className="mb-3">
                 <Form.Control
-                  name="lastname"
-                  value={inputs.lastname || ''}
+                  name="Lastname"
+                  value={inputs.lastName || ''}
                   onChange={handleChange}
                   type="text"
                   placeholder="Last name"
@@ -131,7 +151,7 @@ function RegistrationModal({ showButton }) {
               <FloatingLabel label="Phone number" className="mb-3">
                 <Form.Control
                   name="phonenumber"
-                  value={inputs.phonenumber || ''}
+                  value={inputs.phoneNumber || ''}
                   onChange={handleChange}
                   type="text"
                   placeholder="phone number"
