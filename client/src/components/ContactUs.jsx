@@ -20,21 +20,15 @@ function ContactUs() {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL}/api/contact-us`, {
+      await fetch(`${API_URL}/api/contact-us`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-
-      if (response.ok) {
-        console.log('Request successful');
-      } else {
-        console.error('Request unsuccessful');
-      }
     } catch (error) {
-      console.error('An error occurred during the request:', error);
+      // console.error('An error occurred during the request:', error);
     }
   };
 

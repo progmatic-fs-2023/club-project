@@ -24,24 +24,15 @@ function RegistrationModal({ showButton }) {
     // e.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL}/auth/register`, {
+      await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(inputs),
       });
-      console.log(JSON.stringify(inputs));
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Success:', data);
-      } else {
-        const errorData = await response.json();
-        console.error('Error:', errorData);
-      }
     } catch (error) {
-      console.error('Network error:', error);
+      // console.error('Network error:', error);
     }
   };
 
