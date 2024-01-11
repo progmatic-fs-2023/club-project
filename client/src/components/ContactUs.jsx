@@ -1,7 +1,37 @@
 import Button from 'react-bootstrap/Button';
 import { Col } from 'react-bootstrap';
+import { useState } from 'react';
+import { API_URL } from '../constants';
 
 function ContactUs() {
+  const [formData, setFormData] = useState({
+    nameInput: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await fetch(`${API_URL}/api/contact-us`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+    } catch (error) {
+      // console.error('An error occurred during the request:', error);
+    }
+  };
+
   return (
     <main>
       <div className="d-flex align-items-center justify-content-center">
@@ -18,7 +48,10 @@ function ContactUs() {
             <h4 className="text-white display-5 my-3 ">Get in touch with us.</h4>
           </Col>
           <Col xs={11} md={6} lg={5} className="offset-md-1">
-            <form className="mt-md-5 d-flex flex-column bg-dark bg-opacity-50 p-5 w-md-75">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-md-5 d-flex flex-column bg-dark bg-opacity-50 p-5 w-md-75"
+            >
               <h3 className="text-white">Contact us</h3>
               <div className="mb-3">
                 <label
@@ -33,6 +66,7 @@ function ContactUs() {
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Full Name"
                     required
+                    onChange={handleChange}
                   />
                 </label>
               </div>
@@ -49,6 +83,7 @@ function ContactUs() {
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Email Address"
                     required
+                    onChange={handleChange}
                   />
                 </label>
               </div>
@@ -65,6 +100,7 @@ function ContactUs() {
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Add subject"
                     required
+                    onChange={handleChange}
                   />
                 </label>
               </div>
@@ -82,11 +118,12 @@ function ContactUs() {
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Message"
                     required
+                    onChange={handleChange}
                   />
                 </label>
               </div>
               <div className="d-grid">
-                <Button type="button" className="btn btn-lg m-1 text-white">
+                <Button type="submit" className="btn btn-lg m-1 text-white">
                   Send Now
                 </Button>
               </div>
