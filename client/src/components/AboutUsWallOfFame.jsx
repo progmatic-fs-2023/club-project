@@ -38,5 +38,12 @@ export default function AboutUsWallOfFame(props) {
 }
 
 AboutUsWallOfFame.propTypes = {
-  famous: PropTypes.string.isRequired,
+  famous: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      profession: PropTypes.string.isRequired,
+      year: PropTypes.number.isRequired,
+      id: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
 };

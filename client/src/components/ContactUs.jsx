@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button';
-import React, { useState } from 'react';
+import { Col } from 'react-bootstrap';
+import { useState } from 'react';
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -37,23 +38,24 @@ function ContactUs() {
   };
 
   return (
-    <div>
-      <img
-        className="position-relative w-100"
-        src=".\src\assets\contact_bg.webp"
-        alt="country club"
-        height="850px"
-      />
-      <div className="container pt-5 position-absolute top-50 start-50 translate-middle">
-        <div className="row align-items-center py-5">
-          <div className="col-md-6 mb-5 mb-md-0">
+    <main>
+      <div className="d-flex align-items-center justify-content-center">
+        <img
+          className="position-relative w-100 object-fit-cover"
+          src=".\src\assets\contact_bg.webp"
+          alt="country club"
+          height="850px"
+        />
+
+        <div className="position-absolute d-flex flex-md-row flex-column align-items-center justify-content-center">
+          <Col xs={11} md={4} lg={4} className="mt-5 mt-md-0 mb-md-0">
             <h2 className="text-white fw-bold display-2">Did you have any questions left?</h2>
             <h4 className="text-white display-5 my-3 ">Get in touch with us.</h4>
-          </div>
-          <div className=" col-md-5 offset-md-1">
+          </Col>
+          <Col xs={11} md={6} lg={5} className="offset-md-1">
             <form
               onSubmit={handleSubmit}
-              className="mt-5 d-flex flex-column bg-dark bg-opacity-50 p-5"
+              className="mt-md-5 d-flex flex-column bg-dark bg-opacity-50 p-5 w-md-75"
             >
               <h3 className="text-white">Contact us</h3>
               <div className="mb-3">
@@ -131,9 +133,10 @@ function ContactUs() {
                 </Button>
               </div>
             </form>
-          </div>
+          </Col>
         </div>
       </div>
+
       <div className="d-flex w-100">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2214.1925793262153!2d18.356517600210477!3d47.21089836107917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769f60ab8becdff%3A0x140aa3cfaadddba2!2zU3rDqWtlc2ZlaMOpcnbDoXIsIMOaaiBDc8Ozcmkgw7p0IDE1NiwgODAwMA!5e0!3m2!1shu!2shu!4v1702920539946!5m2!1shu!2shu"
@@ -142,7 +145,7 @@ function ContactUs() {
           title="map"
         />
       </div>
-    </div>
+    </main>
   );
 }
 
