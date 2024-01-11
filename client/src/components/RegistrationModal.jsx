@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import PropTypes from 'prop-types';
+import { API_URL } from '../constants';
 
 function RegistrationModal({ showButton }) {
   const [show, setShow] = useState(false);
@@ -23,7 +24,7 @@ function RegistrationModal({ showButton }) {
     // e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/auth/register', {
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

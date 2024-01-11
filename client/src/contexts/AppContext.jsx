@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { API_URL } from '../constants';
 
 const AppContext = createContext();
 
@@ -337,7 +338,7 @@ function AppProvider({ children }) {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://localhost:5000/events');
+        const response = await fetch(`${API_URL}/events`);
         const result = await response.json();
         setEvents(result);
       } catch (error) {

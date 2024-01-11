@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import { Col } from 'react-bootstrap';
 import { useState } from 'react';
+import { API_URL } from '../constants';
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ function ContactUs() {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/api/contact-us', {
+      const response = await fetch(`${API_URL}/api/contact-us`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
