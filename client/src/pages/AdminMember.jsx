@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import { formatDateLong } from '../utils/dateUtils';
-import { useAppContext } from '../contexts/AppContext';
+import { useMembersContext } from '../contexts/MembersContext';
 
 function AdminMember() {
-  const { members } = useAppContext();
+  const { members } = useMembersContext();
 
   const { memberId } = useParams();
 

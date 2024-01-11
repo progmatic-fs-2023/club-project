@@ -1,14 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import FilterBar from '../components/FilterBar';
 import SearchBar from '../components/SearchBar';
 import AllEvents from '../components/AllEvents';
-import { useAppContext } from '../contexts/AppContext';
 
 function Events() {
-  const { events, setEvents } = useAppContext();
+  const [events, setEvents] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [sortBy, setSortBy] = useState('startDate');
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/events');
+        const result = await response.json();
+
+        setEvents(result);
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const onSearch = (searchText) => {
     let filteredList = [...events];

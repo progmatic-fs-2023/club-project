@@ -13,15 +13,15 @@ function AllEvents({ events }) {
         <Row xs={1} md={2} lg={3} xl={3}>
           {events.map((event) => (
             <Col className="p-3" key={event.name}>
-              <NavLink to={event.name}>
+              <NavLink to={event.slugName}>
                 <EventCard
                   name={event.name}
-                  startDate={formatDate(event.starttime)}
-                  endDate={formatDate(event.endtime)}
-                  startTime={formatTime(event.starttime)}
-                  endTime={formatTime(event.endtime)}
-                  eventImg={event.eventimg}
-                  availableSeats={event.availableseats}
+                  startDate={formatDate(event.startTime)}
+                  endDate={formatDate(event.endTime)}
+                  startTime={formatTime(event.startTime)}
+                  endTime={formatTime(event.endTime)}
+                  eventImg={event.eventImg}
+                  availableSeats={event.availableSeats}
                   details={event.details}
                 />
               </NavLink>

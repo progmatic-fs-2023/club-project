@@ -4,10 +4,10 @@ import { Table, Button, Form } from 'react-bootstrap';
 import { formatDate, currentWeek } from '../utils/dateUtils';
 import AdminMemberSearch from './AdminMemberSearch';
 import AdminMemberNewsCard from './AdminMemberNewsCard';
-import { useAppContext } from '../contexts/AppContext';
+import { useMembersContext } from '../contexts/MembersContext';
 
 function AdminMembers() {
-  const { members } = useAppContext();
+  const { members } = useMembersContext();
   const [searchId, setSearchId] = useState('');
   const [searchFirstName, setSearchFirstName] = useState('');
   const [searchLastName, setSearchLastName] = useState('');

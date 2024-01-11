@@ -26,11 +26,11 @@ function AllServices({ services }) {
             <Row xs={1} md={2} lg={3} xl={3}>
               {items.map((item) => (
                 <Col className="p-3">
-                  <NavLink to={item.service.name}>
+                  <NavLink to={item.slugName}>
                     <ServiceCard
-                      name={item.service.name}
-                      serviceImg={item.service.serviceImg}
-                      details={item.service.details}
+                      name={item.name}
+                      serviceImg={item.serviceImg}
+                      details={item.details}
                     />
                   </NavLink>
                 </Col>
