@@ -28,4 +28,4 @@ function AboutUsTimeline() {
   );
 }
 
-export default AboutUsTimeline
+export default AboutUsTimeline;

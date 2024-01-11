@@ -1,6 +1,6 @@
 import ContactUs from '../components/ContactUs';
 
- function Contact() {
+function Contact() {
   return <ContactUs />;
 }
 

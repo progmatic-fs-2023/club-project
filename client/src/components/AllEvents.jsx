@@ -7,7 +7,6 @@ import ScrollToTopButton from './ScrollToTopButton';
 import { formatTime, formatDate } from '../utils/dateUtils';
 
 function AllEvents({ events }) {
- 
   return (
     <div>
       <div className="container text-left p-3">

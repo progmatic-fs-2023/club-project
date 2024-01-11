@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { API_URL } from '../constants';
 
- function AboutUsCharity() {
+function AboutUsCharity() {
   const [charity, setCharity] = useState([]);
 
   useEffect(() => {
@@ -38,7 +38,10 @@ import { API_URL } from '../constants';
 
       <Row xs={1} md={3} lg={3} xl={5} className="m-5 d-flex mb-5 justify-content-center">
         {charity.map((org) => (
-          <Col xs={8} md={5} lg={4} 
+          <Col
+            xs={8}
+            md={5}
+            lg={4}
             className="px-4 m-2 about-us-fame-card shadow d-flex flex-column align-items-center bg-white"
             key={org.id}
           >
@@ -46,10 +49,13 @@ import { API_URL } from '../constants';
               <img src={org.charityImg} alt="charity org logo" />
             </div>
             <div>
-              <div className="josefin-font fs-5 pt-2 text-center text-uppercase">{org.organization}</div>
+              <div className="josefin-font fs-5 pt-2 text-center text-uppercase">
+                {org.organization}
+              </div>
             </div>
             <div className="d-flex flex-column about-us-card-content position-relative px-1 text-center">
-              <div className='text-info fs-6'>DONATED AMOUNT</div><span className='fw-bold text-info'>{org.money}$</span>
+              <div className="text-info fs-6">DONATED AMOUNT</div>
+              <span className="fw-bold text-info">{org.money}$</span>
             </div>
           </Col>
         ))}

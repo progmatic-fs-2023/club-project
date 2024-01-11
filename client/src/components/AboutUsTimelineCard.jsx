@@ -74,4 +74,9 @@ function AboutUsTimelineCardRight2() {
   );
 }
 
-export {AboutUsTimelineCardLeft1, AboutUsTimelineCardLeft2,AboutUsTimelineCardRight1, AboutUsTimelineCardRight2}
+export {
+  AboutUsTimelineCardLeft1,
+  AboutUsTimelineCardLeft2,
+  AboutUsTimelineCardRight1,
+  AboutUsTimelineCardRight2,
+};

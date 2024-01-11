@@ -16,17 +16,17 @@ function Event() {
       try {
         const response = await fetch(`${API_URL}/api/events/${eventName}`);
         const result = await response.json();
-  
+
         setEvent(result);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-  
+
     fetchEventByName();
   }, [eventName]);
-  
- /*  let eventPrev = [];
+
+  /*  let eventPrev = [];
 
   if (event.id === 1) {
     eventPrev = events.find((item) => item.id === events.length);
@@ -84,13 +84,13 @@ function Event() {
           </Tabs>
           <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
           <Nav className="d-flex justify-content-evenly">
-         {/*    <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
+            {/*    <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
             </Nav.Link> */}
             <Nav.Link as={NavLink} to="/events">
               <Button className="btn-primary fs-5 max-vw-25">Events</Button>
             </Nav.Link>
-           {/*  <Nav.Link as={NavLink} to={`/events/${eventNext.name}`}>
+            {/*  <Nav.Link as={NavLink} to={`/events/${eventNext.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Next</Button>
             </Nav.Link> */}
           </Nav>

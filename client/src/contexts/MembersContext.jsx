@@ -76,7 +76,14 @@ function MembersProvider({ children }) {
 
   const memoizedMembers = useMemo(() => members, [members]);
 
-  return <MembersContext.Provider value={useMemo(() => ({ members: memoizedMembers }), [memoizedMembers])}>{children}</MembersContext.Provider>;}
+  return (
+    <MembersContext.Provider
+      value={useMemo(() => ({ members: memoizedMembers }), [memoizedMembers])}
+    >
+      {children}
+    </MembersContext.Provider>
+  );
+}
 
 const useMembersContext = () => {
   const context = useContext(MembersContext);

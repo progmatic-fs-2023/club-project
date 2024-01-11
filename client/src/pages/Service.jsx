@@ -8,7 +8,6 @@ import Tabs from 'react-bootstrap/Tabs';
 import { API_URL } from '../constants';
 
 function Service() {
-
   const { serviceName } = useParams();
   const [service, setService] = useState([]);
 
@@ -17,16 +16,15 @@ function Service() {
       try {
         const response = await fetch(`${API_URL}/api/services/${serviceName}`);
         const result = await response.json();
-  
+
         setService(result);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-  
+
     fetchServiceByName();
   }, [serviceName]);
-
 
   /* let servicePrev = [];
 
@@ -69,13 +67,13 @@ function Service() {
           </Tabs>
           <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
           <Nav className="d-flex justify-content-evenly">
-          {/*   <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
+            {/*   <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
             </Nav.Link> */}
             <Nav.Link as={NavLink} to="/services">
               <Button className="btn-primary fs-5 max-vw-25">BACK TO SERVICES</Button>
             </Nav.Link>
-        {/*     <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
+            {/*     <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Next</Button>
             </Nav.Link> */}
           </Nav>
