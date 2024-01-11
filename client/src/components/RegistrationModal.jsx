@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import PropTypes from 'prop-types';
+import { API_URL } from '../constants';
 
 function RegistrationModal({ showButton }) {
   const [show, setShow] = useState(false);
@@ -19,9 +20,20 @@ function RegistrationModal({ showButton }) {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    // event.preventDefault();
-    // alert(inputs);
+  const handleSubmit = async () => {
+    // e.preventDefault();
+
+    try {
+      await fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputs),
+      });
+    } catch (error) {
+      // console.error('Network error:', error);
+    }
   };
 
   return (
@@ -44,8 +56,8 @@ function RegistrationModal({ showButton }) {
             <Form.Group className="mb-3">
               <FloatingLabel label="First name *" className="mb-3">
                 <Form.Control
-                  name="firstname"
-                  value={inputs.firstname || ''}
+                  name="Firstname"
+                  value={inputs.firstName || ''}
                   onChange={handleChange}
                   type="text"
                   placeholder="First name"
@@ -55,8 +67,8 @@ function RegistrationModal({ showButton }) {
             <Form.Group className="mb-3">
               <FloatingLabel label="Last name *" className="mb-3">
                 <Form.Control
-                  name="lastname"
-                  value={inputs.lastname || ''}
+                  name="Lastname"
+                  value={inputs.lastName || ''}
                   onChange={handleChange}
                   type="text"
                   placeholder="Last name"
@@ -131,7 +143,7 @@ function RegistrationModal({ showButton }) {
               <FloatingLabel label="Phone number" className="mb-3">
                 <Form.Control
                   name="phonenumber"
-                  value={inputs.phonenumber || ''}
+                  value={inputs.phoneNumber || ''}
                   onChange={handleChange}
                   type="text"
                   placeholder="phone number"
