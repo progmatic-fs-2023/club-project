@@ -15,7 +15,7 @@ function AboutUsWallOfFame() {
 
         setFamous(famousData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
       }
     };
 
