@@ -16,16 +16,21 @@ function ContactUs() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleSubmit = async () => {
     try {
-      await fetch(`${API_URL}/api/contact-us`, {
+      await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+      });
+
+      setFormData({
+        nameInput: '',
+        email: '',
+        subject: '',
+        message: '',
       });
     } catch (error) {
       // console.error('An error occurred during the request:', error);
@@ -124,7 +129,7 @@ function ContactUs() {
               </div>
               <div className="d-grid">
                 <Button type="submit" className="btn btn-lg m-1 text-white">
-                  Send Now
+                  SEND NOW
                 </Button>
               </div>
             </form>

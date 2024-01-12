@@ -18,7 +18,7 @@ export const sendVerificationEmail = async (email, token) => {
     from: 'door8projekt@gmail.com',
     to: email,
     subject: 'Email Verification',
-    html: `<p>Click <a href="http://localhost:3000/auth/register/confirm?email=${email}&token=${token}">here</a> to verify your email.</p>`,
+    html: `<p>Click <a href="http://localhost:5000/auth/register/confirm?email=${email}&token=${token}">here</a> to verify your email.</p>`,
   };
   console.log(mailOptions);
 
