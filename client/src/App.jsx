@@ -8,6 +8,7 @@ import Events from './pages/Events';
 import Service from './pages/Service';
 import Event from './pages/Event';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 
 const servicesList = [
   {
@@ -358,7 +359,7 @@ function App() {
         <Route path="/membership" element={<div>MEMBERSHIP</div>} />
         <Route path="/aboutus" element={<AboutUs famous={famous} charity={charity} />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/profile" element={<div>PROFILE</div>} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );
