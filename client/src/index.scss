@@ -17,7 +17,7 @@ $theme-colors: map-merge(
 );
 
 .btn-primary {
-  border-radius: 4px!important;
+  border-radius: 4px !important;
 }
 .btn-primary:hover {
   background-color: lighten($primary, 10%) !important;
@@ -226,15 +226,31 @@ body {
 /* MEMBERSHIP */
 
 .bg-silver {
-  background-color: #808080; /* Szürke */
+  background: linear-gradient(90deg, #353535 0%, #d7d7d7 50%);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .bg-gold {
-  background-color: #ffd700; /* Arany */
+  background: linear-gradient(90deg, #fcf6ba 0%, #b38728 50%);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
 }
 
 .bg-platinum {
-  background-color: #e5e4e2; /* Platina */
+  background: linear-gradient(90deg, #4088a9 0%, #aae3f0 50%);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.text-silver {
+  border: 2px solid #92979ce0;
+}
+
+.text-gold {
+  border: 2px solid #ffd700;
+}
+
+.text-platinum {
+  border: 2px solid #19a0c2;
 }
 
 /* ABOUT US PAGE */
@@ -422,6 +438,7 @@ body {
     left: 0%;
   }
 }
+
+/* EVENT CARDS */
 
 @import '../node_modules/bootstrap';
-
