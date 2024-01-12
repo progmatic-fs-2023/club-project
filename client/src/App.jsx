@@ -8,6 +8,7 @@ import Events from './pages/Events';
 import Service from './pages/Service';
 import Event from './pages/Event';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 import AdminMember from './pages/AdminMember';
 import Gallery from './pages/Gallery';
 import Membership from './pages/Membership';
@@ -33,7 +34,7 @@ function App() {
         <Route path="/membership" element={<Membership />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/profile" element={<div>PROFILE</div>} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/landingpage" element={<LandingPage />} />
       </Route>
       <Route element={<AdminLayout />}>
