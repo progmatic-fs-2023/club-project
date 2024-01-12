@@ -1,20 +1,54 @@
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;400;700&family=Yeseva+One&display=swap');
+@import url('https://cdn.linearicons.com/free/1.0.0/icon-font.min.css');
 
 $primary: #0d2241;
+$primary-bg-hover: #222e85;
+$light-gray: #aaa;
+$light-gray-hover: rgb(229, 229, 229);
 $complementary: #a5a51e;
 $input-focus-box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
-inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+  inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 $input-focus-border-color: #0d2241;
-$primary-bg-hover:#222e85;
 
-$theme-colors: map-merge($theme-colors, (
-        "primary": $primary,
-        "info": $complementary,
-));
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'primary': $primary,
+    'light-gray': $light-gray,
+    'info': $complementary,
+  )
+);
 
+.btn-primary {
+  border-radius: 4px !important;
+}
 .btn-primary:hover {
   background-color: lighten($primary, 10%) !important;
+}
+
+.link-light-gray:hover {
+  background-color: lighten($light-gray, 50%) !important;
+}
+
+.carousel-control-prev, .carousel-control-next{
+  height: 70%;
+  top: 17vh!important
+}
+
+@media screen and (max-width: 768px) {
+  .carousel-control-prev, .carousel-control-next{
+   display: none!important;
+  }
+}
+
+.josefin-font {
+  font-family: 'Josefin', sans-serif;
+}
+
+.yeseva-font {
+  font-family: 'Yeseva One';
 }
 
 * {
@@ -25,12 +59,6 @@ $theme-colors: map-merge($theme-colors, (
 
 body {
   min-width: 400px;
-}
-
-.carousel-item.active img {
-  transform: scale(1.04);
-  transform-origin: top left;
-  transition: transform 8s ease-in-out;
 }
 
 /*category header services, events */
@@ -130,8 +158,8 @@ body {
 /* FOOTER */
 
 .footer-logo {
-  height: 120px;
-  width: 120px;
+  height: 80px;
+  width: 80px;
 }
 
 /*EVENT PAGE*/
@@ -141,8 +169,13 @@ body {
 
 /* EVENTS PAGE */
 .bg-services {
-  background-image: url('./src/assets/services_bg.webp');
+  background-image: url('/src/assets/services_bg.webp');
   background-size: cover;
+}
+
+/* SLIDER */
+.slick-next {
+  display: none !important;
 }
 
 /* ABOUT US PAGE */
@@ -202,15 +235,29 @@ body {
   transition: 0.2s ease-in-out;
   width: 360px;
 }
-
-/* CONTACT PAGE */
-
-.block-example {
-  margin: 250px 0;
+/* MAIN CAROUSEL */
+.award-labels {
+  bottom: 0;
 }
 
-.slick-next {
-  display: none !important
+.carousel-item.active img {
+  transform: scale(1.04);
+  transform-origin: top left;
+  transition: transform 10s ease-in-out;
+}
+
+/* MEMBERSHIP */
+
+.bg-silver {
+  background-color: #808080; /* Szürke */
+}
+
+.bg-gold {
+  background-color: #ffd700; /* Arany */
+}
+
+.bg-platinum {
+  background-color: #e5e4e2; /* Platina */
 }
 
 /* ABOUT US PAGE */
@@ -474,6 +521,105 @@ body {
   background-color: #e6e6e6;
 }
 
+/* ADMIN PAGE */
+/* Layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: 260px 1fr 1fr 1fr;
+  grid-template-rows: 0.2fr 3fr;
+  grid-template-areas:
+    'sidebar header header header'
+    'sidebar main main main';
+}
+
+/* Header  */
+.header {
+  grid-area: header;
+  height: 60px;
+  box-shadow: 0 3px 7px -3px rgba(0, 0, 0, 0.35);
+}
+
+.menu-icon {
+  display: none;
+}
+
+/* Sidebar  */
+#sidebar {
+  grid-area: sidebar;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  box-shadow: 3px 0 7px -3px rgba(0, 0, 0, 0.35);
+}
+
+.menu-list li:hover {
+  background-color: #526d71!important;
+}
+
+.sidebar-title > span {
+  display: none;
+}
+
+.sidebar-logo {
+  height: 60%;
+  width: 60%;
+}
+
+/* Main  */
+.main-container {
+  grid-area: main;
+  overflow-y: auto;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Medium <= 992px */
+
+@media screen and (max-width: 992px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas:
+      'header'
+      'main';
+  }
+
+  #sidebar {
+    display: none;
+  }
+
+  .menu-icon {
+    display: inline;
+  }
+
+  .sidebar-title > span {
+    display: inline;
+  }
+}
+
+
+/*  ADMIN MEMBERS */
+.arrow-down {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.arrow-down::before {
+  content: '';
+  border-style: solid;
+  border-width: 6px 6px 0 6px;
+  border-color: #000 transparent transparent transparent;
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
 
 @import "../node_modules/bootstrap";
 
+@import '../node_modules/bootstrap';

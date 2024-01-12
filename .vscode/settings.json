@@ -1,0 +1,9 @@
+{  
+"folder-path-color.folders": [
+
+
+    { "path": "server/src", "symbol": "", "tooltip": "Source files", "color": "magenta" },
+    { "path": "client/src", "symbol": "", "tooltip": "Source files", "color": "cyan" },
+    { "path": "packages/common", "symbol": "T", "tooltip": "Common" }
+]
+}
