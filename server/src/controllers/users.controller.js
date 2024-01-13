@@ -28,12 +28,9 @@ export const verifyEmail = async (req, res) => {
   if (user) {
     await updateUserVerificationStatus(user.id, true);
 
-    res.status(200).json({
-      message: 'Registration is confirmed.',
-    });
-  } else {
-    res.status(400).json({
-      message: 'Invalid Email or Token.',
-    });
+    return res.redirect('http://localhost:5173/landingpage');
   }
+  return res.status(400).json({
+    message: 'Invalid Email or Token.',
+  });
 };

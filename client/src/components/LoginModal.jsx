@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import PropTypes from 'prop-types';
+import { API_URL } from '../constants';
 
 function LoginModal({ showButton, setShowButton }) {
   const [show, setShow] = useState(false);
@@ -19,9 +20,20 @@ function LoginModal({ showButton, setShowButton }) {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (values) => {
     // event.preventDefault();
     // alert(inputs);
+    try {
+      await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+    } catch (error) {
+      // console.error('Network error:', error);
+    }
   };
 
   return (
@@ -73,9 +85,9 @@ function LoginModal({ showButton, setShowButton }) {
             type="submit"
             variant="primary"
             onClick={() => {
-              handleClose();
               handleSubmit();
               setShowButton();
+              handleClose();
             }}
           >
             Log in

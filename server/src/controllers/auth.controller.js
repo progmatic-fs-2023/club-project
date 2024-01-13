@@ -21,7 +21,7 @@ export const registerUser = async (req, res) => {
 
     const emailtoken = crypto.randomBytes(64).toString('hex');
 
-    userService.createUser({
+    await userService.createUser({
       firstName,
       lastName,
       username,
@@ -34,7 +34,7 @@ export const registerUser = async (req, res) => {
       newsletter,
     });
 
-    emailService.sendVerificationEmail(email, emailtoken);
+    await emailService.sendVerificationEmail(email, emailtoken);
     console.log(email);
     res.status(201).json({
       message: 'User created.',
@@ -48,9 +48,9 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res, next) => {
-  const { username, password1 } = req.body;
-
-  if (!username || !password1) {
+  const { username, password1: password } = req.body;
+  console.log(req.body);
+  if (!username || !password) {
     return res.status(400).json({
       message: 'Failed to login.',
       error: 'Username or password not present.',
@@ -58,13 +58,13 @@ export const loginUser = async (req, res, next) => {
   }
 
   try {
-    const user = await userService.findUserByUsername({ username });
+    const user = await userService.findUserByUsername(username);
 
     if (!user) {
       return next(new HttpError('Username or password not correct.', 401));
     }
 
-    const matchedPassword = await bcrypt.compare(password1, user.password1);
+    const matchedPassword = await bcrypt.compare(password, user.password);
 
     if (!matchedPassword) {
       return next(new HttpError('Username or password not correct.', 401));
