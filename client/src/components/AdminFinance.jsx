@@ -1,29 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Table, Button, Form } from 'react-bootstrap'; // Import Form from react-bootstrap
+import { Table, Button, Form } from 'react-bootstrap';
 import { formatDate } from '../utils/dateUtils';
-import { useMembersContext } from '../contexts/MembersContext';
+import { API_URL } from '../constants';
 
 function AdminFinance() {
-  const { members } = useMembersContext();
-  const [filteredMembers, setFilteredMembers] = useState(members);
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isPayedFilter, setIsPayedFilter] = useState(false);
 
-  const tableHeaders = Object.keys(members[0]);
-
-  const modifiedHeaders = tableHeaders.map((header) => {
-    if (header === 'membershipLevel') return 'level';
-    if (header === 'membershipStartTime') return 'start date';
-    if (header === 'membershipEndTime') return 'end date';
-    if (header === 'isVerified') return 'verified';
-    if (header === 'isPayed') return 'payed';
-    return header;
-  });
-
   useEffect(() => {
-    const filtered = isPayedFilter ? members.filter((member) => !member.isPayed) : members;
-    setFilteredMembers(filtered);
-  }, [isPayedFilter, members]);
+    const fetchMembers = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/admin`);
+        const result = await response.json();
+        setMembers(result);
+        setLoading(false);
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchMembers();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center h-100 w-100">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  const modifiedHeaders = [
+    'id',
+    'first name',
+    'last name',
+    'username',
+    'email',
+    'phone',
+    'membership',
+    ':start date',
+    ':end date',
+    'newsletter',
+    'verified',
+    'payed',
+    'admin',
+  ];
+
+  const filteredMembers = isPayedFilter ? members.filter((member) => !member.isPayed) : members;
 
   const handleCheckPayment = () => {
     setIsPayedFilter(!isPayedFilter);
@@ -41,13 +69,13 @@ function AdminFinance() {
       </div>
 
       <div className="mt-3 w-100">
-        <Table striped bordered hover responsive className="text-nowrap shadow-sm">
-          <thead>
+        <Table striped bordered hover responsive className=" text-nowrap shadow-sm">
+          <thead className="table-dark">
             <tr>
               {modifiedHeaders.map((header) => (
                 <th
-                  className="py-3 px-2 bg-dark text-white fw-normal fs-6 text-uppercase text-center"
-                  key={`finance-key-${header}`}
+                  className="py-3 px-2 text-white fw-normal fs-6 text-uppercase text-center"
+                  key={`members-key-${header}`}
                 >
                   {header}
                 </th>
@@ -59,15 +87,25 @@ function AdminFinance() {
           </thead>
           <tbody>
             {filteredMembers.map((member) => (
-              <tr key={`finance-key-${member.id}`}>
+              <tr key={`members-key-${member.id}`}>
                 {modifiedHeaders.map((header) => (
-                  <td className="p-3 text-center" key={`finance-key-table-${header}`}>
+                  <td className="p-3 text-center" key={`members-key-table-${header}`}>
+                    {header === 'first name' && (
+                      <div>
+                        <div>{member.firstName}</div>
+                      </div>
+                    )}
+                    {header === 'last name' && (
+                      <div>
+                        <div>{member.lastName}</div>
+                      </div>
+                    )}
                     {header === 'level' && (
                       <div>
                         <div>{member.membershipLevel}</div>
                       </div>
                     )}
-                    {header === 'start date' && (
+                    {header === ':start date' && (
                       <div>
                         <div>
                           {member.membershipStartTime
@@ -76,36 +114,53 @@ function AdminFinance() {
                         </div>
                       </div>
                     )}
-                    {header === 'end date' && (
+                    {header === ':end date' && (
                       <div>
                         <div>
                           {member.membershipEndTime ? formatDate(member.membershipEndTime) : '-'}
                         </div>
                       </div>
                     )}
-                    {header === 'verified' && (
-                      <Form.Check
-                        type="checkbox"
-                        checked={member.isVerified}
-                        readOnly
-                        className="outline-none "
-                        key={`finance-verified-${member.id}`}
-                      />
-                    )}
-                    {header !== 'level' &&
-                      header !== 'start date' &&
-                      header !== 'end date' &&
-                      header !== 'isVerified' &&
-                      header !== 'isPayed' &&
-                      member[header]}
                     {header === 'payed' && (
                       <Form.Check
                         type="checkbox"
                         checked={member.isPayed}
                         readOnly
-                        key={`finance-payed-${member.id}`}
+                        key={`members-payed-${member.id}`}
                       />
                     )}
+                    {header === 'verified' && (
+                      <Form.Check
+                        type="checkbox"
+                        checked={member.isVerified}
+                        readOnly
+                        key={`members-verified-${member.id}`}
+                      />
+                    )}
+                    {header === 'newsletter' && (
+                      <Form.Check
+                        type="checkbox"
+                        checked={member.newsletter}
+                        readOnly
+                        key={`members-newsletter-${member.id}`}
+                      />
+                    )}
+                    {header === 'admin' && (
+                      <Form.Check
+                        type="checkbox"
+                        checked={member.isAdmin}
+                        readOnly
+                        key={`members-admin-${member.id}`}
+                      />
+                    )}
+                    {header !== 'level' &&
+                      header !== 'start date' &&
+                      header !== 'end date' &&
+                      header !== 'verified' &&
+                      header !== 'payed' &&
+                      header !== 'newsletter' &&
+                      header !== 'admin' &&
+                      member[header]}
                   </td>
                 ))}
                 <td className="p-3 text-center">

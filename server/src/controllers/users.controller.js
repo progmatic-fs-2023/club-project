@@ -1,25 +1,46 @@
 import {
   findUserByID,
+  listAllUsers,
   findEmailAndToken,
   updateUserVerificationStatus,
 } from '../services/users.service';
 import 'dotenv/config';
 
-export const get = async (req, res) => {
-  const userID = req.params.id;
-
-  const user = await findUserByID(userID);
-
-  if (user) {
-    res.json(user);
-  } else {
-    res.status(404).json({
-      message: 'User not found.',
+// GET USER BY ID
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await findUserByID(id);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'User does not exist' });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
     });
   }
 };
 
-export const verifyEmail = async (req, res) => {
+// GET ALL USER
+const list = async (req, res) => {
+  try {
+    const allUsers = await listAllUsers();
+    if (allUsers) {
+      res.json(allUsers);
+    } else {
+      res.status(404).json({ message: 'Users do not exist' });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+// EMAIL VERIFICATION
+const verifyEmail = async (req, res) => {
   const { email } = req.query;
   const { token } = req.query;
 
@@ -34,3 +55,5 @@ export const verifyEmail = async (req, res) => {
     message: 'Invalid Email or Token.',
   });
 };
+
+export { list, getUserById, verifyEmail };

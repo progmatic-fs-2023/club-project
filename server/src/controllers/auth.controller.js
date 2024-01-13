@@ -6,10 +6,19 @@ import 'dotenv/config';
 import * as userService from '../services/users.service';
 import * as emailService from '../services/email.service';
 
-export const registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
-    const { firstName, lastName, username, password1, gender, email, phoneNumber, newsletter } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      username,
+      password1,
+      gender,
+      email,
+      phoneNumber,
+      newsletter,
+      membership,
+    } = req.body;
 
     const passwordHash = await bcrypt.hash(password1, 10);
 
@@ -20,18 +29,22 @@ export const registerUser = async (req, res) => {
     }
 
     const emailtoken = crypto.randomBytes(64).toString('hex');
+    console.log(emailtoken);
 
     await userService.createUser({
       firstName,
       lastName,
       username,
-      password1: passwordHash,
       gender,
       email,
-      phoneNumber,
-      isverified: false,
-      emailtoken,
+      membership,
       newsletter,
+      emailtoken,
+      isverified: false,
+      isPayed: false,
+      isAdmin: false,
+      password1: passwordHash,
+      phoneNumber,
     });
 
     await emailService.sendVerificationEmail(email, emailtoken);
@@ -47,9 +60,9 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const loginUser = async (req, res, next) => {
+const loginUser = async (req, res, next) => {
   const { username, password1: password } = req.body;
-  console.log(req.body);
+
   if (!username || !password) {
     return res.status(400).json({
       message: 'Failed to login.',
@@ -90,3 +103,5 @@ export const loginUser = async (req, res, next) => {
     return next(new HttpError(err.message));
   }
 };
+
+export { registerUser, loginUser };
