@@ -80,7 +80,7 @@ function Event() {
 
   const isEventReserved = reservedEvents.includes(event.id);
 
-/*   const handleNextClick = () => {
+  /*   const handleNextClick = () => {
     const nextEventId = event.id === eventsList.length ? 1 : event.id + 1;
     const nextEvent = findEventById(nextEventId);
     setSelectedEvent(nextEvent);
@@ -100,106 +100,104 @@ function Event() {
 
   return (
     <>
-    <div className="d-flex flex-column">
-      <Image className="header-image w-100 object-fit-cover" src={event.headerImg} />
-      <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-5">
-        <Image className="w-25 mx-3" src={event.eventImg} rounded />
-        <div className="px-3">
-          <div className="d-flex flex-column align-items-center">
-            <h1 className="py-1 fw-bold text-primary border-5 border-bottom border-warning text-center ">
-              {event.name}{' '}
-            </h1>
-            <div className="fs-3 fw-bold text-uppercase">{startDate}</div>
-            <div className="fs-6 fw-bold">
-              {startTime} - {endTime}
+      <div className="d-flex flex-column">
+        <Image className="header-image w-100 object-fit-cover" src={event.headerImg} />
+        <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-5">
+          <Image className="w-25 mx-3" src={event.eventImg} rounded />
+          <div className="px-3">
+            <div className="d-flex flex-column align-items-center">
+              <h1 className="py-1 fw-bold text-primary border-5 border-bottom border-warning text-center ">
+                {event.name}{' '}
+              </h1>
+              <div className="fs-3 fw-bold text-uppercase">{startDate}</div>
+              <div className="fs-6 fw-bold">
+                {startTime} - {endTime}
+              </div>
             </div>
-          </div>
-          <Tabs defaultActiveKey="moreDetails" className="mb-3">
-            <Tab eventKey="moreDetails" title="More details">
-              {event.moreDetails}
-            </Tab>
-            <Tab eventKey="moreDetails1" title="More details">
-              {event.moreDetails}
-            </Tab>
-            <Tab eventKey="moreDetails2" title="More details">
-              {event.moreDetails}
-            </Tab>
-          </Tabs>
-          <div className="p-3 d-flex justify-content-center">
-          {isEventReserved ? (
-            <span className="text-muted fs-5 max-vw-25">Reserved</span>
-          ) : (
-            <Button className="btn-primary fs-5 max-vw-25" onClick={handleReserveClick}>
-              Reserve
-            </Button>
-          )}
-        </div>
-          <Nav className="d-flex justify-content-evenly">
-            {/*    <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
+            <Tabs defaultActiveKey="moreDetails" className="mb-3">
+              <Tab eventKey="moreDetails" title="More details">
+                {event.moreDetails}
+              </Tab>
+              <Tab eventKey="moreDetails1" title="More details">
+                {event.moreDetails}
+              </Tab>
+              <Tab eventKey="moreDetails2" title="More details">
+                {event.moreDetails}
+              </Tab>
+            </Tabs>
+            <div className="p-3 d-flex justify-content-center">
+              {isEventReserved ? (
+                <span className="text-muted fs-5 max-vw-25">Reserved</span>
+              ) : (
+                <Button className="btn-primary fs-5 max-vw-25" onClick={handleReserveClick}>
+                  Reserve
+                </Button>
+              )}
+            </div>
+            <Nav className="d-flex justify-content-evenly">
+              {/*    <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
             </Nav.Link> */}
-            <Nav.Link as={NavLink} to="/events">
-              <Button className="btn-primary fs-5 max-vw-25">Events</Button>
-            </Nav.Link>
-            {/*  <Nav.Link as={NavLink} to={`/events/${eventNext.name}`}>
+              <Nav.Link as={NavLink} to="/events">
+                <Button className="btn-primary fs-5 max-vw-25">Events</Button>
+              </Nav.Link>
+              {/*  <Nav.Link as={NavLink} to={`/events/${eventNext.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Next</Button>
             </Nav.Link> */}
-          </Nav>
+            </Nav>
+          </div>
         </div>
       </div>
-    </div>
-          <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              {reservationAccepted
-                ? 'Thank you! We accepted your reservation'
-                : `Are you sure you want to attend ${
-                    selectedEvent ? selectedEvent.name : 'this'
-                  } event?`}
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>
             {reservationAccepted
-              ? 'Your reservation has been accepted and cannot be withdrawn.'
-              : 'Your reservation will be final and cannot be withdrawn.'}
-          </Modal.Body>
-          <Modal.Footer>
-            {reservationAccepted ? (
-              <Button variant="primary" onClick={() => setShowThankYouModal(true)}>
-                Close
-              </Button>
-            ) : (
-              <>
-                <Button
-                  variant="primary"
-                  onClick={handleConfirmReserve}
-                  style={{ marginRight: 'auto' }}
-                >
-                  Yes
-                </Button>
-                <Button variant="secondary" onClick={handleCloseModal} style={{ marginLeft: 'auto' }}>
-                  No
-                </Button>
-              </>
-            )}
-          </Modal.Footer>
-        </Modal>
-  
-        <Modal show={showThankYouModal} onHide={() => setShowThankYouModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Thank you!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Your reservation was successful.</Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={() => setShowThankYouModal(false)}>
+              ? 'Thank you! We accepted your reservation'
+              : `Are you sure you want to attend ${
+                  selectedEvent ? selectedEvent.name : 'this'
+                } event?`}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {reservationAccepted
+            ? 'Your reservation has been accepted and cannot be withdrawn.'
+            : 'Your reservation will be final and cannot be withdrawn.'}
+        </Modal.Body>
+        <Modal.Footer>
+          {reservationAccepted ? (
+            <Button variant="primary" onClick={() => setShowThankYouModal(true)}>
               Close
             </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
+          ) : (
+            <>
+              <Button
+                variant="primary"
+                onClick={handleConfirmReserve}
+                style={{ marginRight: 'auto' }}
+              >
+                Yes
+              </Button>
+              <Button variant="secondary" onClick={handleCloseModal} style={{ marginLeft: 'auto' }}>
+                No
+              </Button>
+            </>
+          )}
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showThankYouModal} onHide={() => setShowThankYouModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Thank you!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your reservation was successful.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowThankYouModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }
-
-
 
 export default Event;
