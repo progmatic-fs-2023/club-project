@@ -2,8 +2,13 @@ import express from 'express';
 import * as usersController from '../controllers/users.controller';
 import * as auth from '../middlewares/auth.middleware';
 
-const router = express.Router();
+const usersRouter = express.Router();
 
-router.get('/:id', auth.authenticateToken, auth.verifyAccessLevel, usersController.get);
+usersRouter.get(
+  '/:id',
+  auth.authenticateToken,
+  auth.verifyAccessLevel,
+  usersController.getUserById,
+);
 
-export default router;
+export default usersRouter;

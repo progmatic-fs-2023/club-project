@@ -23,7 +23,7 @@ function MainCarousel() {
             to come together to experience the breathtaking Black Mountain landscape.
           </p>
           <div>
-            <Link to="/services/GOLF">
+            <Link to="/services/golf">
               <Button className="btn" size="lg">
                 BOOK TEE TIME
               </Button>
@@ -75,7 +75,7 @@ function MainCarousel() {
             Club has to offer
           </p>
           <div>
-            <Link to="/services/GOLF">
+            <Link to="/services/golf">
               <Button className="btn" size="lg">
                 BOOK TEE TIME
               </Button>

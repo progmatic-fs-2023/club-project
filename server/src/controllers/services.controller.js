@@ -17,7 +17,7 @@ const list = async (req, res) => {
   }
 };
 
-// GET EVENT BY NAME
+// GET SERVICE BY NAME
 const getServiceByName = async (req, res) => {
   const { name } = req.params;
   try {
