@@ -17,7 +17,7 @@ app.use(logger);
 
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
-app.use('/members', usersRouter);
+app.use('/users', usersRouter);
 
 app.use(errorHandler);
 

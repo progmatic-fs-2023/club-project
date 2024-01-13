@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
 
+// SEND VERIFICATION EMAIL
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -13,7 +14,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendVerificationEmail = async (email, token) => {
+const sendVerificationEmail = async (email, token) => {
   const mailOptions = {
     from: 'door8projekt@gmail.com',
     to: email,
@@ -38,7 +39,8 @@ export const sendVerificationEmail = async (email, token) => {
   });
 };
 
-export const welcomeContactUsEmail = async (req, res) => {
+// SEND EMAIL FROM SITE
+const welcomeContactUsEmail = async (req, res) => {
   const { nameInput, email, subject, message } = req.body;
   const contactEmail = 'door8projekt@gmail.com';
 
@@ -59,3 +61,5 @@ export const welcomeContactUsEmail = async (req, res) => {
     }
   });
 };
+
+export { sendVerificationEmail, welcomeContactUsEmail };

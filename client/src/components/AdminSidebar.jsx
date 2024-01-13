@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { BsGrid1X2Fill, BsFillGrid3X3GapFill, BsPeopleFill } from 'react-icons/bs';
 import { FaMoneyCheckAlt } from 'react-icons/fa';
 import { MdOutlineSportsTennis } from 'react-icons/md';
@@ -17,12 +17,15 @@ function AdminSidebar({ openSidebarToggle, OpenSidebar }) {
     >
       <div className="sidebar-title bg-dark d-flex align-items-center justify-content-between text-secondary p-3 px-4 border-bottom border-secondary ">
         <div className="w-25">
-          <img
-            src="/src/assets/door_logo_w.png"
-            alt="door logo"
-            className="sidebar-logo h-md-15 w-md-15"
-          />
+          <NavLink as={NavLink} to="/" target="_blank">
+            <img
+              src="/src/assets/door_logo_w.png"
+              alt="door logo"
+              className="sidebar-logo h-md-15 w-md-15"
+            />
+          </NavLink>
         </div>
+
         <div className="fs-6 fw-bold mt-2 text-white">THE DOOR CLUB</div>
         <span
           className="m-1 fs-5 pe-auto m-3 text-white"
