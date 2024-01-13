@@ -6,7 +6,7 @@ import {
   AboutUsTimelineCardRight2,
 } from './AboutUsTimelineCard';
 
-export default function AboutUsTimeline() {
+function AboutUsTimeline() {
   return (
     <Container className="py-5">
       <h1 className="m-5 text-center">The story of the club</h1>
@@ -27,3 +27,5 @@ export default function AboutUsTimeline() {
     </Container>
   );
 }
+
+export default AboutUsTimeline;

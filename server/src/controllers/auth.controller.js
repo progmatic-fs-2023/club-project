@@ -6,11 +6,21 @@ import 'dotenv/config';
 import * as userService from '../services/users.service';
 import * as emailService from '../services/email.service';
 
-export const registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
-    const { firstName, lastName, username, password, gender, email, phone } = req.body;
+    const {
+      firstName,
+      lastName,
+      username,
+      password1,
+      gender,
+      email,
+      phoneNumber,
+      newsletter,
+      membership,
+    } = req.body;
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password1, 10);
 
     if (await userService.isUsernameExist({ username })) {
       res.status(400).json({
@@ -19,21 +29,26 @@ export const registerUser = async (req, res) => {
     }
 
     const emailtoken = crypto.randomBytes(64).toString('hex');
+    console.log(emailtoken);
 
     await userService.createUser({
       firstName,
       lastName,
       username,
-      password: passwordHash,
       gender,
       email,
-      phone,
-      isverified: false,
+      membership,
+      newsletter,
       emailtoken,
+      isverified: false,
+      isPayed: false,
+      isAdmin: false,
+      password1: passwordHash,
+      phoneNumber,
     });
 
     await emailService.sendVerificationEmail(email, emailtoken);
-
+    console.log(email);
     res.status(201).json({
       message: 'User created.',
     });
@@ -45,8 +60,8 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const loginUser = async (req, res, next) => {
-  const { username, password } = req.body;
+const loginUser = async (req, res, next) => {
+  const { username, password1: password } = req.body;
 
   if (!username || !password) {
     return res.status(400).json({
@@ -56,7 +71,7 @@ export const loginUser = async (req, res, next) => {
   }
 
   try {
-    const user = await userService.findUserByUsername({ username });
+    const user = await userService.findUserByUsername(username);
 
     if (!user) {
       return next(new HttpError('Username or password not correct.', 401));
@@ -88,3 +103,5 @@ export const loginUser = async (req, res, next) => {
     return next(new HttpError(err.message));
   }
 };
+
+export { registerUser, loginUser };

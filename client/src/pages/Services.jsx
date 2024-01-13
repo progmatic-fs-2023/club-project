@@ -1,28 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import PropTypes from 'prop-types';
 import AllServices from '../components/AllServices';
 import SearchBar from '../components/SearchBar';
+import { API_URL } from '../constants';
 
-/*   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const response = await fetch("URL");
-        const data = await response.json();
-        setServices(data.services);
-      } catch (error) {
-        console.error('Error fetching services:', error);
-      }
-    }
-      fetchServices();
-   },[]) */
-
-function Services({ servicesList }) {
-  const [services, setServices] = useState(servicesList);
+function Services() {
+  const [services, setServices] = useState([]);
   const [noResults, setNoResults] = useState(false);
 
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/services`);
+        const result = await response.json();
+
+        setServices(result);
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
   const onSearch = (searchText) => {
-    let filteredList = [...servicesList];
+    let filteredList = [...services];
 
     if (searchText.length >= 2) {
       filteredList = filteredList.filter(
@@ -41,7 +43,7 @@ function Services({ servicesList }) {
   };
 
   return (
-    <div className="bg-services d-flex grow-1 py-5">
+    <div className="d-flex py-5">
       <Container>
         <Container>
           <p className="pt-5">Type at least 2 characters to initiate the search.</p>
@@ -55,9 +57,5 @@ function Services({ servicesList }) {
     </div>
   );
 }
-
-Services.propTypes = {
-  servicesList: PropTypes.string.isRequired,
-};
 
 export default Services;

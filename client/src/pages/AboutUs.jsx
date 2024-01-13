@@ -1,30 +1,19 @@
 import Container from 'react-bootstrap/Container';
-import PropTypes from 'prop-types';
 import AboutUsTimeline from '../components/AboutUsTimeline';
 import AboutUsWallOfFame from '../components/AboutUsWallOfFame';
 import AboutUsCharity from '../components/AboutUsCharity';
 
-export default function AboutUs(props) {
-  const { famous } = props;
-  const { charity } = props;
-
+function AboutUs() {
   return (
-    <div className="d-flex flex-grow-1 pt-5 w-100 bg-light">
+    <div className="d-flex flex-column pt-5 w-100">
       <Container>
         <div>
           <AboutUsTimeline />
-          <AboutUsWallOfFame famous={famous} />
-          <AboutUsCharity charity={charity} />
+          <AboutUsWallOfFame />
         </div>
       </Container>
+      <AboutUsCharity />
     </div>
   );
 }
-
-AboutUs.propTypes = {
-  famous: PropTypes.string.isRequired,
-};
-
-AboutUs.propTypes = {
-  charity: PropTypes.string.isRequired,
-};
+export default AboutUs;

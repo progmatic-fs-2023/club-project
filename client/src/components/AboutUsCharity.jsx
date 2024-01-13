@@ -1,35 +1,61 @@
+import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import { API_URL } from '../constants';
 
-export default function AboutUsCharity(props) {
-  const { charity } = props;
+function AboutUsCharity() {
+  const [charity, setCharity] = useState([]);
+
+  useEffect(() => {
+    const fetchCharity = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/aboutus`);
+        const result = await response.json();
+
+        const charityData = result.charity;
+
+        setCharity(charityData);
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchCharity();
+  }, []);
 
   return (
-    <div className="d-flex flex-column align-items-center">
-      <h2 className="m-4 text-center">Charity</h2>
-      <p className="m-4 mb-5 text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum, facere error
-        iste non harum rerum aut accusantium ratione expedita recusandae, perferendis illo unde
-        iusto, voluptas odit soluta dolores similique. Lorem ipsum dolor sit amet consectetur,
-        adipisicing elit. Hic rem quam voluptatum totam praesentium, non quidem officia quis ea,
-        nostrum ipsum nobis perspiciatis id repellendus quos inventore harum cumque architecto.
-      </p>
+    <div className="d-flex flex-column align-items-center mt-5 bg-light">
+      <div className="d-flex flex-column align-items-center">
+        <div className="m-3 mt-5 fs-1 text-center yeseva-font fw-bold">CHARITY</div>
+        <div className="fs-5 josefin-font w-50 text-center">
+          <p>Supporting others is of utmost importance to us.</p>
+          <p>
+            We believe that even a small gesture can bring about significant changes in the lives of
+            those in need. The foundations we share here represent noble causes that we are deeply
+            committed to.
+          </p>
+        </div>
+      </div>
 
-      <Row className="d-flex justify-contet-center">
+      <Row xs={1} md={3} lg={3} xl={5} className="m-5 d-flex mb-5 justify-content-center">
         {charity.map((org) => (
-          <Col className="d-flex justify-content-center" key={org.id}>
-            <div className="d-flex flex-column align-items-center" style={{ height: '500px' }}>
-              <div className="about-us-fame-card shadow rounded d-flex flex-column align-items-center bg-light pt-3">
-                <div className="about-us-card-image">
-                  <img src="https://picsum.photos/300" alt="anything" />
-                </div>
-                <div>
-                  <h3 className="pt-5 text-center">{org.organization}</h3>
-                </div>
-                <div className="about-us-card-content position-relative px-1 text-center">
-                  <h6>Amount of donated money so far: {org.money}</h6>
-                </div>
+          <Col
+            xs={8}
+            md={5}
+            lg={4}
+            className="px-4 m-2 about-us-fame-card shadow d-flex flex-column align-items-center bg-white"
+            key={org.id}
+          >
+            <div>
+              <img src={org.charityImg} alt="charity org logo" />
+            </div>
+            <div>
+              <div className="josefin-font fs-5 pt-2 text-center text-uppercase">
+                {org.organization}
               </div>
+            </div>
+            <div className="d-flex flex-column about-us-card-content position-relative px-1 text-center">
+              <div className="text-info fs-6">DONATED AMOUNT</div>
+              <span className="fw-bold text-info">{org.money}$</span>
             </div>
           </Col>
         ))}
@@ -38,6 +64,4 @@ export default function AboutUsCharity(props) {
   );
 }
 
-AboutUsCharity.propTypes = {
-  charity: PropTypes.string.isRequired,
-};
+export default AboutUsCharity;

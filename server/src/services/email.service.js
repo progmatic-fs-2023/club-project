@@ -1,34 +1,25 @@
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
 
-// PostgreSQL adatbázis kapcsolódási információk
-/* const dbClient = new Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_USER_PASSWORD,
-  port: process.env.DB_PORT,
-}); */
-
-// E-mail küldési beállítások
+// SEND VERIFICATION EMAIL
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'info.door8projekt@gmail.com',
+    user: 'door8projekt@gmail.com',
     pass: process.env.GMAIL_PASS,
   },
 
   tls: {
-    rejectUnauthorized: false, // Ne ellenőrizze a tanúsítványt
+    rejectUnauthorized: false,
   },
 });
 
-export const sendVerificationEmail = async (email, token) => {
+const sendVerificationEmail = async (email, token) => {
   const mailOptions = {
-    from: 'info.door8projekt@gmail.com',
+    from: 'door8projekt@gmail.com',
     to: email,
     subject: 'Email Verification',
-    html: `<p>Click <a href="http://localhost:3000/auth/register/confirm?email=${email}&token=${token}">here</a> to verify your email.</p>`,
+    html: `<p>Click <a href="http://localhost:5000/auth/register/confirm?email=${email}&token=${token}">here</a> to verify your email.</p>`,
   };
   console.log(mailOptions);
 
@@ -47,3 +38,28 @@ export const sendVerificationEmail = async (email, token) => {
     }
   });
 };
+
+// SEND EMAIL FROM SITE
+const welcomeContactUsEmail = async (req, res) => {
+  const { nameInput, email, subject, message } = req.body;
+  const contactEmail = 'door8projekt@gmail.com';
+
+  const mailOptions = {
+    from: contactEmail,
+    to: contactEmail,
+    subject,
+    html: `<p>Name: ${nameInput}</p><p>Email: ${email}</p><p>Message: ${message}</p>`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    } else {
+      console.log(`Email sent: ${info.response}`);
+      res.send('Message sent successfully!');
+    }
+  });
+};
+
+export { sendVerificationEmail, welcomeContactUsEmail };
