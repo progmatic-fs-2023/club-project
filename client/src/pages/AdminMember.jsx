@@ -1,9 +1,9 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Row, Col, Button, Form } from 'react-bootstrap';
+import { Row, Col, Button, Form, Modal } from 'react-bootstrap';
 import { FaEdit } from 'react-icons/fa';
 import { IoIosSave } from 'react-icons/io';
-import { MdCancel } from 'react-icons/md';
+import { MdCancel, MdDeleteForever } from 'react-icons/md';
 import { formatDateLong } from '../utils/dateUtils';
 import { API_URL } from '../constants';
 
@@ -12,6 +12,9 @@ function AdminMember() {
   const [member, setMember] = useState([]);
   const [modifiedMember, setModifiedMember] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMemberById = async () => {
@@ -44,6 +47,32 @@ function AdminMember() {
     } catch (error) {
       // console.error('Error fetching data:', error);
     }
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/admin/${memberId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        navigate('/admin/members');
+      } else {
+        // console.error('Failed to delete member!');
+      }
+    } catch (error) {
+      // console.error('Error deleting member:', error);
+    } finally {
+      setShowDeleteModal(false);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteModal(false);
   };
 
   const handleEditClick = () => {
@@ -115,21 +144,30 @@ function AdminMember() {
               )}
             </div>
 
-            <div className="d-flex flex-column flex-md-row align-items-end align-items-xs-center">
+            <div className="d-flex flex-column flex-md-row  align-items-xs-center">
+              <div className="d-flex align-items-end p-2">
+                <Button
+                  className="fs-6 px-3 d-flex align-items-center "
+                  onClick={handleDeleteClick}
+                >
+                  <MdDeleteForever className="me-2" />
+                  Delete
+                </Button>
+              </div>
               <div className="d-flex align-items-center p-2">
-                <Button className="fs-6 px-3" onClick={handleResetClick}>
+                <Button className="fs-6 px-3  d-flex align-items-center" onClick={handleResetClick}>
                   <MdCancel className="me-2" />
                   RESET
                 </Button>
               </div>
               <div className="d-flex align-items-center p-2">
-                <Button className="fs-6 px-3" onClick={handleEditClick}>
+                <Button className="fs-6 px-3  d-flex align-items-center" onClick={handleEditClick}>
                   <FaEdit className="me-2" />
                   EDIT
                 </Button>
               </div>
               <div className="d-flex align-items-center p-2">
-                <Button className="fs-6 px-3" onClick={handleSaveClick}>
+                <Button className="fs-6 px-3  d-flex align-items-center" onClick={handleSaveClick}>
                   <IoIosSave className="me-2" />
                   SAVE
                 </Button>
@@ -346,6 +384,20 @@ function AdminMember() {
           </Col>
         </div>
       </Row>
+      <Modal show={showDeleteModal} onHide={handleDeleteCancel}>
+        <Modal.Header closeButton>
+          <Modal.Title>CONFIRM DELETE</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this member?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDeleteCancel}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDeleteConfirm}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </main>
   );
 }

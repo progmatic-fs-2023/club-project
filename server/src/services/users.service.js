@@ -73,8 +73,20 @@ const findUserByID = async id => {
 
 // DELETE USER BY ID
 const deleteUserByID = async id => {
-  const response = await db.query('DELETE FROM members WHERE id = $1 RETURNING *', [id]);
-  return response.rows[0];
+  try {
+    await db.query('BEGIN');
+
+    await db.query('DELETE FROM bookings_services WHERE member_id = $1', [id]);
+
+    const response = await db.query('DELETE FROM members WHERE id = $1 RETURNING *', [id]);
+
+    await db.query('COMMIT');
+
+    return response.rows;
+  } catch (error) {
+    await db.query('ROLLBACK');
+    throw error;
+  }
 };
 
 // GET USER BY EMAIL AND TOKEN
