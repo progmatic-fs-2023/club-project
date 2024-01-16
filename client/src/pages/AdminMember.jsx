@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Form } from 'react-bootstrap';
 import { FaEdit } from 'react-icons/fa';
 import { IoIosSave } from 'react-icons/io';
 import { MdCancel } from 'react-icons/md';
@@ -10,6 +10,8 @@ import { API_URL } from '../constants';
 function AdminMember() {
   const { memberId } = useParams();
   const [member, setMember] = useState([]);
+  const [modifiedMember, setModifiedMember] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchMemberById = async () => {
@@ -17,6 +19,7 @@ function AdminMember() {
         const response = await fetch(`${API_URL}/api/admin/${memberId}`);
         const result = await response.json();
         setMember(result);
+        setModifiedMember(result);
       } catch (error) {
         // console.error('Error fetching data:', error);
       }
@@ -24,6 +27,57 @@ function AdminMember() {
 
     fetchMemberById();
   }, []);
+
+  const handleSaveClick = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/admin/${memberId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ modifiedMember }),
+      });
+
+      const result = await response.json();
+      setMember(result);
+      setIsEditing(false);
+    } catch (error) {
+      // console.error('Error fetching data:', error);
+    }
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleResetClick = () => {
+    setModifiedMember(member);
+    setIsEditing(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type } = e.target;
+
+    if (type === 'datetime-local') {
+      const formattedDate = new Date(value).toISOString().slice(0, -8);
+      setModifiedMember((prevModifiedMember) => ({
+        ...prevModifiedMember,
+        [name]: formattedDate,
+      }));
+    } else {
+      setModifiedMember((prevModifiedMember) => ({
+        ...prevModifiedMember,
+        [name]: type === 'checkbox' ? !prevModifiedMember[name] : value,
+      }));
+    }
+  };
+
+  const handleDeleteImage = () => {
+    setModifiedMember((prevModifiedMember) => ({
+      ...prevModifiedMember,
+      memberImg: '/src/assets/male.png',
+    }));
+  };
 
   return (
     <main className="main-container p-5 text-dark">
@@ -45,24 +99,37 @@ function AdminMember() {
             {`${member.firstName} ${member.lastName}`}
           </Col>
           <div className="d-flex flex-row justify-content-between align-items-start">
-            <div className="d-flex ">
-              <img src={member.memberImg} alt="profile" className="rounded shadow-sm" />
+            <div className="d-flex align-items-center">
+              <img
+                src={modifiedMember.memberImg}
+                alt="profile"
+                className="rounded shadow-sm p-2"
+                style={{ maxWidth: '200px', maxHeight: '200px' }}
+              />
+              {isEditing && (
+                <div className="m-2">
+                  <button type="button" className="btn btn-danger" onClick={handleDeleteImage}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
+
             <div className="d-flex flex-column flex-md-row align-items-end align-items-xs-center">
               <div className="d-flex align-items-center p-2">
-                <Button className="fs-6 px-3">
+                <Button className="fs-6 px-3" onClick={handleResetClick}>
                   <MdCancel className="me-2" />
                   RESET
                 </Button>
               </div>
               <div className="d-flex align-items-center p-2">
-                <Button className="fs-6 px-3">
+                <Button className="fs-6 px-3" onClick={handleEditClick}>
                   <FaEdit className="me-2" />
                   EDIT
                 </Button>
               </div>
               <div className="d-flex align-items-center p-2">
-                <Button className="fs-6 px-3">
+                <Button className="fs-6 px-3" onClick={handleSaveClick}>
                   <IoIosSave className="me-2" />
                   SAVE
                 </Button>
@@ -73,13 +140,56 @@ function AdminMember() {
         <div className="row">
           <Col xs={12} md={5} lg={4} xl={4} className="m-2">
             <div className="fw-bold">FIRST NAME</div>
-            <div className="bg-white shadow-sm p-1 mb-2"> {member.firstName}</div>
+            {isEditing ? (
+              <Form.Control
+                type="text"
+                name="firstName"
+                className="bg-white border-info"
+                value={modifiedMember.firstName}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <div className="bg-white shadow-sm p-1 mb-2"> {modifiedMember.firstName}</div>
+            )}
+
             <div className="fw-bold">LAST NAME</div>
-            <div className="bg-white shadow-sm p-1 mb-2"> {member.lastName}</div>
+            {isEditing ? (
+              <Form.Control
+                type="text"
+                name="lastName"
+                className="bg-white border-info"
+                value={modifiedMember.lastName}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <div className="bg-white shadow-sm p-1 mb-2"> {modifiedMember.lastName}</div>
+            )}
+
             <div className="fw-bold">USERNAME</div>
-            <div className="bg-white shadow-sm p-1 mb-2"> {member.username}</div>
+            {isEditing ? (
+              <Form.Control
+                type="text"
+                name="username"
+                className="bg-white border-info"
+                value={modifiedMember.username}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <div className="bg-white shadow-sm p-1 mb-2"> {modifiedMember.username}</div>
+            )}
+
             <div className="fw-bold">EMAIL</div>
-            <div className="bg-white shadow-sm p-1"> {member.email}</div>
+            {isEditing ? (
+              <Form.Control
+                type="email"
+                name="email"
+                className="bg-white border-info"
+                value={modifiedMember.email}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <div className="bg-white shadow-sm p-1"> {modifiedMember.email}</div>
+            )}
           </Col>
           <Col className="d-flex justify-content-center d-none d-md-flex p-0">
             <div className="vr" />
@@ -89,17 +199,89 @@ function AdminMember() {
           </Col>
           <Col xs={12} md={3} lg={3} xl={3} className="m-2">
             <div className="fw-bold">MEMBERSHIP LEVEL</div>
-            <div className="bg-white shadow-sm p-1 mb-2"> {member.membership}</div>
+            {isEditing ? (
+              <Form>
+                <div className="d-flex flex-column">
+                  <Form.Check
+                    inline
+                    label="gold"
+                    type="radio"
+                    id="gold"
+                    name="membership"
+                    checked={modifiedMember.membership === 'gold'}
+                    onChange={() =>
+                      handleInputChange({ target: { name: 'membership', value: 'gold' } })
+                    }
+                  />
+                  <Form.Check
+                    inline
+                    label="silver"
+                    type="radio"
+                    id="silver"
+                    name="membership"
+                    checked={modifiedMember.membership === 'silver'}
+                    onChange={() =>
+                      handleInputChange({ target: { name: 'membership', value: 'silver' } })
+                    }
+                  />
+                  <Form.Check
+                    inline
+                    label="platinum"
+                    type="radio"
+                    id="platinum"
+                    name="membership"
+                    checked={modifiedMember.membership === 'platinum'}
+                    onChange={() =>
+                      handleInputChange({ target: { name: 'membership', value: 'platinum' } })
+                    }
+                  />
+                </div>
+              </Form>
+            ) : (
+              <div className="bg-white shadow-sm p-1 mb-2"> {modifiedMember.membership}</div>
+            )}
             <div className="fw-bold">START DATE</div>
-            <div className="bg-white shadow-sm p-1 mb-2">
-              {' '}
-              {formatDateLong(member.membershipStartTime)}
-            </div>
+            {isEditing ? (
+              <div>
+                <div className="original-date">
+                  <span style={{ fontSize: '12px' }}>original:</span>{' '}
+                  {formatDateLong(modifiedMember.membershipStartTime)}
+                </div>
+                <Form.Control
+                  type="datetime-local"
+                  name="membershipStartTime"
+                  className="bg-white border-info"
+                  value={modifiedMember.membershipStartTime}
+                  onChange={handleInputChange}
+                />
+              </div>
+            ) : (
+              <div className="bg-white shadow-sm p-1 mb-2">
+                {formatDateLong(modifiedMember.membershipStartTime)}
+              </div>
+            )}
+
             <div className="fw-bold">END DATE</div>
-            <div className="bg-white shadow-sm p-1">
-              {' '}
-              {formatDateLong(member.membershipEndTime)}
-            </div>
+            {isEditing ? (
+              <div>
+                <div className="original-date">
+                  <span style={{ fontSize: '12px' }}>original:</span>{' '}
+                  {formatDateLong(modifiedMember.membershipEndTime)}
+                </div>
+                <Form.Control
+                  type="datetime-local"
+                  name="membershipEndTime"
+                  className="bg-white border-info"
+                  value={modifiedMember.membershipEndTime}
+                  onChange={handleInputChange}
+                />
+              </div>
+            ) : (
+              <div className="bg-white shadow-sm p-1 mb-2">
+                {' '}
+                {formatDateLong(modifiedMember.membershipEndTime)}
+              </div>
+            )}
           </Col>
           <Col col={1} className="d-flex justify-content-center d-none d-md-flex p-0">
             <div className="vr" />
@@ -108,19 +290,58 @@ function AdminMember() {
             <div className="w-100 p-2 mx-4 d-flex align-items-center d-flex d-md-none p-0 border-1 border-bottom" />
           </Col>
           <Col xs={12} md={3} lg={2} xl={3} className="m-2">
-            <div className="d-flex flex-row flex-md-column">
+            <div
+              className={`${
+                isEditing ? 'border border-info px-2 rounded bg-white' : ''
+              } d-flex flex-row flex-md-column`}
+            >
               <div className="fw-bold">PAYMENT SUCCESSFUL</div>
-              <div className="pe-4 ps-1 pb-md-3">
-                <input type="checkbox" checked={member.isPayed} readOnly />
-              </div>
+              {isEditing ? (
+                <div className="d-flex pe-4 ps-1 pb-md-3">
+                  <input
+                    type="checkbox"
+                    name="isPayed"
+                    checked={modifiedMember.isPayed}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              ) : (
+                <div className="pe-4 ps-1 pb-md-3">
+                  <input type="checkbox" checked={modifiedMember.isPayed} readOnly />
+                </div>
+              )}
               <div className="fw-bold">VERIFIED VIA EMAIL</div>
-              <div className="pe-4 ps-1 pb-md-3">
-                <input type="checkbox" checked={member.isVerified} readOnly />
-              </div>
+              {isEditing ? (
+                <div className="pe-4 ps-1 pb-md-3">
+                  <input
+                    type="checkbox"
+                    name="isVerified"
+                    checked={modifiedMember.isVerified}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              ) : (
+                <div className="pe-4 ps-1 pb-md-3">
+                  <input type="checkbox" checked={modifiedMember.isVerified} readOnly />
+                </div>
+              )}
+
               <div className="fw-bold">ADMIN ROLE</div>
-              <div className="pe-4 ps-1 pb-md-3">
-                <input type="checkbox" checked={member.isAdmin} readOnly />
-              </div>
+              {isEditing ? (
+                <div className="pe-4 ps-1 pb-md-3">
+                  <input
+                    type="checkbox"
+                    name="isAdmin"
+                    checked={modifiedMember.isAdmin}
+                    onChange={handleInputChange}
+                    readOnly={false}
+                  />
+                </div>
+              ) : (
+                <div className="pe-4 ps-1 pb-md-3">
+                  <input type="checkbox" checked={modifiedMember.isAdmin} readOnly />
+                </div>
+              )}
             </div>
           </Col>
         </div>
