@@ -40,15 +40,11 @@ function AdminFinance() {
     'first name',
     'last name',
     'username',
-    'email',
-    'phone',
     'membership',
     ':start date',
     ':end date',
-    'newsletter',
     'verified',
     'payed',
-    'admin',
   ];
 
   const filteredMembers = isPayedFilter ? members.filter((member) => !member.isPayed) : members;

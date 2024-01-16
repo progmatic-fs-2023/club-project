@@ -69,12 +69,9 @@ function AdminMembers() {
     'email',
     'phone',
     'membership',
-    ':start date',
-    ':end date',
     'newsletter',
     'verified',
     'payed',
-    'admin',
   ];
 
   /*  useEffect(() => {

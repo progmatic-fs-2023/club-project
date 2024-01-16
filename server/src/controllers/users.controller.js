@@ -1,8 +1,10 @@
 import {
   findUserByID,
+  deleteUserByID,
   listAllUsers,
   findEmailAndToken,
   updateUserVerificationStatus,
+  updateUserByID,
 } from '../services/users.service';
 import 'dotenv/config';
 
@@ -11,6 +13,43 @@ const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await findUserByID(id);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'User does not exist' });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+// UPDATE USER BY ID
+const putUserById = async (req, res) => {
+  const { id } = req.params;
+  const { modifiedMember } = req.body;
+
+  try {
+    const user = await updateUserByID(id, modifiedMember);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'User does not exist' });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+// DELETE USER BY ID
+const destroyUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await deleteUserByID(id);
     if (user) {
       res.json(user);
     } else {
@@ -56,4 +95,4 @@ const verifyEmail = async (req, res) => {
   });
 };
 
-export { list, getUserById, verifyEmail };
+export { list, getUserById, putUserById, destroyUserById, verifyEmail };
