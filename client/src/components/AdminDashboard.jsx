@@ -54,13 +54,13 @@ function AdminDashboard() {
 
       <div className="row gx-3 gy-4">
         <div className="col-md">
-          <AdminMemberNewsCard title="MEMBER" count={400} />
+          <AdminMemberNewsCard title="SERVICES/EVENTS" count={26} />
         </div>
         <div className="col-md">
-          <AdminMemberNewsCard title="NEW MEMBERS THIS WEEK" count={20} />
+          <AdminMemberNewsCard title="NEW MEMBERS THIS WEEK" count={1} />
         </div>
         <div className="col-md">
-          <AdminMemberNewsCard title="ALL MEMBERS" count={30} />
+          <AdminMemberNewsCard title="ALL MEMBERS" count={4} />
         </div>
       </div>
 

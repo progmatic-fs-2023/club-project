@@ -11,8 +11,6 @@ function AdminMemberSearch({
   setSearchLastName,
   searchEmail,
   setSearchEmail,
-  searchAddress,
-  setSearchAddress,
   searchMembershipLevel,
   setSearchMembershipLevel,
   resetSearch,
@@ -59,15 +57,6 @@ function AdminMemberSearch({
           />
         </Col>
         <Col xs={6} md={2}>
-          <Form.Control
-            type="text"
-            placeholder="By Address"
-            value={searchAddress}
-            onChange={(e) => setSearchAddress(e.target.value)}
-            className="my-2"
-          />
-        </Col>
-        <Col xs={6} md={2}>
           <div className="position-relative">
             <Form.Control
               as="select"
@@ -104,8 +93,6 @@ AdminMemberSearch.propTypes = {
   setSearchLastName: PropTypes.func.isRequired,
   searchEmail: PropTypes.string.isRequired,
   setSearchEmail: PropTypes.func.isRequired,
-  searchAddress: PropTypes.string.isRequired,
-  setSearchAddress: PropTypes.func.isRequired,
   searchMembershipLevel: PropTypes.string.isRequired,
   setSearchMembershipLevel: PropTypes.func.isRequired,
   resetSearch: PropTypes.func.isRequired,

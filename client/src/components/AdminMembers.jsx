@@ -1,22 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Table, Button, Form } from 'react-bootstrap';
 import { formatDate, currentWeek } from '../utils/dateUtils';
-import AdminMemberSearch from './AdminMemberSearch';
+// import AdminMemberSearch from './AdminMemberSearch';
 import AdminMemberNewsCard from './AdminMemberNewsCard';
-import { useMembersContext } from '../contexts/MembersContext';
+import { API_URL } from '../constants';
 
 function AdminMembers() {
-  const { members } = useMembersContext();
-  const [searchId, setSearchId] = useState('');
+  const [members, setMembers] = useState([]);
+  /* const [searchId, setSearchId] = useState('');
   const [searchFirstName, setSearchFirstName] = useState('');
   const [searchLastName, setSearchLastName] = useState('');
   const [searchEmail, setSearchEmail] = useState('');
-  const [searchAddress, setSearchAddress] = useState('');
   const [searchMembershipLevel, setSearchMembershipLevel] = useState('');
-  const [filteredMembers, setFilteredMembers] = useState(members);
+  const [filteredMembers, setFilteredMembers] = useState(members); */
+  const [loading, setLoading] = useState(true);
 
-  const tableHeaders = Object.keys(members[0]);
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/admin`);
+        const result = await response.json();
+        setMembers(result);
+        setLoading(false);
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchMembers();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center h-100 w-100">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   const newMembersThisWeekCount = members.reduce((count, member) => {
     const membershipStartDate = new Date(member.membershipStartTime);
@@ -37,22 +61,25 @@ function AdminMembers() {
     return count + (isToday ? 1 : 0);
   }, 0);
 
-  const modifiedHeaders = tableHeaders.map((header) => {
-    if (header === 'membershipLevel') return 'level';
-    if (header === 'membershipStartTime') return 'start date';
-    if (header === 'membershipEndTime') return 'end date';
-    if (header === 'isVerified') return 'verified';
-    if (header === 'isPayed') return 'payed';
-    return header;
-  });
+  const modifiedHeaders = [
+    'id',
+    'first name',
+    'last name',
+    'username',
+    'email',
+    'phone',
+    'membership',
+    'newsletter',
+    'verified',
+    'payed',
+  ];
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (
       searchId.length >= 2 ||
       searchFirstName.length >= 2 ||
       searchLastName.length >= 2 ||
       searchEmail.length >= 2 ||
-      searchAddress.length >= 2 ||
       searchMembershipLevel.length >= 2
     ) {
       setFilteredMembers(
@@ -62,31 +89,21 @@ function AdminMembers() {
             member.firstName.toLowerCase().includes(searchFirstName.toLowerCase()) &&
             member.lastName.toLowerCase().includes(searchLastName.toLowerCase()) &&
             member.email.toLowerCase().includes(searchEmail.toLowerCase()) &&
-            member.address.toLowerCase().includes(searchAddress.toLowerCase()) &&
             member.membershipLevel.toLowerCase().includes(searchMembershipLevel.toLowerCase()),
         ),
       );
     } else {
       setFilteredMembers(members);
     }
-  }, [
-    searchId,
-    searchFirstName,
-    searchLastName,
-    searchEmail,
-    searchAddress,
-    searchMembershipLevel,
-    members,
-  ]);
+  }, [searchId, searchFirstName, searchLastName, searchEmail, searchMembershipLevel, members]);
 
   const resetSearch = () => {
     setSearchId('');
     setSearchFirstName('');
     setSearchLastName('');
     setSearchEmail('');
-    setSearchAddress('');
     setSearchMembershipLevel('');
-  };
+  }; */
 
   return (
     <main className="main-container p-5 text-dark">
@@ -106,7 +123,7 @@ function AdminMembers() {
         </div>
       </div>
 
-      <AdminMemberSearch
+      {/* <AdminMemberSearch
         searchId={searchId}
         setSearchId={setSearchId}
         searchFirstName={searchFirstName}
@@ -115,12 +132,10 @@ function AdminMembers() {
         setSearchLastName={setSearchLastName}
         searchEmail={searchEmail}
         setSearchEmail={setSearchEmail}
-        searchAddress={searchAddress}
-        setSearchAddress={setSearchAddress}
         searchMembershipLevel={searchMembershipLevel}
         setSearchMembershipLevel={setSearchMembershipLevel}
         resetSearch={resetSearch}
-      />
+      /> */}
 
       <div className="mt-3 w-100">
         <Table striped bordered hover responsive className=" text-nowrap shadow-sm">
@@ -140,16 +155,26 @@ function AdminMembers() {
             </tr>
           </thead>
           <tbody>
-            {filteredMembers.map((member) => (
+            {members.map((member) => (
               <tr key={`members-key-${member.id}`}>
                 {modifiedHeaders.map((header) => (
                   <td className="p-3 text-center" key={`members-key-table-${header}`}>
+                    {header === 'first name' && (
+                      <div>
+                        <div>{member.firstName}</div>
+                      </div>
+                    )}
+                    {header === 'last name' && (
+                      <div>
+                        <div>{member.lastName}</div>
+                      </div>
+                    )}
                     {header === 'level' && (
                       <div>
                         <div>{member.membershipLevel}</div>
                       </div>
                     )}
-                    {header === 'start date' && (
+                    {header === ':start date' && (
                       <div>
                         <div>
                           {member.membershipStartTime
@@ -158,7 +183,7 @@ function AdminMembers() {
                         </div>
                       </div>
                     )}
-                    {header === 'end date' && (
+                    {header === ':end date' && (
                       <div>
                         <div>
                           {member.membershipEndTime ? formatDate(member.membershipEndTime) : '-'}
@@ -181,11 +206,29 @@ function AdminMembers() {
                         key={`members-verified-${member.id}`}
                       />
                     )}
+                    {header === 'newsletter' && (
+                      <Form.Check
+                        type="checkbox"
+                        checked={member.newsletter}
+                        readOnly
+                        key={`members-newsletter-${member.id}`}
+                      />
+                    )}
+                    {header === 'admin' && (
+                      <Form.Check
+                        type="checkbox"
+                        checked={member.isAdmin}
+                        readOnly
+                        key={`members-admin-${member.id}`}
+                      />
+                    )}
                     {header !== 'level' &&
                       header !== 'start date' &&
                       header !== 'end date' &&
-                      header !== 'isVerified' &&
-                      header !== 'isPayed' &&
+                      header !== 'verified' &&
+                      header !== 'payed' &&
+                      header !== 'newsletter' &&
+                      header !== 'admin' &&
                       member[header]}
                   </td>
                 ))}
