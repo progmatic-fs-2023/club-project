@@ -8,11 +8,13 @@ import { API_URL } from '../constants';
 
 function LoginModal({ showButton, setShowButton }) {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const [inputs, setInputs] = useState({});
+
+  const handleClose = () => {
+    setInputs({});
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
 
   const handleChange = (event) => {
     const { name } = event.target;
