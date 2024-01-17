@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
 import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
@@ -12,6 +12,9 @@ function Layout() {
   const [show, setShow] = useState('inline-block');
 
   const handleCloseButton = () => setShow('none');
+  const handleLogoutButton = () => {
+    setShow('inline-block');
+  };
 
   return (
     <div className="d-flex flex-column vh-100">
@@ -68,6 +71,19 @@ function Layout() {
                   className="user-icon d-inline-block align-top"
                   alt="profile logo"
                 />
+              </Navbar.Brand>
+              <Navbar.Brand
+                as={NavLink}
+                to="/"
+                style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+              >
+                <Button
+                  className="mx-3 max-vw-25 fs-5"
+                  variant="outline-light"
+                  onClick={handleLogoutButton}
+                >
+                  Log out
+                </Button>
               </Navbar.Brand>
               <LoginModal showButton={show} setShowButton={handleCloseButton} />
               <RegistrationModal showButton={show} />
