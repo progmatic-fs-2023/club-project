@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
+import crypto from 'crypto';
 
 // SEND VERIFICATION EMAIL
 const transporter = nodemailer.createTransport({
@@ -62,4 +63,31 @@ const welcomeContactUsEmail = async (req, res) => {
   });
 };
 
-export { sendVerificationEmail, welcomeContactUsEmail };
+const sendNewPasswordEmail = async req => {
+  const { email } = req.body;
+  const token = crypto.randomBytes(32).toString('hex');
+
+  const mailOptions = {
+    from: 'door8projekt@gmail.com',
+    to: email,
+    subject: 'New Password link',
+    html: `<p>Click <a href="http://localhost:5000/api/reset-password?email=${email}&token=${token}">here</a> to reset your password.</p>`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+      // res.status(500).json({
+      //   message: 'Error sending verification email.',
+      //   error: error.message,
+      // });
+    } else {
+      console.log(`Email sent: ${info.response}`);
+      // res.status(200).json({
+      //   message: 'Verification email sent.',
+      // });
+    }
+  });
+};
+
+export { sendVerificationEmail, welcomeContactUsEmail, sendNewPasswordEmail };
