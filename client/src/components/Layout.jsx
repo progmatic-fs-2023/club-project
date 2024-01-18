@@ -2,19 +2,31 @@ import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import { Row, Col, Button } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
+import { useAuth } from '../contexts/AuthContext';
 
 function Layout() {
-  const [show, setShow] = useState('inline-block');
+  const { isAuthenticated, logout } = useAuth();
+  const [show, setShow] = useState(isAuthenticated ? 'none' : 'inline-block');
 
   const handleCloseButton = () => setShow('none');
   const handleLogoutButton = () => {
     setShow('inline-block');
+    logout();
   };
+
+  useEffect(() => {
+    // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
+    if (isAuthenticated) {
+      setShow('none');
+    } else {
+      setShow('inline-block');
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="d-flex flex-column vh-100">
@@ -80,12 +92,19 @@ function Layout() {
                 <Button
                   className="mx-3 max-vw-25 fs-5"
                   variant="outline-light"
-                  onClick={handleLogoutButton}
+                  onClick={() => {
+                    handleLogoutButton();
+                    logout();
+                  }}
                 >
                   Log out
                 </Button>
               </Navbar.Brand>
-              <LoginModal showButton={show} setShowButton={handleCloseButton} />
+              <LoginModal
+                showButton={show}
+                setShowButton={handleCloseButton}
+                setShowButtonNone={handleLogoutButton}
+              />
               <RegistrationModal showButton={show} />
             </Nav.Link>
           </Navbar.Collapse>

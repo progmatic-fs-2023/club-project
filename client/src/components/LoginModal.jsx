@@ -5,10 +5,18 @@ import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import PropTypes from 'prop-types';
 import { API_URL } from '../constants';
+import ForgotPasswordModal from './ForgotPasswordModal';
+import { useAuth } from '../contexts/AuthContext';
 
-function LoginModal({ showButton, setShowButton }) {
+function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
   const [show, setShow] = useState(false);
   const [inputs, setInputs] = useState({});
+  const { login } = useAuth(); // AuthContext használata
+
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+
+  const handleShowForgotPasswordModal = () => setShowForgotPasswordModal(true);
+  const handleCloseForgotPasswordModal = () => setShowForgotPasswordModal(false);
 
   const handleClose = () => {
     setInputs({});
@@ -25,16 +33,28 @@ function LoginModal({ showButton, setShowButton }) {
   const handleSubmit = async (values) => {
     // event.preventDefault();
     // alert(inputs);
+    // console.log(values);
     try {
-      await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
       });
+      const data = await response.json();
+
+      if (data.user && data.user.username === values.username) {
+        // console.log("Siker");
+        setShowButton();
+        login(); // Bejelentkezési állapot frissítése
+      } else {
+        // alert("Nem siker - ismeretlen hiba vagy nincs felhasználó");
+        setShowButtonNone();
+      }
+      // console.log(data);
     } catch (error) {
-      // console.error('Network error:', error);
+      // console.error(error);
     }
   };
 
@@ -78,6 +98,17 @@ function LoginModal({ showButton, setShowButton }) {
               </FloatingLabel>
             </Form.Group>
           </Form>
+          <p className="text-center">
+            <Button
+              variant="link"
+              onClick={() => {
+                handleShowForgotPasswordModal();
+                // handleClose();
+              }}
+            >
+              Forgot Password?
+            </Button>
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -87,14 +118,17 @@ function LoginModal({ showButton, setShowButton }) {
             type="submit"
             variant="primary"
             onClick={() => {
-              handleSubmit();
-              setShowButton();
+              handleSubmit(inputs);
               handleClose();
             }}
           >
             Log in
           </Button>
         </Modal.Footer>
+        <ForgotPasswordModal
+          show={showForgotPasswordModal}
+          handleClose={handleCloseForgotPasswordModal}
+        />
       </Modal>
     </>
   );
@@ -103,6 +137,7 @@ function LoginModal({ showButton, setShowButton }) {
 LoginModal.propTypes = {
   showButton: PropTypes.string.isRequired,
   setShowButton: PropTypes.func.isRequired,
+  setShowButtonNone: PropTypes.func.isRequired,
 };
 
 export default LoginModal;
