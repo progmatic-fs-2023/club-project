@@ -76,6 +76,30 @@ function Event() {
     setShowModal(false);
     setReservationAccepted(true);
     setShowThankYouModal(true);
+
+    const sendReservationDataToServer = async (eventId) => {
+      try {
+        const response = await fetch(`${API_URL}/api/events`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: loggedInUserId,
+            eventId: eventId,
+          }),
+        });
+    
+        if (response.ok) {
+          // console.log('reservation ok.');
+        } else {
+          // console.error('reservation not ok.');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    sendReservationDataToServer(selectedEvent.id);
   };
 
   const isEventReserved = reservedEvents.includes(event.id);
