@@ -4,7 +4,9 @@ import HttpError from '../utils/HttpError';
 const weekListById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const list = await listAWeekById(id);
+    const startDate = req.query.start_date;
+
+    const list = await listAWeekById(id, startDate);
     if (list) {
       res.json(list);
     } else {

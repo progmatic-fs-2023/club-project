@@ -662,11 +662,24 @@ body {
   transform: scale(1.03);
 }
 
-.time-slot-card:hover {
-  box-shadow: 3px 3px 3px rgba(94, 104, 121, 0.3);
-  cursor: pointer;
-  transform: scale(1.03);
+.time-slot-card.reserved {
+  cursor: default;
+  pointer-events: none;
+}
+
+.time-slot-card:hover:not(.reserved) {
   background-color: #676767 !important;
+  cursor: pointer;
+  transform: scale(1.025);
+  box-shadow: 3px 3px 3px rgba(94, 104, 121, 0.3);
+}
+
+.time-slot-card.selected {
+  background-color: rgb(37, 154, 128)!important;
+}
+
+.time-slot-card.selected:hover {
+  background-color: rgb(21, 90, 90)!important;
 }
 
 @import '../node_modules/bootstrap';
