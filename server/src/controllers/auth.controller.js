@@ -29,7 +29,7 @@ const registerUser = async (req, res) => {
     }
 
     const emailtoken = crypto.randomBytes(64).toString('hex');
-    console.log(emailtoken);
+   
 
     await userService.createUser({
       firstName,
@@ -48,7 +48,6 @@ const registerUser = async (req, res) => {
     });
 
     await emailService.sendVerificationEmail(email, emailtoken);
-    console.log(email);
     res.status(201).json({
       message: 'User created.',
     });
@@ -62,7 +61,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res, next) => {
   const { username, password1: password } = req.body;
-  console.log(req.body);
+
   if (!username || !password) {
     return res.status(400).json({
       message: 'Failed to login.',
