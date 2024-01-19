@@ -29,7 +29,6 @@ const registerUser = async (req, res) => {
     }
 
     const emailtoken = crypto.randomBytes(64).toString('hex');
-   
 
     await userService.createUser({
       firstName,

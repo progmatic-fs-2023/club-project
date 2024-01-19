@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import {
   findUserByID,
   deleteUserByID,
@@ -6,11 +7,10 @@ import {
   updateUserVerificationStatus,
   updateUserByID,
   findEmail,
-  updateNewPassword
+  updateNewPassword,
 } from '../services/users.service';
 import 'dotenv/config';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
+import HttpError from '../utils/HttpError';
 
 // GET USER BY ID
 const getUserById = async (req, res) => {
@@ -102,52 +102,54 @@ const verifyEmail = async (req, res) => {
 // EMAIL VERIFICATION LOGIN NEW PASSWORD
 const verifyNewPasswordEmail = async (req, res, next) => {
   const { email } = req.query;
-  const { token } = req.query;
 
   const user = await findEmail(email);
 
   if (!user || email !== user.email) {
-    res.status(404).send("Invalid email.");
+    res.status(404).send('Invalid email.');
     return;
   }
 
-  const secret = process.env.JWT_SECRET;
-
   try {
-    const payload = jwt.verify(token, secret);
-    return res.redirect(`http://localhost:5173/newpasswordpage?email=${(email)}`);
+    res.redirect(`http://localhost:5173/newpasswordpage?email=${email}`);
   } catch (error) {
-    console.log(error.message);
-    res.send(error.message);
+    next(new HttpError(error.message));
   }
 };
 
-const verifyNewPasswords = async (req, res, next) => {
-  const { newPassword, confirmPassword, email } = req.body;
-console.log( req.body)
+const verifyNewPasswords = async (req, res) => {
+  const { newPassword, email } = req.body;
+  console.log(req.body);
   const user = await findEmail(email);
 
   if (!user || email !== user.email) {
-    res.status(404).send("Invalid email.");
+    res.status(404).send('Invalid email.');
     return;
   }
 
-  //const secret = process.env.JWT_SECRET;
+  // const secret = process.env.JWT_SECRET;
 
   try {
-    //const payload = jwt.verify(token, secret);
-    
+    // const payload = jwt.verify(token, secret);
+
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     user.password = hashedPassword;
 
-
-  await updateNewPassword(email, user.password);
-  console.log('Password updated successfully.');
+    await updateNewPassword(email, user.password);
+    console.log('Password updated successfully.');
   } catch (error) {
     console.log(error.message);
     res.send(error.message);
   }
 };
 
-export { list, getUserById, putUserById, destroyUserById, verifyEmail, verifyNewPasswordEmail, verifyNewPasswords };
+export {
+  list,
+  getUserById,
+  putUserById,
+  destroyUserById,
+  verifyEmail,
+  verifyNewPasswordEmail,
+  verifyNewPasswords,
+};

@@ -89,7 +89,7 @@ const deleteUserByID = async id => {
   }
 };
 // GET USER BY EMAIL
-const findEmail = async (email) => {
+const findEmail = async email => {
   const result = await db.query('SELECT * FROM members WHERE email = $1', [email]);
 
   return result.rows[0];
@@ -172,7 +172,6 @@ const updateNewPassword = async (email, password) => {
   return result.rows[0];
 };
 
-
 export {
   isUsernameExist,
   createUser,
@@ -184,5 +183,5 @@ export {
   listAllUsers,
   updateUserByID,
   findEmail,
-  updateNewPassword
+  updateNewPassword,
 };

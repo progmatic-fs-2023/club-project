@@ -63,14 +63,13 @@ const welcomeContactUsEmail = async (req, res) => {
   });
 };
 
-const sendNewPasswordEmail = async (req, res, next) => {
+const sendNewPasswordEmail = async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await findEmail( email );
-
+    const user = await findEmail(email);
 
     if (!user || email !== user.email) {
-      res.status(404).send("User not registered.");
+      res.status(404).send('User not registered.');
       return;
     }
 
@@ -91,15 +90,15 @@ const sendNewPasswordEmail = async (req, res, next) => {
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error(error);
-        res.status(500).send("Error sending verification email.");
+        res.status(500).send('Error sending verification email.');
       } else {
         console.log(`Email sent: ${info.response}`);
-        res.status(200).send("Verification email sent.");
+        res.status(200).send('Verification email sent.');
       }
     });
   } catch (error) {
     console.error('Error in sendNewPasswordEmail:', error);
-    res.status(500).send("Internal Server Error.");
+    res.status(500).send('Internal Server Error.');
   }
 };
 
