@@ -17,4 +17,30 @@ const eventByName = async name => {
   return response.rows[0];
 };
 
-export { listAllEvents, eventByName };
+// CREATE EVENT
+const createNewEvent = async (
+  name,
+  startTime,
+  endTime,
+  availableSeats,
+  eventImg,
+  headerImg,
+  details,
+  moreDetails,
+  slugName,
+) => {
+  const response = await db.query(
+    'INSERT INTO events(name, start_time, end_time, available_seats, event_img, header_img, details, more_details, slug_name) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
+    [name, startTime, endTime, availableSeats, eventImg, headerImg, details, moreDetails, slugName],
+  );
+
+  return response.rows[0];
+};
+
+// DELETE EVENT BY ID
+const deleteEventById = async eventId => {
+  const response = await db.query('DELETE FROM events WHERE id = $1 RETURNING *', [eventId]);
+  return response.rows[0];
+};
+
+export { listAllEvents, eventByName, createNewEvent, deleteEventById };
