@@ -45,11 +45,9 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
       const data = await response.json();
 
       if (data.user && data.user.username === values.username) {
-        // console.log("Siker");
         setShowButton();
-        login(); // Bejelentkezési állapot frissítése
+        login();
       } else {
-        // alert("Nem siker - ismeretlen hiba vagy nincs felhasználó");
         setShowButtonNone();
       }
       // console.log(data);
@@ -103,7 +101,8 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
               variant="link"
               onClick={() => {
                 handleShowForgotPasswordModal();
-                // handleClose();
+                handleClose();
+                showForgotPasswordModal();
               }}
             >
               Forgot Password?
@@ -125,11 +124,11 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
             Log in
           </Button>
         </Modal.Footer>
-        <ForgotPasswordModal
-          show={showForgotPasswordModal}
-          handleClose={handleCloseForgotPasswordModal}
-        />
       </Modal>
+      <ForgotPasswordModal
+        show={showForgotPasswordModal}
+        handleClose={handleCloseForgotPasswordModal}
+      />
     </>
   );
 }
