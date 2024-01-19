@@ -47,15 +47,15 @@ function ContactUs() {
           height="850px"
         />
 
-        <div className="position-absolute d-flex flex-md-row flex-column align-items-center justify-content-center">
-          <Col xs={11} md={4} lg={4} className="mt-5 mt-md-0 mb-md-0">
-            <h2 className="text-white fw-bold display-2">Did you have any questions left?</h2>
-            <h4 className="text-white display-5 my-3 ">Get in touch with us.</h4>
+        <div className="position-absolute d-flex flex-md-row text-center text-md-start flex-column align-items-center justify-content-center">
+          <Col xs={12} md={4} lg={4} className="mt-5 mt-md-0 mb-md-0 pt-4 pt-md-0 ">
+            <h2 className="text-white fw-bold display-2 ">Did you have any questions left?</h2>
+            <h4 className="text-white display-5 my-3">Get in touch with us.</h4>
           </Col>
-          <Col xs={11} md={6} lg={5} className="offset-md-1">
+          <Col xs={12} md={6} lg={5} className="offset-md-1">
             <form
               onSubmit={handleSubmit}
-              className="mt-md-5 d-flex flex-column bg-dark bg-opacity-50 p-5 w-md-75"
+              className="mt-md-5 d-flex flex-column bg-dark bg-opacity-50 p-md-5 p-3 w-md-75"
             >
               <h3 className="text-white">Contact us</h3>
               <div className="mb-3">
