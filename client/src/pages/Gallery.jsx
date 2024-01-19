@@ -39,11 +39,8 @@ function Gallery() {
 
   return (
     <div className="container mt-5 pt-5">
-      <h1
-        className="text-center fst-italic mb-4 border-bottom border-warning pb-2"
-        style={{ borderBottom: '2px solid #FFD700', paddingBottom: '20px' }}
-      >
-        Club Gallery
+      <h1 className="mb-4 pb-2 yeseva-font mt-5 fw-bold border-bottom border-warning border-3 w-25 header-underline">
+        Gallery
       </h1>
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {imagePaths.map((image, index) => (
@@ -58,7 +55,7 @@ function Gallery() {
             <img
               src={image}
               alt={`img-${index}`}
-              className="img-fluid rounded"
+              className="img-fluid rounded shadow-sm"
               style={{ width: '100%', height: '300px', cursor: 'pointer' }}
             />
           </div>
@@ -67,7 +64,7 @@ function Gallery() {
 
       <Modal show={showModal} onHide={closeModal} dialogClassName="modal-lg">
         <Modal.Header closeButton>
-          <Modal.Title>Image Preview</Modal.Title>
+          <Modal.Title>The DOOR Club</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <img

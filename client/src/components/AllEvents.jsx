@@ -23,6 +23,7 @@ function AllEvents({ events }) {
                   eventImg={event.eventImg}
                   availableSeats={event.availableSeats}
                   details={event.details}
+                  length={events.length}
                 />
               </NavLink>
             </Col>
