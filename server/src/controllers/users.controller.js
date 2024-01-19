@@ -5,6 +5,7 @@ import {
   findEmailAndToken,
   updateUserVerificationStatus,
   updateUserByID,
+  findEmail,
 } from '../services/users.service';
 import 'dotenv/config';
 
@@ -95,4 +96,20 @@ const verifyEmail = async (req, res) => {
   });
 };
 
-export { list, getUserById, putUserById, destroyUserById, verifyEmail };
+const verifyNewPasswordEmail = async (req, res) => {
+  const { email } = req.query;
+  const { token } = req.query;
+
+  const user = await findEmail(email, token);
+
+  if (user) {
+    await updateUserVerificationStatus(user.id, true);
+
+    return res.redirect('http://localhost:5173/newpasswordpage');
+  }
+  return res.status(400).json({
+    message: 'Invalid Email or Token.',
+  });
+};
+
+export { list, getUserById, putUserById, destroyUserById, verifyEmail, verifyNewPasswordEmail };

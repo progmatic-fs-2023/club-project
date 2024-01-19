@@ -5,6 +5,7 @@ import aboutusRouter from './aboutus.route';
 import emailRouter from './email.route';
 import adminRouter from './admin.route';
 import bookingRouter from './booking.route';
+import { sendNewPasswordEmail } from '../services/email.service';
 
 const router = Router();
 
@@ -17,6 +18,7 @@ router.use('/contact', emailRouter);
 router.use('/admin', adminRouter);
 router.use('/admin/:id', adminRouter);
 router.use('/booking', bookingRouter);
+router.post('/send-new-password-email', sendNewPasswordEmail);
 
 router.get('/', (req, res) => {
   res.sendStatus(200);

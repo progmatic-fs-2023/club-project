@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Layout from './components/Layout';
 import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
@@ -21,8 +22,28 @@ import AdminServices from './components/AdminServices';
 import AdminEvents from './components/AdminEvents';
 import Booking from './pages/Booking';
 import LandingPage from './pages/LandingPage';
+import NewPasswordPage from './pages/NewPasswordPage';
+import { useAuth } from './contexts/AuthContext';
 
 function App() {
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
+    const storedIsAuthenticated = localStorage.getItem('isAuthenticated');
+
+    if (storedIsAuthenticated === 'true') {
+      login();
+      // console.log('User auto-logged in');
+    }
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -39,6 +60,7 @@ function App() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/booking/:serviceIdFromParams" element={<Booking />} />
         <Route path="/landingpage" element={<LandingPage />} />
+        <Route path="/newpasswordpage" element={<NewPasswordPage />} />
       </Route>
       <Route element={<AdminLayout />}>
         <Route path="/admin" element={<AdminDashboard />} />

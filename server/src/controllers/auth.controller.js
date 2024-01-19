@@ -62,7 +62,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res, next) => {
   const { username, password1: password } = req.body;
-
+  console.log(req.body);
   if (!username || !password) {
     return res.status(400).json({
       message: 'Failed to login.',
@@ -78,7 +78,7 @@ const loginUser = async (req, res, next) => {
     }
 
     const matchedPassword = await bcrypt.compare(password, user.password);
-
+    // console.log(matchedPassword)
     if (!matchedPassword) {
       return next(new HttpError('Username or password not correct.', 401));
     }
