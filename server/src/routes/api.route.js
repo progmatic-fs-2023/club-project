@@ -4,6 +4,7 @@ import eventsRouter from './events.route';
 import aboutusRouter from './aboutus.route';
 import emailRouter from './email.route';
 import adminRouter from './admin.route';
+import bookingRouter from './booking.route';
 import { sendNewPasswordEmail } from '../services/email.service';
 import { verifyNewPasswordEmail, verifyNewPasswords } from '../controllers/users.controller';
 
@@ -17,11 +18,10 @@ router.use('/aboutus', aboutusRouter);
 router.use('/contact', emailRouter);
 router.use('/admin', adminRouter);
 router.use('/admin/:id', adminRouter);
-
 router.post('/forgot-password', sendNewPasswordEmail);
-
 router.get('/reset-password', verifyNewPasswordEmail);
 router.post('/reset-password', verifyNewPasswords);
+router.use('/booking', bookingRouter);
 
 router.get('/', (req, res) => {
   res.sendStatus(200);

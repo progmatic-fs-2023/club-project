@@ -25,13 +25,11 @@ function AboutUsWallOfFame() {
   return (
     <Container>
       <div className="d-flex flex-column align-items-center justify-content-center">
-        <h2 className="text-center">Wall of fame</h2>
-        <p className="m-4 text-center">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum, facere error
-          iste non harum rerum aut accusantium ratione expedita recusandae, perferendis illo unde
-          iusto, voluptas odit soluta dolores similique. Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Hic rem quam voluptatum totam praesentium, non quidem officia quis ea,
-          nostrum ipsum nobis perspiciatis id repellendus quos inventore harum cumque architecto.
+        <h1 className="text-center yeseva-font mt-5 fw-bold">Wall of fame</h1>
+        <p className="m-4 text-center fs-5 josefin-font w-75">
+          We take pride in welcoming outstanding personalities for generations.
+          <br />
+          Join us and be part of a unique community that epitomizes the highest standards.
         </p>
 
         <Row>
@@ -40,12 +38,15 @@ function AboutUsWallOfFame() {
               <div className="flip-card bg-transparent m-4">
                 <div className="flip-card-inner position-relative w-100 h-100 text-center">
                   <div className="flip-card-front w-100 h-100 position-absolute">
-                    <img src="https://picsum.photos/300" alt="Avatar" />
+                    <img src={person.famousImg} alt="Avatar" />
                   </div>
-                  <div className="flip-card-back position-relative w-100 h-100 pt-5 text-white">
-                    <h1 className="pt-3">{person.name}</h1>
-                    <h4 className="pt-3">{person.profession}</h4>
-                    <p className="pt-4">Member of the club since: {person.year}</p>
+                  <div className="flip-card-back position-relative w-100 h-100 pt-5 p-2 text-white">
+                    <h1 className="yeseva-font">{person.name}</h1>
+                    <h4 className="pt-1 fw-light">{person.profession}</h4>
+                    <p className="pt-5">
+                      Member of the club since: <br />
+                      {person.year}
+                    </p>
                   </div>
                 </div>
               </div>

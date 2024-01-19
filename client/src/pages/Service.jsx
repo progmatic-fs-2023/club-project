@@ -16,7 +16,6 @@ function Service() {
       try {
         const response = await fetch(`${API_URL}/api/services/${serviceName}`);
         const result = await response.json();
-
         setService(result);
       } catch (error) {
         // console.error('Error fetching data:', error);
@@ -65,7 +64,11 @@ function Service() {
               {service.moreDetails}
             </Tab>
           </Tabs>
-          <div className="p-3 d-flex justify-content-center">IDŐPONT FOGLALÁS</div>
+          <div className="p-3 d-flex justify-content-center">
+            <NavLink to={`/booking/${service.id}`} target="_blank" rel="noopener noreferrer">
+              <Button variant="primary">BOOKING</Button>
+            </NavLink>
+          </div>
           <Nav className="d-flex justify-content-evenly">
             {/*   <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Prev</Button>

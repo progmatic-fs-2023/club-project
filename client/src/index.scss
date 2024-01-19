@@ -11,7 +11,9 @@ $complementary: #a5a51e;
 $input-focus-box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
   inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 $input-focus-border-color: #0d2241;
-
+$form-select-focus-box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
+  inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+$form-select-focus-border-color: #0d2241;
 $theme-colors: map-merge(
   $theme-colors,
   (
@@ -32,14 +34,16 @@ $theme-colors: map-merge(
   background-color: lighten($light-gray, 50%) !important;
 }
 
-.carousel-control-prev, .carousel-control-next{
+.carousel-control-prev,
+.carousel-control-next {
   height: 70%;
-  top: 17vh!important
+  top: 17vh !important;
 }
 
 @media screen and (max-width: 768px) {
-  .carousel-control-prev, .carousel-control-next{
-   display: none!important;
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none !important;
   }
 }
 
@@ -63,7 +67,7 @@ body {
 
 /*category header services, events */
 
-.category-header {
+.header-underline {
   max-width: 60px;
 }
 
@@ -205,8 +209,7 @@ body {
 .flip-card-back {
   --webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  background-color: darkblue;
-
+  background-color: $primary;
   transform: rotateY(180deg);
 }
 
@@ -392,7 +395,7 @@ body {
   width: 150px;
 }
 
-/* react-calendar css */ 
+/* react-calendar css */
 
 .react-calendar {
   width: 400px;
@@ -511,7 +514,7 @@ body {
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: #ffffa9;
+  background: #76baff;
 }
 
 .react-calendar__tile--hasActive {
@@ -568,7 +571,7 @@ body {
 }
 
 .menu-list li:hover {
-  background-color: #526d71!important;
+  background-color: #526d71 !important;
 }
 
 .sidebar-title > span {
@@ -616,7 +619,6 @@ body {
   }
 }
 
-
 /*  ADMIN MEMBERS */
 .arrow-down {
   position: absolute;
@@ -636,4 +638,48 @@ body {
   height: 0;
 }
 
-@import "../node_modules/bootstrap";
+/* BOOKING */
+.day-card {
+  margin: 1px;
+}
+
+.day-card:hover:not(.inactive) {
+  box-shadow: 3px 3px 3px rgba(94, 104, 121, 0.3);
+  cursor: pointer;
+  transform: scale(1.025);
+  background-color: #262e6c !important;
+}
+
+.day-card.inactive {
+  pointer-events: none;
+  cursor: none;
+  background-color: none !important;
+}
+
+.week-button:hover {
+  box-shadow: 3px 3px 3px rgba(94, 104, 121, 0.3);
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
+.time-slot-card.reserved {
+  cursor: default;
+  pointer-events: none;
+}
+
+.time-slot-card:hover:not(.reserved) {
+  background-color: #676767 !important;
+  cursor: pointer;
+  transform: scale(1.025);
+  box-shadow: 3px 3px 3px rgba(94, 104, 121, 0.3);
+}
+
+.time-slot-card.selected {
+  background-color: rgb(37, 154, 128)!important;
+}
+
+.time-slot-card.selected:hover {
+  background-color: rgb(21, 90, 90)!important;
+}
+
+@import '../node_modules/bootstrap';

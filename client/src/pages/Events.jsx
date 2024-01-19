@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import FilterBar from '../components/FilterBar';
 import SearchBar from '../components/SearchBar';
 import AllEvents from '../components/AllEvents';
+import { API_URL } from '../constants';
 
 function Events() {
   const [events, setEvents] = useState([]);
@@ -12,7 +13,7 @@ function Events() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/events');
+        const response = await fetch(`${API_URL}/api/events`);
         const result = await response.json();
 
         setEvents(result);
@@ -77,6 +78,11 @@ function Events() {
           />
         </div>
         {noResults && <p className="m-3 text-danger">No results found</p>}
+        <div>
+          <h1 className="header-underline yeseva-font mt-5 fw-bold border-bottom border-warning border-3">
+            EVENTS
+          </h1>
+        </div>
         <AllEvents events={events} />
       </Container>
     </div>
