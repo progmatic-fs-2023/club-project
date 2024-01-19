@@ -19,6 +19,7 @@ import AdminMembers from './components/AdminMembers';
 import AdminGallery from './components/AdminGallery';
 import AdminServices from './components/AdminServices';
 import AdminEvents from './components/AdminEvents';
+import Booking from './pages/Booking';
 import LandingPage from './pages/LandingPage';
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/booking/:serviceIdFromParams" element={<Booking />} />
         <Route path="/landingpage" element={<LandingPage />} />
       </Route>
       <Route element={<AdminLayout />}>

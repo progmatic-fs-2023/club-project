@@ -9,7 +9,9 @@ import {
 function AboutUsTimeline() {
   return (
     <Container className="py-5">
-      <h1 className="m-5 text-center">The story of the club</h1>
+      <h1 className="m-5 text-center yeseva-font mt-5 fw-bold text-primary">
+        The story of the club
+      </h1>
       <div className="main-timeline-2">
         <div className="timeline-2 left-2">
           <AboutUsTimelineCardLeft1 />
