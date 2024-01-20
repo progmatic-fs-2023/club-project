@@ -90,7 +90,6 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
               onClick={() => {
                 handleShowForgotPasswordModal();
                 handleClose();
-                showForgotPasswordModal();
               }}
             >
               Forgot Password?
