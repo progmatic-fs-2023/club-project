@@ -1,15 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { API_URL } from '../constants';
 
 function NewPasswordPage() {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [inputs, setInputs] = useState({
+    email: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+
   const [errorMessage, setErrorMessage] = useState('');
 
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const myQueryParam = url.searchParams.get('email');
+
+    setInputs((prevInputs) => ({ ...prevInputs, email: myQueryParam }));
+  }, []);
+
+  const handleClose = () => {
+    setInputs({
+      email: '',
+      newPassword: '',
+      confirmPassword: '',
+    });
+  };
+
   const handleSend = () => {
-    if (newPassword === confirmPassword) {
+    if (inputs.newPassword === inputs.confirmPassword) {
       setErrorMessage('');
     } else {
       setErrorMessage('The two passwords do not match.');
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
+  };
+
+  const handleSubmit = async () => {
+    // console.log(inputs);
+
+    try {
+      await fetch(`${API_URL}/api/reset-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputs),
+      });
+    } catch (error) {
+      // console.error('Network error:', error);
     }
   };
 
@@ -20,10 +61,10 @@ function NewPasswordPage() {
         <label htmlFor="passwordInput">
           Your new password:
           <input
-            name="passwordInput"
+            name="newPassword"
             type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            value={inputs.newPassword}
+            onChange={handleChange}
           />
         </label>
       </div>
@@ -31,15 +72,23 @@ function NewPasswordPage() {
         <label htmlFor="password1Input">
           Confirm your password:
           <input
-            name="password1Input"
+            name="confirmPassword"
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={inputs.confirmPassword}
+            onChange={handleChange}
           />
         </label>
       </div>
       {errorMessage && <div className="text-danger mb-3">{errorMessage}</div>}
-      <button type="submit" className="btn btn-primary" onClick={handleSend}>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={() => {
+          handleSubmit();
+          handleSend();
+          handleClose();
+        }}
+      >
         Send
       </button>
     </div>

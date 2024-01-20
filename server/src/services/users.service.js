@@ -88,6 +88,12 @@ const deleteUserByID = async id => {
     throw error;
   }
 };
+// GET USER BY EMAIL
+const findEmail = async email => {
+  const result = await db.query('SELECT * FROM members WHERE email = $1', [email]);
+
+  return result.rows[0];
+};
 
 // GET USER BY EMAIL AND TOKEN
 const findEmailAndToken = async (email, token) => {
@@ -156,9 +162,12 @@ const updateUserVerificationStatus = async (userId, isverified) => {
 
   return result.rows[0];
 };
-
-const findEmail = async email => {
-  const result = await db.query('SELECT * FROM members WHERE email = $1', [email]);
+// UPDATE NEW PASSWORD
+const updateNewPassword = async (email, password) => {
+  const result = await db.query('UPDATE members SET password = $1 WHERE email = $2', [
+    password,
+    email,
+  ]);
 
   return result.rows[0];
 };
@@ -174,4 +183,5 @@ export {
   listAllUsers,
   updateUserByID,
   findEmail,
+  updateNewPassword,
 };

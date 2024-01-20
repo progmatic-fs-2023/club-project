@@ -16,11 +16,11 @@ function MainCarousel() {
           <img className="mx-2" src=".\src\assets\qa_label_2.png" alt="award label" />
           <img src=".\src\assets\qa_label_3.png" alt="award label" />
         </div>
-        <Carousel.Caption style={{ top: '40vh' }}>
+        <div className="carousel-caption d-flex flex-column justify-content-center vh-100 top-0">
           <h5 className="yeseva-font text-uppercase fs-1">Play on a championship course</h5>
           <p className="josefin-font fw-normal fs-4 p-1">
-            Tiger Woods and Door Club offers a course where players of all skill levels are invited
-            to come together to experience the breathtaking Black Mountain landscape.
+            Tiger Woods and Door Club welcomes players of all skill levels to join a course set
+            against the stunning backdrop of Black Mountain.
           </p>
           <div>
             <Link to="/services/golf">
@@ -29,7 +29,7 @@ function MainCarousel() {
               </Button>
             </Link>
           </div>
-        </Carousel.Caption>
+        </div>
       </Carousel.Item>
       <Carousel.Item>
         <img
@@ -42,7 +42,7 @@ function MainCarousel() {
           <img className="mx-2" src=".\src\assets\qa_label_2.png" alt="award label" />
           <img src=".\src\assets\qa_label_3.png" alt="award label" />
         </div>
-        <Carousel.Caption style={{ top: '40vh' }}>
+        <div className="carousel-caption d-flex flex-column justify-content-center h-100 top-0">
           <h5 className="yeseva-font text-uppercase fs-1">spend time with us in Eden</h5>
           <p className="josefin-font fw-normal fs-4 p-1">
             Our comprehensive services are at your disposal so that you can find any relaxation you
@@ -55,7 +55,7 @@ function MainCarousel() {
               </Button>
             </Link>
           </div>
-        </Carousel.Caption>
+        </div>
       </Carousel.Item>
       <Carousel.Item>
         <img
@@ -68,7 +68,7 @@ function MainCarousel() {
           <img className="mx-2" src=".\src\assets\qa_label_2.png" alt="award label" />
           <img src=".\src\assets\qa_label_3.png" alt="award label" />
         </div>
-        <Carousel.Caption style={{ top: '40vh' }}>
+        <div className="carousel-caption d-flex flex-column justify-content-center vh-100 top-0">
           <h5 className="yeseva-font text-uppercase fs-1">We have 4 professional courses</h5>
           <p className="josefin-font fw-normal fs-4 p-1">
             Discover the beauty of the Black Hill at some of NATURE&apos;S FINEST™ courses that Door
@@ -81,7 +81,7 @@ function MainCarousel() {
               </Button>
             </Link>
           </div>
-        </Carousel.Caption>
+        </div>
       </Carousel.Item>
       <Carousel.Item>
         <img
@@ -94,7 +94,7 @@ function MainCarousel() {
           <img className="mx-2" src=".\src\assets\qa_label_2.png" alt="award label" />
           <img src=".\src\assets\qa_label_3.png" alt="award label" />
         </div>
-        <Carousel.Caption style={{ top: '40vh' }}>
+        <div className="carousel-caption d-flex flex-column justify-content-center vh-100 top-0">
           <h5 className="yeseva-font text-uppercase fs-1">Taste the world&apos;s finest wines</h5>
           <p className="josefin-font fw-normal fs-4 p-1">
             Among our events, wine tastings often feature where you can sample excellent beverages
@@ -107,7 +107,7 @@ function MainCarousel() {
               </Button>
             </Link>
           </div>
-        </Carousel.Caption>
+        </div>
       </Carousel.Item>
     </Carousel>
   );

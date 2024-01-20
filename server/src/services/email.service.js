@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
-import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import { findEmail } from './users.service';
 
 // SEND VERIFICATION EMAIL
 const transporter = nodemailer.createTransport({
@@ -22,7 +23,6 @@ const sendVerificationEmail = async (email, token) => {
     subject: 'Email Verification',
     html: `<p>Click <a href="http://localhost:5000/auth/register/confirm?email=${email}&token=${token}">here</a> to verify your email.</p>`,
   };
-  console.log(mailOptions);
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
@@ -63,31 +63,43 @@ const welcomeContactUsEmail = async (req, res) => {
   });
 };
 
-const sendNewPasswordEmail = async req => {
-  const { email } = req.body;
-  const token = crypto.randomBytes(32).toString('hex');
+const sendNewPasswordEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await findEmail(email);
 
-  const mailOptions = {
-    from: 'door8projekt@gmail.com',
-    to: email,
-    subject: 'New Password link',
-    html: `<p>Click <a href="http://localhost:5000/api/reset-password?email=${email}&token=${token}">here</a> to reset your password.</p>`,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error(error);
-      // res.status(500).json({
-      //   message: 'Error sending verification email.',
-      //   error: error.message,
-      // });
-    } else {
-      console.log(`Email sent: ${info.response}`);
-      // res.status(200).json({
-      //   message: 'Verification email sent.',
-      // });
+    if (!user || email !== user.email) {
+      res.status(404).send('User not registered.');
+      return;
     }
-  });
+
+    const payload = {
+      id: user.id,
+      email: user.email,
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    const mailOptions = {
+      from: 'door8projekt@gmail.com',
+      to: email,
+      subject: 'New Password link',
+      html: `<p>Click <a href="http://localhost:5000/api/reset-password?email=${email}&token=${token}">here</a> to reset your password.</p>`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send('Error sending verification email.');
+      } else {
+        console.log(`Email sent: ${info.response}`);
+        res.status(200).send('Verification email sent.');
+      }
+    });
+  } catch (error) {
+    console.error('Error in sendNewPasswordEmail:', error);
+    res.status(500).send('Internal Server Error.');
+  }
 };
 
 export { sendVerificationEmail, welcomeContactUsEmail, sendNewPasswordEmail };

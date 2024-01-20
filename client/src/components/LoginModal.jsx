@@ -89,7 +89,8 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
               variant="link"
               onClick={() => {
                 handleShowForgotPasswordModal();
-                // handleClose();
+                handleClose();
+                showForgotPasswordModal();
               }}
             >
               Forgot Password?
@@ -111,11 +112,11 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
             Log in
           </Button>
         </Modal.Footer>
-        <ForgotPasswordModal
-          show={showForgotPasswordModal}
-          handleClose={handleCloseForgotPasswordModal}
-        />
       </Modal>
+      <ForgotPasswordModal
+        show={showForgotPasswordModal}
+        handleClose={handleCloseForgotPasswordModal}
+      />
       <LoginFeedbackModal smShow={smShow} setSmShow={setSmShow} />
     </>
   );
