@@ -9,5 +9,5 @@ const pool = new pg.Pool({
   database: process.env.DB_NAME,
 });
 
-const query = (text, params) => pool.query(text, params);
-export default query;
+export const query = (text, params) => pool.query(text, params);
+// export default query;

@@ -4,14 +4,15 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import PropTypes from 'prop-types';
-import { API_URL } from '../constants';
 import ForgotPasswordModal from './ForgotPasswordModal';
 import { useAuth } from '../contexts/AuthContext';
+import LoginFeedbackModal from './LoginFeedbackModal';
 
 function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
   const [show, setShow] = useState(false);
   const [inputs, setInputs] = useState({});
-  const { login } = useAuth(); // AuthContext használata
+  const { authenticateUser } = useAuth(); // AuthContext használata
+  const [smShow, setSmShow] = useState(false);
 
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
@@ -35,24 +36,11 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
     // alert(inputs);
     // console.log(values);
     try {
-      const response = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
-      const data = await response.json();
-
-      if (data.user && data.user.username === values.username) {
-        setShowButton();
-        login();
-      } else {
-        setShowButtonNone();
-      }
-      // console.log(data);
+      await authenticateUser(values);
+      setShowButton();
     } catch (error) {
-      // console.error(error);
+      setSmShow(true);
+      setShowButtonNone();
     }
   };
 
@@ -102,7 +90,6 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
               onClick={() => {
                 handleShowForgotPasswordModal();
                 handleClose();
-                showForgotPasswordModal();
               }}
             >
               Forgot Password?
@@ -129,6 +116,7 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
         show={showForgotPasswordModal}
         handleClose={handleCloseForgotPasswordModal}
       />
+      <LoginFeedbackModal smShow={smShow} setSmShow={setSmShow} />
     </>
   );
 }
