@@ -6,6 +6,8 @@ import BookingWeeklyView from '../components/BookingWeeklyView';
 
 function Booking() {
   const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [selectedServiceName, setSelectedServiceName] = useState(null);
+
   return (
     <Container className="d-flex flex-column py-5">
       <div className="fs-1 header-underline yeseva-font mt-5 fw-bold border-bottom border-warning border-3">
@@ -16,15 +18,23 @@ function Booking() {
       </div>
 
       <div className="d-flex justify-content-center justify-content-md-start">
-        <BookingServiceSelector setSelectedServiceId={setSelectedServiceId} />
+        <BookingServiceSelector
+          setSelectedServiceId={setSelectedServiceId}
+          setSelectedServiceName={setSelectedServiceName}
+        />
       </div>
 
-      <div className="d-flex align-items-center d-flex fs-5 fw-light pt-5 py-2">
-        <Bs2CircleFill className="me-2" /> Choose the day of your arrival!
-      </div>
+      {selectedServiceId && (
+        <div className="d-flex align-items-center d-flex fs-5 fw-light pt-5 py-2">
+          <Bs2CircleFill className="me-2" /> Choose the day of your arrival!
+        </div>
+      )}
 
       <div className="d-flex justify-content-center justify-content-md-start">
-        <BookingWeeklyView selectedServiceId={selectedServiceId} />
+        <BookingWeeklyView
+          selectedServiceId={selectedServiceId}
+          selectedServiceName={selectedServiceName}
+        />
       </div>
     </Container>
   );

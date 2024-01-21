@@ -7,13 +7,13 @@ import PropTypes from 'prop-types';
 import { API_URL } from '../constants';
 import CurrentBookingWindow from './CurrentBookingWindow';
 
-function BookingWeeklyView({ selectedServiceId }) {
+function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
   const [selectedDayData, setSelectedDayData] = useState(null);
   const [selectedTimeSlotIds, setSelectedTimeSlotIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [weekData, setWeekData] = useState([]);
   const [currentWeekStartDate, setCurrentWeekStartDate] = useState(new Date());
-  // const [currentBookings, setCurrentBookings] = useState({})
+  const [currentBookingItems, setCurrentBookingItems] = useState([]);
   const { serviceIdFromParams } = useParams();
   const serviceIdFromState = selectedServiceId;
 
@@ -53,8 +53,7 @@ function BookingWeeklyView({ selectedServiceId }) {
   }
 
   const currentDate = new Date();
-  const tomorrowDate = new Date();
-  tomorrowDate.setDate(currentDate.getDate() + 1);
+  const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
 
   const groupedByDay = weekData.reduce((acc, item) => {
     const date = new Date(item.start_time).toLocaleDateString('en-US');
@@ -89,14 +88,34 @@ function BookingWeeklyView({ selectedServiceId }) {
 
     if (selectedSlot) {
       const isSelected = selectedTimeSlotIds.includes(slotId);
+      const isSelectedBooking = currentBookingItems.some((item) => item.time_slot_id === slotId);
 
-      setSelectedTimeSlotIds((prevIds) =>
-        isSelected ? prevIds.filter((id) => id !== slotId) : [...prevIds, slotId],
-      );
+      if (!isSelected && !isSelectedBooking) {
+        const newBookingItem = {
+          serviceName: selectedServiceName,
+          time_slot_id: slotId,
+          start_time: selectedSlot.start_time,
+          end_time: selectedSlot.end_time,
+        };
+
+        setCurrentBookingItems((prevItems) => [...prevItems, newBookingItem]);
+        setSelectedTimeSlotIds((prevIds) => [...prevIds, slotId]);
+      }
     }
   };
 
-  const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+  const handleDeleteItemFromBooking = (timeSlotId) => {
+    setCurrentBookingItems((prevItems) =>
+      prevItems.filter((item) => item.time_slot_id !== timeSlotId),
+    );
+
+    setSelectedTimeSlotIds((prevItems) => prevItems.filter((item) => item !== timeSlotId));
+  };
+
+  const handleResetBooking = () => {
+    setCurrentBookingItems([]);
+    setSelectedTimeSlotIds([]);
+  };
 
   return (
     <Col>
@@ -115,7 +134,7 @@ function BookingWeeklyView({ selectedServiceId }) {
               currentDate.toLocaleDateString('en-US');
 
             const cardClassName = isCurrentDate
-              ? 'bg-primary text-white border border-warning'
+              ? 'bg-primary text-white border border-info'
               : (new Date(data.start_time).setHours(0, 0, 0, 0) >
                   currentDate.setHours(0, 0, 0, 0) &&
                   'bg-primary') ||
@@ -126,7 +145,9 @@ function BookingWeeklyView({ selectedServiceId }) {
                 role="button"
                 tabIndex={0}
                 key={data.start_time}
-                className={`day-card w-100 text-white text-center border border-transparent p-2 p-md-4 d-flex justify-content-evenly align-items-center flex-row flex-md-column ${cardClassName}`}
+                className={`day-card w-100 text-white text-center border border-transparent p-2 p-md-4 d-flex justify-content-evenly align-items-center flex-row flex-md-column ${cardClassName} ${
+                  selectedDayData === data.start_time ? 'selected-day' : ''
+                }`}
                 onClick={() => {
                   if (new Date(data.start_time) >= currentDate) {
                     handleDayClick(data.start_time);
@@ -149,36 +170,38 @@ function BookingWeeklyView({ selectedServiceId }) {
             );
           })}
         </Col>
-        <div className="col-xs-3 text-light-dark text-center m-1 d-flex justify-content-center align-items-center flex-row order-1 order-lg-2 m-3">
-          <div
-            className="week-button d-flex justify-content-center align-items-center px-3 py-1 m-1 border border-dark"
-            onClick={handlePrevWeek}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handlePrevWeek();
-              }
-            }}
-            role="button"
-            tabIndex={0}
-          >
-            <GrPrevious className="" />
-            PREV WEEK
+        {serviceId && (
+          <div className="col-xs-3 text-light-dark text-center m-1 d-flex justify-content-center align-items-center flex-row order-1 order-lg-2 m-3">
+            <div
+              className="week-button d-flex justify-content-center align-items-center px-3 py-1 m-1 border border-dark"
+              onClick={handlePrevWeek}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handlePrevWeek();
+                }
+              }}
+              role="button"
+              tabIndex={0}
+            >
+              <GrPrevious className="" />
+              PREV WEEK
+            </div>
+            <div
+              className="week-button d-flex justify-content-center align-items-center px-3 py-1 m-1 border border-dark"
+              onClick={handleNextWeek}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleNextWeek();
+                }
+              }}
+              role="button"
+              tabIndex={0}
+            >
+              NEXT WEEK
+              <GrNext />
+            </div>
           </div>
-          <div
-            className="week-button d-flex justify-content-center align-items-center px-3 py-1 m-1 border border-dark"
-            onClick={handleNextWeek}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleNextWeek();
-              }
-            }}
-            role="button"
-            tabIndex={0}
-          >
-            NEXT WEEK
-            <GrNext />
-          </div>
-        </div>
+        )}
       </div>
       <Col
         xs={11}
@@ -190,7 +213,7 @@ function BookingWeeklyView({ selectedServiceId }) {
         {selectedDayData && (
           <>
             <div className="d-flex align-items-center d-flex fs-5 fw-light pt-5 py-2">
-              <Bs3CircleFill className="me-2" /> Choose an available time slot!
+              <Bs3CircleFill className="me-2" /> Choose available time slots!
             </div>
             <div className="time-slot-container text-white text-center d-flex justify-content-start align-items-center flex-wrap">
               {weekData
@@ -211,10 +234,10 @@ function BookingWeeklyView({ selectedServiceId }) {
                     xl={3}
                     key={timeSlot.id}
                     onClick={() => handleTimeSlotClick(timeSlot.id)}
-                    className={`time-slot-card d-flex justify-content-center align-items-center ${
-                      timeSlot.is_reserved ? 'bg-danger reserved' : 'bg-dark'
-                    } text-white p-3 m-1 ${
-                      selectedTimeSlotIds.includes(timeSlot.id) ? 'selected' : ''
+                    className={`${timeSlot.is_reserved ? 'bg-danger reserved' : 'bg-dark'} ${
+                      selectedTimeSlotIds.includes(timeSlot.id)
+                        ? 'time-slot-card d-flex justify-content-center align-items-center selected text-white p-3 m-1'
+                        : 'time-slot-card d-flex justify-content-center align-items-center text-white p-3 m-1'
                     }`}
                   >
                     <div>
@@ -244,8 +267,13 @@ function BookingWeeklyView({ selectedServiceId }) {
         lg={9}
         xl={8}
         className="cards-container d-flex flex-column flex-md-row justify-content-center align-items-start justify-content-md-start order-2 order-lg-1"
-      >
-        <CurrentBookingWindow />
+      />
+      <Col>
+        <CurrentBookingWindow
+          handleResetBooking={handleResetBooking}
+          handleDeleteItemFromBooking={handleDeleteItemFromBooking}
+          currentBookingItems={currentBookingItems}
+        />
       </Col>
     </Col>
   );
@@ -253,6 +281,7 @@ function BookingWeeklyView({ selectedServiceId }) {
 
 BookingWeeklyView.propTypes = {
   selectedServiceId: PropTypes.string.isRequired,
+  selectedServiceName: PropTypes.string.isRequired,
 };
 
 export default BookingWeeklyView;

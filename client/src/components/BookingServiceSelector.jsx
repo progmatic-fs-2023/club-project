@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Col } from 'react-bootstrap';
 import { API_URL } from '../constants';
 
-function BookingServiceSelector({ setSelectedServiceId }) {
+function BookingServiceSelector({ setSelectedServiceId, setSelectedServiceName }) {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,12 @@ function BookingServiceSelector({ setSelectedServiceId }) {
       try {
         const response = await fetch(`${API_URL}/api/services`);
         const result = await response.json();
-        setServices(result);
+
+        const filteredServices = result.filter(
+          (service) => !['LIBRARY', 'GYM', 'CIGAR ROOM'].includes(service.name),
+        );
+
+        setServices(filteredServices);
         setLoading(false);
       } catch (error) {
         // console.error('Error fetching data:', error);
@@ -49,11 +54,19 @@ function BookingServiceSelector({ setSelectedServiceId }) {
     acc[category].items.push(item);
     return acc;
   }, {});
+  if (!selectedService && serviceIdFromParams) {
+    const defaultSelectedServiceNameByParams = services.find(
+      (service) => service.id === Number(serviceIdFromParams),
+    );
+    setSelectedServiceName(defaultSelectedServiceNameByParams.name);
+  }
 
   const handleSelectedService = (event) => {
     const selectedItemId = event.target.value;
+    const selectedItemName = services.find((service) => service.id === Number(event.target.value));
     setSelectedService(event.target.value);
     setSelectedServiceId(selectedItemId);
+    setSelectedServiceName(selectedItemName.name);
   };
 
   return (
@@ -87,6 +100,7 @@ function BookingServiceSelector({ setSelectedServiceId }) {
 
 BookingServiceSelector.propTypes = {
   setSelectedServiceId: PropTypes.func.isRequired,
+  setSelectedServiceName: PropTypes.func.isRequired,
 };
 
 export default BookingServiceSelector;
