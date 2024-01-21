@@ -5,7 +5,7 @@ function Filter({ onSortChange, sortBy }) {
     <div className="container d-flex justify-content-end">
       <div className="col-6 col-sm-5 col-md-7 col-lg-6 col-xl-4 d-flex align-items-center">
         <select
-          className="form-select me-2"
+          className="form-select mt-2 mt-md-0"
           aria-label="Default select example"
           id="sortBy"
           onChange={onSortChange}

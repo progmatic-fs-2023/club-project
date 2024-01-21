@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
+import { Col } from 'react-bootstrap';
 import AllServices from '../components/AllServices';
 import SearchBar from '../components/SearchBar';
 import { API_URL } from '../constants';
@@ -43,18 +44,18 @@ function Services() {
   };
 
   return (
-    <div className="d-flex py-5">
+    <Container className="d-flex py-5">
       <Container>
         <Container>
           <p className="pt-5">Type at least 2 characters to initiate the search.</p>
         </Container>
-        <div>
+        <Col xs={12} md={9} lg={7}>
           <SearchBar className="search-bar" onSearch={onSearch} />
-        </div>
+        </Col>
         {noResults && <p className="m-3 text-danger">No results found</p>}
         <AllServices services={services} />
       </Container>
-    </div>
+    </Container>
   );
 }
 

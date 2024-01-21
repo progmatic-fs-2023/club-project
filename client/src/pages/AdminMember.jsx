@@ -56,7 +56,7 @@ function AdminMember() {
   const handleDeleteConfirm = async () => {
     try {
       const response = await fetch(`${API_URL}/api/admin/${memberId}`, {
-        method: 'DELETE',
+        method: 'DELETE MEMBER',
       });
 
       if (response.ok) {

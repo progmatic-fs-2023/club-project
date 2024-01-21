@@ -70,12 +70,7 @@ function Events() {
         </Container>
         <div className="d-flex justify-content-between align-items flex-column flex-md-row">
           <SearchBar className="search-bar" onSearch={onSearch} />
-          <FilterBar
-            className="mt-md-2"
-            onSearch={onSearch}
-            onSortChange={handleSortChange}
-            sortBy={sortBy}
-          />
+          <FilterBar onSearch={onSearch} onSortChange={handleSortChange} sortBy={sortBy} />
         </div>
         {noResults && <p className="m-3 text-danger">No results found</p>}
         <div>
