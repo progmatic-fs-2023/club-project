@@ -173,8 +173,9 @@ body {
 
 /* EVENTS PAGE */
 .bg-services {
-  background-image: url('/src/assets/services_bg.webp');
-  background-size: cover;
+  background-image: url('/src/assets/services_bg.jpg');
+  background-size:cover;
+  background-position:right bottom;
 }
 
 /* SLIDER */
@@ -641,11 +642,22 @@ body {
   margin: 1px;
 }
 
-.day-card:hover:not(.inactive) {
+.day-card.selected-day {
+  background-color: rgb(37, 154, 128)!important;
+}
+
+.day-card.selected-day:hover:not(.inactive) {
   box-shadow: 3px 3px 3px rgba(94, 104, 121, 0.3);
   cursor: pointer;
   transform: scale(1.025);
+  background-color: rgb(21, 90, 90)!important;
+}
+
+.day-card:hover:not(.inactive) {
+  cursor: pointer;
+  transform: scale(1.025);
   background-color: #262e6c !important;
+  border: none !important
 }
 
 .day-card.inactive {
