@@ -11,10 +11,18 @@ function BookingServiceSelector({ setSelectedServiceId, setSelectedServiceName }
   const [loading, setLoading] = useState(true);
   const { serviceIdFromParams } = useParams();
 
+  let memberMembership = 'platinum';
+
+  if (memberMembership === 'gold') {
+    memberMembership = 'silvergold';
+  } else if (memberMembership === 'platinum') {
+    memberMembership = 'silvergoldplatinum';
+  }
+
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/services`);
+        const response = await fetch(`${API_URL}/api/membership?membership=${memberMembership}`);
         const result = await response.json();
 
         const filteredServices = result.filter(
@@ -54,6 +62,7 @@ function BookingServiceSelector({ setSelectedServiceId, setSelectedServiceName }
     acc[category].items.push(item);
     return acc;
   }, {});
+
   if (!selectedService && serviceIdFromParams) {
     const defaultSelectedServiceNameByParams = services.find(
       (service) => service.id === Number(serviceIdFromParams),

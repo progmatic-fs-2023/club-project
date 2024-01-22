@@ -53,6 +53,12 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
   }
 
   const currentDate = new Date();
+  const currentDateFormatted = currentDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
   const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
 
   const groupedByDay = weekData.reduce((acc, item) => {
@@ -62,6 +68,14 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
     }
     return acc;
   }, {});
+
+  const datesArray = Object.keys(groupedByDay).map((date) =>
+    new Date(groupedByDay[date].start_time).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }),
+  );
 
   const groupedArray = Object.values(groupedByDay).sort(
     (a, b) => new Date(a.start_time) - new Date(b.start_time),
@@ -134,7 +148,7 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
               currentDate.toLocaleDateString('en-US');
 
             const cardClassName = isCurrentDate
-              ? 'bg-primary text-white border border-info'
+              ? 'bg-primary text-white border border-success border-2'
               : (new Date(data.start_time).setHours(0, 0, 0, 0) >
                   currentDate.setHours(0, 0, 0, 0) &&
                   'bg-primary') ||
@@ -171,12 +185,20 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
           })}
         </Col>
         {serviceId && (
-          <div className="col-xs-3 text-light-dark text-center m-1 d-flex justify-content-center align-items-center flex-row order-1 order-lg-2 m-3">
+          <Col
+            xs={3}
+            className="text-light-dark text-center m-1 d-flex justify-content-center align-items-center flex-row order-1 order-lg-2 m-3"
+          >
             <div
-              className="week-button d-flex justify-content-center align-items-center px-3 py-1 m-1 border border-dark"
+              className={`week-button d-flex justify-content-center align-items-center px-3 py-1 m-1 border border-dark ${
+                !datesArray.includes(currentDateFormatted) ||
+                currentWeekStartDate >= currentDateFormatted
+                  ? ''
+                  : 'd-none'
+              }`}
               onClick={handlePrevWeek}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && currentWeekStartDate > currentDateFormatted) {
                   handlePrevWeek();
                 }
               }}
@@ -200,7 +222,7 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
               NEXT WEEK
               <GrNext />
             </div>
-          </div>
+          </Col>
         )}
       </div>
       <Col

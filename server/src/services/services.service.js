@@ -8,6 +8,15 @@ const listAllServices = async () => {
   return response.rows;
 };
 
+// GET SERVICE BY MEMBER'S MEMBERSHIP
+const serviceByMemberMembership = async membership => {
+  const response = await db.query(
+    'SELECT id, category, name, service_img AS "serviceImg", header_img AS "headerImg", details, more_details AS "moreDetails" FROM services WHERE $1 LIKE CONCAT(\'%\', membership, \'%\')',
+    [membership],
+  );
+  return response.rows;
+};
+
 // GET SERVICE BY NAME
 const serviceByName = async name => {
   const response = await db.query(
@@ -17,4 +26,4 @@ const serviceByName = async name => {
   return response.rows[0];
 };
 
-export { listAllServices, serviceByName };
+export { listAllServices, serviceByName, serviceByMemberMembership };
