@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Table } from 'react-bootstrap';
+import { Button, Form, Table, Modal } from 'react-bootstrap';
 import { API_URL } from '../constants';
 
 function AdminEvents() {
@@ -15,6 +15,9 @@ function AdminEvents() {
     moreDetails: '',
     slugName: '',
   });
+
+  const [editEvent, setEditEvent] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const fetchEvents = async () => {
     try {
@@ -33,7 +36,6 @@ function AdminEvents() {
       });
 
       if (response.ok) {
-        // const deletedEventData = await response.json();
         fetchEvents();
       } else {
         // console.error('Error deleting event');
@@ -41,6 +43,11 @@ function AdminEvents() {
     } catch (error) {
       // console.error('Error deleting event:', error);
     }
+  };
+
+  const handleEditEvent = (event) => {
+    setEditEvent(event);
+    setIsEditing(true);
   };
 
   const handleInputChange = (e) => {
@@ -69,12 +76,10 @@ function AdminEvents() {
 
       const response = await fetch(`${API_URL}/api/events`, {
         method: 'POST',
-        body: JSON.stringify(newEvent),
-        headers: { 'Content-Type': 'application/json' },
+        body: formData,
       });
 
       if (response.ok) {
-        // const newEventData = await response.json();
         setNewEvent({
           name: '',
           startTime: '',
@@ -88,13 +93,32 @@ function AdminEvents() {
         });
 
         fetchEvents();
-
-        // console.log('New event created with ID:', newEventData.event.id);
       } else {
         // console.error('Error adding event');
       }
     } catch (error) {
       // console.error('Error adding event:', error);
+    }
+  };
+
+  const handleUpdateEvent = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/events/${editEvent.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editEvent),
+      });
+
+      if (response.ok) {
+        fetchEvents();
+        setIsEditing(false);
+      } else {
+        // console.error('Error updating event');
+      }
+    } catch (error) {
+      // console.error('Error updating event:', error);
     }
   };
 
@@ -197,6 +221,7 @@ function AdminEvents() {
             <th>Start Time</th>
             <th>End Time</th>
             <th>Available Seats</th>
+            <th>Edit Event</th>
             <th>Delete Event</th>
           </tr>
         </thead>
@@ -208,6 +233,11 @@ function AdminEvents() {
               <td>{event.endTime}</td>
               <td>{event.availableSeats}</td>
               <td>
+                <Button variant="primary" onClick={() => handleEditEvent(event)}>
+                  Edit
+                </Button>
+              </td>
+              <td>
                 <Button variant="danger" onClick={() => handleDeleteEvent(event.id)}>
                   Delete
                 </Button>
@@ -216,6 +246,70 @@ function AdminEvents() {
           ))}
         </tbody>
       </Table>
+
+      <Modal show={isEditing} onHide={() => setIsEditing(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Name:</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={editEvent?.name || ''}
+                onChange={(e) => setEditEvent({ ...editEvent, name: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Start Time:</Form.Label>
+              <Form.Control
+                type="datetime-local"
+                name="startTime"
+                value={editEvent?.startTime || ''}
+                onChange={(e) => setEditEvent({ ...editEvent, startTime: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>End Time:</Form.Label>
+              <Form.Control
+                type="datetime-local"
+                name="endTime"
+                value={editEvent?.endTime || ''}
+                onChange={(e) => setEditEvent({ ...editEvent, endTime: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Available Seats:</Form.Label>
+              <Form.Control
+                type="number"
+                name="availableSeats"
+                value={editEvent?.availableSeats || ''}
+                onChange={(e) => setEditEvent({ ...editEvent, availableSeats: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Details:</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                name="details"
+                value={editEvent?.details || ''}
+                onChange={(e) => setEditEvent({ ...editEvent, details: e.target.value })}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setIsEditing(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={() => handleUpdateEvent()}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

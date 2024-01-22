@@ -43,4 +43,35 @@ const deleteEventById = async eventId => {
   return response.rows[0];
 };
 
-export { listAllEvents, eventByName, createNewEvent, deleteEventById };
+const updateEventById = async (
+  id,
+  name,
+  startTime,
+  endTime,
+  availableSeats,
+  eventImg,
+  headerImg,
+  details,
+  moreDetails,
+  slugName,
+) => {
+  const response = await db.query(
+    'UPDATE events SET name=$1, start_time=$2, end_time=$3, available_seats=$4, event_img=$5, header_img=$6, details=$7, more_details=$8, slug_name=$9 WHERE id=$10 RETURNING *',
+    [
+      name,
+      startTime,
+      endTime,
+      availableSeats,
+      eventImg,
+      headerImg,
+      details,
+      moreDetails,
+      slugName,
+      id,
+    ],
+  );
+
+  return response.rows[0];
+};
+
+export { listAllEvents, eventByName, createNewEvent, deleteEventById, updateEventById };
