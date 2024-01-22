@@ -5,6 +5,7 @@ import { SocialIcon } from 'react-social-icons';
 import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { IoMdPin } from 'react-icons/io';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
 import { useAuth } from '../contexts/AuthContext';
@@ -116,16 +117,27 @@ function Layout() {
 
       <footer className="bg-dark bottom-0">
         <Container>
-          <Row className="p-5 pb-3">
-            <Col md={3} className="d-flex justify-content-center p-4">
-              <Navbar.Brand href="/">
-                {' '}
-                <img
-                  src="/src/assets/door_logo_w.png"
-                  className="footer-logo d-inline-block align-center"
-                  alt="club logo"
-                />
-              </Navbar.Brand>
+          <Row className="p-4 pb-3">
+            <Col
+              md={3}
+              className="d-flex flex-column justify-content-center align-items-center text-white p-3"
+            >
+              <div className="d-flex justify-content-center">
+                <Navbar.Brand href="/">
+                  <img src="/src/assets/door_logo_w.png" className="footer-logo " alt="club logo" />
+                </Navbar.Brand>
+              </div>
+              <Nav.Link as={NavLink} to="/contact">
+                <div className="text-start py-3 d-flex flex-row justify-content-center align-items-start">
+                  <div>
+                    <IoMdPin className="fs-1 p-1" fill="crimson" />
+                  </div>
+                  <div>
+                    Székesfehérvár-Feketehegy
+                    <p>Új Csóri út 156</p>
+                  </div>
+                </div>
+              </Nav.Link>
             </Col>
             <Col md={3} className="d-flex flex-column align-items-center text-white">
               <div className="footer-menu">
@@ -154,7 +166,7 @@ function Layout() {
                 <h5 className="text-secondary">Customer service</h5>
                 <ul className="list-unstyled text-white">
                   <li>☎️: +36708536957</li>
-                  <li>✉️: info@doorclub.com</li>
+                  <li>✉️: door8projekt@gmail.com</li>
                   <hr />
                   <li>
                     <a href="privacy" className="text-secondary">
