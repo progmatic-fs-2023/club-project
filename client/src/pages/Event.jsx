@@ -8,6 +8,7 @@ import { MdOutlineCalendarMonth } from 'react-icons/md';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../constants';
+import { formatTime } from '../utils/dateUtils';
 
 function Event() {
   const { eventName } = useParams();
@@ -54,11 +55,6 @@ function Event() {
     const options = { day: 'numeric', month: 'short' };
     const [month, day] = new Date(dateString).toLocaleDateString('en-US', options).split(' ');
     return `${day} ${month}`;
-  };
-
-  const formatTime = (dateString) => {
-    const options = { hour: 'numeric', minute: 'numeric' };
-    return new Date(dateString).toLocaleTimeString('en-US', options);
   };
 
   const startDate = formatDate(event.startTime);

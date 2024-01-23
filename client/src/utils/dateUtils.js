@@ -21,17 +21,17 @@ const today = () => {
 };
 
 const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'short', day: '2-digit' };
+  const options = { day: '2-digit', month: 'short', year: 'numeric' };
   return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
 const formatDateShort = (dateString) => {
-  const options = { day: 'numeric', month: 'short' };
+  const options = { month: 'short', day: 'numeric' };
   return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
 const formatTime = (dateString) => {
-  const options = { hour: 'numeric', minute: 'numeric' };
+  const options = { hour: 'numeric', minute: 'numeric', hour12: false };
   return new Date(dateString).toLocaleTimeString('en-US', options);
 };
 

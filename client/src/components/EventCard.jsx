@@ -17,7 +17,7 @@ function EventCard({ name, startDate, startTime, endTime, eventImg, availableSea
       <div className="ver_mas bg-primary position-absolute w-100 bottom-0 d-flex align-items-center justify-content-center">
         <span className="lnr lnr-eye position-relative fs-1 text-info" />
       </div>
-      <div className="z-1 bg-primary position-absolute p-2 m-2 rounded-bottom text-white josefin-font">
+      <div className="z-1 bg-primary position-absolute p-2 m-2 rounded-bottom text-white josefin-font d-flex flex-column align-items-center">
         <div className="fs-3 text-uppercase">{startDate}</div>
         <div className="fs-6">
           {startTime} - {endTime}
