@@ -138,7 +138,7 @@ function AdminMember() {
               {isEditing && (
                 <div className="m-2">
                   <button type="button" className="btn btn-danger" onClick={handleDeleteImage}>
-                    Delete
+                    DELETE PHOTO
                   </button>
                 </div>
               )}
@@ -147,17 +147,18 @@ function AdminMember() {
             <div className="d-flex flex-column flex-md-row  align-items-xs-center">
               <div className="d-flex align-items-end p-2">
                 <Button
-                  className="fs-6 px-3 d-flex align-items-center "
+                  type="button"
+                  className="btn btn-danger fs-6 px-3 d-flex align-items-center "
                   onClick={handleDeleteClick}
                 >
                   <MdDeleteForever className="me-2" />
-                  Delete
+                  DELETE MEMBER
                 </Button>
               </div>
               <div className="d-flex align-items-center p-2">
                 <Button className="fs-6 px-3  d-flex align-items-center" onClick={handleResetClick}>
                   <MdCancel className="me-2" />
-                  RESET
+                  CANCEL
                 </Button>
               </div>
               <div className="d-flex align-items-center p-2">

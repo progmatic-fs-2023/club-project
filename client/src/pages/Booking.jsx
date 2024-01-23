@@ -3,10 +3,16 @@ import Container from 'react-bootstrap/Container';
 import { Bs1CircleFill, Bs2CircleFill } from 'react-icons/bs';
 import BookingServiceSelector from '../components/BookingServiceSelector';
 import BookingWeeklyView from '../components/BookingWeeklyView';
+import { useAuth } from '../contexts/AuthContext';
 
 function Booking() {
   const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [selectedServiceName, setSelectedServiceName] = useState(null);
+  const { user, isAuthenticated } = useAuth();
+
+  if (!isAuthenticated || !user) {
+    return <div>User not found or not logged in</div>;
+  }
 
   return (
     <Container className="d-flex flex-column py-5">

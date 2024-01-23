@@ -61,7 +61,9 @@ function CurrentBookingWindow({
 }
 
 CurrentBookingWindow.propTypes = {
-  currentBookingItems: PropTypes.string.isRequired,
+  currentBookingItems: PropTypes.PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+  ).isRequired,
   handleDeleteItemFromBooking: PropTypes.func.isRequired,
   handleResetBooking: PropTypes.func.isRequired,
 };
