@@ -5,8 +5,8 @@ import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { MdOutlineCalendarMonth } from "react-icons/md";
-import { RiArrowGoBackLine } from "react-icons/ri";
+import { MdOutlineCalendarMonth } from 'react-icons/md';
+import { RiArrowGoBackLine } from 'react-icons/ri';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../constants';
 
@@ -57,38 +57,48 @@ function Service() {
               {service.name}{' '}
             </h1>
           </div>
-         <div className="p-3 d-flex justify-content-center">
-         {service.moreDetails}
-         </div>
+          <div className="p-3 d-flex justify-content-center">{service.moreDetails}</div>
           <div className="p-3 d-flex justify-content-center flex-wrap">
-            <div className='p-3 d-flex align-items-center'>
-
-            {isAuthenticated ? (
-              <NavLink to={`/booking/${service.id}`} target="_blank" rel="noopener noreferrer" className="text-decoration-none">
-                <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1">BOOKING <MdOutlineCalendarMonth /></Button>
-              </NavLink>
-            ) : (
-              <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">LOG IN TO BOOK!</Tooltip>}>
-                <span className="d-inline-block">
-                  <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1" disabled style={{ pointerEvents: 'none' }}>
+            <div className="p-3 d-flex align-items-center">
+              {isAuthenticated ? (
+                <NavLink
+                  to={`/booking/${service.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-decoration-none"
+                >
+                  <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1">
                     BOOKING <MdOutlineCalendarMonth />
                   </Button>
-                </span>
-              </OverlayTrigger>
-            )}
+                </NavLink>
+              ) : (
+                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">LOG IN TO BOOK!</Tooltip>}>
+                  <span className="d-inline-block">
+                    <Button
+                      className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+                      disabled
+                      style={{ pointerEvents: 'none' }}
+                    >
+                      BOOKING <MdOutlineCalendarMonth />
+                    </Button>
+                  </span>
+                </OverlayTrigger>
+              )}
             </div>
-            <div className='p-3'>
-            <Nav className="d-flex justify-content-evenly">
-            {/*   <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
+            <div className="p-3">
+              <Nav className="d-flex justify-content-evenly">
+                {/*   <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
             </Nav.Link> */}
-            <Nav.Link as={NavLink} to="/services">
-              <Button className="btn-primary fs-5 max-vw-25">SERVICES <RiArrowGoBackLine /></Button>
-            </Nav.Link>
-            {/*     <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
+                <Nav.Link as={NavLink} to="/services">
+                  <Button className="btn-primary fs-5 max-vw-25">
+                    SERVICES <RiArrowGoBackLine />
+                  </Button>
+                </Nav.Link>
+                {/*     <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Next</Button>
             </Nav.Link> */}
-          </Nav>
+              </Nav>
             </div>
           </div>
         </div>

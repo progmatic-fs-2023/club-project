@@ -151,9 +151,7 @@ function Event() {
             </div>
             <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
             <div className="p-3 d-flex justify-content-center flex-wrap">
-              <div className="p-3 d-flex align-items-center">
-                {renderContent()}
-              </div>
+              <div className="p-3 d-flex align-items-center">{renderContent()}</div>
               <div className="p-3">
                 <Nav className="d-flex justify-content-evenly">
                   {/*    <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
