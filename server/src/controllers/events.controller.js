@@ -1,14 +1,19 @@
-import { listAllEvents, eventByName } from '../services/events.service';
+import {
+  listAllEvents,
+  eventByName,
+  createNewEvent,
+  deleteEventById,
+  updateEventById, // Hozzáadva az import
+} from '../services/events.service';
 import 'dotenv/config';
 
-// GET ALL EVENTS
 const list = async (req, res) => {
   try {
     const allEvents = await listAllEvents();
     if (allEvents) {
       res.json(allEvents);
     } else {
-      res.status(404).json({ message: 'Event do not exist' });
+      res.status(404).json({ message: 'Event does not exist' });
     }
   } catch (err) {
     res.status(500).json({
@@ -34,4 +39,96 @@ const getEventByName = async (req, res) => {
   }
 };
 
-export { list, getEventByName };
+// CREATE EVENT
+const createEvent = async (req, res) => {
+  const {
+    name,
+    startTime,
+    endTime,
+    availableSeats,
+    eventImg,
+    headerImg,
+    details,
+    moreDetails,
+    slugName,
+  } = req.body;
+
+  try {
+    const newEvent = await createNewEvent(
+      name,
+      startTime,
+      endTime,
+      availableSeats,
+      eventImg,
+      headerImg,
+      details,
+      moreDetails,
+      slugName,
+    );
+
+    res.status(201).json({ message: 'success', event: newEvent });
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+// DELETE EVENT
+const deleteEvent = async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const deletedEvent = await deleteEventById(eventId);
+
+    if (deletedEvent) {
+      res.json({ success: true, message: 'Event deleted successfully', data: deletedEvent });
+    } else {
+      res.status(404).json({ success: false, message: 'Event not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting event:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+// UPDATE EVENT BY ID
+const updateEvent = async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const {
+      name,
+      startTime,
+      endTime,
+      availableSeats,
+      eventImg,
+      headerImg,
+      details,
+      moreDetails,
+      slugName,
+    } = req.body;
+
+    const updatedEvent = await updateEventById(
+      eventId,
+      name,
+      startTime,
+      endTime,
+      availableSeats,
+      eventImg,
+      headerImg,
+      details,
+      moreDetails,
+      slugName,
+    );
+
+    if (updatedEvent) {
+      res.json({ success: true, message: 'Event updated successfully', data: updatedEvent });
+    } else {
+      res.status(404).json({ success: false, message: 'Event not found' });
+    }
+  } catch (error) {
+    console.error('Error updating event:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+export { list, getEventByName, createEvent, deleteEvent, updateEvent };

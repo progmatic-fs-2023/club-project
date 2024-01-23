@@ -1,27 +1,28 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import FileUpload from './FileUpload';
 import ProfileCalendar from './ProfileCalendar';
 
-const members = [
-  {
-    id: 1,
-    name: 'John Doe',
-    username: 'john.doe',
-    email: 'john@example.com',
-    gender: 'Male',
-    address: '132 My Street, Kingston, New York 12401',
-    membership: 'Gold',
-    membershipExpires: '2024-12-31',
-  },
-];
+// const members = [
+//   {
+//     id: 1,
+//     name: 'John Doe',
+//     username: 'john.doe',
+//     email: 'john@example.com',
+//     gender: 'Male',
+//     address: '132 My Street, Kingston, New York 12401',
+//     membership: 'Gold',
+//     membershipExpires: '2024-12-31',
+//   },
+// ];
 
 export default function ProfileCard() {
-  const userIdToRetrieve = 1;
-  const user = members.find((member) => member.id === userIdToRetrieve);
+  const { user, isAuthenticated } = useAuth();
 
-  if (!user) {
-    return <div>User not found</div>;
+  if (!isAuthenticated || !user) {
+    // A felhasználó nincs bejelentkezve
+    return <div>User not found or not logged in</div>;
   }
 
   return (
@@ -32,7 +33,7 @@ export default function ProfileCard() {
             <div className="rounded-top text-white d-flex flex-row bg-dark profile-card-up">
               <div className="ms-4 mt-5 d-flex flex-column">
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                  src={user.member_img}
                   alt="Generic placeholder"
                   className="profile-card-img img-fluid img-thumbnail mt-4 mb-2"
                 />

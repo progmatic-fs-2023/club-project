@@ -11,7 +11,7 @@ function ForgotPasswordModal({ show, handleClose }) {
 
   const handleResetPassword = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/send-new-password-email`, {
+      const response = await fetch(`${API_URL}/api/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,14 @@ function ForgotPasswordModal({ show, handleClose }) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={() => handleResetPassword()}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            handleResetPassword();
+            handleClose();
+            setEmail('');
+          }}
+        >
           Reset Password
         </Button>
       </Modal.Footer>
@@ -63,7 +70,7 @@ function ForgotPasswordModal({ show, handleClose }) {
 }
 
 ForgotPasswordModal.propTypes = {
-  show: PropTypes.string.isRequired,
+  show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 

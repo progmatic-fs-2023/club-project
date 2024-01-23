@@ -16,14 +16,6 @@ function RegistrationModal({ showButton }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const [inputs, setInputs] = useState({});
-
-  // const handleChange = (event) => {
-  //   const { name } = event.target;
-  //   const { value } = event.target;
-  //   setInputs((values) => ({ ...values, [name]: value }));
-  // };
-
   const handleFormSubmit = async (values) => {
     // event.preventDefault();
     try {

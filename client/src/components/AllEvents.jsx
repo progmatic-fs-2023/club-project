@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import EventCard from './EventCard';
 import ScrollToTopButton from './ScrollToTopButton';
-import { formatTime, formatDate } from '../utils/dateUtils';
+import { formatTime, formatDateShort } from '../utils/dateUtils';
 
 function AllEvents({ events }) {
   return (
@@ -16,8 +16,8 @@ function AllEvents({ events }) {
               <NavLink to={event.slugName}>
                 <EventCard
                   name={event.name}
-                  startDate={formatDate(event.startTime)}
-                  endDate={formatDate(event.endTime)}
+                  startDate={formatDateShort(event.startTime)}
+                  endDate={formatDateShort(event.endTime)}
                   startTime={formatTime(event.startTime)}
                   endTime={formatTime(event.endTime)}
                   eventImg={event.eventImg}

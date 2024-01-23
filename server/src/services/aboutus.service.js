@@ -7,7 +7,7 @@ const executeQuery = async sqlQuery => {
 };
 
 const listFamous = async () => {
-  const result = 'SELECT * FROM famous';
+  const result = 'SELECT id, name, famous_img AS "famousImg", profession, year FROM famous';
   return executeQuery(result);
 };
 

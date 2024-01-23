@@ -24,6 +24,7 @@ import AdminBookings from './components/AdminBookings';
 import AdminServiceBookings from './components/AdminServiceBookings';
 import AdminBooking from './pages/AdminBooking';
 import AdminServicesBooking from './pages/AdminServicesBooking';
+import Booking from './pages/Booking';
 import LandingPage from './pages/LandingPage';
 import NewPasswordPage from './pages/NewPasswordPage';
 import { useAuth } from './contexts/AuthContext';
@@ -60,6 +61,8 @@ function App() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/booking/:serviceIdFromParams" element={<Booking />} />
         <Route path="/landingpage" element={<LandingPage />} />
         <Route path="/newpasswordpage" element={<NewPasswordPage />} />
       </Route>

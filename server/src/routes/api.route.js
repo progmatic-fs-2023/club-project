@@ -6,11 +6,15 @@ import emailRouter from './email.route';
 import adminRouter from './admin.route';
 import adminBookingsRouter from './admin.bookings.route';
 import adminServicesBookingsRouter from './admin.services.bookings.route';
+import membershipRouter from './membership.route';
+import bookingRouter from './booking.route';
 import { sendNewPasswordEmail } from '../services/email.service';
+import { verifyNewPasswordEmail, verifyNewPasswords } from '../controllers/users.controller';
 
 const router = Router();
 
 router.use('/services', servicesRouter);
+router.use('/services/membership', servicesRouter);
 router.use('/services/:name', servicesRouter);
 router.use('/events', eventsRouter);
 router.use('/events/:name', eventsRouter);
@@ -23,6 +27,11 @@ router.use('/bookings/:id', adminBookingsRouter);
 router.use('/servicebookings', adminServicesBookingsRouter);
 router.use('/servicebookings/:id', adminServicesBookingsRouter);
 router.post('/send-new-password-email', sendNewPasswordEmail);
+router.post('/forgot-password', sendNewPasswordEmail);
+router.get('/reset-password', verifyNewPasswordEmail);
+router.post('/reset-password', verifyNewPasswords);
+router.use('/booking', bookingRouter);
+router.use('/membership', membershipRouter);
 
 router.get('/', (req, res) => {
   res.sendStatus(200);
