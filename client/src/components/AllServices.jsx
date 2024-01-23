@@ -31,6 +31,7 @@ function AllServices({ services }) {
                       name={item.name}
                       serviceImg={item.serviceImg}
                       details={item.details}
+                      membership={item.membership}
                     />
                   </NavLink>
                 </Col>
