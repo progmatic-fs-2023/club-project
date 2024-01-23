@@ -3,6 +3,7 @@ import {
   eventByName,
   createNewEvent,
   deleteEventById,
+  updateEventById, // Hozzáadva az import
 } from '../services/events.service';
 import 'dotenv/config';
 
@@ -89,4 +90,45 @@ const deleteEvent = async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
-export { list, getEventByName, createEvent, deleteEvent };
+
+// UPDATE EVENT BY ID
+const updateEvent = async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const {
+      name,
+      startTime,
+      endTime,
+      availableSeats,
+      eventImg,
+      headerImg,
+      details,
+      moreDetails,
+      slugName,
+    } = req.body;
+
+    const updatedEvent = await updateEventById(
+      eventId,
+      name,
+      startTime,
+      endTime,
+      availableSeats,
+      eventImg,
+      headerImg,
+      details,
+      moreDetails,
+      slugName,
+    );
+
+    if (updatedEvent) {
+      res.json({ success: true, message: 'Event updated successfully', data: updatedEvent });
+    } else {
+      res.status(404).json({ success: false, message: 'Event not found' });
+    }
+  } catch (error) {
+    console.error('Error updating event:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+export { list, getEventByName, createEvent, deleteEvent, updateEvent };
