@@ -33,7 +33,7 @@ export default function ProfileCard() {
             <div className="rounded-top text-white d-flex flex-row bg-dark profile-card-up">
               <div className="ms-4 mt-5 d-flex flex-column">
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                  src={user.member_img}
                   alt="Generic placeholder"
                   className="profile-card-img img-fluid img-thumbnail mt-4 mb-2"
                 />

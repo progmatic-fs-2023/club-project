@@ -2,14 +2,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Bs4CircleFill } from 'react-icons/bs';
 import { MdDeleteForever, MdCancel } from 'react-icons/md';
-import { Button, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { formatDateLong } from '../utils/dateUtils';
+import { useAuth } from '../contexts/AuthContext';
+import { API_URL } from '../constants';
 
 function CurrentBookingWindow({
   currentBookingItems,
   handleDeleteItemFromBooking,
   handleResetBooking,
 }) {
+  const { user } = useAuth();
+
+  const handleBookingSubmit = () => {
+    currentBookingItems.forEach(async (booking) => {
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          timeSlotId: booking.time_slot_id,
+          memberId: user.id,
+          isReserved: true,
+        }),
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/api/booking`, requestOptions);
+        const result = await response.json();
+        if (result) {
+          window.location.reload();
+        }
+      } catch (error) {
+        // console.error('Error during booking:', error);
+      }
+    });
+  };
+
   return (
     currentBookingItems.length > 0 && (
       <div>
@@ -27,32 +57,38 @@ function CurrentBookingWindow({
                 <span> - {formatDateLong(item.start_time)} - </span>
                 <span>{formatDateLong(item.end_time)}</span>
               </div>
-              <Button
+              <button
+                type="button"
                 className="btn btn-danger btn-sm d-flex align-items-center"
                 onClick={() => handleDeleteItemFromBooking(item.time_slot_id)}
               >
                 <MdDeleteForever className="me-2" />
                 DELETE
-              </Button>
+              </button>
             </div>
           ))}
         </Col>
         <div className="d-flex flex-row">
           <div className="d-flex justify-content-start mt-3">
-            <Button
+            <button
+              type="button"
               className="btn btn-dark d-flex align-items-center m-2"
               onClick={handleResetBooking}
             >
               <MdCancel className="me-2" />
               RESET
-            </Button>
+            </button>
           </div>
 
           <div className="d-flex justify-content-start mt-3">
-            <Button className="btn btn-success d-flex align-items-center m-2">
+            <button
+              type="button"
+              className="btn btn-success d-flex align-items-center m-2"
+              onClick={handleBookingSubmit}
+            >
               <MdCancel className="me-2" />
               CONFIRM BOOKING
-            </Button>
+            </button>
           </div>
         </div>{' '}
       </div>

@@ -4,14 +4,16 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { Col } from 'react-bootstrap';
 import { API_URL } from '../constants';
+import { useAuth } from '../contexts/AuthContext';
 
 function BookingServiceSelector({ setSelectedServiceId, setSelectedServiceName }) {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [loading, setLoading] = useState(true);
   const { serviceIdFromParams } = useParams();
+  const { user } = useAuth();
 
-  let memberMembership = 'platinum';
+  let memberMembership = user.membership;
 
   if (memberMembership === 'gold') {
     memberMembership = 'silvergold';

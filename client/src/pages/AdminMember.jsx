@@ -146,14 +146,14 @@ function AdminMember() {
 
             <div className="d-flex flex-column flex-md-row  align-items-xs-center">
               <div className="d-flex align-items-end p-2">
-                <Button
+                <button
                   type="button"
                   className="btn btn-danger fs-6 px-3 d-flex align-items-center "
                   onClick={handleDeleteClick}
                 >
                   <MdDeleteForever className="me-2" />
                   DELETE MEMBER
-                </Button>
+                </button>
               </div>
               <div className="d-flex align-items-center p-2">
                 <Button className="fs-6 px-3  d-flex align-items-center" onClick={handleResetClick}>
