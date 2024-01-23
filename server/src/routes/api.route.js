@@ -4,6 +4,8 @@ import eventsRouter from './events.route';
 import aboutusRouter from './aboutus.route';
 import emailRouter from './email.route';
 import adminRouter from './admin.route';
+import adminBookingsRouter from './admin.bookings.route';
+import adminServicesBookingsRouter from './admin.services.bookings.route';
 import { sendNewPasswordEmail } from '../services/email.service';
 
 const router = Router();
@@ -16,6 +18,10 @@ router.use('/aboutus', aboutusRouter);
 router.use('/contact', emailRouter);
 router.use('/admin', adminRouter);
 router.use('/admin/:id', adminRouter);
+router.use('/bookings', adminBookingsRouter);
+router.use('/bookings/:id', adminBookingsRouter);
+router.use('/servicebookings', adminServicesBookingsRouter);
+router.use('/servicebookings/:id', adminServicesBookingsRouter);
 router.post('/send-new-password-email', sendNewPasswordEmail);
 
 router.get('/', (req, res) => {
