@@ -20,7 +20,7 @@ function LoginFeedbackModal({ smShow, setSmShow }) {
 }
 
 LoginFeedbackModal.propTypes = {
-  smShow: PropTypes.string.isRequired,
+  smShow: PropTypes.bool.isRequired,
   setSmShow: PropTypes.func.isRequired,
 };
 

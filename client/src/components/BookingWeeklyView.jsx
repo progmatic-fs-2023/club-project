@@ -133,13 +133,13 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
 
   return (
     <Col>
-      <div className="d-flex flex-column flex-lg-row justify-content-between">
+      <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
         <Col
           xs={12}
           md={11}
           lg={9}
           xl={8}
-          className="cards-container d-flex flex-column flex-md-row justify-content-center align-items-start justify-content-md-start order-2 order-lg-1"
+          className="cards-container d-flex flex-column flex-md-row justify-content-center align-items-start justify-content-md-center order-2 order-lg-1"
         >
           {groupedArray.map((data) => {
             const dayOfWeek = new Date(data.start_time).getDay();
@@ -148,7 +148,7 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
               currentDate.toLocaleDateString('en-US');
 
             const cardClassName = isCurrentDate
-              ? 'bg-primary text-white border border-success border-2'
+              ? 'bg-primary text-white border border-warning border-1'
               : (new Date(data.start_time).setHours(0, 0, 0, 0) >
                   currentDate.setHours(0, 0, 0, 0) &&
                   'bg-primary') ||
@@ -186,7 +186,10 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
         </Col>
         {serviceId && (
           <Col
-            xs={3}
+            xs={10}
+            sm={8}
+            md={5}
+            lg={3}
             className="text-light-dark text-center m-1 d-flex justify-content-center align-items-center flex-row order-1 order-lg-2 m-3"
           >
             <div

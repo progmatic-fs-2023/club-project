@@ -1,4 +1,4 @@
-import { listAWeekById } from '../services/booking.service';
+import { listAWeekById, createNewBooking } from '../services/booking.service';
 import HttpError from '../utils/HttpError';
 
 const weekListById = async (req, res, next) => {
@@ -17,4 +17,21 @@ const weekListById = async (req, res, next) => {
   }
 };
 
-export { weekListById };
+const createBooking = async (req, res, next) => {
+  try {
+    const { timeSlotId } = req.body;
+    const { memberId } = req.body;
+    const { isReserved } = req.body;
+
+    const newBooking = await createNewBooking(timeSlotId, memberId, isReserved);
+    if (newBooking) {
+      res.json(newBooking);
+    } else {
+      next(new HttpError('New booking does not exist', 404));
+    }
+  } catch (error) {
+    next(new HttpError(error.message, 500));
+  }
+};
+
+export { weekListById, createBooking };

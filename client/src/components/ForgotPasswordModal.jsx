@@ -70,7 +70,7 @@ function ForgotPasswordModal({ show, handleClose }) {
 }
 
 ForgotPasswordModal.propTypes = {
-  show: PropTypes.string.isRequired,
+  show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 

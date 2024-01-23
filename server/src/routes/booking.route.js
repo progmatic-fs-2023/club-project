@@ -1,8 +1,9 @@
 import express from 'express';
-import { weekListById } from '../controllers/booking.controller';
+import { weekListById, createBooking } from '../controllers/booking.controller';
 
 const bookingRouter = express.Router();
 
 bookingRouter.get('/:id', weekListById);
+bookingRouter.post('/', createBooking);
 
 export default bookingRouter;
