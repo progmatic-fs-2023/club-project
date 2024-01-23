@@ -2,8 +2,11 @@ import { useParams, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import { Button, Modal, Nav } from 'react-bootstrap';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import { MdOutlineCalendarMonth } from 'react-icons/md';
+import { RiArrowGoBackLine } from 'react-icons/ri';
+import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../constants';
 
 function Event() {
@@ -14,6 +17,7 @@ function Event() {
   const [reservedEvents, setReservedEvents] = useState([]);
   const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [event, setEvent] = useState([]);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchEventByName = async () => {
@@ -98,12 +102,43 @@ function Event() {
     setShowThankYouModal(false);
   }, [eventName]);
 
+  const renderContent = () => {
+    if (!isAuthenticated) {
+      return (
+        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">LOG IN TO RESERVE!</Tooltip>}>
+          <span className="d-inline-block">
+            <Button
+              className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+              disabled
+              style={{ pointerEvents: 'none' }}
+            >
+              RESERVE <MdOutlineCalendarMonth />
+            </Button>
+          </span>
+        </OverlayTrigger>
+      );
+    }
+
+    if (isEventReserved) {
+      return <span className="text-muted fs-5 max-vw-25">RESERVED</span>;
+    }
+
+    return (
+      <Button
+        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+        onClick={handleReserveClick}
+      >
+        RESERVE <MdOutlineCalendarMonth />
+      </Button>
+    );
+  };
+
   return (
     <>
       <div className="d-flex flex-column">
         <Image className="header-image w-100 object-fit-cover" src={event.headerImg} />
         <div className="d-flex flex-column flex-md-row align-items-center align-items-md-start p-5">
-          <Image className="w-25 mx-3" src={event.eventImg} rounded />
+          <Image className="w-25 mx-3 d-lg-block d-none" src={event.eventImg} rounded />
           <div className="px-3">
             <div className="d-flex flex-column align-items-center">
               <h1 className="py-1 fw-bold text-primary border-5 border-bottom border-warning text-center ">
@@ -114,37 +149,27 @@ function Event() {
                 {startTime} - {endTime}
               </div>
             </div>
-            <Tabs defaultActiveKey="moreDetails" className="mb-3">
-              <Tab eventKey="moreDetails" title="More details">
-                {event.moreDetails}
-              </Tab>
-              <Tab eventKey="moreDetails1" title="More details">
-                {event.moreDetails}
-              </Tab>
-              <Tab eventKey="moreDetails2" title="More details">
-                {event.moreDetails}
-              </Tab>
-            </Tabs>
-            <div className="p-3 d-flex justify-content-center">
-              {isEventReserved ? (
-                <span className="text-muted fs-5 max-vw-25">Reserved</span>
-              ) : (
-                <Button className="btn-primary fs-5 max-vw-25" onClick={handleReserveClick}>
-                  Reserve
-                </Button>
-              )}
-            </div>
-            <Nav className="d-flex justify-content-evenly">
-              {/*    <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
+            <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
+            <div className="p-3 d-flex justify-content-center flex-wrap">
+              <div className="p-3 d-flex align-items-center">
+                {renderContent()}
+              </div>
+              <div className="p-3">
+                <Nav className="d-flex justify-content-evenly">
+                  {/*    <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
             </Nav.Link> */}
-              <Nav.Link as={NavLink} to="/events">
-                <Button className="btn-primary fs-5 max-vw-25">Events</Button>
-              </Nav.Link>
-              {/*  <Nav.Link as={NavLink} to={`/events/${eventNext.name}`}>
+                  <Nav.Link as={NavLink} to="/events">
+                    <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1">
+                      EVENTS <RiArrowGoBackLine />
+                    </Button>
+                  </Nav.Link>
+                  {/*  <Nav.Link as={NavLink} to={`/events/${eventNext.name}`}>
               <Button className="btn-primary fs-5 max-vw-25">Next</Button>
             </Nav.Link> */}
-            </Nav>
+                </Nav>
+              </div>
+            </div>
           </div>
         </div>
       </div>
