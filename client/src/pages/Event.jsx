@@ -54,7 +54,7 @@ function Event() {
   const formatDate = (dateString) => {
     const options = { day: 'numeric', month: 'short' };
     const [month, day] = new Date(dateString).toLocaleDateString('en-US', options).split(' ');
-    return `${day} ${month}`;
+    return `${month} ${day} `;
   };
 
   const startDate = formatDate(event.startTime);
@@ -146,6 +146,7 @@ function Event() {
               </div>
             </div>
             <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
+            {/* <h3 className="p-3 d-flex justify-content-center">{`Available seats: ${event.availableSeats}`}</h3> */}
             <div className="p-3 d-flex justify-content-center flex-wrap">
               <div className="p-3 d-flex align-items-center">{renderContent()}</div>
               <div className="p-3">

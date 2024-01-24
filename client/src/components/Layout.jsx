@@ -35,7 +35,7 @@ function Layout() {
         variant="dark"
         collapseOnSelect
         expand="xl"
-        className="bg-primary navbar fs-4 py-0 h-auto"
+        className="bg-primary fs-4 py-0 h-auto"
         fixed="top"
       >
         <Container className="min-vw-100 mx-auto py-1 px-4">
@@ -85,22 +85,28 @@ function Layout() {
                   alt="profile logo"
                 />
               </Navbar.Brand>
-              <Navbar.Brand
+              <Button
+                as={NavLink}
+                to="/booking"
+                style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+                className="mx-3 max-vw-25 fs-5"
+                variant="outline-light"
+              >
+                Booking
+              </Button>
+              <Button
                 as={NavLink}
                 to="/"
                 style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+                className="mx-3 max-vw-25 fs-5"
+                variant="outline-light"
+                onClick={() => {
+                  handleLogoutButton();
+                  logout();
+                }}
               >
-                <Button
-                  className="mx-3 max-vw-25 fs-5"
-                  variant="outline-light"
-                  onClick={() => {
-                    handleLogoutButton();
-                    logout();
-                  }}
-                >
-                  Log out
-                </Button>
-              </Navbar.Brand>
+                Log out
+              </Button>
               <LoginModal
                 showButton={show}
                 setShowButton={handleCloseButton}

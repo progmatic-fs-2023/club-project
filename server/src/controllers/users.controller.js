@@ -118,10 +118,11 @@ const verifyNewPasswordEmail = async (req, res, next) => {
 };
 
 const verifyNewPasswords = async (req, res) => {
-  const { newPassword, email } = req.body;
+  const { password1, email } = req.body;
+  console.log(password1);
   console.log(req.body);
   const user = await findEmail(email);
-
+  // console.log(user);
   if (!user || email !== user.email) {
     res.status(404).send('Invalid email.');
     return;
@@ -132,14 +133,15 @@ const verifyNewPasswords = async (req, res) => {
   try {
     // const payload = jwt.verify(token, secret);
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-
+    const hashedPassword = await bcrypt.hash(password1, 10);
+    console.log(hashedPassword);
     user.password = hashedPassword;
 
     await updateNewPassword(email, user.password);
     console.log('Password updated successfully.');
+    res.send();
   } catch (error) {
-    console.log(error.message);
+    console.log(`hiba: ${error.message}`);
     res.send(error.message);
   }
 };
