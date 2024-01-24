@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table, NavLink } from 'react-bootstrap';
 import { API_URL } from '../constants';
+import AdminServiceBookingSearch from './AdminServiceBookingSearch';
+import { formatDate, formatDateLong } from '../utils/dateUtils';
 
 function AdminServiceBookings() {
   const [serviceBookings, setServiceBookings] = useState([]);
+  const [searchId, setSearchId] = useState('');
+  const [searchFirstName, setSearchFirstName] = useState('');
+  const [searchLastName, setSearchLastName] = useState('');
+  const [searchServiceName, setSearchServiceName] = useState('');
+  const [searchStartTime, setSearchStartTime] = useState('');
+  const [searchEndTime, setSearchEndTime] = useState('');
+  const [filteredBookings, setFilteredBookings] = useState(serviceBookings);
   const [loading, setLoading] = useState([]);
 
   useEffect(() => {
@@ -12,6 +21,7 @@ function AdminServiceBookings() {
         const response = await fetch(`${API_URL}/api/servicebookings`);
         const result = await response.json();
         setServiceBookings(result);
+        setFilteredBookings(result);
         setLoading(false);
       } catch (error) {
         // console.error('Error fetching events:', error);
@@ -32,16 +42,46 @@ function AdminServiceBookings() {
 
   const modifiedHeaders = [
     'Booking id',
-    'Member id',
     'First name',
     'Last name',
-    'Userame',
-    'Service id',
     'Service name',
-    'Time slot id',
     'Start time',
     'End time',
   ];
+
+  const onSearch = (searchValue, fieldName) => {
+    const filteredList = serviceBookings.filter((booking) => {
+      const fieldValue = booking[fieldName];
+
+      const searchDate = new Date(searchValue);
+      if (fieldName === 'startTime') {
+        const formattedStartTime = formatDate(fieldValue);
+        return formattedStartTime >= formatDate(searchDate);
+      }
+      if (fieldName === 'endTime') {
+        const formattedEndTime = formatDate(fieldValue);
+        return formattedEndTime <= formatDate(searchDate);
+      }
+
+      if (typeof fieldValue === 'string') {
+        return fieldValue.toLowerCase().includes(searchValue.toLowerCase());
+      }
+
+      return false;
+    });
+
+    setFilteredBookings(filteredList);
+  };
+
+  const resetSearch = () => {
+    setSearchId('');
+    setSearchFirstName('');
+    setSearchLastName('');
+    setSearchServiceName('');
+    setSearchStartTime('');
+    setSearchEndTime('');
+    setFilteredBookings(serviceBookings);
+  };
 
   return (
     <main className="main-container p-5 text-dark">
@@ -49,7 +89,22 @@ function AdminServiceBookings() {
         <h3 className="josefin-font fw-bold">BOOKINGS FOR SERVICES</h3>
       </div>
 
-      <div>filter</div>
+      <AdminServiceBookingSearch
+        onSearch={onSearch}
+        searchId={searchId}
+        setSearchId={setSearchId}
+        searchFirstName={searchFirstName}
+        setSearchFirstName={setSearchFirstName}
+        searchLastName={searchLastName}
+        setSearchLastName={setSearchLastName}
+        searchServiceName={searchServiceName}
+        setSearchServiceName={setSearchServiceName}
+        searchStartTime={searchStartTime}
+        setSearchStartTime={setSearchStartTime}
+        searchEndTime={searchEndTime}
+        setSearchEndTime={setSearchEndTime}
+        resetSearch={resetSearch}
+      />
 
       <div className="mt-3 w-100">
         <Table striped bordered hover responsive className=" text-nowrap shadow-sm">
@@ -69,18 +124,13 @@ function AdminServiceBookings() {
             </tr>
           </thead>
           <tbody>
-            {serviceBookings.map((serviceBooking) => (
+            {filteredBookings.map((serviceBooking) => (
               <tr key={serviceBooking.serviceBookingId}>
                 {modifiedHeaders.map((header) => (
                   <td className="p-4 text-center">
                     {header === 'Booking id' && (
                       <div>
                         <div>{serviceBooking.serviceBookingId}</div>
-                      </div>
-                    )}
-                    {header === 'Member id' && (
-                      <div>
-                        <div>{serviceBooking.memberId}</div>
                       </div>
                     )}
                     {header === 'First name' && (
@@ -93,34 +143,19 @@ function AdminServiceBookings() {
                         <div>{serviceBooking.lastName}</div>
                       </div>
                     )}
-                    {header === 'Username' && (
-                      <div>
-                        <div>{serviceBooking.username}</div>
-                      </div>
-                    )}
-                    {header === 'Service id' && (
-                      <div>
-                        <div>{serviceBooking.serviceId}</div>
-                      </div>
-                    )}
                     {header === 'Service name' && (
                       <div>
                         <div>{serviceBooking.serviceName}</div>
                       </div>
                     )}
-                    {header === 'Time slot id' && (
-                      <div>
-                        <div>{serviceBooking.timeSlotId}</div>
-                      </div>
-                    )}
                     {header === 'Start time' && (
                       <div>
-                        <div>{serviceBooking.startTime}</div>
+                        <div>{formatDateLong(serviceBooking.startTime)}</div>
                       </div>
                     )}
                     {header === 'End time' && (
                       <div>
-                        <div>{serviceBooking.endTime}</div>
+                        <div>{formatDateLong(serviceBooking.endTime)}</div>
                       </div>
                     )}
                   </td>

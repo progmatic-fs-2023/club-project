@@ -16,10 +16,10 @@ function Events() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const currentDate = new Date();
         const response = await fetch(`${API_URL}/api/events`);
         const result = await response.json();
 
+        const currentDate = new Date();
         const filteredEvents = result.filter((event) => new Date(event.startTime) >= currentDate);
 
         const sortedEvents = [...filteredEvents].sort(
@@ -54,15 +54,15 @@ function Events() {
   }, [sortBy]);
 
   const onSearch = (searchText) => {
-    let filteredList = originalEvents;
+    let filteredList;
 
     if (searchText.length >= 2) {
-      filteredList = filteredList.filter((event) =>
+      filteredList = events.filter((event) =>
         event.name.toLowerCase().includes(searchText.toLowerCase()),
       );
-
       setNoResults(filteredList.length === 0);
     } else {
+      filteredList = isPastEventsChecked ? fetchedEvents : originalEvents;
       setNoResults(false);
     }
     setEvents(filteredList);
@@ -75,6 +75,7 @@ function Events() {
   const handleCheckboxChange = () => {
     const eventsToDisplay = isPastEventsChecked ? originalEvents : fetchedEvents;
     setEvents(eventsToDisplay);
+
     setIsPastEventsChecked((prevValue) => !prevValue);
   };
 
