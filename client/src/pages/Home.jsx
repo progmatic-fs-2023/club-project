@@ -1,13 +1,13 @@
 import MainCarousel from '../components/MainCarousel';
 import CardCarousel from '../components/CardCarousel';
-import LowerCardCarousel from '../components/LowerCardCarousel';
+import AboutUsCharity from '../components/AboutUsCharity';
 
 function Home() {
   return (
     <>
       <MainCarousel />
       <CardCarousel />
-      <LowerCardCarousel />
+      <AboutUsCharity />
     </>
   );
 }
