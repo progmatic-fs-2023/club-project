@@ -7,38 +7,49 @@ function Membership() {
 
   const membershipPlans = [
     {
-      title: 'SILVER',
+      title: 'silver',
       price: '50.000 HUF',
       priceFrequency: '/month',
       description: 'To discover our events & exlusive services.',
-      features: ['Use of all Services', 'Participation in Events', 'Discounts'],
-      cardColor: 'bg-silver text-black',
+      features: [
+        'Horse riding',
+        ' Bowling',
+        'Pool',
+        'Squash',
+        'Yoga',
+        'Library',
+        'Restaurant & Bar',
+      ],
+      cardColor: 'membership-bg-silver text-black',
       buttonColor: 'btn-primary',
     },
     {
-      title: 'GOLD',
+      title: 'gold',
       price: '80.000 HUF',
       priceFrequency: '/month',
       description: 'Fully experience everything we can offer.',
-      features: [
-        'Everything in Silver',
-        'Advance appointment booking',
-        'Discounts for family members',
-      ],
-      cardColor: 'bg-gold text-black',
+      features: ['Everything in Silver', 'Tennis', 'Archery', 'Gym', 'Massage', 'Sauna', 'Cricket'],
+      cardColor: 'membership-bg-gold text-black',
       buttonColor: 'btn-primary',
     },
     {
-      title: 'PLATINUM',
+      title: 'platinum',
       price: '120.000 HUF',
       priceFrequency: '/month',
       description: `Show your untapped limitless potential!`,
       features: [
         'Everything in Silver and Gold',
-        'Free chauffeur service',
+        'Golf',
+        'Manicure & Pedicure',
+        'Hairdressing',
+        'Cosmetic',
+        'Day spa',
+        'Cigar room',
+        'Cinema hall',
+        'Driver service',
         'Biggest Péló inda House',
       ],
-      cardColor: 'bg-platinum text-black',
+      cardColor: 'membership-bg-platinum text-black',
       buttonColor: 'btn-primary',
     },
   ];
@@ -57,7 +68,16 @@ function Membership() {
         </div>
         <Container className="col-xs-8 col-sm-12 d-flex justify-content-center align-items-center flex-column flex-lg-row ">
           {membershipPlans.map((plan) => (
-            <div key={plan.title} className="col-xs-8 col-sm-9 col-md-7 col-lg-4 col-xl-4 m-2">
+            <div
+              key={plan.title}
+              className=" col-xs-8 col-sm-9 col-md-7 col-lg-4 col-xl-4 m-2 position-relative d-inline-block text-uppercase"
+            >
+              <div className="ribbon ribbon-top-right text-uppercase text-center josefin-font fs-6 lh-1 z-1">
+                {' '}
+                <span className={`bg-${plan.title}`} style={{ backgroundColor: plan.title }}>
+                  {plan.title}
+                </span>
+              </div>
               <div
                 className={`d-flex flex-column p-3 rounded shadow ${
                   plan.cardColor

@@ -108,18 +108,18 @@ function AdminMembers() {
   return (
     <main className="main-container p-5 text-dark">
       <div className="d-flex justify-content-between text-dark p-1">
-        <h3 className="josefin-font fw-bold">MEMBERS</h3>
+        <h3 className="josefin-font fw-bold">USERS</h3>
       </div>
 
       <div className="row gx-3 gy-4">
         <div className="col-md">
-          <AdminMemberNewsCard title="NEW MEMBERS OF TODAY" count={newMembersTodayCount} />
+          <AdminMemberNewsCard title="NEW USERS OF TODAY" count={newMembersTodayCount} />
         </div>
         <div className="col-md">
-          <AdminMemberNewsCard title="NEW MEMBERS THIS WEEK" count={newMembersThisWeekCount} />
+          <AdminMemberNewsCard title="NEW USERS THIS WEEK" count={newMembersThisWeekCount} />
         </div>
         <div className="col-md">
-          <AdminMemberNewsCard title="ALL MEMBERS" count={members.length} />
+          <AdminMemberNewsCard title="ALL USERS" count={members.length} />
         </div>
       </div>
 

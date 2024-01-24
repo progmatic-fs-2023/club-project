@@ -13,7 +13,8 @@ import { API_URL } from '../constants';
 function Service() {
   const { serviceName } = useParams();
   const [service, setService] = useState([]);
-  const { isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchServiceByName = async () => {
@@ -21,13 +22,25 @@ function Service() {
         const response = await fetch(`${API_URL}/api/services/${serviceName}`);
         const result = await response.json();
         setService(result);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         // console.error('Error fetching data:', error);
       }
     };
 
     fetchServiceByName();
   }, [serviceName]);
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center h-100 w-100">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   /* let servicePrev = [];
 
@@ -45,6 +58,22 @@ function Service() {
     serviceNext = services.find((item) => item.id === service.id + 1);
   } */
 
+  const syncBookingButtonWithMembership = () => {
+    if (user) {
+      if (user.membership === 'silver' && service.membership === 'silver') {
+        return false;
+      }
+      if (user.membership === 'gold' && service.membership === 'platinum') {
+        return true;
+      }
+      if (user.membership === 'platinum') {
+        return false;
+      }
+      return false; // Az egyéb esetekre is adj visszatérési értéket
+    }
+    return false;
+  };
+
   return (
     <div className="d-flex flex-column">
       <Image className="header-image w-100 object-fit-cover" src={service.headerImg} />
@@ -60,7 +89,7 @@ function Service() {
           <div className="p-3 d-flex justify-content-center">{service.moreDetails}</div>
           <div className="p-3 d-flex justify-content-center flex-wrap">
             <div className="p-3 d-flex align-items-center">
-              {isAuthenticated ? (
+              {isAuthenticated && !syncBookingButtonWithMembership() ? (
                 <NavLink
                   to={`/booking/${service.id}`}
                   target="_blank"
@@ -72,7 +101,14 @@ function Service() {
                   </Button>
                 </NavLink>
               ) : (
-                <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">LOG IN TO BOOK!</Tooltip>}>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id="tooltip-disabled">
+                      {' '}
+                      {isAuthenticated ? 'UPGRADE YOUR MEMBERSHIP' : 'LOG IN TO BOOK!'}
+                    </Tooltip>
+                  }
+                >
                   <span className="d-inline-block">
                     <Button
                       className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"

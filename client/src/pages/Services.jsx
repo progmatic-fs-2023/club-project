@@ -41,6 +41,8 @@ function Services() {
     }
 
     setServices(filteredList);
+
+    return filteredList;
   };
 
   return (
