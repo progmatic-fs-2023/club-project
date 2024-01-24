@@ -266,9 +266,9 @@ function RegistrationModal({ showButton }) {
                       isInvalid={touched.membership && !!errors.membership}
                     >
                       <option value="">Select one</option>
-                      <option value="Silver">Silver</option>
-                      <option value="Gold">Gold</option>
-                      <option value="Platinum">Platinum</option>
+                      <option value="silver">Silver</option>
+                      <option value="gold">Gold</option>
+                      <option value="platinum">Platinum</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       {errors.membership}
