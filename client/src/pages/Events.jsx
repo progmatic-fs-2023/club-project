@@ -7,9 +7,11 @@ import { API_URL } from '../constants';
 
 function Events() {
   const [events, setEvents] = useState([]);
+  const [fetchedEvents, setFetchedEvents] = useState([]);
   const [originalEvents, setOriginalEvents] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [sortBy, setSortBy] = useState('startDate');
+  const [isPastEventsChecked, setIsPastEventsChecked] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -18,7 +20,7 @@ function Events() {
         const response = await fetch(`${API_URL}/api/events`);
         const result = await response.json();
 
-        const filteredEvents = result.filter((event) => new Date(event.startTime) > currentDate);
+        const filteredEvents = result.filter((event) => new Date(event.startTime) >= currentDate);
 
         const sortedEvents = [...filteredEvents].sort(
           (a, b) => new Date(a.startTime) - new Date(b.startTime),
@@ -26,6 +28,7 @@ function Events() {
 
         setEvents(sortedEvents);
         setOriginalEvents(sortedEvents);
+        setFetchedEvents(result);
       } catch (error) {
         // console.error('Error fetching data:', error);
       }
@@ -69,6 +72,11 @@ function Events() {
     const selectedSortBy = e.target.value;
     setSortBy(selectedSortBy);
   };
+  const handleCheckboxChange = () => {
+    const eventsToDisplay = isPastEventsChecked ? originalEvents : fetchedEvents;
+    setEvents(eventsToDisplay);
+    setIsPastEventsChecked((prevValue) => !prevValue);
+  };
 
   return (
     <div className="py-5 d-flex">
@@ -78,7 +86,13 @@ function Events() {
         </Container>
         <div className="d-flex justify-content-between align-items flex-column flex-md-row">
           <SearchBar className="search-bar" onSearch={onSearch} />
-          <FilterBar onSearch={onSearch} onSortChange={handleSortChange} sortBy={sortBy} />
+          <FilterBar
+            onSearch={onSearch}
+            onSortChange={handleSortChange}
+            sortBy={sortBy}
+            handleCheckboxChange={handleCheckboxChange}
+            isPastEventsChecked={isPastEventsChecked}
+          />
         </div>
         {noResults && <p className="m-3 text-danger">No results found</p>}
         <div>
