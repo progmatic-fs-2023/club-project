@@ -4,7 +4,6 @@ function ServiceCard({ name, serviceImg, details, membership }) {
   return (
     <div className="position-relative d-inline-block">
       <div className="ribbon ribbon-top-right text-uppercase text-center josefin-font fs-6 lh-1 z-3">
-        {}
         <span className={`bg-${membership}`} style={{ backgroundColor: membership }}>
           {membership}
         </span>
