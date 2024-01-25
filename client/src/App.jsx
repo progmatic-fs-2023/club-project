@@ -66,8 +66,8 @@ function App() {
         <Route path="/landingpage" element={<LandingPage />} />
         <Route path="/newpasswordpage" element={<NewPasswordPage />} />
       </Route>
-      <Route element={<AdminLayout />}>
-        <Route element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute />}>
+        <Route element={<AdminLayout />}>
           <Route path="/admin" element={<AdminMembers />} />
           <Route path="/admin/members" element={<AdminMembers />} />
           <Route path="/admin/members/:memberId" element={<AdminMember />} />
