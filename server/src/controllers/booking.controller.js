@@ -17,6 +17,7 @@ const weekListById = async (req, res, next) => {
   }
 };
 
+
 const createBooking = async (req, res, next) => {
   try {
     const { timeSlotId } = req.body;
@@ -34,4 +35,18 @@ const createBooking = async (req, res, next) => {
   }
 };
 
-export { weekListById, createBooking };
+const bookEvent = async (req, res) => {
+  try{
+    const {memberId, eventId} = req.body;
+  }catch{
+    
+  }}
+  
+export { weekListById, createBooking, bookEvent };
+
+
+
+
+
+
+

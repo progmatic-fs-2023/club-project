@@ -10,6 +10,7 @@ import membershipRouter from './membership.route';
 import bookingRouter from './booking.route';
 import { sendNewPasswordEmail } from '../services/email.service';
 import { verifyNewPasswordEmail, verifyNewPasswords } from '../controllers/users.controller';
+import { bookEvent } from '../controllers/booking.controller';
 
 const router = Router();
 
@@ -32,6 +33,8 @@ router.get('/reset-password', verifyNewPasswordEmail);
 router.post('/reset-password', verifyNewPasswords);
 router.use('/booking', bookingRouter);
 router.use('/membership', membershipRouter);
+router.use('/booking/events', bookEvent);
+//router.use('/booking/services');
 
 router.get('/', (req, res) => {
   res.sendStatus(200);

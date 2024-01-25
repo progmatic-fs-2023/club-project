@@ -90,6 +90,11 @@ const loginUser = async (req, res, next) => {
     res.cookie('jwt', token, {
       httpOnly: true,
       maxAge: 3 * 60 * 60 * 1000,
+    }),
+
+    res.cookie('userId', user.id, {
+      httpOnly: true,
+      maxAge: 3 * 60 * 60 * 1000,
     });
 
     return res.status(200).json({
