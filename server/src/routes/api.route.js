@@ -34,6 +34,8 @@ router.use('/booking', bookingRouter);
 router.use('/membership', membershipRouter);
 router.use('/booking/events', bookingRouter);
 
+
+
 router.get('/', (req, res) => {
   res.sendStatus(200);
 });

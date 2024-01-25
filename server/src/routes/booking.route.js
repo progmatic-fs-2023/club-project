@@ -2,6 +2,9 @@ import express from 'express';
 
 import { weekListById, createBooking, bookEvent } from '../controllers/booking.controller';
 
+import { weekListById, bookEvent } from '../controllers/booking.controller';
+
+
 const bookingRouter = express.Router();
 
 bookingRouter.get('/:id', weekListById);

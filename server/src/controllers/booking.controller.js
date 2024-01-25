@@ -23,6 +23,7 @@ const weekListById = async (req, res, next) => {
   }
 };
 
+
 const createBooking = async (req, res, next) => {
   try {
     const { timeSlotId } = req.body;
