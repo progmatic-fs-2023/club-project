@@ -94,7 +94,7 @@ function AdminMembers() {
   };
 
   return (
-    <main className="main-container p-4 text-dark">
+    <main className="main-container p-5 text-dark">
       <div className="d-flex justify-content-between text-dark p-1">
         <h3 className="josefin-font fw-bold">USERS</h3>
       </div>
