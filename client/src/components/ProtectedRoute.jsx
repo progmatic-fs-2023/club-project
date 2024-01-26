@@ -7,7 +7,7 @@ function ProtectedRoute() {
   if (user.id === null) {
     return <Navigate to="/" />;
   }
-  return user.is_admin === true ? <Outlet /> : <Navigate to="/" />;
+  return user.isAdmin === true ? <Outlet /> : <Navigate to="/" />;
 }
 
 export default ProtectedRoute;
