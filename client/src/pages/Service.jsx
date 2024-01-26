@@ -61,13 +61,19 @@ function Service() {
   const syncBookingButtonWithMembership = () => {
     if (user) {
       if (user.membership === 'silver' && service.membership === 'silver') {
-        return false;
+        return true;
       }
       if (user.membership === 'gold' && service.membership === 'platinum') {
+        return false;
+      }
+      if (
+        user.membership === 'gold' &&
+        (service.membership === 'silver' || service.membership === 'gold')
+      ) {
         return true;
       }
       if (user.membership === 'platinum') {
-        return false;
+        return true;
       }
       return false;
     }
@@ -89,7 +95,7 @@ function Service() {
           <div className="p-3 d-flex justify-content-center">{service.moreDetails}</div>
           <div className="p-3 d-flex justify-content-center flex-wrap">
             <div className="p-3 d-flex align-items-center">
-              {isAuthenticated && !syncBookingButtonWithMembership() ? (
+              {isAuthenticated && syncBookingButtonWithMembership() ? (
                 <NavLink
                   to={`/booking/${service.id}`}
                   target="_blank"

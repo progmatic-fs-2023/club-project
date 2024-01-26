@@ -160,7 +160,27 @@ const updateMembershipByID = async (id, membership) => {
     [id, membership],
   );
 
-  return result.rows[0];
+  const renamedResult = {
+    id: result.rows[0].id,
+    firstName: result.rows[0].first_name,
+    lastName: result.rows[0].last_name,
+    username: result.rows[0].username,
+    gender: result.rows[0].gender,
+    email: result.rows[0].email,
+    memberImg: result.rows[0].member_img,
+    membership: result.rows[0].membership,
+    membershipStartTime: result.rows[0].membership_start_time,
+    membershipEndTime: result.rows[0].membership_end_time,
+    newsletter: result.rows[0].newsletter,
+    emailToken: result.rows[0].email_token,
+    isVerified: result.rows[0].is_verified,
+    isPayed: result.rows[0].is_payed,
+    isAdmin: result.rows[0].is_admin,
+    password: result.rows[0].password,
+    phone: result.rows[0].phone,
+  };
+
+  return renamedResult;
 };
 
 // UPDATE VERIFICATION STATUS

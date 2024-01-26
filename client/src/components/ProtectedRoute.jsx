@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 function ProtectedRoute() {
   const { user } = useAuth();
 
-  if (user === null) {
+  if (user.id === null) {
     return <Navigate to="/" />;
   }
   return user.is_admin === true ? <Outlet /> : <Navigate to="/" />;

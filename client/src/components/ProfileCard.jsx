@@ -3,22 +3,11 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import FileUpload from './FileUpload';
 import ProfileCalendar from './ProfileCalendar';
-
-// const members = [
-//   {
-//     id: 1,
-//     name: 'John Doe',
-//     username: 'john.doe',
-//     email: 'john@example.com',
-//     gender: 'Male',
-//     address: '132 My Street, Kingston, New York 12401',
-//     membership: 'Gold',
-//     membershipExpires: '2024-12-31',
-//   },
-// ];
+import { formatDate } from '../utils/dateUtils';
 
 export default function ProfileCard() {
   const { user, isAuthenticated } = useAuth();
+  const endTime = formatDate(user.membershipEndTime);
 
   if (!isAuthenticated || !user) {
     // A felhasználó nincs bejelentkezve
@@ -33,7 +22,7 @@ export default function ProfileCard() {
             <div className="rounded-top text-white d-flex flex-row bg-dark profile-card-up">
               <div className="ms-4 mt-5 d-flex flex-column">
                 <img
-                  src={user.member_img}
+                  src={user.memberImg}
                   alt="Generic placeholder"
                   className="profile-card-img img-fluid img-thumbnail mt-4 mb-2"
                 />
@@ -44,8 +33,8 @@ export default function ProfileCard() {
             </div>
             <div className="p-4 text-black bg-light">
               <div className="d-flex justify-content-between align-items-center text-center pt-5">
-                <FileUpload />
-                <Link to="/aboutus">
+                <FileUpload userId={user.id} />
+                <Link to="/membership">
                   <button type="submit" className="btn btn-primary profile-membership-btn">
                     Change Membership
                   </button>
@@ -56,14 +45,13 @@ export default function ProfileCard() {
               <div className="mb-5">
                 <h4 className="mb-4 text-center">Information</h4>
                 <div className="bg-light p-4">
-                  <p className="mb-1">Name: {user.name}</p>
+                  <p className="mb-1">Name: {`${user.firstName}  ${user.lastName}`}</p>
                   <p className="mb-1">Username: {user.username}</p>
                   <p className="mb-1">Email: {user.email}</p>
-                  <p className="mb-1">Address: {user.address}</p>
                   <p className="mb-0">Gender: {user.gender}</p>
                   <hr />
                   <p className="mb-1">Membership: {user.membership}</p>
-                  <p className="mb-1">Membership expires: {user.membershipExpires}</p>
+                  <p className="mb-1">Membership expires: {endTime}</p>
                 </div>
                 <div className="d-flex flex-column align-items-center">
                   <h4 className="my-4 text-center">Calendar</h4>
