@@ -146,6 +146,30 @@ const verifyNewPasswords = async (req, res) => {
   }
 };
 
+// GET USER BY ID (HEADER)
+
+const getUserByIdHeader = async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    // console.log(authHeader)
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    // console.log(token)
+
+    const user = await findUserByID(token);
+    // console.log(user)
+    if (user) {
+      return res.json(user);
+    }
+    return res.status(404).json({ message: 'User does not exist' });
+  } catch (err) {
+    return res.status(401).json({ message: 'Invalid token' });
+  }
+};
+
 export {
   list,
   getUserById,
@@ -154,4 +178,5 @@ export {
   verifyEmail,
   verifyNewPasswordEmail,
   verifyNewPasswords,
+  getUserByIdHeader,
 };

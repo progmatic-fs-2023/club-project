@@ -102,7 +102,6 @@ function Layout() {
                 variant="outline-light"
                 onClick={() => {
                   handleLogoutButton();
-                  logout();
                 }}
               >
                 Log out
