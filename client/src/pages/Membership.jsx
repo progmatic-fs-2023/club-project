@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
+import { FaArrowCircleUp } from 'react-icons/fa';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import { useAuth } from '../contexts/AuthContext';
+import { API_URL } from '../constants';
 
 function Membership() {
   const [showModal, setShowModal] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [upgradeSuccessful, setUpgradeSuccessful] = useState(false);
+  const { user, isAuthenticated } = useAuth();
 
   const membershipPlans = [
     {
@@ -21,7 +29,6 @@ function Membership() {
         'Restaurant & Bar',
       ],
       cardColor: 'membership-bg-silver text-black',
-      buttonColor: 'btn-primary',
     },
     {
       title: 'gold',
@@ -30,7 +37,6 @@ function Membership() {
       description: 'Fully experience everything we can offer.',
       features: ['Everything in Silver', 'Tennis', 'Archery', 'Gym', 'Massage', 'Sauna', 'Cricket'],
       cardColor: 'membership-bg-gold text-black',
-      buttonColor: 'btn-primary',
     },
     {
       title: 'platinum',
@@ -50,12 +56,55 @@ function Membership() {
         'Biggest Péló inda House',
       ],
       cardColor: 'membership-bg-platinum text-black',
-      buttonColor: 'btn-primary',
     },
   ];
 
-  const handleSubscribe = () => {
-    setShowModal(false);
+  const handleSubscribe = async () => {
+    try {
+      if (!selectedPlan) {
+        // console.error('No membership selected');
+        return;
+      }
+
+      const response = await fetch(`${API_URL}/api/membership`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          membership: selectedPlan,
+          id: user.id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to subscribe');
+      }
+
+      setUpgradeSuccessful(true);
+      setTimeout(() => {
+        setShowModal(false);
+        setUpgradeSuccessful(false);
+      }, 3000);
+    } catch (error) {
+      // console.error('Error subscribing:', error.message);
+    }
+  };
+
+  const syncSubscribeButtonWithMembership = (planTitle) => {
+    if (user) {
+      if (user.membership === 'silver' && planTitle === 'silver') {
+        return false;
+      }
+      if (user.membership === 'gold' && planTitle === 'gold') {
+        return false;
+      }
+      if (user.membership === 'platinum' && planTitle === 'platinum') {
+        return false;
+      }
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -107,13 +156,43 @@ function Membership() {
                   ))}
                 </ul>
                 <div className="mb-4 text-center">
-                  <button
-                    type="button"
-                    className={`btn btn-lg btn-block ${plan.buttonColor}`}
-                    onClick={() => setShowModal(true)}
-                  >
-                    Get Started
-                  </button>
+                  <div className="p-3 d-flex align-items-center justify-content-center">
+                    {isAuthenticated && syncSubscribeButtonWithMembership(plan.title) ? (
+                      <Button
+                        onClick={() => {
+                          setSelectedPlan(plan.title);
+                          setShowModal(true);
+                        }}
+                        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+                      >
+                        <FaArrowCircleUp /> SUBSCRIBE
+                      </Button>
+                    ) : (
+                      <OverlayTrigger
+                        overlay={
+                          <Tooltip id="tooltip-disabled">
+                            {isAuthenticated ? 'CURRENT' : 'LOG IN TO SUBSCRIBE!'}
+                          </Tooltip>
+                        }
+                      >
+                        <span className="d-inline-block">
+                          <Button
+                            className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+                            disabled
+                            style={{ pointerEvents: 'none' }}
+                          >
+                            {isAuthenticated ? (
+                              'CURRENT MEMBERSHIP'
+                            ) : (
+                              <span>
+                                SUBSCRIBE <FaArrowCircleUp />
+                              </span>
+                            )}
+                          </Button>
+                        </span>
+                      </OverlayTrigger>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -123,16 +202,26 @@ function Membership() {
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header className="bg-light-gray josefin-font text-white" closeButton>
           <Modal.Title className="josefin-font px-2">
-            Are you sure you want to subscribe?
+            {upgradeSuccessful ? '' : `Are you sure you want to subscribe to ${selectedPlan}?`}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="d-flex justify-content-between">
-          <Button variant="primary" onClick={handleSubscribe} className="ms-2 w-25">
-            YES
-          </Button>
-          <Button variant="secondary" onClick={() => setShowModal(false)} className="me-2 w-25">
-            NO
-          </Button>
+        <Modal.Body className="d-flex justify-content-evenly">
+          {upgradeSuccessful ? (
+            <div className="fw-bold text-success">SUCCESSFUL UPGRADE</div>
+          ) : (
+            <>
+              <Button variant="secondary" onClick={() => setShowModal(false)} className="me-2 w-25">
+                NO
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => handleSubscribe(selectedPlan)}
+                className="ms-2 w-25"
+              >
+                YES
+              </Button>{' '}
+            </>
+          )}
         </Modal.Body>
       </Modal>
     </div>

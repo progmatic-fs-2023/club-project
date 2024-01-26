@@ -2,18 +2,18 @@ import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Table, Button, Form } from 'react-bootstrap';
 import { formatDate, currentWeek } from '../utils/dateUtils';
-// import AdminMemberSearch from './AdminMemberSearch';
+import AdminMemberSearch from './AdminMemberSearch';
 import AdminMemberNewsCard from './AdminMemberNewsCard';
 import { API_URL } from '../constants';
 
 function AdminMembers() {
   const [members, setMembers] = useState([]);
-  /* const [searchId, setSearchId] = useState('');
+  const [searchId, setSearchId] = useState('');
   const [searchFirstName, setSearchFirstName] = useState('');
   const [searchLastName, setSearchLastName] = useState('');
   const [searchEmail, setSearchEmail] = useState('');
   const [searchMembershipLevel, setSearchMembershipLevel] = useState('');
-  const [filteredMembers, setFilteredMembers] = useState(members); */
+  const [filteredMembers, setFilteredMembers] = useState(members);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ function AdminMembers() {
         const response = await fetch(`${API_URL}/api/admin`);
         const result = await response.json();
         setMembers(result);
+        setFilteredMembers(result);
         setLoading(false);
       } catch (error) {
         // console.error('Error fetching data:', error);
@@ -41,6 +42,15 @@ function AdminMembers() {
       </div>
     );
   }
+
+  const onSearch = (searchText, fieldName) => {
+    const filteredList = members.filter((member) => {
+      const fieldToSearch = String(member[fieldName]).toLowerCase();
+      return fieldToSearch.includes(searchText.toLowerCase());
+    });
+
+    setFilteredMembers(filteredList);
+  };
 
   const newMembersThisWeekCount = members.reduce((count, member) => {
     const membershipStartDate = new Date(member.membershipStartTime);
@@ -74,36 +84,14 @@ function AdminMembers() {
     'payed',
   ];
 
-  /*  useEffect(() => {
-    if (
-      searchId.length >= 2 ||
-      searchFirstName.length >= 2 ||
-      searchLastName.length >= 2 ||
-      searchEmail.length >= 2 ||
-      searchMembershipLevel.length >= 2
-    ) {
-      setFilteredMembers(
-        members.filter(
-          (member) =>
-            member.id.includes(searchId) &&
-            member.firstName.toLowerCase().includes(searchFirstName.toLowerCase()) &&
-            member.lastName.toLowerCase().includes(searchLastName.toLowerCase()) &&
-            member.email.toLowerCase().includes(searchEmail.toLowerCase()) &&
-            member.membershipLevel.toLowerCase().includes(searchMembershipLevel.toLowerCase()),
-        ),
-      );
-    } else {
-      setFilteredMembers(members);
-    }
-  }, [searchId, searchFirstName, searchLastName, searchEmail, searchMembershipLevel, members]);
-
   const resetSearch = () => {
     setSearchId('');
     setSearchFirstName('');
     setSearchLastName('');
     setSearchEmail('');
     setSearchMembershipLevel('');
-  }; */
+    setFilteredMembers(members);
+  };
 
   return (
     <main className="main-container p-5 text-dark">
@@ -123,7 +111,8 @@ function AdminMembers() {
         </div>
       </div>
 
-      {/* <AdminMemberSearch
+      <AdminMemberSearch
+        onSearch={onSearch}
         searchId={searchId}
         setSearchId={setSearchId}
         searchFirstName={searchFirstName}
@@ -135,7 +124,7 @@ function AdminMembers() {
         searchMembershipLevel={searchMembershipLevel}
         setSearchMembershipLevel={setSearchMembershipLevel}
         resetSearch={resetSearch}
-      /> */}
+      />
 
       <div className="mt-3 w-100">
         <Table striped bordered hover responsive className=" text-nowrap shadow-sm">
@@ -155,7 +144,7 @@ function AdminMembers() {
             </tr>
           </thead>
           <tbody>
-            {members.map((member) => (
+            {filteredMembers.map((member) => (
               <tr key={`members-key-${member.id}`}>
                 {modifiedHeaders.map((header) => (
                   <td className="p-3 text-center" key={`members-key-table-${header}`}>

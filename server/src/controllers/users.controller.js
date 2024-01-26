@@ -1,13 +1,14 @@
 import bcrypt from 'bcryptjs';
 import {
-  findUserByID,
   deleteUserByID,
-  listAllUsers,
+  findEmail,
   findEmailAndToken,
+  findUserByID,
+  listAllUsers,
+  updateMembershipByID,
+  updateNewPassword,
   updateUserVerificationStatus,
   updateUserByID,
-  findEmail,
-  updateNewPassword,
 } from '../services/users.service';
 import 'dotenv/config';
 import HttpError from '../utils/HttpError';
@@ -38,6 +39,24 @@ const putUserById = async (req, res) => {
     const user = await updateUserByID(id, modifiedMember);
     if (user) {
       res.json(user);
+    } else {
+      res.status(404).json({ message: 'User does not exist' });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+// UPDATE USER'S MEMBERSHIP
+const updateMembership = async (req, res) => {
+  const { id, membership } = req.body;
+
+  try {
+    const updatedMembership = await updateMembershipByID(id, membership);
+    if (updatedMembership) {
+      res.json(updatedMembership);
     } else {
       res.status(404).json({ message: 'User does not exist' });
     }
@@ -171,10 +190,11 @@ const getUserByIdHeader = async (req, res) => {
 };
 
 export {
-  list,
   getUserById,
   putUserById,
   destroyUserById,
+  list,
+  updateMembership,
   verifyEmail,
   verifyNewPasswordEmail,
   verifyNewPasswords,

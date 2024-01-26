@@ -153,6 +153,16 @@ const updateUserByID = async (id, modifiedMember) => {
   return renamedResult;
 };
 
+// UPDATE USER'S MEMBERSHIP
+const updateMembershipByID = async (id, membership) => {
+  const result = await db.query(
+    'UPDATE members SET membership = $2, is_payed = false WHERE id = $1 RETURNING *',
+    [id, membership],
+  );
+
+  return result.rows[0];
+};
+
 // UPDATE VERIFICATION STATUS
 const updateUserVerificationStatus = async (userId, isverified) => {
   const result = await db.query('UPDATE members SET is_verified = $1 WHERE id = $2', [
@@ -173,15 +183,16 @@ const updateNewPassword = async (email, password) => {
 };
 
 export {
-  isUsernameExist,
   createUser,
-  findUserByUsername,
-  findUserByID,
   deleteUserByID,
-  findEmailAndToken,
-  updateUserVerificationStatus,
-  listAllUsers,
-  updateUserByID,
   findEmail,
+  findUserByID,
+  findUserByUsername,
+  findEmailAndToken,
+  isUsernameExist,
+  listAllUsers,
+  updateMembershipByID,
   updateNewPassword,
+  updateUserByID,
+  updateUserVerificationStatus,
 };

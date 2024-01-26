@@ -69,7 +69,7 @@ function Service() {
       if (user.membership === 'platinum') {
         return false;
       }
-      return false; // Az egyéb esetekre is adj visszatérési értéket
+      return false;
     }
     return false;
   };
