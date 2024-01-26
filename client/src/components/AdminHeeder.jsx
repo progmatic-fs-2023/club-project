@@ -20,9 +20,9 @@ function AdminHeader({ OpenSidebar }) {
       <div className="d-flex justify-content-end justify-content-lg-between fs-5 text-light end-0 w-100">
         <div className="d-flex align-items-center pe-4 text-light end-0">
           <BsPersonCircle className="m-2" />
-          <div>{`Hello, ${user.first_name}`}</div>
+          <div>{`Hello, ${user.username}`}</div>
         </div>
-        <NavLink to="/" target="_blank" className="text-white">
+        <NavLink to="/" target="_self" className="text-white">
           <OverlayTrigger placement="bottom" overlay={<Tooltip>LOG OUT</Tooltip>}>
             <div
               className="mx-3 max-vw-25 fs-5"

@@ -25,7 +25,6 @@ export function AuthProvider({ children }) {
     password: null,
     phone: null,
   });
-  // console.log(user)
 
   const resetUser = {
     id: null,
@@ -47,52 +46,36 @@ export function AuthProvider({ children }) {
   };
 
   const token = localStorage.getItem('token');
-  // console.log(`token: ${token}`);
-
-  // console.log(localStorage.user)
 
   const logout = () => {
+    setUser(resetUser);
     setIsAuthenticated(false);
     localStorage.setItem('isAuthenticated', 'false');
     localStorage.setItem('user', JSON.stringify(resetUser));
     localStorage.removeItem('token');
-
-    // console.log('User logged out');
   };
 
   let timeoutId;
 
   function setupAutoLogout(timeoutMinutes) {
-    const timeoutMilliseconds = timeoutMinutes * 60 * 1000; // Átváltás percről milliszekundumra
-
-    // Az automatikus kijelentkezés
-    function logoutAut() {
-      logout();
-
-      // console.log('Automatikus kijelentkezés');
-    }
-
-    // Figyeljük a felhasználói interakciót
+    const timeoutMilliseconds = timeoutMinutes * 60 * 1000;
     function resetLogoutTimer() {
-      clearTimeout(timeoutId); // Töröljük az előző időzítőt
-      timeoutId = setTimeout(logoutAut, timeoutMilliseconds); // Állítsunk be egy új időzítőt
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(logout, timeoutMilliseconds);
     }
 
-    // Az oldalon való tevékenység figyelése
     document.addEventListener('mousemove', resetLogoutTimer);
     document.addEventListener('mousedown', resetLogoutTimer);
     document.addEventListener('keypress', resetLogoutTimer);
     document.addEventListener('touchmove', resetLogoutTimer);
     document.addEventListener('scroll', resetLogoutTimer);
 
-    // Az időzítő inicializálása az oldal betöltésekor
     resetLogoutTimer();
   }
-
-  // Tesztelés: 15 perces automatikus kijelentkezés
-  setupAutoLogout(10);
+  setupAutoLogout(100);
 
   const authenticateUser = async (values) => {
+    setLoading(true);
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
@@ -102,13 +85,12 @@ export function AuthProvider({ children }) {
         body: JSON.stringify(values),
       });
       const data = await response.json();
-
       if (!response.ok || (data.success !== undefined && !data.success)) {
+        setLoading(false);
         throw new Error('Login failed');
       }
 
       if (response.ok) {
-        setIsAuthenticated(true);
         setUser({
           id: data.user.id,
           firstName: data.user.first_name,
@@ -130,33 +112,33 @@ export function AuthProvider({ children }) {
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('user', JSON.stringify(data.user));
         localStorage.setItem('token', data.user.id);
-        // const token = localStorage.getItem('token');
-        // console.log(`token: ${token}`);
+        setLoading(false);
       } else {
         setIsAuthenticated(false);
         setUser(null);
         localStorage.setItem('isAuthenticated', 'false');
         localStorage.removeItem('user');
-        // console.log('Unsuccessful login:', data);
+        setLoading(false);
       }
     } catch (error) {
-      // console.error('Error during authentication:', error);
       setIsAuthenticated(false);
       localStorage.setItem('isAuthenticated', 'false');
       localStorage.removeItem('user');
       setUser(null);
+      setLoading(false);
       throw error;
+      // console.error('Error during authentication:', error);
     }
   };
 
   const login = () => {
     setIsAuthenticated(true);
     localStorage.setItem('isAuthenticated', 'true');
-    // console.log('User logged in');
   };
 
   if (user.id != null || user !== null) {
     useEffect(() => {
+      setLoading(true);
       const fetchData = async () => {
         try {
           const response = await fetch(`${API_URL}/api/updateUsers`, {
@@ -171,31 +153,26 @@ export function AuthProvider({ children }) {
           }
 
           const data = await response.json();
-          setUser(data); // Felhasználó adatainak frissítése
+          setUser(data);
+          setLoading(false);
         } catch (error) {
+          setLoading(false);
           // console.error('Error fetching user data:', error);
         }
       };
 
-      // Oldalbetöltéskor és minden 60 másodpercben frissítjük a felhasználó adatait
       fetchData();
-      // const interval = setInterval(fetchData, 60000);
-
-      // return () => clearInterval(interval); // Időzítő leállítása a komponens megszűnésekor
     }, []);
   }
 
   useEffect(() => {
-    // console.log(user)
     // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
     const storedIsAuthenticated = localStorage.getItem('isAuthenticated');
     const storedUser = JSON.parse(localStorage.getItem('user'));
-    // console.log(storedUser)
     setIsAuthenticated(storedIsAuthenticated === 'true');
     if (user.id != null) {
       setUser(storedUser);
     }
-    setLoading(false);
   }, []);
 
   const contextValue = useMemo(
