@@ -11,7 +11,7 @@ function Membership() {
   const [showModal, setShowModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [upgradeSuccessful, setUpgradeSuccessful] = useState(false);
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, setUser } = useAuth();
 
   const membershipPlans = [
     {
@@ -80,12 +80,18 @@ function Membership() {
       if (!response.ok) {
         throw new Error('Failed to subscribe');
       }
-
-      setUpgradeSuccessful(true);
-      setTimeout(() => {
-        setShowModal(false);
-        setUpgradeSuccessful(false);
-      }, 3000);
+      if (response.ok) {
+        const result = await response.json();
+        // console.log(`Membership: ${result}`)
+        setUser(result);
+        localStorage.setItem('user', JSON.stringify(result));
+        setUpgradeSuccessful(true);
+        setTimeout(() => {
+          setShowModal(false);
+          setUpgradeSuccessful(false);
+        }, 3000);
+      }
+      // localStorage.setItem('user', JSON.stringify(result.data));
     } catch (error) {
       // console.error('Error subscribing:', error.message);
     }

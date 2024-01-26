@@ -49,7 +49,7 @@ export function AuthProvider({ children }) {
   const token = localStorage.getItem('token');
   // console.log(`token: ${token}`);
 
-  // console.log(localStorage)
+  // console.log(localStorage.user)
 
   const logout = () => {
     setIsAuthenticated(false);
@@ -90,7 +90,7 @@ export function AuthProvider({ children }) {
   }
 
   // Tesztelés: 15 perces automatikus kijelentkezés
-  setupAutoLogout(1);
+  setupAutoLogout(10);
 
   const authenticateUser = async (values) => {
     try {
@@ -155,7 +155,7 @@ export function AuthProvider({ children }) {
     // console.log('User logged in');
   };
 
-  if (user.id != null) {
+  if (user.id != null || user !== null) {
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -186,12 +186,15 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
+    // console.log(user)
     // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
     const storedIsAuthenticated = localStorage.getItem('isAuthenticated');
     const storedUser = JSON.parse(localStorage.getItem('user'));
-
+    // console.log(storedUser)
     setIsAuthenticated(storedIsAuthenticated === 'true');
-    setUser(storedUser);
+    if (user.id != null) {
+      setUser(storedUser);
+    }
     setLoading(false);
   }, []);
 

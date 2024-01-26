@@ -20,7 +20,7 @@ function Layout() {
     setShow('inline-block');
     logout();
   };
-  const adminRole = user === null ? false : user.is_admin;
+  const adminRole = user.id === null ? false : user.is_admin;
 
   useEffect(() => {
     // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot

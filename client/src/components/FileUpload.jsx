@@ -39,7 +39,7 @@ export default function FileUpload({ userId }) {
           const result = await response.json();
           // console.log('File uploaded successfully. File path:', result.data.member_img
           // );
-
+          // console.log(`upload: ${result.data.id}`)
           setUser({
             id: result.data.id,
             firstName: result.data.first_name,

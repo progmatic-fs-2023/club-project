@@ -56,6 +56,7 @@ const updateMembership = async (req, res) => {
   try {
     const updatedMembership = await updateMembershipByID(id, membership);
     if (updatedMembership) {
+      console.log(updatedMembership);
       res.json(updatedMembership);
     } else {
       res.status(404).json({ message: 'User does not exist' });
