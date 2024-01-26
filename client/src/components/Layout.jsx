@@ -20,6 +20,7 @@ function Layout() {
     setShow('inline-block');
     logout();
   };
+  const adminRole = user === null ? false : user.is_admin;
 
   useEffect(() => {
     // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
@@ -29,7 +30,7 @@ function Layout() {
       setShow('inline-block');
     }
 
-    if (isAuthenticated && user.is_admin) {
+    if (isAuthenticated && adminRole) {
       setIsAdmin('inline-block');
     } else {
       setIsAdmin('none');
@@ -99,7 +100,7 @@ function Layout() {
               >
                 ADMIN
               </Button>
-              {!user.is_admin && (
+              {!adminRole && (
                 <Button
                   as={NavLink}
                   to="/booking"
