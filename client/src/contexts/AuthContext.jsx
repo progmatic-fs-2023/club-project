@@ -75,7 +75,6 @@ export function AuthProvider({ children }) {
   setupAutoLogout(100);
 
   const authenticateUser = async (values) => {
-    setLoading(true);
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
