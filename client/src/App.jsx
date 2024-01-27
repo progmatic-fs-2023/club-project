@@ -21,8 +21,6 @@ import AdminServices from './components/AdminServices';
 import AdminEvents from './components/AdminEvents';
 import AdminBookings from './components/AdminBookings';
 import AdminServiceBookings from './components/AdminServiceBookings';
-import AdminBooking from './pages/AdminBooking';
-import AdminServicesBooking from './pages/AdminServicesBooking';
 import Booking from './pages/Booking';
 import LandingPage from './pages/LandingPage';
 import NewPasswordPage from './pages/NewPasswordPage';
@@ -76,12 +74,7 @@ function App() {
           <Route path="/admin/events" element={<AdminEvents />} />
           <Route path="/admin/gallery" element={<AdminGallery />} />
           <Route path="/admin/bookings" element={<AdminBookings />} />
-          <Route path="/admin/bookings/:bookingId" element={<AdminBooking />} />
           <Route path="/admin/servicebookings" element={<AdminServiceBookings />} />
-          <Route
-            path="/admin/servicebookings/:serviceBookingId"
-            element={<AdminServicesBooking />}
-          />
         </Route>
       </Route>
     </Routes>
