@@ -13,6 +13,7 @@ function AdminMember() {
   const [modifiedMember, setModifiedMember] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -32,6 +33,19 @@ function AdminMember() {
   }, []);
 
   const handleSaveClick = async () => {
+    if (modifiedMember.firstName.length < 1) {
+      setErrorMessage('First name must be at least 1 character long!');
+      return;
+    }
+    if (modifiedMember.lastName.length < 1) {
+      setErrorMessage('Last name must be at least 1 character long!');
+      return;
+    }
+    if (modifiedMember.username.length < 1) {
+      setErrorMessage('Username must be at least 1 character long!');
+      return;
+    }
+
     try {
       const response = await fetch(`${API_URL}/api/admin/${memberId}`, {
         method: 'PUT',
@@ -44,6 +58,7 @@ function AdminMember() {
       const result = await response.json();
       setMember(result);
       setIsEditing(false);
+      setErrorMessage('');
     } catch (error) {
       // console.error('Error fetching data:', error);
     }
@@ -80,6 +95,7 @@ function AdminMember() {
   };
 
   const handleResetClick = () => {
+    setErrorMessage('');
     setModifiedMember(member);
     setIsEditing(false);
   };
@@ -177,6 +193,20 @@ function AdminMember() {
           </div>
         </div>
         <div className="row">
+          <Row>
+            {errorMessage && (
+              <Col
+                xs={12}
+                md={7}
+                lg={6}
+                xxl={5}
+                className="alert alert-danger m-3 fw-bold text-danger"
+              >
+                {errorMessage}
+              </Col>
+            )}
+          </Row>
+
           <Col xs={12} md={5} lg={4} xl={4} className="m-2">
             <div className="fw-bold">FIRST NAME</div>
             {isEditing ? (
@@ -218,17 +248,8 @@ function AdminMember() {
             )}
 
             <div className="fw-bold">EMAIL</div>
-            {isEditing ? (
-              <Form.Control
-                type="email"
-                name="email"
-                className="bg-white border-info"
-                value={modifiedMember.email}
-                onChange={handleInputChange}
-              />
-            ) : (
-              <div className="bg-white shadow-sm p-1"> {modifiedMember.email}</div>
-            )}
+
+            <div className="bg-white shadow-sm p-1"> {modifiedMember.email}</div>
           </Col>
           <Col className="d-flex justify-content-center d-none d-md-flex p-0">
             <div className="vr" />

@@ -15,10 +15,11 @@ function Event() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [reservationAccepted, setReservationAccepted] = useState(false);
-  const [reservedEvents, setReservedEvents] = useState([]);
+  // const [ReservedEvents, setReservedEvents] = useState([]);
   const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [event, setEvent] = useState({});
-  const { isAuthenticated } = useAuth();
+  const [/* isBookingAlreadyExists */, setIsBookingAlreadyExists] = useState();
+  const { user, isAuthenticated } = useAuth();
   const [availableSeats, setAvailableSeats] = useState(0);
 
   useEffect(() => {
@@ -29,7 +30,6 @@ function Event() {
 
         if (result) {
           setEvent(result);
-          setSelectedEvent(result);
         } else {
           // console.error('Event not found:', eventName);
         }
@@ -40,6 +40,31 @@ function Event() {
 
     fetchEventByName();
   }, [eventName]);
+
+  useEffect(() => {
+    const fetchIsBookedEvent = async () => {
+      try {
+        const { id } = user;
+        if (!event.id) {
+          return;
+        }
+        const eventId = event.id;
+
+        const response = await fetch(`${API_URL}/api/booking/book/${id}?eventId=${eventId}`);
+        const result = await response.json();
+
+        if (result) {
+          setIsBookingAlreadyExists(result.exists);
+        } else {
+          // console.error('Event not found:', eventName);
+        }
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchIsBookedEvent();
+  }, [event.id]);
 
   useEffect(() => {
     const fetchAvailableSeats = async () => {
@@ -56,23 +81,32 @@ function Event() {
     };
 
     fetchAvailableSeats();
-  }, [selectedEvent, reservedEvents]);
+  }, [selectedEvent, /* reservedEvents */]);
 
-  /*  let eventPrev = [];
+  useEffect(() => {
+    const fetchIsBookedEvent = async () => {
+      try {
+        const { id } = user;
+        if (!event.id) {
+          return;
+        }
+        const eventId = event.id;
 
-  if (event.id === 1) {
-    eventPrev = events.find((item) => item.id === events.length);
-  } else {
-    eventPrev = events.find((item) => item.id === event.id - 1);
-  }
+        const response = await fetch(`${API_URL}/api/booking/book/${id}?eventId=${eventId}`);
+        const result = await response.json();
 
-  let eventNext = {};
+        if (result) {
+          setIsBookingAlreadyExists(result.exists);
+        } else {
+          // console.error('Event not found:', eventName);
+        }
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
 
-  if (event.id === events.length) {
-    eventNext = events.find((item) => item.id === 1);
-  } else {
-    eventNext = events.find((item) => item.id === event.id + 1);
-  } */
+    fetchIsBookedEvent();
+  }, [event.id]);
 
   const formatDate = (dateString) => {
     const options = { day: 'numeric', month: 'short' };
@@ -101,6 +135,9 @@ function Event() {
   const handleConfirmReserve = async () => {
     try {
       const eventId = selectedEvent.id;
+      if (!eventId) {
+        return;
+      }
 
       const response = await fetch(`${API_URL}/api/booking/events/book`, {
         method: 'POST',
@@ -113,35 +150,20 @@ function Event() {
 
       await response.json();
 
-      setReservedEvents((prevReservedEvents) => {
+      /*   setReservedEvents((prevReservedEvents) => {
         const updatedReservedEvents = [...prevReservedEvents, selectedEvent.id];
         return updatedReservedEvents;
-      });
+      }); */
 
       document.cookie = `eventId=${eventId}; path=/`;
 
       setShowModal(false);
       setReservationAccepted(true);
       setShowThankYouModal(true);
-      setAvailableSeats();
     } catch (error) {
       // console.error('Error during reservation confirmation:', error);
     }
   };
-
-  const isEventReserved = reservedEvents.includes(event.id);
-
-  /*   const handleNextClick = () => {
-    const nextEventId = event.id === eventsList.length ? 1 : event.id + 1;
-    const nextEvent = findEventById(nextEventId);
-    setSelectedEvent(nextEvent);
-  };
-
-  const handlePrevClick = () => {
-    const prevEventId = event.id === 1 ? eventsList.length : event.id - 1;
-    const prevEvent = findEventById(prevEventId);
-    setSelectedEvent(prevEvent);
-  }; */
 
   useEffect(() => {
     setSelectedEvent(event);
@@ -166,26 +188,22 @@ function Event() {
       );
     }
 
-    if (isEventReserved) {
+   /*  if (isEventReserved) {
       return <span className="text-muted fs-5 max-vw-25">RESERVED</span>;
-    }
+    } */
 
-    const availableSeatsStyle = availableSeats > 0 ? { color: 'green' } : {};
 
     return (
-      <>
-        <Button
+      <Button
           className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
           onClick={handleReserveClick}
         >
           RESERVE <MdOutlineCalendarMonth />
         </Button>
-        <div className="p-2 d-flex justify-content-center" style={availableSeatsStyle}>
-          Available Seats: {availableSeats}
-        </div>
-      </>
     );
   };
+
+  const availableSeatsStyle = availableSeats > 0 ? { color: 'green' } : {};
 
   return (
     <>
@@ -204,7 +222,11 @@ function Event() {
               </div>
             </div>
             <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
-            {/* <h3 className="p-3 d-flex justify-content-center">{`Available seats: ${event.availableSeats}`}</h3> */}
+            
+              <div className="p-2 d-flex justify-content-center" style={availableSeatsStyle}>
+                Available Seats: {availableSeats}
+              </div>
+            
             <div className="p-3 d-flex justify-content-center flex-wrap">
               <div className="p-3 d-flex align-items-center">{renderContent()}</div>
               <div className="p-3">
