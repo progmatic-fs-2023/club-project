@@ -24,4 +24,18 @@ const getDetailsOfServiceBookingsById = async id => {
   return response.rows[0];
 };
 
-export { listAllServiceBookings, getDetailsOfServiceBookingsById };
+// DELETE SERVICE BOOKINGS
+
+const deleteServiceBookingById = async selectedBookingId => {
+  try {
+    const response = await db.query('DELETE FROM bookings_services WHERE booking_id = $1', [
+      selectedBookingId,
+    ]);
+    return response.rows[0];
+  } catch (error) {
+    console.error('Error deleting service booking by id:', error);
+    throw error;
+  }
+};
+
+export { listAllServiceBookings, getDetailsOfServiceBookingsById, deleteServiceBookingById };

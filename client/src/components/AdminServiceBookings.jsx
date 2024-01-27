@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Table, NavLink } from 'react-bootstrap';
+import { Button, Table, NavLink, Modal } from 'react-bootstrap';
 import { API_URL } from '../constants';
 
 function AdminServiceBookings() {
   const [serviceBookings, setServiceBookings] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
 
   useEffect(() => {
     const fetchServiceBookings = async () => {
@@ -12,30 +13,47 @@ function AdminServiceBookings() {
         const response = await fetch(`${API_URL}/api/servicebookings`);
         const result = await response.json();
         setServiceBookings(result);
-        setLoading(false);
       } catch (error) {
-        // console.error('Error fetching events:', error);
+        /* console.error('Error fetching service bookings:', error); */
       }
     };
+
     fetchServiceBookings();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center h-100 w-100">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
+  const handleDelete = async (bookingId) => {
+    setSelectedBookingId(bookingId);
+    setShowModal(true);
+  };
+
+  const handleConfirmation = async (confirmed) => {
+    setShowModal(false);
+
+    if (confirmed) {
+      try {
+        const deleteResponse = await fetch(`${API_URL}/api/servicebookings/${selectedBookingId}`, {
+          method: 'DELETE',
+        });
+
+        if (deleteResponse.ok) {
+          setServiceBookings((prevBookings) =>
+            prevBookings.filter((booking) => booking.serviceBookingId !== selectedBookingId),
+          );
+        } else {
+          /* console.error('Error deleting service booking'); */
+        }
+      } catch (error) {
+        /* console.error('Error deleting service booking:', error); */
+      }
+    }
+  };
 
   const modifiedHeaders = [
     'Booking id',
     'Member id',
     'First name',
     'Last name',
-    'Userame',
+    'Username',
     'Service id',
     'Service name',
     'Time slot id',
@@ -66,63 +84,29 @@ function AdminServiceBookings() {
               <th className="py-2 px-2 bg-dark text-dark fw-normal fs-6 text-uppercase text-center">
                 \
               </th>
+              <th className="py-2 px-2 bg-dark text-dark fw-normal fs-6 text-uppercase text-center">
+                \
+              </th>
             </tr>
           </thead>
           <tbody>
             {serviceBookings.map((serviceBooking) => (
               <tr key={serviceBooking.serviceBookingId}>
                 {modifiedHeaders.map((header) => (
-                  <td className="p-4 text-center">
-                    {header === 'Booking id' && (
-                      <div>
-                        <div>{serviceBooking.serviceBookingId}</div>
-                      </div>
-                    )}
-                    {header === 'Member id' && (
-                      <div>
-                        <div>{serviceBooking.memberId}</div>
-                      </div>
-                    )}
-                    {header === 'First name' && (
-                      <div>
-                        <div>{serviceBooking.firstName}</div>
-                      </div>
-                    )}
-                    {header === 'Last name' && (
-                      <div>
-                        <div>{serviceBooking.lastName}</div>
-                      </div>
-                    )}
-                    {header === 'Username' && (
-                      <div>
-                        <div>{serviceBooking.username}</div>
-                      </div>
-                    )}
-                    {header === 'Service id' && (
-                      <div>
-                        <div>{serviceBooking.serviceId}</div>
-                      </div>
-                    )}
-                    {header === 'Service name' && (
-                      <div>
-                        <div>{serviceBooking.serviceName}</div>
-                      </div>
-                    )}
-                    {header === 'Time slot id' && (
-                      <div>
-                        <div>{serviceBooking.timeSlotId}</div>
-                      </div>
-                    )}
-                    {header === 'Start time' && (
-                      <div>
-                        <div>{serviceBooking.startTime}</div>
-                      </div>
-                    )}
-                    {header === 'End time' && (
-                      <div>
-                        <div>{serviceBooking.endTime}</div>
-                      </div>
-                    )}
+                  <td
+                    className="p-4 text-center"
+                    key={`${serviceBooking.serviceBookingId}-${header}`}
+                  >
+                    {header === 'Booking id' && <div>{serviceBooking.serviceBookingId}</div>}
+                    {header === 'Member id' && <div>{serviceBooking.memberId}</div>}
+                    {header === 'First name' && <div>{serviceBooking.firstName}</div>}
+                    {header === 'Last name' && <div>{serviceBooking.lastName}</div>}
+                    {header === 'Username' && <div>{serviceBooking.username}</div>}
+                    {header === 'Service id' && <div>{serviceBooking.serviceId}</div>}
+                    {header === 'Service name' && <div>{serviceBooking.serviceName}</div>}
+                    {header === 'Time slot id' && <div>{serviceBooking.timeSlotId}</div>}
+                    {header === 'Start time' && <div>{serviceBooking.startTime}</div>}
+                    {header === 'End time' && <div>{serviceBooking.endTime}</div>}
                   </td>
                 ))}
                 <td className="p-3 text-center">
@@ -134,11 +118,33 @@ function AdminServiceBookings() {
                     <Button variant="primary">Details</Button>
                   </NavLink>
                 </td>
+                <td className="p-3 text-center">
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(serviceBooking.serviceBookingId)}
+                  >
+                    Delete
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this booking?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => handleConfirmation(false)}>
+            No
+          </Button>
+          <Button variant="danger" onClick={() => handleConfirmation(true)}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </main>
   );
 }
