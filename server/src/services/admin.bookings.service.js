@@ -7,7 +7,8 @@ const listAllBookings = async () => {
     `SELECT booking_members_events.id AS "bookingId", booking_members_events.member_id AS "member_id", booking_members_events.event_id AS "event_id", members.username AS "username", events.name AS "event_name", events.start_time AS "start_time", events.end_time AS "end_time", members.first_name AS "first_name", members.last_name AS "last_name" 
      FROM booking_members_events 
      INNER JOIN members ON members.id = booking_members_events.member_id 
-     INNER JOIN events ON events.id = booking_members_events.event_id `,
+     INNER JOIN events ON events.id = booking_members_events.event_id
+     ORDER BY  events.start_time`,
   );
   return response.rows;
 };
