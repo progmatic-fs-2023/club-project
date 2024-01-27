@@ -18,6 +18,7 @@ function AllEvents({ events }) {
                   name={event.name}
                   startDate={formatDateShort(event.startTime)}
                   endDate={formatDateShort(event.endTime)}
+                  unformattedEndTime={event.endTime}
                   startTime={formatTime(event.startTime)}
                   endTime={formatTime(event.endTime)}
                   eventImg={event.eventImg}
