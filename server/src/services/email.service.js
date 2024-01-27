@@ -127,8 +127,6 @@ const sendEventBookingEmail = async (email, eventName, eventTime) => {
   });
 };
 
-
-
 export {
   sendVerificationEmail,
   welcomeContactUsEmail,
