@@ -1,6 +1,7 @@
 import {
   listAllServiceBookings,
   getDetailsOfServiceBookingsById,
+  deleteServiceBookingById,
 } from '../services/admin.services.bookings.service';
 import 'dotenv/config';
 
@@ -37,4 +38,21 @@ const getDetailsOfServiceBookings = async (req, res) => {
   }
 };
 
-export { listServiceBookings, getDetailsOfServiceBookings };
+// DELETE SERVICE BOOKINGS
+const deleteServiceBooking = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedBooking = await deleteServiceBookingById(id);
+    if (deletedBooking) {
+      res.json({ message: 'Booking deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Booking not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting service booking:', error);
+
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export { listServiceBookings, getDetailsOfServiceBookings, deleteServiceBooking };

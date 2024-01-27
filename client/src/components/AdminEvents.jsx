@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Table, Modal } from 'react-bootstrap';
+import { formatDateLong } from '../utils/dateUtils';
 import { API_URL } from '../constants';
 
 function AdminEvents() {
@@ -229,8 +230,8 @@ function AdminEvents() {
           {events.map((event) => (
             <tr key={event.id}>
               <td>{event.name}</td>
-              <td>{event.startTime}</td>
-              <td>{event.endTime}</td>
+              <td>{formatDateLong(event.startTime)}</td>
+              <td>{formatDateLong(event.endTime)}</td>
               <td>{event.availableSeats}</td>
               <td>
                 <Button variant="primary" onClick={() => handleEditEvent(event)}>
