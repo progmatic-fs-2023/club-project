@@ -9,7 +9,7 @@ function Filter({ onSortChange, handleCheckboxChange, sortBy, isPastEventsChecke
           type="checkbox"
           className="form-checkbox mt-2 mt-md-0"
           id="checkAvailableEvents"
-          label="PAST EVENTS"
+          label="ALL EVENTS"
           onChange={handleCheckboxChange}
           checked={isPastEventsChecked}
         />

@@ -19,6 +19,10 @@ function Events() {
         const response = await fetch(`${API_URL}/api/events`);
         const result = await response.json();
 
+        const sortedResult = [...result].sort(
+          (a, b) => new Date(a.startTime) - new Date(b.startTime),
+        );
+
         const currentDate = new Date();
         const filteredEvents = result.filter((event) => new Date(event.startTime) >= currentDate);
 
@@ -28,7 +32,7 @@ function Events() {
 
         setEvents(sortedEvents);
         setOriginalEvents(sortedEvents);
-        setFetchedEvents(result);
+        setFetchedEvents(sortedResult);
       } catch (error) {
         // console.error('Error fetching data:', error);
       }

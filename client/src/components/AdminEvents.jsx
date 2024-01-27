@@ -263,24 +263,36 @@ function AdminEvents() {
                 onChange={(e) => setEditEvent({ ...editEvent, name: e.target.value })}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Start Time:</Form.Label>
-              <Form.Control
-                type="datetime-local"
-                name="startTime"
-                value={editEvent?.startTime || ''}
-                onChange={(e) => setEditEvent({ ...editEvent, startTime: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>End Time:</Form.Label>
-              <Form.Control
-                type="datetime-local"
-                name="endTime"
-                value={editEvent?.endTime || ''}
-                onChange={(e) => setEditEvent({ ...editEvent, endTime: e.target.value })}
-              />
-            </Form.Group>
+            <div>
+              <div className="original-date">
+                <span style={{ fontSize: '12px' }}>original: </span>
+                {formatDateLong(editEvent?.startTime)}
+              </div>
+              <Form.Group className="mb-3">
+                <Form.Label>Start Time:</Form.Label>
+                <Form.Control
+                  type="datetime-local"
+                  name="startTime"
+                  value={editEvent?.startTime || ''}
+                  onChange={(e) => setEditEvent({ ...editEvent, startTime: e.target.value })}
+                />
+              </Form.Group>
+            </div>
+            <div>
+              <div className="original-date">
+                <span style={{ fontSize: '12px' }}>original: </span>
+                {formatDateLong(editEvent?.endTime)}
+              </div>
+              <Form.Group className="mb-3">
+                <Form.Label>End Time:</Form.Label>
+                <Form.Control
+                  type="datetime-local"
+                  name="endTime"
+                  value={editEvent?.endTime || ''}
+                  onChange={(e) => setEditEvent({ ...editEvent, endTime: e.target.value })}
+                />
+              </Form.Group>
+            </div>
             <Form.Group className="mb-3">
               <Form.Label>Available Seats:</Form.Label>
               <Form.Control

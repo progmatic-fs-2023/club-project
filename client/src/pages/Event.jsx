@@ -15,10 +15,11 @@ function Event() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [reservationAccepted, setReservationAccepted] = useState(false);
-  const [reservedEvents, setReservedEvents] = useState([]);
+  // const [ReservedEvents, setReservedEvents] = useState([]);
   const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [event, setEvent] = useState([]);
-  const { isAuthenticated } = useAuth();
+  const [isBookingAlreadyExists, setIsBookingAlreadyExists] = useState();
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchEventByName = async () => {
@@ -39,21 +40,30 @@ function Event() {
     fetchEventByName();
   }, [eventName]);
 
-  /*  let eventPrev = [];
+  useEffect(() => {
+    const fetchIsBookedEvent = async () => {
+      try {
+        const { id } = user;
+        if (!event.id) {
+          return;
+        }
+        const eventId = event.id;
 
-  if (event.id === 1) {
-    eventPrev = events.find((item) => item.id === events.length);
-  } else {
-    eventPrev = events.find((item) => item.id === event.id - 1);
-  }
+        const response = await fetch(`${API_URL}/api/booking/book/${id}?eventId=${eventId}`);
+        const result = await response.json();
 
-  let eventNext = {};
+        if (result) {
+          setIsBookingAlreadyExists(result.exists);
+        } else {
+          // console.error('Event not found:', eventName);
+        }
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
 
-  if (event.id === events.length) {
-    eventNext = events.find((item) => item.id === 1);
-  } else {
-    eventNext = events.find((item) => item.id === event.id + 1);
-  } */
+    fetchIsBookedEvent();
+  }, [event.id]);
 
   const formatDate = (dateString) => {
     const options = { day: 'numeric', month: 'short' };
@@ -82,6 +92,9 @@ function Event() {
   const handleConfirmReserve = async () => {
     try {
       const eventId = selectedEvent.id;
+      if (!eventId) {
+        return;
+      }
 
       const response = await fetch(`${API_URL}/api/booking/events/book`, {
         method: 'POST',
@@ -94,10 +107,10 @@ function Event() {
 
       await response.json();
 
-      setReservedEvents((prevReservedEvents) => {
+      /*   setReservedEvents((prevReservedEvents) => {
         const updatedReservedEvents = [...prevReservedEvents, selectedEvent.id];
         return updatedReservedEvents;
-      });
+      }); */
 
       document.cookie = `eventId=${eventId}; path=/`;
 
@@ -108,20 +121,6 @@ function Event() {
       // console.error('Error during reservation confirmation:', error);
     }
   };
-
-  const isEventReserved = reservedEvents.includes(event.id);
-
-  /*   const handleNextClick = () => {
-    const nextEventId = event.id === eventsList.length ? 1 : event.id + 1;
-    const nextEvent = findEventById(nextEventId);
-    setSelectedEvent(nextEvent);
-  };
-
-  const handlePrevClick = () => {
-    const prevEventId = event.id === 1 ? eventsList.length : event.id - 1;
-    const prevEvent = findEventById(prevEventId);
-    setSelectedEvent(prevEvent);
-  }; */
 
   useEffect(() => {
     setSelectedEvent(event);
@@ -146,11 +145,15 @@ function Event() {
       );
     }
 
-    if (isEventReserved) {
-      return <span className="text-muted fs-5 max-vw-25">RESERVED</span>;
-    }
-
-    return (
+    return isBookingAlreadyExists ? (
+      <Button
+        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+        disabled
+        style={{ pointerEvents: 'none' }}
+      >
+        RESERVED
+      </Button>
+    ) : (
       <Button
         className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
         onClick={handleReserveClick}
