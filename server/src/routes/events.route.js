@@ -5,6 +5,7 @@ import {
   getEventByName,
   list,
   updateEvent,
+  getAvailableSeatsForEvent,
 } from '../controllers/events.controller';
 
 const eventsRouter = express.Router();
@@ -17,5 +18,7 @@ eventsRouter.post('/', createEvent);
 eventsRouter.put('/:id', updateEvent);
 
 eventsRouter.delete('/:id', deleteEvent);
+
+eventsRouter.get('/:id/available-seats', getAvailableSeatsForEvent);
 
 export default eventsRouter;

@@ -3,7 +3,8 @@ import {
   eventByName,
   createNewEvent,
   deleteEventById,
-  updateEventById, // Hozzáadva az import
+  updateEventById,
+  getAvailableSeatsForEventById,
 } from '../services/events.service';
 import 'dotenv/config';
 
@@ -131,4 +132,26 @@ const updateEvent = async (req, res) => {
   }
 };
 
-export { list, getEventByName, createEvent, deleteEvent, updateEvent };
+// GET AVAILABLE SEATS FOR EVENT BY ID
+const getAvailableSeatsForEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    console.log('Event ID:', id);
+
+    if (!id) {
+      throw new Error('Event ID is missing or invalid');
+    }
+
+    const response = await getAvailableSeatsForEventById(id);
+
+    console.log('Response:', response);
+
+    res.json({ availableSeats: response });
+  } catch (error) {
+    console.error('Error fetching available seats for event:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+export { list, getEventByName, createEvent, deleteEvent, updateEvent, getAvailableSeatsForEvent };

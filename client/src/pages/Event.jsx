@@ -17,8 +17,9 @@ function Event() {
   const [reservationAccepted, setReservationAccepted] = useState(false);
   const [reservedEvents, setReservedEvents] = useState([]);
   const [showThankYouModal, setShowThankYouModal] = useState(false);
-  const [event, setEvent] = useState([]);
+  const [event, setEvent] = useState({});
   const { isAuthenticated } = useAuth();
+  const [availableSeats, setAvailableSeats] = useState(0);
 
   useEffect(() => {
     const fetchEventByName = async () => {
@@ -28,6 +29,7 @@ function Event() {
 
         if (result) {
           setEvent(result);
+          setSelectedEvent(result);
         } else {
           // console.error('Event not found:', eventName);
         }
@@ -38,6 +40,23 @@ function Event() {
 
     fetchEventByName();
   }, [eventName]);
+
+  useEffect(() => {
+    const fetchAvailableSeats = async () => {
+      try {
+        if (!selectedEvent || typeof selectedEvent.id === 'undefined') {
+          return;
+        }
+        const response = await fetch(`${API_URL}/api/events/${selectedEvent.id}/available-seats`);
+        const data = await response.json();
+        setAvailableSeats(data.availableSeats);
+      } catch (error) {
+        /* console.error('Error fetching available seats:', error); */
+      }
+    };
+
+    fetchAvailableSeats();
+  }, [selectedEvent, reservedEvents]);
 
   /*  let eventPrev = [];
 
@@ -104,6 +123,7 @@ function Event() {
       setShowModal(false);
       setReservationAccepted(true);
       setShowThankYouModal(true);
+      setAvailableSeats();
     } catch (error) {
       // console.error('Error during reservation confirmation:', error);
     }
@@ -150,13 +170,20 @@ function Event() {
       return <span className="text-muted fs-5 max-vw-25">RESERVED</span>;
     }
 
+    const availableSeatsStyle = availableSeats > 0 ? { color: 'green' } : {};
+
     return (
-      <Button
-        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
-        onClick={handleReserveClick}
-      >
-        RESERVE <MdOutlineCalendarMonth />
-      </Button>
+      <>
+        <Button
+          className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+          onClick={handleReserveClick}
+        >
+          RESERVE <MdOutlineCalendarMonth />
+        </Button>
+        <div className="p-2 d-flex justify-content-center" style={availableSeatsStyle}>
+          Available Seats: {availableSeats}
+        </div>
+      </>
     );
   };
 
