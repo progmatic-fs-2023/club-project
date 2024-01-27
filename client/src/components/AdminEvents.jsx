@@ -69,15 +69,12 @@ function AdminEvents() {
 
   const handleAddEvent = async () => {
     try {
-      const formData = new FormData();
-
-      Object.keys(newEvent).forEach((key) => {
-        formData.append(key, newEvent[key]);
-      });
-
       const response = await fetch(`${API_URL}/api/events`, {
         method: 'POST',
-        body: formData,
+        body: JSON.stringify(newEvent),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (response.ok) {

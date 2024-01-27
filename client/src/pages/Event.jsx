@@ -17,9 +17,10 @@ function Event() {
   const [reservationAccepted, setReservationAccepted] = useState(false);
   // const [ReservedEvents, setReservedEvents] = useState([]);
   const [showThankYouModal, setShowThankYouModal] = useState(false);
-  const [event, setEvent] = useState([]);
-  const [isBookingAlreadyExists, setIsBookingAlreadyExists] = useState();
+  const [event, setEvent] = useState({});
+  const [, /* isBookingAlreadyExists */ setIsBookingAlreadyExists] = useState();
   const { user, isAuthenticated } = useAuth();
+  const [availableSeats, setAvailableSeats] = useState(0);
 
   useEffect(() => {
     const fetchEventByName = async () => {
@@ -39,6 +40,48 @@ function Event() {
 
     fetchEventByName();
   }, [eventName]);
+
+  useEffect(() => {
+    const fetchIsBookedEvent = async () => {
+      try {
+        const { id } = user;
+        if (!event.id) {
+          return;
+        }
+        const eventId = event.id;
+
+        const response = await fetch(`${API_URL}/api/booking/book/${id}?eventId=${eventId}`);
+        const result = await response.json();
+
+        if (result) {
+          setIsBookingAlreadyExists(result.exists);
+        } else {
+          // console.error('Event not found:', eventName);
+        }
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchIsBookedEvent();
+  }, [event.id]);
+
+  useEffect(() => {
+    const fetchAvailableSeats = async () => {
+      try {
+        if (!selectedEvent || typeof selectedEvent.id === 'undefined') {
+          return;
+        }
+        const response = await fetch(`${API_URL}/api/events/${selectedEvent.id}/available-seats`);
+        const data = await response.json();
+        setAvailableSeats(data.availableSeats);
+      } catch (error) {
+        /* console.error('Error fetching available seats:', error); */
+      }
+    };
+
+    fetchAvailableSeats();
+  }, [selectedEvent /* reservedEvents */]);
 
   useEffect(() => {
     const fetchIsBookedEvent = async () => {
@@ -145,15 +188,11 @@ function Event() {
       );
     }
 
-    return isBookingAlreadyExists ? (
-      <Button
-        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
-        disabled
-        style={{ pointerEvents: 'none' }}
-      >
-        RESERVED
-      </Button>
-    ) : (
+    /*  if (isEventReserved) {
+      return <span className="text-muted fs-5 max-vw-25">RESERVED</span>;
+    } */
+
+    return (
       <Button
         className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
         onClick={handleReserveClick}
@@ -162,6 +201,8 @@ function Event() {
       </Button>
     );
   };
+
+  const availableSeatsStyle = availableSeats > 0 ? { color: 'green' } : {};
 
   return (
     <>
@@ -180,7 +221,11 @@ function Event() {
               </div>
             </div>
             <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
-            {/* <h3 className="p-3 d-flex justify-content-center">{`Available seats: ${event.availableSeats}`}</h3> */}
+
+            <div className="p-2 d-flex justify-content-center" style={availableSeatsStyle}>
+              Available Seats: {availableSeats}
+            </div>
+
             <div className="p-3 d-flex justify-content-center flex-wrap">
               <div className="p-3 d-flex align-items-center">{renderContent()}</div>
               <div className="p-3">
