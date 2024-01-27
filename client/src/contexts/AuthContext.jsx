@@ -83,6 +83,7 @@ export function AuthProvider({ children }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
+        credentials: 'include',
       });
       const data = await response.json();
       if (!response.ok || (data.success !== undefined && !data.success)) {

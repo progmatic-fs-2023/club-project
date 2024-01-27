@@ -37,6 +37,7 @@ router.get('/reset-password', verifyNewPasswordEmail);
 router.post('/reset-password', verifyNewPasswords);
 router.use('/booking', bookingRouter);
 router.use('/membership', membershipRouter);
+router.use('/booking/events', bookingRouter);
 router.post('/profile-picture', updatePicture);
 router.get('/updateUsers', getUserByIdHeader);
 

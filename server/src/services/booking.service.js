@@ -27,4 +27,13 @@ const createNewBooking = async (timeSlotId, memberId, isReserved) => {
   return { insertResult: insertBooking.rows, updateResult: updateReserved.rows };
 };
 
-export { listAWeekById, createNewBooking };
+const sendUserDataToDatabase = async (userId, eventId) => {
+  const result = await db.query(
+    `INSERT INTO booking_members_events (member_id, event_id) VALUES ($1, $2)`,
+    [userId, eventId],
+  );
+
+  return result.rows;
+};
+
+export { listAWeekById, createNewBooking, sendUserDataToDatabase };

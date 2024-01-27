@@ -1,5 +1,11 @@
-import { listAWeekById, createNewBooking } from '../services/booking.service';
+import {
+  listAWeekById,
+  createNewBooking,
+  sendUserDataToDatabase,
+} from '../services/booking.service';
 import HttpError from '../utils/HttpError';
+import { sendEventBookingEmail } from '../services/email.service';
+import { getUserEmail, getEventDetails } from '../services/events.service';
 
 const weekListById = async (req, res, next) => {
   try {
@@ -34,4 +40,28 @@ const createBooking = async (req, res, next) => {
   }
 };
 
-export { weekListById, createBooking };
+const bookEvent = async (req, res) => {
+  try {
+    const { userId } = req.cookies;
+    const { eventId } = req.cookies;
+
+    console.log(eventId);
+
+    await sendUserDataToDatabase(userId, eventId);
+
+    const email = await getUserEmail(userId);
+    const { eventName, eventTime } = await getEventDetails(eventId);
+
+    await sendEventBookingEmail(email, eventName, eventTime);
+    return res.status(201).json({
+      message: 'Event booked successfully.',
+    });
+  } catch (err) {
+    console.error('Booking error:', err);
+    return res.status(500).json({
+      message: 'Internal server error.',
+    });
+  }
+};
+
+export { weekListById, createBooking, bookEvent };
