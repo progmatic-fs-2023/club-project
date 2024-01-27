@@ -2,11 +2,13 @@ import {
   listAWeekById,
   createNewBooking,
   sendUserDataToDatabase,
+  getBookedEventByMemberId,
 } from '../services/booking.service';
 import HttpError from '../utils/HttpError';
 import { sendEventBookingEmail } from '../services/email.service';
 import { getUserEmail, getEventDetails } from '../services/events.service';
 
+// GET A WEEK LIST BY ID
 const weekListById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -23,6 +25,24 @@ const weekListById = async (req, res, next) => {
   }
 };
 
+// GET A BOOKED EVENT STATUS BY MEMBER'S ID
+const getEventBookingByMemberId = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { eventId } = req.query;
+
+    const event = await getBookedEventByMemberId(id, eventId);
+    if (event) {
+      res.json(event);
+    } else {
+      next(new HttpError('Event booking does not exist', 404));
+    }
+  } catch (err) {
+    next(new HttpError(err.message, 500));
+  }
+};
+
+// CREATE A SERVICE BOOKING
 const createBooking = async (req, res, next) => {
   try {
     const { timeSlotId } = req.body;
@@ -40,6 +60,7 @@ const createBooking = async (req, res, next) => {
   }
 };
 
+// CREATE AN EVENT BOOKING
 const bookEvent = async (req, res) => {
   try {
     const { userId } = req.cookies;
@@ -64,4 +85,4 @@ const bookEvent = async (req, res) => {
   }
 };
 
-export { weekListById, createBooking, bookEvent };
+export { weekListById, createBooking, bookEvent, getEventBookingByMemberId };
