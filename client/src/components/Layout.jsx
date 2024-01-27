@@ -11,21 +11,28 @@ import LoginModal from './LoginModal';
 import { useAuth } from '../contexts/AuthContext';
 
 function Layout() {
-  const { isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const [show, setShow] = useState(isAuthenticated ? 'none' : 'inline-block');
+  const [isAdmin, setIsAdmin] = useState();
 
   const handleCloseButton = () => setShow('none');
   const handleLogoutButton = () => {
     setShow('inline-block');
     logout();
   };
-
+  const adminRole = user.id === null ? false : user.isAdmin;
   useEffect(() => {
     // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
     if (isAuthenticated) {
       setShow('none');
     } else {
       setShow('inline-block');
+    }
+
+    if (isAuthenticated && adminRole) {
+      setIsAdmin('inline-block');
+    } else {
+      setIsAdmin('none');
     }
   }, [isAuthenticated]);
 
@@ -40,7 +47,6 @@ function Layout() {
       >
         <Container className="min-vw-100 mx-auto py-1 px-4">
           <Navbar.Brand as={NavLink} to="/">
-            {' '}
             <img
               src="/src/assets/door_logo_w.png"
               className="logo d-inline-block align-top"
@@ -78,7 +84,6 @@ function Layout() {
                 to="/profile"
                 style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
               >
-                {' '}
                 <img
                   src="/src/assets/manager.png"
                   className="user-icon d-inline-block align-top"
@@ -87,13 +92,24 @@ function Layout() {
               </Navbar.Brand>
               <Button
                 as={NavLink}
-                to="/booking"
-                style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+                to="/admin"
+                style={{ display: `${isAdmin === 'inline-block' ? 'inline-block' : 'none'}` }}
                 className="mx-3 max-vw-25 fs-5"
                 variant="outline-light"
               >
-                Booking
+                ADMIN
               </Button>
+              {!adminRole && (
+                <Button
+                  as={NavLink}
+                  to="/booking"
+                  style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+                  className="mx-3 max-vw-25 fs-5"
+                  variant="outline-light"
+                >
+                  Booking
+                </Button>
+              )}
               <Button
                 as={NavLink}
                 to="/"
@@ -102,7 +118,6 @@ function Layout() {
                 variant="outline-light"
                 onClick={() => {
                   handleLogoutButton();
-                  logout();
                 }}
               >
                 Log out

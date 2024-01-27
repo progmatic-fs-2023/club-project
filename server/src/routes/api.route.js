@@ -9,7 +9,12 @@ import adminServicesBookingsRouter from './admin.services.bookings.route';
 import membershipRouter from './membership.route';
 import bookingRouter from './booking.route';
 import { sendNewPasswordEmail } from '../services/email.service';
-import { verifyNewPasswordEmail, verifyNewPasswords } from '../controllers/users.controller';
+import {
+  getUserByIdHeader,
+  verifyNewPasswordEmail,
+  verifyNewPasswords,
+} from '../controllers/users.controller';
+import { updatePicture } from '../controllers/profile.controller';
 
 const router = Router();
 
@@ -33,6 +38,8 @@ router.post('/reset-password', verifyNewPasswords);
 router.use('/booking', bookingRouter);
 router.use('/membership', membershipRouter);
 router.use('/booking/events', bookingRouter);
+router.post('/profile-picture', updatePicture);
+router.get('/updateUsers', getUserByIdHeader);
 
 router.get('/', (req, res) => {
   res.sendStatus(200);

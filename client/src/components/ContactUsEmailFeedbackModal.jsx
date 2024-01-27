@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 
-function NewPasswordEmailFeedbackModal({ smShowEmailSentModal, setSmShowEmailSentModal }) {
+function ContactUsEmailFeedbackModal({ smShowEmailSentModal, setSmShowEmailSentModal }) {
   useEffect(() => {
     let timeoutId;
 
@@ -34,9 +34,9 @@ function NewPasswordEmailFeedbackModal({ smShowEmailSentModal, setSmShowEmailSen
   );
 }
 
-NewPasswordEmailFeedbackModal.propTypes = {
+ContactUsEmailFeedbackModal.propTypes = {
   smShowEmailSentModal: PropTypes.bool.isRequired,
   setSmShowEmailSentModal: PropTypes.func.isRequired,
 };
 
-export default NewPasswordEmailFeedbackModal;
+export default ContactUsEmailFeedbackModal;

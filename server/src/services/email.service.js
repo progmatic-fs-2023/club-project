@@ -58,7 +58,7 @@ const welcomeContactUsEmail = async (req, res) => {
       res.status(500).send('Internal Server Error');
     } else {
       console.log(`Email sent: ${info.response}`);
-      res.send('Message sent successfully!');
+      res.send();
     }
   });
 };
