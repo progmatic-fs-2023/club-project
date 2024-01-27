@@ -7,18 +7,20 @@ import { API_URL } from '../constants';
 
 function Events() {
   const [events, setEvents] = useState([]);
+  const [fetchedEvents, setFetchedEvents] = useState([]);
   const [originalEvents, setOriginalEvents] = useState([]);
   const [noResults, setNoResults] = useState(false);
   const [sortBy, setSortBy] = useState('startDate');
+  const [isPastEventsChecked, setIsPastEventsChecked] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const currentDate = new Date();
         const response = await fetch(`${API_URL}/api/events`);
         const result = await response.json();
 
-        const filteredEvents = result.filter((event) => new Date(event.startTime) > currentDate);
+        const currentDate = new Date();
+        const filteredEvents = result.filter((event) => new Date(event.startTime) >= currentDate);
 
         const sortedEvents = [...filteredEvents].sort(
           (a, b) => new Date(a.startTime) - new Date(b.startTime),
@@ -26,6 +28,7 @@ function Events() {
 
         setEvents(sortedEvents);
         setOriginalEvents(sortedEvents);
+        setFetchedEvents(result);
       } catch (error) {
         // console.error('Error fetching data:', error);
       }
@@ -51,15 +54,15 @@ function Events() {
   }, [sortBy]);
 
   const onSearch = (searchText) => {
-    let filteredList = originalEvents;
+    let filteredList;
 
     if (searchText.length >= 2) {
-      filteredList = filteredList.filter((event) =>
+      filteredList = events.filter((event) =>
         event.name.toLowerCase().includes(searchText.toLowerCase()),
       );
-
       setNoResults(filteredList.length === 0);
     } else {
+      filteredList = isPastEventsChecked ? fetchedEvents : originalEvents;
       setNoResults(false);
     }
     setEvents(filteredList);
@@ -68,6 +71,12 @@ function Events() {
   const handleSortChange = (e) => {
     const selectedSortBy = e.target.value;
     setSortBy(selectedSortBy);
+  };
+  const handleCheckboxChange = () => {
+    const eventsToDisplay = isPastEventsChecked ? originalEvents : fetchedEvents;
+    setEvents(eventsToDisplay);
+
+    setIsPastEventsChecked((prevValue) => !prevValue);
   };
 
   return (
@@ -78,7 +87,13 @@ function Events() {
         </Container>
         <div className="d-flex justify-content-between align-items flex-column flex-md-row">
           <SearchBar className="search-bar" onSearch={onSearch} />
-          <FilterBar onSearch={onSearch} onSortChange={handleSortChange} sortBy={sortBy} />
+          <FilterBar
+            onSearch={onSearch}
+            onSortChange={handleSortChange}
+            sortBy={sortBy}
+            handleCheckboxChange={handleCheckboxChange}
+            isPastEventsChecked={isPastEventsChecked}
+          />
         </div>
         {noResults && <p className="m-3 text-danger">No results found</p>}
         <div>

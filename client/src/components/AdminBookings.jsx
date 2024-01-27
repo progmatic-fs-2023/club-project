@@ -15,6 +15,7 @@ function AdminBookings() {
         setLoading(false);
       } catch (error) {
         // console.error('Error fetching events:', error);
+        setLoading(false);
       }
     };
     fetchEventBookings();

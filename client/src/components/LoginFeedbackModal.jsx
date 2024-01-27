@@ -1,7 +1,22 @@
+import { useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 
 function LoginFeedbackModal({ smShow, setSmShow }) {
+  useEffect(() => {
+    let timeoutId;
+
+    if (smShow) {
+      timeoutId = setTimeout(() => {
+        setSmShow(false);
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [smShow, setSmShow]);
+
   return (
     <Modal
       size="sm"

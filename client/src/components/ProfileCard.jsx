@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import FileUpload from './FileUpload';
 import { API_URL } from '../constants';
 import { formatDateLong } from '../utils/dateUtils';
+import { formatDate } from '../utils/dateUtils';
 // import ProfileCalendar from './ProfileCalendar';
 
 export default function ProfileCard() {
@@ -13,6 +14,7 @@ export default function ProfileCard() {
   const [bookedServices, setBookedServices] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
+  const endTime = formatDate(user.membershipEndTime);
 
   const handleShowAllEvents = () => {
     setShowAllEvents(true);
@@ -105,7 +107,7 @@ export default function ProfileCard() {
             <div className="rounded-top text-white d-flex flex-row bg-dark profile-card-up">
               <div className="ms-4 mt-5 d-flex flex-column">
                 <img
-                  src={user.member_img}
+                  src={user.memberImg}
                   alt="Generic placeholder"
                   className="profile-card-img img-fluid img-thumbnail mt-4 mb-2"
                 />
@@ -113,8 +115,8 @@ export default function ProfileCard() {
             </div>
             <div className="p-4 text-black bg-light">
               <div className="d-flex justify-content-between align-items-center text-center pt-5">
-                <FileUpload />
-                <Link to="/aboutus">
+                <FileUpload userId={user.id} />
+                <Link to="/membership">
                   <button type="submit" className="btn btn-primary profile-membership-btn">
                     Change Membership
                   </button>
@@ -125,14 +127,13 @@ export default function ProfileCard() {
               <div className="mb-5">
                 <h4 className="mb-4 text-center">Information</h4>
                 <div className="bg-light p-4">
-                  <p className="mb-1">Name: </p>
+                <p className="mb-1">Name: {`${user.firstName}  ${user.lastName}`}</p>
                   <p className="mb-1">Username: {user.username}</p>
                   <p className="mb-1">Email: {user.email}</p>
-                  <p className="mb-1">Address: {user.address}</p>
                   <p className="mb-0">Gender: {user.gender}</p>
                   <hr />
                   <p className="mb-1">Membership: {user.membership}</p>
-                  <p className="mb-1">Membership expires: {user.membershipExpires}</p>
+                  <p className="mb-1">Membership expires: {user.endTime}</p>
                 </div>
 
                 <h4 className="my-4 pt-4 text-center">Events</h4>

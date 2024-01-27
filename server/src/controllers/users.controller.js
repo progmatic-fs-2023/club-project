@@ -1,13 +1,14 @@
 import bcrypt from 'bcryptjs';
 import {
-  findUserByID,
   deleteUserByID,
-  listAllUsers,
+  findEmail,
   findEmailAndToken,
+  findUserByID,
+  listAllUsers,
+  updateMembershipByID,
+  updateNewPassword,
   updateUserVerificationStatus,
   updateUserByID,
-  findEmail,
-  updateNewPassword,
 } from '../services/users.service';
 import 'dotenv/config';
 import HttpError from '../utils/HttpError';
@@ -38,6 +39,25 @@ const putUserById = async (req, res) => {
     const user = await updateUserByID(id, modifiedMember);
     if (user) {
       res.json(user);
+    } else {
+      res.status(404).json({ message: 'User does not exist' });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
+// UPDATE USER'S MEMBERSHIP
+const updateMembership = async (req, res) => {
+  const { id, membership } = req.body;
+
+  try {
+    const updatedMembership = await updateMembershipByID(id, membership);
+    if (updatedMembership) {
+      console.log(updatedMembership);
+      res.json(updatedMembership);
     } else {
       res.status(404).json({ message: 'User does not exist' });
     }
@@ -118,10 +138,11 @@ const verifyNewPasswordEmail = async (req, res, next) => {
 };
 
 const verifyNewPasswords = async (req, res) => {
-  const { newPassword, email } = req.body;
+  const { password1, email } = req.body;
+  console.log(password1);
   console.log(req.body);
   const user = await findEmail(email);
-
+  // console.log(user);
   if (!user || email !== user.email) {
     res.status(404).send('Invalid email.');
     return;
@@ -132,24 +153,51 @@ const verifyNewPasswords = async (req, res) => {
   try {
     // const payload = jwt.verify(token, secret);
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-
+    const hashedPassword = await bcrypt.hash(password1, 10);
+    console.log(hashedPassword);
     user.password = hashedPassword;
 
     await updateNewPassword(email, user.password);
     console.log('Password updated successfully.');
+    res.send();
   } catch (error) {
-    console.log(error.message);
+    console.log(`hiba: ${error.message}`);
     res.send(error.message);
   }
 };
 
+// GET USER BY ID (HEADER)
+
+const getUserByIdHeader = async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    // console.log(authHeader)
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    // console.log(token)
+
+    const user = await findUserByID(token);
+    // console.log(user)
+    if (user) {
+      return res.json(user);
+    }
+    return res.status(404).json({ message: 'User does not exist' });
+  } catch (err) {
+    return res.status(401).json({ message: 'Invalid token' });
+  }
+};
+
 export {
-  list,
   getUserById,
   putUserById,
   destroyUserById,
+  list,
+  updateMembership,
   verifyEmail,
   verifyNewPasswordEmail,
   verifyNewPasswords,
+  getUserByIdHeader,
 };

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Container, Form, Row, Col, Button } from 'react-bootstrap';
+import { Container, Form, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { MdCancel } from 'react-icons/md';
 
 function AdminMemberSearch({
+  onSearch,
   searchId,
   setSearchId,
   searchFirstName,
@@ -17,51 +19,70 @@ function AdminMemberSearch({
 }) {
   return (
     <Container className="shadow-sm bg-white p-3 my-4 rounded">
-      <p className="p-1">Type at least 2 characters to initiate the search.</p>
-
-      <Row>
+      <Row className="align-items-end">
         <Col xs={6} md={2}>
+          <div className="fw-bold">Id</div>
           <Form.Control
             type="text"
             placeholder="By ID"
             value={searchId}
-            onChange={(e) => setSearchId(e.target.value)}
+            onChange={(event) => {
+              onSearch(event.target.value, 'id');
+              setSearchId(event.target.value);
+            }}
             className="my-2"
           />
         </Col>
         <Col xs={6} md={2}>
+          <div className="fw-bold">First name</div>
           <Form.Control
             type="text"
             placeholder="By First Name"
             value={searchFirstName}
-            onChange={(e) => setSearchFirstName(e.target.value)}
+            onChange={(event) => {
+              onSearch(event.target.value, 'firstName');
+              setSearchFirstName(event.target.value);
+            }}
             className="my-2"
           />
         </Col>
         <Col xs={6} md={2}>
+          <div className="fw-bold">Last name</div>
           <Form.Control
             type="text"
             placeholder="By Last Name"
             value={searchLastName}
-            onChange={(e) => setSearchLastName(e.target.value)}
+            onChange={(event) => {
+              onSearch(event.target.value, 'lastName');
+              setSearchLastName(event.target.value);
+            }}
             className="my-2"
           />
         </Col>
         <Col xs={6} md={2}>
+          <div className="fw-bold">Email</div>
           <Form.Control
             type="text"
             placeholder="By Email"
             value={searchEmail}
-            onChange={(e) => setSearchEmail(e.target.value)}
+            onChange={(event) => {
+              onSearch(event.target.value, 'email');
+              setSearchEmail(event.target.value);
+            }}
             className="my-2"
           />
         </Col>
         <Col xs={6} md={2}>
+          <div className="fw-bold">Membership</div>
+
           <div className="position-relative">
             <Form.Control
               as="select"
               value={searchMembershipLevel}
-              onChange={(e) => setSearchMembershipLevel(e.target.value)}
+              onChange={(event) => {
+                onSearch(event.target.value, 'membership');
+                setSearchMembershipLevel(event.target.value);
+              }}
               className="my-2"
             >
               <option value="">By Level</option>
@@ -72,10 +93,17 @@ function AdminMemberSearch({
             <div className="arrow-down" />
           </div>
         </Col>
-        <Col xs={2}>
-          <Button variant="primary" className="my-2" onClick={resetSearch}>
-            Reset
-          </Button>
+        <Col xs={6} md={2}>
+          <div className="d-flex align-items-center p-1">
+            <button
+              type="button"
+              className="btn btn-danger fs-6 px-3 my-1 d-flex align-items-center"
+              onClick={resetSearch}
+            >
+              <MdCancel className="me-2" />
+              Reset
+            </button>
+          </div>
         </Col>
       </Row>
     </Container>
@@ -85,6 +113,7 @@ function AdminMemberSearch({
 export default AdminMemberSearch;
 
 AdminMemberSearch.propTypes = {
+  onSearch: PropTypes.func.isRequired,
   searchId: PropTypes.string.isRequired,
   setSearchId: PropTypes.func.isRequired,
   searchFirstName: PropTypes.string.isRequired,

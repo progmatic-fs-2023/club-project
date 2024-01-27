@@ -14,7 +14,6 @@ import AdminMember from './pages/AdminMember';
 import Gallery from './pages/Gallery';
 import Membership from './pages/Membership';
 import AdminLayout from './components/AdminLayout';
-import AdminDashboard from './components/AdminDashboard';
 import AdminFinance from './components/AdminFinance';
 import AdminMembers from './components/AdminMembers';
 import AdminGallery from './components/AdminGallery';
@@ -27,6 +26,7 @@ import AdminServicesBooking from './pages/AdminServicesBooking';
 import Booking from './pages/Booking';
 import LandingPage from './pages/LandingPage';
 import NewPasswordPage from './pages/NewPasswordPage';
+import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './contexts/AuthContext';
 
 function App() {
@@ -66,19 +66,23 @@ function App() {
         <Route path="/landingpage" element={<LandingPage />} />
         <Route path="/newpasswordpage" element={<NewPasswordPage />} />
       </Route>
-      <Route element={<AdminLayout />}>
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/members" element={<AdminMembers />} />
-        <Route path="/admin/members/:memberId" element={<AdminMember />} />
-        <Route path="/admin/finance" element={<AdminFinance />} />
-        <Route path="/admin/services" element={<AdminServices />} />
-        <Route path="/admin/events" element={<AdminEvents />} />
-        <Route path="/admin/gallery" element={<AdminGallery />} />
-        <Route path="/admin/bookings" element={<AdminBookings />} />
-        <Route path="/admin/bookings/:bookingId" element={<AdminBooking />} />
-        <Route path="/admin/servicebookings" element={<AdminServiceBookings />} />
-        <Route path="/admin/servicebookings/:serviceBookingId" element={<AdminServicesBooking />} />
+      <Route element={<ProtectedRoute />}>
+        <Route element={<AdminLayout />}>
+          <Route path="/admin" element={<AdminMembers />} />
+          <Route path="/admin/members" element={<AdminMembers />} />
+          <Route path="/admin/members/:memberId" element={<AdminMember />} />
+          <Route path="/admin/finance" element={<AdminFinance />} />
+          <Route path="/admin/services" element={<AdminServices />} />
+          <Route path="/admin/events" element={<AdminEvents />} />
+          <Route path="/admin/gallery" element={<AdminGallery />} />
+          <Route path="/admin/bookings" element={<AdminBookings />} />
+          <Route path="/admin/bookings/:bookingId" element={<AdminBooking />} />
+          <Route path="/admin/servicebookings" element={<AdminServiceBookings />} />
+          <Route
+            path="/admin/servicebookings/:serviceBookingId"
+            element={<AdminServicesBooking />}
+          />
+        </Route>
       </Route>
     </Routes>
   );

@@ -114,7 +114,7 @@ function AdminMember() {
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
             <a href="/admin/members" className="text-dark">
-              Members
+              Users
             </a>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
@@ -152,7 +152,7 @@ function AdminMember() {
                   onClick={handleDeleteClick}
                 >
                   <MdDeleteForever className="me-2" />
-                  DELETE MEMBER
+                  DELETE USER
                 </button>
               </div>
               <div className="d-flex align-items-center p-2">
