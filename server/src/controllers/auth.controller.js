@@ -90,6 +90,17 @@ const loginUser = async (req, res, next) => {
     res.cookie('jwt', token, {
       httpOnly: true,
       maxAge: 3 * 60 * 60 * 1000,
+      domain: 'localhost',
+      secure: true,
+      sameSite: 'None',
+    });
+
+    res.cookie('userId', user.id, {
+      httpOnly: true,
+      maxAge: 3 * 60 * 60 * 1000,
+      domain: 'localhost',
+      secure: true,
+      sameSite: 'None',
     });
 
     return res.status(200).json({
@@ -97,8 +108,8 @@ const loginUser = async (req, res, next) => {
       user,
     });
   } catch (err) {
+    console.error(err);
     return next(new HttpError(err.message));
   }
 };
-
 export { registerUser, loginUser };

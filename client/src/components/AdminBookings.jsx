@@ -13,9 +13,9 @@ function AdminServiceBookings() {
         const response = await fetch(`${API_URL}/api/servicebookings`);
         const result = await response.json();
         setServiceBookings(result);
+        setLoading(false);
       } catch (error) {
-        /* console.error('Error fetching service bookings:', error); */
-      } finally {
+        // console.error('Error fetching events:', error);
         setLoading(false);
       }
     };

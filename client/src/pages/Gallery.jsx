@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { GrNext, GrPrevious } from 'react-icons/gr';
 import img1 from '../assets/gallery/img1.webp';
 import img2 from '../assets/gallery/img2.webp';
 import img3 from '../assets/gallery/img3.webp';
@@ -8,10 +9,10 @@ import img5 from '../assets/gallery/img5.webp';
 import img6 from '../assets/gallery/img6.webp';
 import img7 from '../assets/gallery/img7.webp';
 import img8 from '../assets/gallery/img8.webp';
-import img9 from '../assets/gallery/img9.webp';
+import img9 from '../assets/gallery/img9.jpg';
 import img10 from '../assets/gallery/img10.webp';
 import img11 from '../assets/gallery/img11.webp';
-import img12 from '../assets/gallery/img12.webp';
+import img12 from '../assets/gallery/img12.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Gallery() {
@@ -42,7 +43,7 @@ function Gallery() {
       <h1 className="mb-4 pb-2 yeseva-font mt-5 fw-bold border-bottom border-warning border-3 w-25 header-underline">
         Gallery
       </h1>
-      <div className="row row-cols-1 row-cols-md-3 g-4">
+      <div className="gallery row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {imagePaths.map((image, index) => (
           <div
             key={image}
@@ -55,8 +56,8 @@ function Gallery() {
             <img
               src={image}
               alt={`img-${index}`}
-              className="img-fluid rounded shadow-sm"
-              style={{ width: '100%', height: '300px', cursor: 'pointer' }}
+              className="shadow-sm w-100"
+              style={{ cursor: 'pointer' }}
             />
           </div>
         ))}
@@ -70,16 +71,24 @@ function Gallery() {
           <img
             src={imagePaths[selectedImageIndex]}
             alt="preview"
-            className="img-fluid rounded"
+            className="img-fluid"
             style={{ width: '100%', height: '100%' }}
           />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={goToPrevImage}>
-            Previous
+        <Modal.Footer className="d-flex justify-content-center">
+          <Button
+            className="d-flex justify-content-center align-items-center p-3 m-1"
+            onClick={goToPrevImage}
+          >
+            <GrPrevious className="pe-1" />
+            PREV
           </Button>
-          <Button variant="primary" onClick={goToNextImage}>
-            Next
+          <Button
+            className="d-flex justify-content-center align-items-center p-3 m-1"
+            onClick={goToNextImage}
+          >
+            NEXT
+            <GrNext className="ps-1" />
           </Button>
         </Modal.Footer>
       </Modal>

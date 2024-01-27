@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table, NavLink, Modal } from 'react-bootstrap';
 import { API_URL } from '../constants';
+import AdminServiceBookingSearch from './AdminServiceBookingSearch';
+import { formatDate, formatDateLong } from '../utils/dateUtils';
 
 function AdminServiceBookings() {
   const [serviceBookings, setServiceBookings] = useState([]);
+  const [searchId, setSearchId] = useState('');
+  const [searchFirstName, setSearchFirstName] = useState('');
+  const [searchLastName, setSearchLastName] = useState('');
+  const [searchServiceName, setSearchServiceName] = useState('');
+  const [searchStartTime, setSearchStartTime] = useState('');
+  const [searchEndTime, setSearchEndTime] = useState('');
+  const [filteredBookings, setFilteredBookings] = useState(serviceBookings);
   const [showModal, setShowModal] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState(null);
+  const [loading, setLoading] = useState([]);
 
   useEffect(() => {
     const fetchServiceBookings = async () => {
@@ -13,6 +23,8 @@ function AdminServiceBookings() {
         const response = await fetch(`${API_URL}/api/servicebookings`);
         const result = await response.json();
         setServiceBookings(result);
+        setFilteredBookings(result);
+        setLoading(false);
       } catch (error) {
         /* console.error('Error fetching service bookings:', error); */
       }
@@ -20,6 +32,16 @@ function AdminServiceBookings() {
 
     fetchServiceBookings();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center h-100 w-100">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   const handleDelete = async (bookingId) => {
     setSelectedBookingId(bookingId);
@@ -50,16 +72,48 @@ function AdminServiceBookings() {
 
   const modifiedHeaders = [
     'Booking id',
-    'Member id',
     'First name',
     'Last name',
     'Username',
     'Service id',
     'Service name',
-    'Time slot id',
     'Start time',
     'End time',
   ];
+
+  const onSearch = (searchValue, fieldName) => {
+    const filteredList = serviceBookings.filter((booking) => {
+      const fieldValue = booking[fieldName];
+
+      const searchDate = new Date(searchValue);
+      if (fieldName === 'startTime') {
+        const formattedStartTime = formatDate(fieldValue);
+        return formattedStartTime >= formatDate(searchDate);
+      }
+      if (fieldName === 'endTime') {
+        const formattedEndTime = formatDate(fieldValue);
+        return formattedEndTime <= formatDate(searchDate);
+      }
+
+      if (typeof fieldValue === 'string') {
+        return fieldValue.toLowerCase().includes(searchValue.toLowerCase());
+      }
+
+      return false;
+    });
+
+    setFilteredBookings(filteredList);
+  };
+
+  const resetSearch = () => {
+    setSearchId('');
+    setSearchFirstName('');
+    setSearchLastName('');
+    setSearchServiceName('');
+    setSearchStartTime('');
+    setSearchEndTime('');
+    setFilteredBookings(serviceBookings);
+  };
 
   return (
     <main className="main-container p-5 text-dark">
@@ -67,7 +121,22 @@ function AdminServiceBookings() {
         <h3 className="josefin-font fw-bold">BOOKINGS FOR SERVICES</h3>
       </div>
 
-      <div>filter</div>
+      <AdminServiceBookingSearch
+        onSearch={onSearch}
+        searchId={searchId}
+        setSearchId={setSearchId}
+        searchFirstName={searchFirstName}
+        setSearchFirstName={setSearchFirstName}
+        searchLastName={searchLastName}
+        setSearchLastName={setSearchLastName}
+        searchServiceName={searchServiceName}
+        setSearchServiceName={setSearchServiceName}
+        searchStartTime={searchStartTime}
+        setSearchStartTime={setSearchStartTime}
+        searchEndTime={searchEndTime}
+        setSearchEndTime={setSearchEndTime}
+        resetSearch={resetSearch}
+      />
 
       <div className="mt-3 w-100">
         <Table striped bordered hover responsive className=" text-nowrap shadow-sm">
@@ -90,23 +159,43 @@ function AdminServiceBookings() {
             </tr>
           </thead>
           <tbody>
-            {serviceBookings.map((serviceBooking) => (
+            {filteredBookings.map((serviceBooking) => (
               <tr key={serviceBooking.serviceBookingId}>
                 {modifiedHeaders.map((header) => (
                   <td
                     className="p-4 text-center"
                     key={`${serviceBooking.serviceBookingId}-${header}`}
                   >
-                    {header === 'Booking id' && <div>{serviceBooking.serviceBookingId}</div>}
-                    {header === 'Member id' && <div>{serviceBooking.memberId}</div>}
-                    {header === 'First name' && <div>{serviceBooking.firstName}</div>}
-                    {header === 'Last name' && <div>{serviceBooking.lastName}</div>}
-                    {header === 'Username' && <div>{serviceBooking.username}</div>}
-                    {header === 'Service id' && <div>{serviceBooking.serviceId}</div>}
-                    {header === 'Service name' && <div>{serviceBooking.serviceName}</div>}
-                    {header === 'Time slot id' && <div>{serviceBooking.timeSlotId}</div>}
-                    {header === 'Start time' && <div>{serviceBooking.startTime}</div>}
-                    {header === 'End time' && <div>{serviceBooking.endTime}</div>}
+                    {header === 'Booking id' && (
+                      <div>
+                        <div>{serviceBooking.serviceBookingId}</div>
+                      </div>
+                    )}
+                    {header === 'First name' && (
+                      <div>
+                        <div>{serviceBooking.firstName}</div>
+                      </div>
+                    )}
+                    {header === 'Last name' && (
+                      <div>
+                        <div>{serviceBooking.lastName}</div>
+                      </div>
+                    )}
+                    {header === 'Service name' && (
+                      <div>
+                        <div>{serviceBooking.serviceName}</div>
+                      </div>
+                    )}
+                    {header === 'Start time' && (
+                      <div>
+                        <div>{formatDateLong(serviceBooking.startTime)}</div>
+                      </div>
+                    )}
+                    {header === 'End time' && (
+                      <div>
+                        <div>{formatDateLong(serviceBooking.endTime)}</div>
+                      </div>
+                    )}
                   </td>
                 ))}
                 <td className="p-3 text-center">

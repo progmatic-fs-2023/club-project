@@ -178,9 +178,9 @@ body {
   background-position: right bottom;
 }
 
-/* SLIDER */
-.slick-next {
-  display: none !important;
+/* GALLERY */
+.gallery img:hover { 
+  transform: scale(1.015);
 }
 
 /* ABOUT US PAGE */

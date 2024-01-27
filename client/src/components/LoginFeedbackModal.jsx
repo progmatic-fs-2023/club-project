@@ -9,7 +9,7 @@ function LoginFeedbackModal({ smShow, setSmShow }) {
     if (smShow) {
       timeoutId = setTimeout(() => {
         setSmShow(false);
-      }, 2000);
+      }, 3000);
     }
 
     return () => {

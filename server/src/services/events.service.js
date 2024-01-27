@@ -74,4 +74,36 @@ const updateEventById = async (
   return response.rows[0];
 };
 
-export { listAllEvents, eventByName, createNewEvent, deleteEventById, updateEventById };
+const getUserEmail = async userId => {
+  const result = await db.query('SELECT email FROM members WHERE id = $1', [userId]);
+
+  return result.rows[0].email;
+};
+
+const getEventDetails = async eventId => {
+  try {
+    const result = await db.query(
+      'SELECT name AS eventName, start_time AS eventTime FROM events WHERE id = $1',
+      [eventId],
+    );
+
+    if (result.rows.length > 0) {
+      return { eventName: result.rows[0].eventname, eventTime: result.rows[0].eventtime };
+    }
+
+    throw new Error('Event not found for the given eventId.');
+  } catch (error) {
+    console.error('Error fetching event details:', error);
+    throw error;
+  }
+};
+
+export {
+  listAllEvents,
+  eventByName,
+  createNewEvent,
+  deleteEventById,
+  updateEventById,
+  getUserEmail,
+  getEventDetails,
+};

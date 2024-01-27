@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import { Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { API_URL } from '../constants';
+import ContactUsEmailFeedbackModal from './ContactUsEmailFeedbackModal';
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -10,15 +11,18 @@ function ContactUs() {
     subject: '',
     message: '',
   });
+  const [smShowEmailSentModal, setSmShowEmailSentModal] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      await fetch(`${API_URL}/api/contact`, {
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,12 +30,15 @@ function ContactUs() {
         body: JSON.stringify(formData),
       });
 
-      setFormData({
-        nameInput: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
+      if (response.ok) {
+        setSmShowEmailSentModal(true);
+        setFormData({
+          nameInput: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      }
     } catch (error) {
       // console.error('An error occurred during the request:', error);
     }
@@ -68,6 +75,7 @@ function ContactUs() {
                     type="text"
                     name="nameInput"
                     id="nameInput"
+                    value={formData.nameInput}
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Full Name"
                     required
@@ -85,6 +93,7 @@ function ContactUs() {
                     type="email"
                     name="email"
                     id="emailInput"
+                    value={formData.email}
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Email Address"
                     required
@@ -102,6 +111,7 @@ function ContactUs() {
                     type="text"
                     name="subject"
                     id="subjectInput"
+                    value={formData.subject}
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Add subject"
                     required
@@ -120,6 +130,7 @@ function ContactUs() {
                     name="message"
                     rows="3"
                     id="messageInput"
+                    value={formData.message}
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Message"
                     required
@@ -145,6 +156,10 @@ function ContactUs() {
           title="map"
         />
       </div>
+      <ContactUsEmailFeedbackModal
+        smShowEmailSentModal={smShowEmailSentModal}
+        setSmShowEmailSentModal={setSmShowEmailSentModal}
+      />
     </main>
   );
 }
