@@ -8,7 +8,7 @@ import { MdOutlineCalendarMonth } from 'react-icons/md';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../constants';
-import { formatTime } from '../utils/dateUtils';
+import { formatTime, formatDateShort } from '../utils/dateUtils';
 
 function Event() {
   const { eventName } = useParams();
@@ -65,13 +65,7 @@ function Event() {
     fetchIsBookedEvent();
   }, [event.id]);
 
-  const formatDate = (dateString) => {
-    const options = { day: 'numeric', month: 'short' };
-    const [month, day] = new Date(dateString).toLocaleDateString('en-US', options).split(' ');
-    return `${month} ${day} `;
-  };
-
-  const startDate = formatDate(event.startTime);
+  const startDate = formatDateShort(event.startTime);
   const startTime = formatTime(event.startTime);
   const endTime = formatTime(event.endTime);
 
@@ -107,11 +101,6 @@ function Event() {
 
       await response.json();
 
-      /*   setReservedEvents((prevReservedEvents) => {
-        const updatedReservedEvents = [...prevReservedEvents, selectedEvent.id];
-        return updatedReservedEvents;
-      }); */
-
       document.cookie = `eventId=${eventId}; path=/`;
 
       setShowModal(false);
@@ -145,20 +134,32 @@ function Event() {
       );
     }
 
-    return isBookingAlreadyExists ? (
+    const today = new Date();
+    const isExpiredEvent = new Date(event.endTime) <= today;
+    const isSoldOut = event.availableSeats === 0;
+
+    let buttonText = 'RESERVE';
+    let isCursorEnabled = true;
+
+    if (isBookingAlreadyExists) {
+      buttonText = 'RESERVED';
+      isCursorEnabled = false;
+    } else if (isExpiredEvent) {
+      buttonText = 'EXPIRED';
+      isCursorEnabled = false;
+    } else if (isSoldOut) {
+      buttonText = 'SOLD OUT';
+      isCursorEnabled = false;
+    }
+
+    return (
       <Button
-        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
-        disabled
-        style={{ pointerEvents: 'none' }}
-      >
-        RESERVED
-      </Button>
-    ) : (
-      <Button
-        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+        className="fs-5 max-vw-25 d-flex align-items-center gap-1"
         onClick={handleReserveClick}
+        disabled={isSoldOut || isExpiredEvent || isBookingAlreadyExists}
+        style={{ pointerEvents: isCursorEnabled ? 'pointer' : 'none' }}
       >
-        RESERVE <MdOutlineCalendarMonth />
+        {buttonText} {isBookingAlreadyExists || isSoldOut ? '' : <MdOutlineCalendarMonth />}
       </Button>
     );
   };
@@ -224,15 +225,15 @@ function Event() {
             </Button>
           ) : (
             <>
+              <Button variant="secondary" onClick={handleCloseModal} style={{ marginLeft: 'auto' }}>
+                No
+              </Button>
               <Button
                 variant="primary"
                 onClick={handleConfirmReserve}
                 style={{ marginRight: 'auto' }}
               >
                 Yes
-              </Button>
-              <Button variant="secondary" onClick={handleCloseModal} style={{ marginLeft: 'auto' }}>
-                No
               </Button>
             </>
           )}
