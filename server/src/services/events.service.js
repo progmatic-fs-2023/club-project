@@ -74,11 +74,34 @@ const updateEventById = async (
   return response.rows[0];
 };
 
-const getUserEmail = async userId => {
+// AVAILABLE SEATS
+
+const getAvailableSeatsForEventById = async eventId => {
+  try {
+    if (!eventId) {
+      throw new Error('Event ID is missing or invalid');
+    }
+
+    const response = await db.query('SELECT available_seats FROM events WHERE id = $1', [eventId]);
+
+    if (response.rows.length === 0) {
+      throw new Error(`No event found with ID: ${eventId}`);
+    }
+
+    const availableSeats = parseInt(response.rows[0].available_seats, 10);
+
+    return availableSeats;
+  } catch (error) {
+    console.error('Error fetching available seats for event by ID:', error);
+    throw error;
+  }
+};
+
+async function getUserEmail(userId) {
   const result = await db.query('SELECT email FROM members WHERE id = $1', [userId]);
 
   return result.rows[0].email;
-};
+}
 
 const getEventDetails = async eventId => {
   try {
@@ -106,4 +129,5 @@ export {
   updateEventById,
   getUserEmail,
   getEventDetails,
+  getAvailableSeatsForEventById,
 };
