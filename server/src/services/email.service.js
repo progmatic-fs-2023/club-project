@@ -102,4 +102,36 @@ const sendNewPasswordEmail = async (req, res) => {
   }
 };
 
-export { sendVerificationEmail, welcomeContactUsEmail, sendNewPasswordEmail };
+const sendEventBookingEmail = async (email, eventName, eventTime) => {
+  const mailOptions = {
+    from: 'door8projekt@gmail.com',
+    to: email,
+    subject: 'Booking Event Confirmation',
+    html: `
+    <p>Thank you for booking the event!</p>
+    <p><strong>Event:</strong> ${eventName}</p>
+    <p><strong>Date of the event:</strong> ${eventTime}</p>
+    <br />
+    <p>We look forward to seeing you at the event!</p>
+    <p>Best regards,</p>
+    <p>The Event Team</p>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(`Email sent: ${info.response}`);
+    }
+  });
+};
+
+
+
+export {
+  sendVerificationEmail,
+  welcomeContactUsEmail,
+  sendNewPasswordEmail,
+  sendEventBookingEmail,
+};

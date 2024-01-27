@@ -26,7 +26,11 @@ function Event() {
         const response = await fetch(`${API_URL}/api/events/${eventName}`);
         const result = await response.json();
 
-        setEvent(result);
+        if (result) {
+          setEvent(result);
+        } else {
+          // console.error('Event not found:', eventName);
+        }
       } catch (error) {
         // console.error('Error fetching data:', error);
       }
@@ -62,8 +66,12 @@ function Event() {
   const endTime = formatTime(event.endTime);
 
   const handleReserveClick = () => {
-    setShowModal(true);
-    setSelectedEvent(event);
+    try {
+      setShowModal(true);
+      setSelectedEvent(event);
+    } catch (error) {
+      // console.error('Error during reservation:', error);
+    }
   };
 
   const handleCloseModal = () => {
@@ -71,11 +79,34 @@ function Event() {
     setSelectedEvent(null);
   };
 
-  const handleConfirmReserve = () => {
-    setReservedEvents([...reservedEvents, selectedEvent.id]);
-    setShowModal(false);
-    setReservationAccepted(true);
-    setShowThankYouModal(true);
+  const handleConfirmReserve = async () => {
+    try {
+      const eventId = selectedEvent.id;
+
+      const response = await fetch(`${API_URL}/api/booking/events/book`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ eventId }),
+        credentials: 'include',
+      });
+
+      await response.json();
+
+      setReservedEvents((prevReservedEvents) => {
+        const updatedReservedEvents = [...prevReservedEvents, selectedEvent.id];
+        return updatedReservedEvents;
+      });
+
+      document.cookie = `eventId=${eventId}; path=/`;
+
+      setShowModal(false);
+      setReservationAccepted(true);
+      setShowThankYouModal(true);
+    } catch (error) {
+      // console.error('Error during reservation confirmation:', error);
+    }
   };
 
   const isEventReserved = reservedEvents.includes(event.id);
