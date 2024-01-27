@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import FileUpload from './FileUpload';
 import { API_URL } from '../constants';
 import { formatDateLong } from '../utils/dateUtils';
-import { formatDate } from '../utils/dateUtils';
+
 // import ProfileCalendar from './ProfileCalendar';
 
 export default function ProfileCard() {
@@ -14,7 +14,6 @@ export default function ProfileCard() {
   const [bookedServices, setBookedServices] = useState([]);
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
-  const endTime = formatDate(user.membershipEndTime);
 
   const handleShowAllEvents = () => {
     setShowAllEvents(true);
@@ -127,7 +126,7 @@ export default function ProfileCard() {
               <div className="mb-5">
                 <h4 className="mb-4 text-center">Information</h4>
                 <div className="bg-light p-4">
-                <p className="mb-1">Name: {`${user.firstName}  ${user.lastName}`}</p>
+                  <p className="mb-1">Name: {`${user.firstName}  ${user.lastName}`}</p>
                   <p className="mb-1">Username: {user.username}</p>
                   <p className="mb-1">Email: {user.email}</p>
                   <p className="mb-0">Gender: {user.gender}</p>
