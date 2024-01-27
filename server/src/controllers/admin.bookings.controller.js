@@ -1,4 +1,8 @@
-import { listAllBookings, getDetailsOfBookings, deleteEventBookingById } from '../services/admin.bookings.service';
+import {
+  listAllBookings,
+  getDetailsOfBookings,
+  deleteEventBookingById,
+} from '../services/admin.bookings.service';
 import 'dotenv/config';
 
 // GET ALL EVENT BOOKINGS

@@ -36,9 +36,10 @@ const getDetailsOfBookings = async id => {
 
 const deleteEventBookingById = async selectedBookingId => {
   try {
-    const response = await db.query('DELETE FROM booking_members_events WHERE booking_members_events.id = $1', [
-      selectedBookingId,
-    ]);
+    const response = await db.query(
+      'DELETE FROM booking_members_events WHERE booking_members_events.id = $1',
+      [selectedBookingId],
+    );
     return response.rows[0];
   } catch (error) {
     console.error('Error deleting service booking by id:', error);
