@@ -18,7 +18,7 @@ function Event() {
   // const [ReservedEvents, setReservedEvents] = useState([]);
   const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [event, setEvent] = useState({});
-  const [/* isBookingAlreadyExists */, setIsBookingAlreadyExists] = useState();
+  const [, /* isBookingAlreadyExists */ setIsBookingAlreadyExists] = useState();
   const { user, isAuthenticated } = useAuth();
   const [availableSeats, setAvailableSeats] = useState(0);
 
@@ -81,7 +81,7 @@ function Event() {
     };
 
     fetchAvailableSeats();
-  }, [selectedEvent, /* reservedEvents */]);
+  }, [selectedEvent /* reservedEvents */]);
 
   useEffect(() => {
     const fetchIsBookedEvent = async () => {
@@ -188,18 +188,17 @@ function Event() {
       );
     }
 
-   /*  if (isEventReserved) {
+    /*  if (isEventReserved) {
       return <span className="text-muted fs-5 max-vw-25">RESERVED</span>;
     } */
 
-
     return (
       <Button
-          className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
-          onClick={handleReserveClick}
-        >
-          RESERVE <MdOutlineCalendarMonth />
-        </Button>
+        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+        onClick={handleReserveClick}
+      >
+        RESERVE <MdOutlineCalendarMonth />
+      </Button>
     );
   };
 
@@ -222,11 +221,11 @@ function Event() {
               </div>
             </div>
             <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
-            
-              <div className="p-2 d-flex justify-content-center" style={availableSeatsStyle}>
-                Available Seats: {availableSeats}
-              </div>
-            
+
+            <div className="p-2 d-flex justify-content-center" style={availableSeatsStyle}>
+              Available Seats: {availableSeats}
+            </div>
+
             <div className="p-3 d-flex justify-content-center flex-wrap">
               <div className="p-3 d-flex align-items-center">{renderContent()}</div>
               <div className="p-3">
