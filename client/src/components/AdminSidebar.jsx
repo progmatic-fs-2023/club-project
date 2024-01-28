@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
-import { BsFillGrid3X3GapFill, BsPeopleFill } from 'react-icons/bs';
+import { BsPeopleFill } from 'react-icons/bs';
 import { FaMoneyCheckAlt } from 'react-icons/fa';
 import { MdOutlineSportsTennis } from 'react-icons/md';
 import { LuPartyPopper } from 'react-icons/lu';
@@ -75,11 +75,6 @@ function AdminSidebar({ openSidebarToggle, OpenSidebar }) {
         <Link to="admin/bookings" className="link-light-gray text-decoration-none">
           <li className="p-4 fs-6 bg-dark">
             <IoIosBook className="m-1 fs-5" /> Event bookings
-          </li>
-        </Link>
-        <Link to="admin/gallery" className="link-light-gray text-decoration-none">
-          <li className="p-4 fs-6 bg-dark">
-            <BsFillGrid3X3GapFill className="m-1 fs-5" /> Gallery
           </li>
         </Link>
       </ul>

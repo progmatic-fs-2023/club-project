@@ -3,6 +3,7 @@ import { Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { API_URL } from '../constants';
 import ContactUsEmailFeedbackModal from './ContactUsEmailFeedbackModal';
+import ContactUsFeedbackModal from './ContactUsFeedbackModal';
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ function ContactUs() {
     message: '',
   });
   const [smShowEmailSentModal, setSmShowEmailSentModal] = useState(false);
+  const [smShow, setSmShow] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -20,6 +22,11 @@ function ContactUs() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.nameInput || !formData.email || !formData.subject || !formData.message) {
+      setSmShow(true);
+      return; // Ne folytassuk az elküldést, ha valamelyik mező üres
+    }
 
     try {
       const response = await fetch(`${API_URL}/api/contact`, {
@@ -78,7 +85,6 @@ function ContactUs() {
                     value={formData.nameInput}
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Full Name"
-                    required
                     onChange={handleChange}
                   />
                 </label>
@@ -96,7 +102,6 @@ function ContactUs() {
                     value={formData.email}
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Email Address"
-                    required
                     onChange={handleChange}
                   />
                 </label>
@@ -114,7 +119,6 @@ function ContactUs() {
                     value={formData.subject}
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Add subject"
-                    required
                     onChange={handleChange}
                   />
                 </label>
@@ -133,7 +137,6 @@ function ContactUs() {
                     value={formData.message}
                     className="form-control rounded-0 border-0 p-2"
                     placeholder="Your Message"
-                    required
                     onChange={handleChange}
                   />
                 </label>
@@ -160,6 +163,7 @@ function ContactUs() {
         smShowEmailSentModal={smShowEmailSentModal}
         setSmShowEmailSentModal={setSmShowEmailSentModal}
       />
+      <ContactUsFeedbackModal smShow={smShow} setSmShow={setSmShow} />
     </main>
   );
 }

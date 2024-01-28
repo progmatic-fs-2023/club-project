@@ -76,6 +76,7 @@ export function AuthProvider({ children }) {
 
   const authenticateUser = async (values) => {
     try {
+      setLoading(true);
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
