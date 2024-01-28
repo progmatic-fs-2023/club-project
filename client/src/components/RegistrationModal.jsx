@@ -38,13 +38,13 @@ function RegistrationModal({ showButton }) {
       .string()
       .min(2, 'Too Short!')
       .max(15, 'Too Long!')
-      .matches(/^[A-Za-z]+$/, 'The field cannot contain numbers!')
+      .matches(/^[A-Za-zÁáÉéÍíÓóÖöŐőÚúÜüŰű]+$/, 'The field cannot contain numbers!')
       .required('First name is a required field!'),
     lastName: yup
       .string()
       .min(2, 'Too Short!')
       .max(15, 'Too Long!')
-      .matches(/^[A-Za-z]+$/, 'The field cannot contain numbers!')
+      .matches(/^[A-Za-zÁáÉéÍíÓóÖöŐőÚúÜüŰű]+$/, 'The field cannot contain numbers!')
       .required('Last name is a required field!'),
     gender: yup.string().required('Gender is a required field!'),
     username: yup
