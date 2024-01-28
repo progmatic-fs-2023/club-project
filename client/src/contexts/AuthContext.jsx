@@ -76,7 +76,6 @@ export function AuthProvider({ children }) {
 
   const authenticateUser = async (values) => {
     try {
-      setLoading(true);
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
@@ -90,7 +89,6 @@ export function AuthProvider({ children }) {
         setLoading(false);
         throw new Error('Login failed');
       }
-
       if (response.ok) {
         setUser({
           id: data.user.id,
@@ -180,7 +178,6 @@ export function AuthProvider({ children }) {
     () => ({ user, isAuthenticated, authenticateUser, login, logout, setUser }),
     [isAuthenticated, user],
   );
-
   return (
     <AuthContext.Provider value={contextValue}>{loading ? null : children}</AuthContext.Provider>
   );
