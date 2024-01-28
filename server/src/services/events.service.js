@@ -83,12 +83,16 @@ const getUserEmail = async userId => {
 const getEventDetails = async eventId => {
   try {
     const result = await db.query(
-      'SELECT name AS eventName, start_time AS eventTime FROM events WHERE id = $1',
+      'SELECT name AS eventName, start_time AS eventStartTime, end_time AS eventEndTime FROM events WHERE id = $1',
       [eventId],
     );
 
     if (result.rows.length > 0) {
-      return { eventName: result.rows[0].eventname, eventTime: result.rows[0].eventtime };
+      return {
+        eventName: result.rows[0].eventname,
+        eventStartTime: result.rows[0].eventstarttime,
+        eventEndTime: result.rows[0].eventendtime,
+      };
     }
 
     throw new Error('Event not found for the given eventId.');

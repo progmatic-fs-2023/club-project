@@ -12,12 +12,13 @@ function NewPasswordPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
-  // console.log(isSubmitSuccessful);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFormSubmit = async (values) => {
     // console.log(values);
 
     try {
+      setIsSubmitting(true);
       const urlSearchParams = new URLSearchParams(location.search);
       const emailFromUrl = urlSearchParams.get('email');
 
@@ -39,13 +40,15 @@ function NewPasswordPage() {
         setIsSubmitSuccessful(true);
         setTimeout(() => {
           navigate('/');
-        }, 5000);
+        }, 3000);
       } else {
         // console.error('Request was not successful:', response.status, response.statusText);
         // Itt más hibakezelést is végezhetsz a response.statusText felhasználásával
       }
     } catch (error) {
       // console.error('Network error:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -124,14 +127,15 @@ function NewPasswordPage() {
               type="submit"
               variant="primary"
               onClick={() => {
-                if (isValid) {
+                if (isValid && !isSubmitting) {
                   // handleClose();
                   handleSubmit();
                 }
               }}
-              disabled={!isValid}
+              disabled={!isValid || isSubmitting || isSubmitSuccessful}
+              style={{ display: isSubmitSuccessful ? 'none' : 'block' }}
             >
-              SEND
+              {isSubmitting ? 'SENDING...' : 'SEND'}
             </Button>
           </>
         )}

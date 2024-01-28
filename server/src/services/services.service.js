@@ -26,4 +26,29 @@ const serviceByName = async name => {
   return response.rows[0];
 };
 
-export { listAllServices, serviceByName, serviceByMemberMembership };
+const getServiceDetails = async timeSlotId => {
+  try {
+    const result = await db.query(
+      'SELECT ts.start_time AS serviceStartTime, ts.end_time AS serviceEndTime, s.name AS serviceName ' +
+        'FROM time_slots ts ' +
+        'JOIN services s ON ts.service_id = s.id ' +
+        'WHERE ts.id = $1',
+      [timeSlotId],
+    );
+    console.log(result);
+    if (result.rows.length > 0) {
+      return {
+        serviceStartTime: result.rows[0].servicestarttime,
+        serviceEndTime: result.rows[0].serviceendtime,
+        serviceName: result.rows[0].servicename,
+      };
+    }
+
+    throw new Error('Event not found for the given eventId.');
+  } catch (error) {
+    console.error('Error fetching event details:', error);
+    throw error;
+  }
+};
+
+export { listAllServices, serviceByName, serviceByMemberMembership, getServiceDetails };

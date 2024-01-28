@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Bs4CircleFill } from 'react-icons/bs';
 import { MdDeleteForever, MdCancel } from 'react-icons/md';
@@ -6,6 +6,7 @@ import { Col } from 'react-bootstrap';
 import { formatDateLong } from '../utils/dateUtils';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../constants';
+import ConfirmBookingModal from './ConfirmBookingModal';
 
 function CurrentBookingWindow({
   currentBookingItems,
@@ -13,6 +14,11 @@ function CurrentBookingWindow({
   handleResetBooking,
 }) {
   const { user } = useAuth();
+  const [showConfirmBookingModal, setShowConfirmBookingModal] = useState(false);
+
+  const handleShowModal = () => {
+    setShowConfirmBookingModal(true);
+  };
 
   const handleBookingSubmit = () => {
     currentBookingItems.forEach(async (booking) => {
@@ -32,7 +38,7 @@ function CurrentBookingWindow({
         const response = await fetch(`${API_URL}/api/booking`, requestOptions);
         const result = await response.json();
         if (result) {
-          window.location.reload();
+          // window.location.reload();
         }
       } catch (error) {
         // console.error('Error during booking:', error);
@@ -84,13 +90,20 @@ function CurrentBookingWindow({
             <button
               type="button"
               className="btn btn-success d-flex align-items-center m-2"
-              onClick={handleBookingSubmit}
+              onClick={() => {
+                handleBookingSubmit();
+                handleShowModal();
+              }}
             >
               <MdCancel className="me-2" />
               CONFIRM BOOKING
             </button>
           </div>
         </div>{' '}
+        <ConfirmBookingModal
+          show={showConfirmBookingModal}
+          handleClose={() => setShowConfirmBookingModal(false)}
+        />
       </div>
     )
   );
