@@ -125,9 +125,9 @@ function Membership() {
     <div className="d-flex py-5 w-100">
       <Container className="d-flex flex-column justify-content-center align-items-center py-5">
         <div>
-          <h2 className="text-uppercase fs-1 fw-bold yeseva-font text-primary p-4">
+          <h1 className="text-uppercase fw-bold yeseva-font text-primary p-4">
             CHOOSE YOUR BEST PLAN
-          </h2>
+          </h1>
         </div>
         <Container className="col-xs-8 col-sm-12 d-flex justify-content-center align-items-center flex-column flex-lg-row ">
           {membershipPlans.map((plan) => (

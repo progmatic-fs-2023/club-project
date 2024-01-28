@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Col, Container } from 'react-bootstrap';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import img1 from '../assets/gallery/img1.webp';
 import img2 from '../assets/gallery/img2.webp';
@@ -39,59 +39,59 @@ function Gallery() {
   };
 
   return (
-    <div className="container mt-5 pt-5">
-      <h1 className="mb-4 pb-2 yeseva-font mt-5 fw-bold border-bottom border-warning border-3 w-25 header-underline">
-        Gallery
-      </h1>
-      <div className="gallery row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {imagePaths.map((image, index) => (
-          <div
-            key={image}
-            className="col mb-4"
-            onClick={() => openModal(index)}
-            role="button"
-            tabIndex={0}
-            onKeyPress={() => openModal(index)}
-          >
-            <img
-              src={image}
-              alt={`img-${index}`}
-              className="shadow-sm w-100"
-              style={{ cursor: 'pointer' }}
-            />
-          </div>
-        ))}
-      </div>
+    <div className="d-flex align-items-center justify-content-center">
+      <Container className="m-5 pt-5">
+        <h2 className="mb-4 pb-2 yeseva-font mt-5 fw-bold border-bottom border-warning border-3 w-25 header-underline">
+          GALLERY
+        </h2>
+        <div className="m-1 gallery row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 d-flex align-items-center justify-content-center">
+          {imagePaths.map((image, index) => (
+            <Col
+              xs={10}
+              md={6}
+              lg={3}
+              key={image}
+              className="mb-4"
+              onClick={() => openModal(index)}
+              role="button"
+              tabIndex={0}
+              onKeyPress={() => openModal(index)}
+            >
+              <img
+                src={image}
+                alt={`img-${index}`}
+                className="shadow-sm w-100"
+                style={{ cursor: 'pointer' }}
+              />
+            </Col>
+          ))}
+        </div>
 
-      <Modal show={showModal} onHide={closeModal} dialogClassName="modal-lg">
-        <Modal.Header closeButton>
-          <Modal.Title>The DOOR Club</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <img
-            src={imagePaths[selectedImageIndex]}
-            alt="preview"
-            className="img-fluid"
-            style={{ width: '100%', height: '100%' }}
-          />
-        </Modal.Body>
-        <Modal.Footer className="d-flex justify-content-center">
-          <Button
-            className="d-flex justify-content-center align-items-center p-3 m-1"
-            onClick={goToPrevImage}
-          >
-            <GrPrevious className="pe-1" />
-            PREV
-          </Button>
-          <Button
-            className="d-flex justify-content-center align-items-center p-3 m-1"
-            onClick={goToNextImage}
-          >
-            NEXT
-            <GrNext className="ps-1" />
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Modal show={showModal} onHide={closeModal} className="modal d-flex align-items-center">
+          <Modal.Header closeButton>
+            <Modal.Title>The DOOR Club</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <img src={imagePaths[selectedImageIndex]} alt="preview" className="img-fluid" />
+          </Modal.Body>
+          <Modal.Footer className="d-flex justify-content-center">
+            <Button
+              className="d-flex justify-content-center align-items-center p-3 m-1"
+              onClick={goToPrevImage}
+            >
+              <GrPrevious className="pe-1" />
+              PREV
+            </Button>
+            <Button
+              className="d-flex justify-content-center align-items-center p-3 m-1"
+              onClick={goToNextImage}
+            >
+              NEXT
+              <GrNext className="ps-1" />
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
     </div>
   );
 }

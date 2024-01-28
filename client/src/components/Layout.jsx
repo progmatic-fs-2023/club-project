@@ -160,9 +160,9 @@ function Layout() {
                 </div>
               </Nav.Link>
             </Col>
-            <Col md={3} className="d-flex flex-column align-items-center text-white">
+            <Col md={2} lg={3} className="d-flex flex-column align-items-center text-white">
               <div className="footer-menu">
-                <h5 className="text-secondary">Pages</h5>
+                <h6 className="text-secondary">PAGES</h6>
                 <ul className="list-unstyled text-white">
                   <Nav.Link as={NavLink} to="/">
                     Home
@@ -184,31 +184,51 @@ function Layout() {
             </Col>
             <Col md={3} className="d-flex justify-content-center">
               <div className="footer-contact">
-                <h5 className="text-secondary">Customer service</h5>
+                <h6 className="text-secondary">CUSTOMER SERVICE</h6>
                 <ul className="list-unstyled text-white">
                   <li>☎️: +36708536957</li>
                   <li>✉️: door8projekt@gmail.com</li>
                   <hr />
                   <li>
-                    <a href="privacy" className="text-secondary">
+                    <a
+                      href="../src/assets/the_club_privacy_policy.pdf"
+                      target="_blank"
+                      className="text-secondary"
+                    >
                       Privacy policy
                     </a>
                   </li>
                   <li>
-                    <a href="conditions" className="text-secondary">
-                      Terms of use
+                    <a
+                      href="../src/assets/the_club_terms_and_conditions.pdf"
+                      target="_blank"
+                      className="text-secondary"
+                    >
+                      Terms and conditions
                     </a>
                   </li>
                 </ul>
               </div>
             </Col>
-            <Col md={3} className="d-flex justify-content-center">
+            <Col md={4} lg={3} className="d-flex justify-content-center">
               <div className="footer-follow-us">
-                <h5 className="text-secondary">Follow us!</h5>
+                <h6 className="text-secondary">FOLLOW US!</h6>
                 <ul className="list-unstyled d-flex">
-                  <SocialIcon className="h-30 w-30 my-1" url="https://www.facebook.com/" />
-                  <SocialIcon className="mx-3 h-30 w-30 my-1" url="https://twitter.com/" />
-                  <SocialIcon className="h-30 w-30 my-1" url="https://www.instagram.com/" />
+                  <SocialIcon
+                    className="h-30 w-30 my-1"
+                    url="https://www.facebook.com/"
+                    target="_blank"
+                  />
+                  <SocialIcon
+                    className="mx-3 h-30 w-30 my-1"
+                    url="https://twitter.com/"
+                    target="_blank"
+                  />
+                  <SocialIcon
+                    className="h-30 w-30 my-1"
+                    url="https://www.instagram.com/"
+                    target="_blank"
+                  />
                 </ul>
               </div>
             </Col>
