@@ -101,9 +101,9 @@ function Events() {
         </div>
         {noResults && <p className="m-3 text-danger">No results found</p>}
         <div>
-          <h1 className="header-underline yeseva-font mt-5 fw-bold border-bottom border-warning border-3">
+          <h2 className="header-underline yeseva-font mt-5 fw-bold border-bottom border-warning border-3">
             EVENTS
-          </h1>
+          </h2>
         </div>
         <AllEvents events={events} />
       </Container>

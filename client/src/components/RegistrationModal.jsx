@@ -277,16 +277,31 @@ function RegistrationModal({ showButton }) {
                   </Form.Group>
                 </Row>
                 <Form.Group className="mb-3">
-                  <Form.Check
-                    required
-                    name="terms"
-                    label="Agree to terms and conditions"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    isInvalid={!!errors.terms}
-                    feedback={errors.terms}
-                    feedbackType="invalid"
-                  />
+                  <Form.Group controlId="termsCheckbox">
+                    <Form.Check
+                      required
+                      name="terms"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      isInvalid={!!errors.terms}
+                      feedback={errors.terms}
+                      feedbackType="invalid"
+                      type="checkbox"
+                      label={
+                        <span>
+                          Agree to
+                          <a
+                            href="../src/assets/the_club_terms_and_conditions.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-1 text-secondary fw-bold"
+                          >
+                            terms and conditions
+                          </a>
+                        </span>
+                      }
+                    />
+                  </Form.Group>
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Check

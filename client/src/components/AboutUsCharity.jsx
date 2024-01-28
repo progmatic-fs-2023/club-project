@@ -25,7 +25,7 @@ function AboutUsCharity() {
   return (
     <div className="d-flex flex-column align-items-center mt-1 bg-light">
       <div className="d-flex flex-column align-items-center">
-        <div className="m-3 mt-5 fs-1 text-center yeseva-font fw-bold">CHARITY</div>
+        <div className="m-3 mt-5 fs-1 text-center yeseva-font fw-bold">Charity</div>
         <div className="fs-5 josefin-font w-50 text-center">
           <p>Supporting others is of utmost importance to us.</p>
           <p>
