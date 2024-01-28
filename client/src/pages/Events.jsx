@@ -24,7 +24,7 @@ function Events() {
         );
 
         const currentDate = new Date();
-        const filteredEvents = result.filter((event) => new Date(event.startTime) >= currentDate);
+        const filteredEvents = result.filter((event) => new Date(event.endTime) >= currentDate);
 
         const sortedEvents = [...filteredEvents].sort(
           (a, b) => new Date(a.startTime) - new Date(b.startTime),

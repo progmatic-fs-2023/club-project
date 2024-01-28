@@ -1,7 +1,11 @@
-import { listAllBookings, getDetailsOfBookings } from '../services/admin.bookings.service';
+import {
+  listAllBookings,
+  getDetailsOfBookings,
+  deleteEventBookingById,
+} from '../services/admin.bookings.service';
 import 'dotenv/config';
 
-// GET ALL BOOKINGS
+// GET ALL EVENT BOOKINGS
 const list = async (req, res) => {
   try {
     const allBookings = await listAllBookings();
@@ -51,4 +55,21 @@ const getDetailsOfBookingById = async (req, res) => {
   }
 };
 
-export { list, getDetailsOfBookingById };
+// DELETE EVENT BOOKING
+const deleteEventBooking = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedBooking = await deleteEventBookingById(id);
+    if (deletedBooking) {
+      res.json({ message: 'Booking deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Booking not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting event booking:', error);
+
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export { list, getDetailsOfBookingById, deleteEventBooking };

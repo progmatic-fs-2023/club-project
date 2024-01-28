@@ -54,13 +54,16 @@ export default function ProfileCard() {
     const currentDayOfWeek = today.getDay();
 
     const startOfWeekDate = new Date(today);
+    startOfWeekDate.setHours(0, 0, 0, 0);
     startOfWeekDate.setDate(today.getDate() - currentDayOfWeek);
 
     const endOfWeekDate = new Date(today);
-    endOfWeekDate.setDate(today.getDate() + (6 - currentDayOfWeek));
+    endOfWeekDate.setHours(23, 59, 59, 999);
+    endOfWeekDate.setDate(today.getDate() + (7 - currentDayOfWeek));
 
     const eventsInCurrentWeek = bookedEvents.filter((booking) => {
       const eventDate = new Date(booking.start_time);
+      eventDate.setHours(0, 0, 0, 0);
       return startOfWeekDate <= eventDate && eventDate <= endOfWeekDate;
     });
 
@@ -72,13 +75,16 @@ export default function ProfileCard() {
     const currentDayOfWeek = today.getDay();
 
     const startOfWeekDate = new Date(today);
+    startOfWeekDate.setHours(0, 0, 0, 0);
     startOfWeekDate.setDate(today.getDate() - currentDayOfWeek);
 
     const endOfWeekDate = new Date(today);
-    endOfWeekDate.setDate(today.getDate() + (6 - currentDayOfWeek));
+    endOfWeekDate.setHours(23, 59, 59, 999);
+    endOfWeekDate.setDate(today.getDate() + (7 - currentDayOfWeek));
 
     const servicesInCurrentWeek = bookedServices.filter((booking) => {
       const serviceDate = new Date(booking.startTime);
+      serviceDate.setHours(0, 0, 0, 0);
       return startOfWeekDate <= serviceDate && serviceDate <= endOfWeekDate;
     });
 

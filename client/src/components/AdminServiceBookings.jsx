@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Table, NavLink, Modal } from 'react-bootstrap';
+import { Button, Table, Modal } from 'react-bootstrap';
 import { API_URL } from '../constants';
 import AdminServiceBookingSearch from './AdminServiceBookingSearch';
 import { formatDate, formatDateLong } from '../utils/dateUtils';
@@ -74,11 +74,12 @@ function AdminServiceBookings() {
     'Booking id',
     'First name',
     'Last name',
-    'Username',
+    'User id',
     'Service id',
     'Service name',
     'Start time',
     'End time',
+    'Time slot id',
   ];
 
   const onSearch = (searchValue, fieldName) => {
@@ -150,11 +151,8 @@ function AdminServiceBookings() {
                   {header}
                 </th>
               ))}
-              <th className="py-2 px-2 bg-dark text-dark fw-normal fs-6 text-uppercase text-center">
-                \
-              </th>
-              <th className="py-2 px-2 bg-dark text-dark fw-normal fs-6 text-uppercase text-center">
-                \
+              <th className="py-3 px-2 bg-dark text-white fw-normal fs-6 text-uppercase text-center">
+                actions
               </th>
             </tr>
           </thead>
@@ -181,6 +179,16 @@ function AdminServiceBookings() {
                         <div>{serviceBooking.lastName}</div>
                       </div>
                     )}
+                    {header === 'User id' && (
+                      <div>
+                        <div>{serviceBooking.userId}</div>
+                      </div>
+                    )}
+                    {header === 'Service id' && (
+                      <div>
+                        <div>{serviceBooking.serviceId}</div>
+                      </div>
+                    )}
                     {header === 'Service name' && (
                       <div>
                         <div>{serviceBooking.serviceName}</div>
@@ -196,17 +204,14 @@ function AdminServiceBookings() {
                         <div>{formatDateLong(serviceBooking.endTime)}</div>
                       </div>
                     )}
+                    {header === 'Time slot id' && (
+                      <div>
+                        <div>{serviceBooking.timeSlotId}</div>
+                      </div>
+                    )}
                   </td>
                 ))}
-                <td className="p-3 text-center">
-                  <NavLink
-                    to={`/admin/servicebookings/${serviceBooking.serviceBookingId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button variant="primary">Details</Button>
-                  </NavLink>
-                </td>
+
                 <td className="p-3 text-center">
                   <Button
                     variant="danger"

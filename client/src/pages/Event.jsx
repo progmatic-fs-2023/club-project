@@ -8,17 +8,18 @@ import { MdOutlineCalendarMonth } from 'react-icons/md';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../constants';
-import { formatTime } from '../utils/dateUtils';
+import { formatTime, formatDateShort } from '../utils/dateUtils';
 
 function Event() {
   const { eventName } = useParams();
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [reservationAccepted, setReservationAccepted] = useState(false);
-  const [reservedEvents, setReservedEvents] = useState([]);
   const [showThankYouModal, setShowThankYouModal] = useState(false);
-  const [event, setEvent] = useState([]);
-  const { isAuthenticated } = useAuth();
+  const [event, setEvent] = useState({});
+  const [isBookingAlreadyExists, setIsBookingAlreadyExists] = useState();
+  const { user, isAuthenticated } = useAuth();
+  const [availableSeats, setAvailableSeats] = useState(0);
 
   useEffect(() => {
     const fetchEventByName = async () => {
@@ -39,29 +40,74 @@ function Event() {
     fetchEventByName();
   }, [eventName]);
 
-  /*  let eventPrev = [];
+  useEffect(() => {
+    const fetchIsBookedEvent = async () => {
+      try {
+        const { id } = user;
+        if (!event.id) {
+          return;
+        }
+        const eventId = event.id;
 
-  if (event.id === 1) {
-    eventPrev = events.find((item) => item.id === events.length);
-  } else {
-    eventPrev = events.find((item) => item.id === event.id - 1);
-  }
+        const response = await fetch(`${API_URL}/api/booking/book/${id}?eventId=${eventId}`);
+        const result = await response.json();
 
-  let eventNext = {};
+        if (result) {
+          setIsBookingAlreadyExists(result.exists);
+        } else {
+          // console.error('Event not found:', eventName);
+        }
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
 
-  if (event.id === events.length) {
-    eventNext = events.find((item) => item.id === 1);
-  } else {
-    eventNext = events.find((item) => item.id === event.id + 1);
-  } */
+    fetchIsBookedEvent();
+  }, [event.id]);
 
-  const formatDate = (dateString) => {
-    const options = { day: 'numeric', month: 'short' };
-    const [month, day] = new Date(dateString).toLocaleDateString('en-US', options).split(' ');
-    return `${month} ${day} `;
-  };
+  useEffect(() => {
+    const fetchAvailableSeats = async () => {
+      try {
+        if (!selectedEvent || typeof selectedEvent.id === 'undefined') {
+          return;
+        }
+        const response = await fetch(`${API_URL}/api/events/${selectedEvent.id}/available-seats`);
+        const data = await response.json();
+        setAvailableSeats(data.availableSeats);
+      } catch (error) {
+        /* console.error('Error fetching available seats:', error); */
+      }
+    };
 
-  const startDate = formatDate(event.startTime);
+    fetchAvailableSeats();
+  }, [selectedEvent /* reservedEvents */]);
+
+  useEffect(() => {
+    const fetchIsBookedEvent = async () => {
+      try {
+        const { id } = user;
+        if (!event.id) {
+          return;
+        }
+        const eventId = event.id;
+
+        const response = await fetch(`${API_URL}/api/booking/book/${id}?eventId=${eventId}`);
+        const result = await response.json();
+
+        if (result) {
+          setIsBookingAlreadyExists(result.exists);
+        } else {
+          // console.error('Event not found:', eventName);
+        }
+      } catch (error) {
+        // console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchIsBookedEvent();
+  }, [event.id]);
+
+  const startDate = formatDateShort(event.startTime);
   const startTime = formatTime(event.startTime);
   const endTime = formatTime(event.endTime);
 
@@ -82,6 +128,9 @@ function Event() {
   const handleConfirmReserve = async () => {
     try {
       const eventId = selectedEvent.id;
+      if (!eventId) {
+        return;
+      }
 
       const response = await fetch(`${API_URL}/api/booking/events/book`, {
         method: 'POST',
@@ -94,11 +143,6 @@ function Event() {
 
       await response.json();
 
-      setReservedEvents((prevReservedEvents) => {
-        const updatedReservedEvents = [...prevReservedEvents, selectedEvent.id];
-        return updatedReservedEvents;
-      });
-
       document.cookie = `eventId=${eventId}; path=/`;
 
       setShowModal(false);
@@ -108,20 +152,6 @@ function Event() {
       // console.error('Error during reservation confirmation:', error);
     }
   };
-
-  const isEventReserved = reservedEvents.includes(event.id);
-
-  /*   const handleNextClick = () => {
-    const nextEventId = event.id === eventsList.length ? 1 : event.id + 1;
-    const nextEvent = findEventById(nextEventId);
-    setSelectedEvent(nextEvent);
-  };
-
-  const handlePrevClick = () => {
-    const prevEventId = event.id === 1 ? eventsList.length : event.id - 1;
-    const prevEvent = findEventById(prevEventId);
-    setSelectedEvent(prevEvent);
-  }; */
 
   useEffect(() => {
     setSelectedEvent(event);
@@ -146,19 +176,37 @@ function Event() {
       );
     }
 
-    if (isEventReserved) {
-      return <span className="text-muted fs-5 max-vw-25">RESERVED</span>;
+    const today = new Date();
+    const isExpiredEvent = new Date(event.endTime) <= today;
+    const isSoldOut = event.availableSeats === 0;
+
+    let buttonText = 'RESERVE';
+    let isCursorEnabled = true;
+
+    if (isBookingAlreadyExists) {
+      buttonText = 'RESERVED';
+      isCursorEnabled = false;
+    } else if (isExpiredEvent) {
+      buttonText = 'EXPIRED';
+      isCursorEnabled = false;
+    } else if (isSoldOut) {
+      buttonText = 'SOLD OUT';
+      isCursorEnabled = false;
     }
 
     return (
       <Button
-        className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+        className="fs-5 max-vw-25 d-flex align-items-center gap-1"
         onClick={handleReserveClick}
+        disabled={isSoldOut || isExpiredEvent || isBookingAlreadyExists}
+        style={{ pointerEvents: isCursorEnabled ? 'pointer' : 'none' }}
       >
-        RESERVE <MdOutlineCalendarMonth />
+        {buttonText} {isBookingAlreadyExists || isSoldOut ? '' : <MdOutlineCalendarMonth />}
       </Button>
     );
   };
+
+  const availableSeatsStyle = availableSeats > 0 ? { color: 'green' } : {};
 
   return (
     <>
@@ -177,7 +225,11 @@ function Event() {
               </div>
             </div>
             <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
-            {/* <h3 className="p-3 d-flex justify-content-center">{`Available seats: ${event.availableSeats}`}</h3> */}
+
+            <div className="p-2 d-flex justify-content-center" style={availableSeatsStyle}>
+              Available Seats: {availableSeats}
+            </div>
+
             <div className="p-3 d-flex justify-content-center flex-wrap">
               <div className="p-3 d-flex align-items-center">{renderContent()}</div>
               <div className="p-3">
@@ -221,15 +273,15 @@ function Event() {
             </Button>
           ) : (
             <>
+              <Button variant="secondary" onClick={handleCloseModal} style={{ marginLeft: 'auto' }}>
+                No
+              </Button>
               <Button
                 variant="primary"
                 onClick={handleConfirmReserve}
                 style={{ marginRight: 'auto' }}
               >
                 Yes
-              </Button>
-              <Button variant="secondary" onClick={handleCloseModal} style={{ marginLeft: 'auto' }}>
-                No
               </Button>
             </>
           )}

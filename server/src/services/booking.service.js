@@ -1,5 +1,6 @@
 import * as db from './db.service';
 
+// GET A WEEK LIST BY ID
 const listAWeekById = async (id, startDate) => {
   const response = await db.query(
     `
@@ -14,6 +15,7 @@ WHERE
   return response.rows;
 };
 
+// CREATE A SERVICE BOOKING
 const createNewBooking = async (timeSlotId, memberId, isReserved) => {
   const insertBooking = await db.query(
     'INSERT INTO bookings_services (time_slot_id, member_id) VALUES ($1, $2) RETURNING *',
@@ -27,7 +29,9 @@ const createNewBooking = async (timeSlotId, memberId, isReserved) => {
   return { insertResult: insertBooking.rows, updateResult: updateReserved.rows };
 };
 
+// CREATE AN EVENT BOOKING
 const sendUserDataToDatabase = async (userId, eventId) => {
+  console.log(userId, eventId);
   const result = await db.query(
     `INSERT INTO booking_members_events (member_id, event_id) VALUES ($1, $2)`,
     [userId, eventId],
@@ -36,4 +40,14 @@ const sendUserDataToDatabase = async (userId, eventId) => {
   return result.rows;
 };
 
-export { listAWeekById, createNewBooking, sendUserDataToDatabase };
+// GET A WEEK LIST BY ID
+const getBookedEventByMemberId = async (id, eventId) => {
+  const response = await db.query(
+    `SELECT EXISTS (
+      SELECT 1 FROM public.booking_members_events WHERE member_id = $1 AND event_id = $2)`,
+    [id, eventId],
+  );
+  return response.rows[0];
+};
+
+export { listAWeekById, createNewBooking, sendUserDataToDatabase, getBookedEventByMemberId };

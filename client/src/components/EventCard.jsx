@@ -1,15 +1,27 @@
 import PropTypes from 'prop-types';
 
-function EventCard({ name, startDate, startTime, endTime, eventImg, availableSeats, details }) {
+function EventCard({
+  name,
+  startDate,
+  startTime,
+  unformattedEndTime,
+  endTime,
+  eventImg,
+  availableSeats,
+  details,
+}) {
   const isSoldOut = availableSeats === 0;
+  const today = new Date();
+  const isExpiredEvent = new Date(unformattedEndTime) <= today;
 
   return (
-    <div
-      className={`container_foto hover-overlay hover-zoom position-relative overflow-hidden ${
-        isSoldOut ? 'sold-out' : ''
-      }`}
-    >
-      {isSoldOut && (
+    <div className="container_foto hover-overlay hover-zoom position-relative overflow-hidden">
+      {isExpiredEvent && isSoldOut && (
+        <div className="bg-white bg-opacity-50 text-primary z-2 w-100 h-100 d-flex justify-content-center align-items-center fs-2 fw-bold position-absolute top-0 left-0">
+          EXPIRED
+        </div>
+      )}
+      {isSoldOut && !isExpiredEvent && (
         <div className="bg-white bg-opacity-50 text-primary z-2 w-100 h-100 d-flex justify-content-center align-items-center fs-2 fw-bold position-absolute top-0 left-0">
           SOLD OUT
         </div>
@@ -40,6 +52,7 @@ EventCard.propTypes = {
   name: PropTypes.string.isRequired,
   details: PropTypes.string.isRequired,
   startTime: PropTypes.string.isRequired,
+  unformattedEndTime: PropTypes.string.isRequired,
   endTime: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,
   availableSeats: PropTypes.number.isRequired,
