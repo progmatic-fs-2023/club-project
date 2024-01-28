@@ -7,6 +7,7 @@ import {
   listAllUsers,
   updateMembershipByID,
   updateNewPassword,
+  updatePaymentByID,
   updateUserVerificationStatus,
   updateUserByID,
 } from '../services/users.service';
@@ -49,6 +50,25 @@ const putUserById = async (req, res) => {
   }
 };
 
+// UPDATE IS_PAYED BY ID
+const putIsPaymentById = async (req, res) => {
+  const { id } = req.params;
+  const isPayed = req.query.newIsPayed;
+
+  try {
+    const user = await updatePaymentByID(id, isPayed);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'User does not exist' });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+};
+
 // UPDATE USER'S MEMBERSHIP
 const updateMembership = async (req, res) => {
   const { id, membership } = req.body;
@@ -56,7 +76,6 @@ const updateMembership = async (req, res) => {
   try {
     const updatedMembership = await updateMembershipByID(id, membership);
     if (updatedMembership) {
-      console.log(updatedMembership);
       res.json(updatedMembership);
     } else {
       res.status(404).json({ message: 'User does not exist' });
@@ -139,8 +158,7 @@ const verifyNewPasswordEmail = async (req, res, next) => {
 
 const verifyNewPasswords = async (req, res) => {
   const { password1, email } = req.body;
-  console.log(password1);
-  console.log(req.body);
+
   const user = await findEmail(email);
   // console.log(user);
   if (!user || email !== user.email) {
@@ -154,7 +172,6 @@ const verifyNewPasswords = async (req, res) => {
     // const payload = jwt.verify(token, secret);
 
     const hashedPassword = await bcrypt.hash(password1, 10);
-    console.log(hashedPassword);
     user.password = hashedPassword;
 
     await updateNewPassword(email, user.password);
@@ -192,9 +209,10 @@ const getUserByIdHeader = async (req, res) => {
 
 export {
   getUserById,
-  putUserById,
   destroyUserById,
   list,
+  putIsPaymentById,
+  putUserById,
   updateMembership,
   verifyEmail,
   verifyNewPasswordEmail,

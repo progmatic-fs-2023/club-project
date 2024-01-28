@@ -49,8 +49,9 @@ export default function ProfileCard() {
     fetchBookedServices();
   }, []);
 
+  const today = new Date();
+
   const getCurrentWeekEvents = () => {
-    const today = new Date();
     const currentDayOfWeek = today.getDay();
 
     const startOfWeekDate = new Date(today);
@@ -71,7 +72,6 @@ export default function ProfileCard() {
   };
 
   const getCurrentWeekServices = () => {
-    const today = new Date();
     const currentDayOfWeek = today.getDay();
 
     const startOfWeekDate = new Date(today);
@@ -132,13 +132,28 @@ export default function ProfileCard() {
               <div className="mb-5">
                 <h4 className="mb-4 text-center">Information</h4>
                 <div className="bg-light p-4">
-                  <p className="mb-1">Name: {`${user.firstName}  ${user.lastName}`}</p>
-                  <p className="mb-1">Username: {user.username}</p>
-                  <p className="mb-1">Email: {user.email}</p>
-                  <p className="mb-0">Gender: {user.gender}</p>
+                  <p className="mb-1 fw-bold">
+                    Name:
+                    <span className="fw-normal">{` ${user.firstName}  ${user.lastName}`} </span>
+                  </p>
+
+                  <p className="mb-1 fw-bold">
+                    Username: <span className="fw-normal"> {user.username} </span>
+                  </p>
+                  <p className="mb-1 fw-bold">
+                    Email: <span className="fw-normal">{user.email} </span>
+                  </p>
+                  <p className="mb-0 fw-bold">
+                    Gender: <span className="fw-normal">{user.gender} </span>
+                  </p>
                   <hr />
-                  <p className="mb-1">Membership: {user.membership}</p>
-                  <p className="mb-1">Membership expires: {user.endTime}</p>
+                  <p className="mb-1 fw-bold">
+                    Membership:<span className="fw-normal"> {user.membership}</span>
+                  </p>
+                  <p className="mb-1 fw-bold">
+                    Membership expires:{' '}
+                    <span className="fw-normal">{formatDateLong(user.membershipEndTime)}</span>
+                  </p>
                 </div>
 
                 <h4 className="my-4 pt-4 text-center">Events</h4>

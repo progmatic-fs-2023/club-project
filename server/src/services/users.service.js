@@ -88,6 +88,7 @@ const deleteUserByID = async id => {
     throw error;
   }
 };
+
 // GET USER BY EMAIL
 const findEmail = async email => {
   const result = await db.query('SELECT * FROM members WHERE email = $1', [email]);
@@ -108,7 +109,7 @@ const findEmailAndToken = async (email, token) => {
 // UPDATE A USER BY ID
 const updateUserByID = async (id, modifiedMember) => {
   const result = await db.query(
-    'UPDATE members SET first_name = $2, last_name = $3, username = $4, gender = $5, email = $6, member_img = $7, membership = $8, membership_start_time = $9, membership_end_time = $10, newsletter = $11, email_token = $12, is_verified = $13, is_payed = $14, is_admin = $15, password = $16, phone = $17 WHERE id = $1 RETURNING *',
+    'UPDATE members SET first_name = $2, last_name = $3, username = $4, gender = $5, email = $6, member_img = $7, membership = $8, membership_start_time = $9, membership_end_time = $10, newsletter = $11, email_token = $12, is_verified = $13, is_admin = $14, password = $15, phone = $16 WHERE id = $1 RETURNING *',
     [
       id,
       modifiedMember.firstName,
@@ -123,11 +124,40 @@ const updateUserByID = async (id, modifiedMember) => {
       modifiedMember.newsletter,
       modifiedMember.emailToken,
       modifiedMember.isVerified,
-      modifiedMember.isPayed,
       modifiedMember.isAdmin,
       modifiedMember.password,
       modifiedMember.phone,
     ],
+  );
+
+  const renamedResult = {
+    id: result.rows[0].id,
+    firstName: result.rows[0].first_name,
+    lastName: result.rows[0].last_name,
+    username: result.rows[0].username,
+    gender: result.rows[0].gender,
+    email: result.rows[0].email,
+    memberImg: result.rows[0].member_img,
+    membership: result.rows[0].membership,
+    membershipStartTime: result.rows[0].membership_start_time,
+    membershipEndTime: result.rows[0].membership_end_time,
+    newsletter: result.rows[0].newsletter,
+    emailToken: result.rows[0].email_token,
+    isVerified: result.rows[0].is_verified,
+    isPayed: result.rows[0].is_payed,
+    isAdmin: result.rows[0].is_admin,
+    password: result.rows[0].password,
+    phone: result.rows[0].phone,
+  };
+
+  return renamedResult;
+};
+
+// UPDATE PAYMENT BY ID
+const updatePaymentByID = async (id, isPayed) => {
+  const result = await db.query(
+    "UPDATE members SET membership_start_time = CASE WHEN $2 THEN CURRENT_TIMESTAMP ELSE NULL END, membership_end_time = CASE WHEN $2 THEN CURRENT_TIMESTAMP + INTERVAL '30 days' ELSE NULL END, is_payed = $2 WHERE id = $1 RETURNING *",
+    [id, isPayed],
   );
 
   const renamedResult = {
@@ -213,6 +243,7 @@ export {
   listAllUsers,
   updateMembershipByID,
   updateNewPassword,
+  updatePaymentByID,
   updateUserByID,
   updateUserVerificationStatus,
 };
