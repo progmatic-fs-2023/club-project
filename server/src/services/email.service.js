@@ -102,7 +102,24 @@ const sendNewPasswordEmail = async (req, res) => {
   }
 };
 
-const sendEventBookingEmail = async (email, eventName, eventTime) => {
+const sendEventBookingEmail = async (email, eventName, eventStartTime, eventEndTime) => {
+  const startDate = new Date(eventStartTime).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  const endDate = new Date(eventEndTime).toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  const formattedTimeRange = `${startDate} - ${endDate}`;
+
   const mailOptions = {
     from: 'door8projekt@gmail.com',
     to: email,
@@ -110,11 +127,54 @@ const sendEventBookingEmail = async (email, eventName, eventTime) => {
     html: `
     <p>Thank you for booking the event!</p>
     <p><strong>Event:</strong> ${eventName}</p>
-    <p><strong>Date of the event:</strong> ${eventTime}</p>
+    <p><strong>Date of the event:</strong> ${formattedTimeRange}</p>
     <br />
     <p>We look forward to seeing you at the event!</p>
     <p>Best regards,</p>
     <p>The Event Team</p>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(`Email sent: ${info.response}`);
+    }
+  });
+};
+const sendServiceBookingEmail = async (email, serviceName, serviceStartTime, serviceEndTime) => {
+  const startDate = new Date(serviceStartTime).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  const endDate = new Date(serviceEndTime).toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  const formattedTimeRange = `${startDate} - ${endDate}`;
+
+  const mailOptions = {
+    from: 'door8projekt@gmail.com',
+    to: email,
+    subject: 'Booking Service Confirmation',
+    html: `
+    <p>Thank you for booking our service!</p>
+<p><strong>Service:</strong> ${serviceName}</p>
+<p><strong>Date of the service:</strong> ${formattedTimeRange}</p>
+<br />
+<p>We appreciate your reservation and look forward to providing you with an excellent service experience!</p>
+<p>Should you have any questions or need further assistance, feel free to contact us.</p>
+<br />
+<p>Best regards,</p>
+<p>The Service Team</p>
     `,
   };
 
@@ -132,4 +192,5 @@ export {
   welcomeContactUsEmail,
   sendNewPasswordEmail,
   sendEventBookingEmail,
+  sendServiceBookingEmail,
 };

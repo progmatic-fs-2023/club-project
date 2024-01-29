@@ -60,8 +60,8 @@ const createEvent = async (req, res) => {
       startTime,
       endTime,
       availableSeats,
-      eventImg,
-      headerImg,
+      `/src/assets/${eventImg}`,
+      `/src/assets/${headerImg}`,
       details,
       moreDetails,
       slugName,
@@ -137,15 +137,11 @@ const getAvailableSeatsForEvent = async (req, res) => {
   try {
     const { id } = req.params;
 
-    console.log('Event ID:', id);
-
     if (!id) {
       throw new Error('Event ID is missing or invalid');
     }
 
     const response = await getAvailableSeatsForEventById(id);
-
-    console.log('Response:', response);
 
     res.json({ availableSeats: response });
   } catch (error) {

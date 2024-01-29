@@ -10,9 +10,15 @@ function AllEvents({ events }) {
   return (
     <div>
       <div className="container text-left p-3">
-        <Row xs={1} md={2} lg={3} xl={3}>
+        <Row
+          xs={1}
+          md={2}
+          lg={3}
+          xl={3}
+          className="d-flex justify-content-center justify-content-md-start"
+        >
           {events.map((event) => (
-            <Col className="p-3" key={event.name}>
+            <Col xs={11} className="p-3" key={event.name}>
               <NavLink to={event.slugName}>
                 <EventCard
                   name={event.name}

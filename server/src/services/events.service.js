@@ -75,26 +75,13 @@ const updateEventById = async (
 };
 
 // AVAILABLE SEATS
-
 const getAvailableSeatsForEventById = async eventId => {
-  try {
-    if (!eventId) {
-      throw new Error('Event ID is missing or invalid');
-    }
+  const response = await db.query(
+    'SELECT available_seats - (SELECT COUNT(*) FROM events INNER JOIN booking_members_events ON booking_members_events.event_id = events.id WHERE events.id = $1) AS modified_available_seats FROM events WHERE events.id = $1',
+    [eventId],
+  );
 
-    const response = await db.query('SELECT available_seats FROM events WHERE id = $1', [eventId]);
-
-    if (response.rows.length === 0) {
-      throw new Error(`No event found with ID: ${eventId}`);
-    }
-
-    const availableSeats = parseInt(response.rows[0].available_seats, 10);
-
-    return availableSeats;
-  } catch (error) {
-    console.error('Error fetching available seats for event by ID:', error);
-    throw error;
-  }
+  return response.rows[0];
 };
 
 async function getUserEmail(userId) {
@@ -106,12 +93,16 @@ async function getUserEmail(userId) {
 const getEventDetails = async eventId => {
   try {
     const result = await db.query(
-      'SELECT name AS eventName, start_time AS eventTime FROM events WHERE id = $1',
+      'SELECT name AS eventName, start_time AS eventStartTime, end_time AS eventEndTime FROM events WHERE id = $1',
       [eventId],
     );
 
     if (result.rows.length > 0) {
-      return { eventName: result.rows[0].eventname, eventTime: result.rows[0].eventtime };
+      return {
+        eventName: result.rows[0].eventname,
+        eventStartTime: result.rows[0].eventstarttime,
+        eventEndTime: result.rows[0].eventendtime,
+      };
     }
 
     throw new Error('Event not found for the given eventId.');

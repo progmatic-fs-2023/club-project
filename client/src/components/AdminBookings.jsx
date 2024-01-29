@@ -196,7 +196,7 @@ function AdminBookings() {
         </Table>
       </div>
       <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Delete Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this booking?</Modal.Body>
@@ -204,7 +204,12 @@ function AdminBookings() {
           <Button variant="secondary" onClick={() => handleConfirmation(false)}>
             No
           </Button>
-          <Button variant="danger" onClick={() => handleConfirmation(true)}>
+          <Button
+            variant="danger"
+            onClick={() => {
+              handleConfirmation(true);
+            }}
+          >
             Yes
           </Button>
         </Modal.Footer>

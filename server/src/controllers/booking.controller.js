@@ -5,8 +5,9 @@ import {
   getBookedEventByMemberId,
 } from '../services/booking.service';
 import HttpError from '../utils/HttpError';
-import { sendEventBookingEmail } from '../services/email.service';
+import { sendEventBookingEmail, sendServiceBookingEmail } from '../services/email.service';
 import { getUserEmail, getEventDetails } from '../services/events.service';
+import { getServiceDetails } from '../services/services.service';
 
 // GET A WEEK LIST BY ID
 const weekListById = async (req, res, next) => {
@@ -45,9 +46,11 @@ const getEventBookingByMemberId = async (req, res, next) => {
 // CREATE A SERVICE BOOKING
 const createBooking = async (req, res, next) => {
   try {
-    const { timeSlotId } = req.body;
-    const { memberId } = req.body;
-    const { isReserved } = req.body;
+    const { timeSlotId, memberId, isReserved } = req.body;
+
+    const email = await getUserEmail(memberId);
+    const { serviceStartTime, serviceEndTime, serviceName } = await getServiceDetails(timeSlotId);
+    await sendServiceBookingEmail(email, serviceName, serviceStartTime, serviceEndTime);
 
     const newBooking = await createNewBooking(timeSlotId, memberId, isReserved);
     if (newBooking) {
@@ -66,14 +69,12 @@ const bookEvent = async (req, res) => {
     const { userId } = req.cookies;
     const { eventId } = req.cookies;
 
-    console.log(eventId);
-
     await sendUserDataToDatabase(userId, eventId);
 
     const email = await getUserEmail(userId);
-    const { eventName, eventTime } = await getEventDetails(eventId);
+    const { eventName, eventStartTime, eventEndTime } = await getEventDetails(eventId);
 
-    await sendEventBookingEmail(email, eventName, eventTime);
+    await sendEventBookingEmail(email, eventName, eventStartTime, eventEndTime);
     return res.status(201).json({
       message: 'Event booked successfully.',
     });
