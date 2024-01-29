@@ -33,6 +33,17 @@ function AdminMembers() {
     fetchMembers();
   }, []);
 
+  const fetchOriginalMembers = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/admin`);
+      const result = await response.json();
+      setMembers(result);
+      setFilteredMembers(result);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center h-100 w-100">
@@ -48,7 +59,7 @@ function AdminMembers() {
       const fieldToSearch = String(member[fieldName]).toLowerCase();
       return fieldToSearch.includes(searchText.toLowerCase());
     });
-
+    setMembers(filteredList);
     setFilteredMembers(filteredList);
   };
 
@@ -91,6 +102,7 @@ function AdminMembers() {
     setSearchEmail('');
     setSearchMembershipLevel('');
     setFilteredMembers(members);
+    fetchOriginalMembers();
   };
 
   return (
@@ -147,7 +159,7 @@ function AdminMembers() {
             {filteredMembers.map((member) => (
               <tr key={`members-key-${member.id}`}>
                 {modifiedHeaders.map((header) => (
-                  <td className="p-3 text-center" key={`members-key-table-${header}`}>
+                  <td className="p-4 text-center" key={`members-key-table-${header}`}>
                     {header === 'first name' && (
                       <div>
                         <div>{member.firstName}</div>
