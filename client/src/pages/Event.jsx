@@ -54,7 +54,7 @@ function Event() {
         }
       }
     } catch (error) {
-      // Error handling
+      // console.error('Error while loading event data:', error);
     }
   };
 
