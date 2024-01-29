@@ -15,7 +15,9 @@ function AdminServiceBookings() {
   const [filteredBookings, setFilteredBookings] = useState(serviceBookings);
   const [showModal, setShowModal] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState(null);
+  const [selectedBookingTimeSlotId, setSelectedBookingTimeSlotId] = useState(null);
   const [loading, setLoading] = useState([]);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     const fetchServiceBookings = async () => {
@@ -31,7 +33,7 @@ function AdminServiceBookings() {
     };
 
     fetchServiceBookings();
-  }, []);
+  }, [reload]);
 
   if (loading) {
     return (
@@ -43,8 +45,9 @@ function AdminServiceBookings() {
     );
   }
 
-  const handleDelete = async (bookingId) => {
+  const handleDelete = async (bookingId, timeSlotId) => {
     setSelectedBookingId(bookingId);
+    setSelectedBookingTimeSlotId(timeSlotId);
     setShowModal(true);
   };
 
@@ -53,14 +56,19 @@ function AdminServiceBookings() {
 
     if (confirmed) {
       try {
-        const deleteResponse = await fetch(`${API_URL}/api/servicebookings/${selectedBookingId}`, {
-          method: 'DELETE',
-        });
+        const deleteResponse = await fetch(
+          `${API_URL}/api/servicebookings/${selectedBookingId}?timeSlotId=${selectedBookingTimeSlotId}`,
+          {
+            method: 'DELETE',
+          },
+        );
 
         if (deleteResponse.ok) {
           setServiceBookings((prevBookings) =>
             prevBookings.filter((booking) => booking.serviceBookingId !== selectedBookingId),
           );
+
+          setReload(!reload);
         } else {
           /* console.error('Error deleting service booking'); */
         }
@@ -215,7 +223,9 @@ function AdminServiceBookings() {
                 <td className="p-3 text-center">
                   <Button
                     variant="danger"
-                    onClick={() => handleDelete(serviceBooking.serviceBookingId)}
+                    onClick={() =>
+                      handleDelete(serviceBooking.serviceBookingId, serviceBooking.timeSlotId)
+                    }
                   >
                     Delete
                   </Button>
