@@ -32,6 +32,17 @@ function AdminBookings() {
     fetchEventBookings();
   }, []);
 
+  const fetchOriginalBookings = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/bookings`);
+      const result = await response.json();
+      setBookings(result);
+      setFilteredBookings(result);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center h-100 w-100">
@@ -41,6 +52,8 @@ function AdminBookings() {
       </div>
     );
   }
+
+  // console.log(bookings);
 
   const handleDelete = async (bookingId) => {
     setSelectedBookingId(bookingId);
@@ -101,6 +114,7 @@ function AdminBookings() {
       return false;
     });
 
+    setBookings(filteredList);
     setFilteredBookings(filteredList);
   };
 
@@ -111,7 +125,7 @@ function AdminBookings() {
     setSearchEventName('');
     setSearchStartTime('');
     setSearchEndTime('');
-    setFilteredBookings(bookings);
+    fetchOriginalBookings();
   };
 
   return (

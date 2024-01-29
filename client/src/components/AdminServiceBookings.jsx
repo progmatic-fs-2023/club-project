@@ -6,7 +6,7 @@ import { formatDate, formatDateLong } from '../utils/dateUtils';
 
 function AdminServiceBookings() {
   const [serviceBookings, setServiceBookings] = useState([]);
-  const [searchId, setSearchId] = useState('');
+  const [searchServiceBookingId, setSearchServiceBookingId] = useState('');
   const [searchFirstName, setSearchFirstName] = useState('');
   const [searchLastName, setSearchLastName] = useState('');
   const [searchServiceName, setSearchServiceName] = useState('');
@@ -33,6 +33,17 @@ function AdminServiceBookings() {
     fetchServiceBookings();
   }, []);
 
+  const fetchOriginalServiceBookings = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/servicebookings`);
+      const result = await response.json();
+      setServiceBookings(result);
+      setFilteredBookings(result);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center h-100 w-100">
@@ -43,8 +54,8 @@ function AdminServiceBookings() {
     );
   }
 
-  const handleDelete = async (bookingId) => {
-    setSelectedBookingId(bookingId);
+  const handleDelete = async (serviceBookingId) => {
+    setSelectedBookingId(serviceBookingId);
     setShowModal(true);
   };
 
@@ -103,17 +114,19 @@ function AdminServiceBookings() {
       return false;
     });
 
+    setServiceBookings(filteredList);
     setFilteredBookings(filteredList);
   };
 
   const resetSearch = () => {
-    setSearchId('');
+    setSearchServiceBookingId('');
     setSearchFirstName('');
     setSearchLastName('');
     setSearchServiceName('');
     setSearchStartTime('');
     setSearchEndTime('');
     setFilteredBookings(serviceBookings);
+    fetchOriginalServiceBookings();
   };
 
   return (
@@ -124,8 +137,8 @@ function AdminServiceBookings() {
 
       <AdminServiceBookingSearch
         onSearch={onSearch}
-        searchId={searchId}
-        setSearchId={setSearchId}
+        searchServiceBookingId={searchServiceBookingId}
+        setSearchServiceBookingId={setSearchServiceBookingId}
         searchFirstName={searchFirstName}
         setSearchFirstName={setSearchFirstName}
         searchLastName={searchLastName}
@@ -158,12 +171,9 @@ function AdminServiceBookings() {
           </thead>
           <tbody>
             {filteredBookings.map((serviceBooking) => (
-              <tr key={serviceBooking.serviceBookingId}>
+              <tr key={`serviceBookigs-key-${serviceBooking.serviceBookingId}`}>
                 {modifiedHeaders.map((header) => (
-                  <td
-                    className="p-4 text-center"
-                    key={`${serviceBooking.serviceBookingId}-${header}`}
-                  >
+                  <td className="p-4 text-center" key={`serviceBookings-key-table-${header}`}>
                     {header === 'Booking id' && (
                       <div>
                         <div>{serviceBooking.serviceBookingId}</div>

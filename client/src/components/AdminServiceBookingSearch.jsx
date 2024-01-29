@@ -4,8 +4,8 @@ import { MdCancel } from 'react-icons/md';
 
 function AdminServiceBookingSearch({
   onSearch,
-  searchId,
-  setSearchId,
+  searchServiceBookingId,
+  setSearchServiceBookingId,
   searchFirstName,
   setSearchFirstName,
   searchLastName,
@@ -22,14 +22,14 @@ function AdminServiceBookingSearch({
     <Container className="shadow-sm bg-white p-3 my-4 rounded">
       <Row className="align-items-end">
         <Col xs={6} md={2}>
-          <div className="fw-bold">Id</div>
+          <div className="fw-bold">Booking Id</div>
           <Form.Control
             type="text"
-            placeholder="By ID"
-            value={searchId}
+            placeholder="By Booking ID"
+            value={searchServiceBookingId}
             onChange={(event) => {
               onSearch(event.target.value, 'serviceBookingId');
-              setSearchId(event.target.value);
+              setSearchServiceBookingId(event.target.value);
             }}
             className="my-2"
           />
@@ -120,8 +120,8 @@ export default AdminServiceBookingSearch;
 
 AdminServiceBookingSearch.propTypes = {
   onSearch: PropTypes.func.isRequired,
-  searchId: PropTypes.string.isRequired,
-  setSearchId: PropTypes.func.isRequired,
+  searchServiceBookingId: PropTypes.string.isRequired,
+  setSearchServiceBookingId: PropTypes.func.isRequired,
   searchFirstName: PropTypes.string.isRequired,
   setSearchFirstName: PropTypes.func.isRequired,
   searchLastName: PropTypes.string.isRequired,

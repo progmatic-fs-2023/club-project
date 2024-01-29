@@ -16,11 +16,11 @@ export default function ProfileCard() {
   const [showAllServices, setShowAllServices] = useState(false);
 
   const handleShowAllEvents = () => {
-    setShowAllEvents(true);
+    setShowAllEvents((prevState) => !prevState);
   };
 
   const handleShowAllServices = () => {
-    setShowAllServices(true);
+    setShowAllServices((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function ProfileCard() {
 
     const endOfWeekDate = new Date(today);
     endOfWeekDate.setHours(23, 59, 59, 999);
-    endOfWeekDate.setDate(today.getDate() + (7 - currentDayOfWeek));
+    endOfWeekDate.setDate(today.getDate() + (6 - currentDayOfWeek));
 
     const eventsInCurrentWeek = bookedEvents.filter((booking) => {
       const eventDate = new Date(booking.start_time);
@@ -80,7 +80,7 @@ export default function ProfileCard() {
 
     const endOfWeekDate = new Date(today);
     endOfWeekDate.setHours(23, 59, 59, 999);
-    endOfWeekDate.setDate(today.getDate() + (7 - currentDayOfWeek));
+    endOfWeekDate.setDate(today.getDate() + (6 - currentDayOfWeek));
 
     const servicesInCurrentWeek = bookedServices.filter((booking) => {
       const serviceDate = new Date(booking.startTime);
