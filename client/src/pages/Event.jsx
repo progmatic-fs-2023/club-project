@@ -21,91 +21,46 @@ function Event() {
   const { user, isAuthenticated } = useAuth();
   const [availableSeats, setAvailableSeats] = useState(0);
 
-  useEffect(() => {
-    const fetchEventByName = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/events/${eventName}`);
-        const result = await response.json();
+  const { id } = user;
 
-        if (result) {
-          setEvent(result);
-        } else {
-          // console.error('Event not found:', eventName);
+  const fetchData = async () => {
+    try {
+      // Fetch event data
+      const eventResponse = await fetch(`${API_URL}/api/events/${eventName}`);
+      const eventData = await eventResponse.json();
+
+      if (eventData) {
+        setEvent(eventData);
+
+        // Fetch available seats data
+        const availableSeatsResponse = await fetch(
+          `${API_URL}/api/events/available-seats/${eventData.id}`,
+        );
+        const availableSeatsData = await availableSeatsResponse.json();
+        if (availableSeatsData) {
+          setAvailableSeats(availableSeatsData.availableSeats.modified_available_seats);
         }
-      } catch (error) {
-        // console.error('Error fetching data:', error);
+
+        if (availableSeats && isAuthenticated) {
+          // Fetch booked event data
+          const bookedEventResponse = await fetch(
+            `${API_URL}/api/booking/book/${id}?eventId=${eventData.id}`,
+          );
+          const bookedEventData = await bookedEventResponse.json();
+
+          if (bookedEventData) {
+            setIsBookingAlreadyExists(bookedEventData.exists);
+          }
+        }
       }
-    };
-
-    fetchEventByName();
-  }, [eventName]);
-
-  useEffect(() => {
-    const fetchIsBookedEvent = async () => {
-      try {
-        const { id } = user;
-        if (!event.id) {
-          return;
-        }
-        const eventId = event.id;
-
-        const response = await fetch(`${API_URL}/api/booking/book/${id}?eventId=${eventId}`);
-        const result = await response.json();
-
-        if (result) {
-          setIsBookingAlreadyExists(result.exists);
-        } else {
-          // console.error('Event not found:', eventName);
-        }
-      } catch (error) {
-        // console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchIsBookedEvent();
-  }, [event.id]);
+    } catch (error) {
+      // Error handling
+    }
+  };
 
   useEffect(() => {
-    const fetchAvailableSeats = async () => {
-      try {
-        if (!selectedEvent || typeof selectedEvent.id === 'undefined') {
-          return;
-        }
-        const response = await fetch(`${API_URL}/api/events/${selectedEvent.id}/available-seats`);
-        const data = await response.json();
-        setAvailableSeats(data.availableSeats);
-      } catch (error) {
-        /* console.error('Error fetching available seats:', error); */
-      }
-    };
-
-    fetchAvailableSeats();
-  }, [selectedEvent /* reservedEvents */]);
-
-  useEffect(() => {
-    const fetchIsBookedEvent = async () => {
-      try {
-        const { id } = user;
-        if (!event.id) {
-          return;
-        }
-        const eventId = event.id;
-
-        const response = await fetch(`${API_URL}/api/booking/book/${id}?eventId=${eventId}`);
-        const result = await response.json();
-
-        if (result) {
-          setIsBookingAlreadyExists(result.exists);
-        } else {
-          // console.error('Event not found:', eventName);
-        }
-      } catch (error) {
-        // console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchIsBookedEvent();
-  }, [event.id]);
+    fetchData();
+  }, [eventName, availableSeats, showThankYouModal]);
 
   const startDate = formatDateShort(event.startTime);
   const startTime = formatTime(event.startTime);
@@ -159,6 +114,10 @@ function Event() {
     setShowThankYouModal(false);
   }, [eventName]);
 
+  const today = new Date();
+  const isExpiredEvent = new Date(event.endTime) <= today;
+  const isSoldOut = event.availableSeats === 0;
+
   const renderContent = () => {
     if (!isAuthenticated) {
       return (
@@ -175,10 +134,6 @@ function Event() {
         </OverlayTrigger>
       );
     }
-
-    const today = new Date();
-    const isExpiredEvent = new Date(event.endTime) <= today;
-    const isSoldOut = event.availableSeats === 0;
 
     let buttonText = 'RESERVE';
     let isCursorEnabled = true;
@@ -224,11 +179,13 @@ function Event() {
                 {startTime} - {endTime}
               </div>
             </div>
-            <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
-
-            <div className="p-2 d-flex justify-content-center" style={availableSeatsStyle}>
-              Available Seats: {availableSeats}
+            <div className="px-3 pt-2 fw-bold">
+              AVAILABLE SEATS:
+              <span style={availableSeatsStyle}>
+                {isExpiredEvent ? ' EXPIRED' : ` ${availableSeats}`}
+              </span>
             </div>
+            <div className="p-3 d-flex justify-content-center">{event.moreDetails}</div>
 
             <div className="p-3 d-flex justify-content-center flex-wrap">
               <div className="p-3 d-flex align-items-center">{renderContent()}</div>
@@ -252,7 +209,7 @@ function Event() {
         </div>
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>
             {reservationAccepted
               ? 'Thank you! We accepted your reservation'
@@ -264,7 +221,7 @@ function Event() {
         <Modal.Body>
           {reservationAccepted
             ? 'Your reservation has been accepted and cannot be withdrawn.'
-            : 'Your reservation will be final and cannot be withdrawn.'}
+            : 'Your reservation will be final.'}
         </Modal.Body>
         <Modal.Footer>
           {reservationAccepted ? (
@@ -273,14 +230,10 @@ function Event() {
             </Button>
           ) : (
             <>
-              <Button variant="secondary" onClick={handleCloseModal} style={{ marginLeft: 'auto' }}>
+              <Button variant="secondary" onClick={handleCloseModal}>
                 No
               </Button>
-              <Button
-                variant="primary"
-                onClick={handleConfirmReserve}
-                style={{ marginRight: 'auto' }}
-              >
+              <Button variant="success" onClick={handleConfirmReserve}>
                 Yes
               </Button>
             </>
@@ -289,12 +242,17 @@ function Event() {
       </Modal>
 
       <Modal show={showThankYouModal} onHide={() => setShowThankYouModal(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Thank you!</Modal.Title>
         </Modal.Header>
         <Modal.Body>Your reservation was successful.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => setShowThankYouModal(false)}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setShowThankYouModal(false);
+            }}
+          >
             Close
           </Button>
         </Modal.Footer>

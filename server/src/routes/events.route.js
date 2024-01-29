@@ -19,6 +19,6 @@ eventsRouter.put('/:id', updateEvent);
 
 eventsRouter.delete('/:id', deleteEvent);
 
-eventsRouter.get('/:id/available-seats', getAvailableSeatsForEvent);
+eventsRouter.get('/available-seats/:id', getAvailableSeatsForEvent);
 
 export default eventsRouter;

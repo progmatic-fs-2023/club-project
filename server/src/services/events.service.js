@@ -75,26 +75,13 @@ const updateEventById = async (
 };
 
 // AVAILABLE SEATS
-
 const getAvailableSeatsForEventById = async eventId => {
-  try {
-    if (!eventId) {
-      throw new Error('Event ID is missing or invalid');
-    }
+  const response = await db.query(
+    'SELECT available_seats - (SELECT COUNT(*) FROM events INNER JOIN booking_members_events ON booking_members_events.event_id = events.id WHERE events.id = $1) AS modified_available_seats FROM events WHERE events.id = $1',
+    [eventId],
+  );
 
-    const response = await db.query('SELECT available_seats FROM events WHERE id = $1', [eventId]);
-
-    if (response.rows.length === 0) {
-      throw new Error(`No event found with ID: ${eventId}`);
-    }
-
-    const availableSeats = parseInt(response.rows[0].available_seats, 10);
-
-    return availableSeats;
-  } catch (error) {
-    console.error('Error fetching available seats for event by ID:', error);
-    throw error;
-  }
+  return response.rows[0];
 };
 
 async function getUserEmail(userId) {
