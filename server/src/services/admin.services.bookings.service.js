@@ -26,15 +26,20 @@ const getDetailsOfServiceBookingsById = async id => {
 };
 
 // DELETE SERVICE BOOKINGS
-
-const deleteServiceBookingById = async selectedBookingId => {
+const deleteServiceBookingById = async (bookingId, timeSlotId) => {
   try {
-    const response = await db.query('DELETE FROM bookings_services WHERE booking_id = $1', [
-      selectedBookingId,
+    await db.query('BEGIN');
+
+    await db.query('DELETE FROM bookings_services WHERE booking_id = $1', [bookingId]);
+
+    const response = await db.query('UPDATE time_slots SET is_reserved = false WHERE id = $1', [
+      timeSlotId,
     ]);
-    return response.rows[0];
+
+    await db.query('COMMIT');
+    return response.rows;
   } catch (error) {
-    console.error('Error deleting service booking by id:', error);
+    await db.query('ROLLBACK');
     throw error;
   }
 };

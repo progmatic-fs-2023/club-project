@@ -41,8 +41,9 @@ const getDetailsOfServiceBookings = async (req, res) => {
 // DELETE SERVICE BOOKINGS
 const deleteServiceBooking = async (req, res) => {
   const { id } = req.params;
+  const { timeSlotId } = req.query;
   try {
-    const deletedBooking = await deleteServiceBookingById(id);
+    const deletedBooking = await deleteServiceBookingById(id, timeSlotId);
     if (deletedBooking) {
       res.json({ message: 'Booking deleted successfully' });
     } else {
