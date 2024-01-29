@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Row, Col, Button, Form, Modal } from 'react-bootstrap';
-import { FaEdit } from 'react-icons/fa';
+import { FaEdit, FaCheckCircle } from 'react-icons/fa';
 import { IoIosSave } from 'react-icons/io';
+
 import { MdCancel, MdDeleteForever } from 'react-icons/md';
 import { formatDateLong } from '../utils/dateUtils';
 import { API_URL } from '../constants';
@@ -16,6 +17,7 @@ function AdminMember() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
+  const newIsPayed = !modifiedMember.isPayed;
 
   useEffect(() => {
     const fetchMemberById = async () => {
@@ -30,7 +32,7 @@ function AdminMember() {
     };
 
     fetchMemberById();
-  }, []);
+  }, [newIsPayed]);
 
   const handleSaveClick = async () => {
     if (modifiedMember.firstName.length < 1) {
@@ -100,6 +102,31 @@ function AdminMember() {
     setIsEditing(false);
   };
 
+  const handleButtonClick = async () => {
+    setModifiedMember((prevModifiedMember) => ({
+      ...prevModifiedMember,
+      isPayed: newIsPayed,
+    }));
+
+    try {
+      const response = await fetch(
+        `${API_URL}/api/admin/finance/${memberId}?newIsPayed=${newIsPayed}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ modifiedMember }),
+        },
+      );
+
+      const result = await response.json();
+      setMember(result);
+    } catch (error) {
+      // console.error('Error fetching data:', error);
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -139,7 +166,7 @@ function AdminMember() {
         </ol>
       </nav>
       <Row>
-        <div className="row">
+        <Row>
           <Col xs={12} md={12} className="text-dark fs-3 mb-2 josefin-font fw-bold">
             {`${member.firstName} ${member.lastName}`}
           </Col>
@@ -191,7 +218,7 @@ function AdminMember() {
               </div>
             </div>
           </div>
-        </div>
+        </Row>
         <div className="row">
           <Row>
             {errorMessage && (
@@ -349,59 +376,79 @@ function AdminMember() {
           <Col col={1} className="d-flex justify-content-center d-flex d-md-none p-0">
             <div className="w-100 p-2 mx-4 d-flex align-items-center d-flex d-md-none p-0 border-1 border-bottom" />
           </Col>
-          <Col xs={12} md={3} lg={2} xl={3} className="m-2">
-            <div
-              className={`${
-                isEditing ? 'border border-info px-2 rounded bg-white' : ''
-              } d-flex flex-row flex-md-column`}
-            >
-              <div className="fw-bold">PAYMENT SUCCESSFUL</div>
-              {isEditing ? (
-                <div className="d-flex pe-4 ps-1 pb-md-3">
-                  <input
-                    type="checkbox"
-                    name="isPayed"
-                    checked={modifiedMember.isPayed}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              ) : (
-                <div className="pe-4 ps-1 pb-md-3">
-                  <input type="checkbox" checked={modifiedMember.isPayed} readOnly />
-                </div>
-              )}
-              <div className="fw-bold">VERIFIED VIA EMAIL</div>
-              {isEditing ? (
-                <div className="pe-4 ps-1 pb-md-3">
-                  <input
-                    type="checkbox"
-                    name="isVerified"
-                    checked={modifiedMember.isVerified}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              ) : (
-                <div className="pe-4 ps-1 pb-md-3">
-                  <input type="checkbox" checked={modifiedMember.isVerified} readOnly />
-                </div>
-              )}
 
-              <div className="fw-bold">ADMIN ROLE</div>
-              {isEditing ? (
-                <div className="pe-4 ps-1 pb-md-3">
-                  <input
-                    type="checkbox"
-                    name="isAdmin"
-                    checked={modifiedMember.isAdmin}
-                    onChange={handleInputChange}
-                    readOnly={false}
-                  />
+          <Col xs={10} md={3} lg={3} xl={3} xxl={3} className="m-2">
+            <div className="d-flex flex-column w-100 w-md-75">
+              <div className="bg-dark text-light rounded p-2">
+                <div className="fw-bold">PAYMENT STATUS</div>
+                <div style={{ color: modifiedMember.isPayed ? 'green' : 'red' }}>
+                  {modifiedMember.isPayed ? 'TRUE' : 'FALSE'}
                 </div>
-              ) : (
-                <div className="pe-4 ps-1 pb-md-3">
-                  <input type="checkbox" checked={modifiedMember.isAdmin} readOnly />
+                <div className="d-flex align-items-center">
+                  <div>
+                    <div className="d-flex align-items-center">
+                      <div>
+                        <button
+                          className={`${
+                            modifiedMember.isPayed ? 'btn btn-danger' : 'btn btn-success'
+                          } fs-6 d-flex align-items-center my-2`}
+                          type="button"
+                          onClick={handleButtonClick}
+                        >
+                          {modifiedMember.isPayed ? (
+                            <>
+                              <MdDeleteForever className="me-2" /> DELETE{' '}
+                            </>
+                          ) : (
+                            <>
+                              <FaCheckCircle className="me-2" /> CONFIRM{' '}
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              )}
+              </div>
+
+              <div
+                className={`${
+                  isEditing ? 'border border-info px-2 rounded bg-white' : ''
+                } d-flex flex-row flex-md-column py-2 my-2`}
+              >
+                <div className="fw-bold">EMAIL VERIFIED</div>
+                {isEditing ? (
+                  <div className="pe-2 ps-1 pb-md-3">
+                    <input
+                      type="checkbox"
+                      name="isVerified"
+                      checked={modifiedMember.isVerified}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                ) : (
+                  <div className="pe-3 ps-1 pb-md-3">
+                    <input type="checkbox" checked={modifiedMember.isVerified} readOnly />
+                  </div>
+                )}
+
+                <div className="fw-bold">ADMIN ROLE</div>
+                {isEditing ? (
+                  <div className="pe-4 ps-1 pb-md-3">
+                    <input
+                      type="checkbox"
+                      name="isAdmin"
+                      checked={modifiedMember.isAdmin}
+                      onChange={handleInputChange}
+                      readOnly={false}
+                    />
+                  </div>
+                ) : (
+                  <div className="pe-4 ps-1 pb-md-3">
+                    <input type="checkbox" checked={modifiedMember.isAdmin} readOnly />
+                  </div>
+                )}
+              </div>
             </div>
           </Col>
         </div>
