@@ -57,7 +57,7 @@ function AdminEvents() {
 
     if (type === 'file') {
       const [file] = e.target.files || [];
-      newValue = file;
+      newValue = file.name;
     } else if (name === 'availableSeats') {
       newValue = Math.max(0, parseInt(e.target.value, 10));
     } else {
