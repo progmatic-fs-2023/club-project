@@ -78,6 +78,8 @@ const deleteUserByID = async id => {
 
     await db.query('DELETE FROM bookings_services WHERE member_id = $1', [id]);
 
+    await db.query('DELETE FROM booking_members_events WHERE member_id = $1', [id]);
+
     const response = await db.query('DELETE FROM members WHERE id = $1 RETURNING *', [id]);
 
     await db.query('COMMIT');
