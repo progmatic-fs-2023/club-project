@@ -138,7 +138,10 @@ function Event() {
     let buttonText = 'RESERVE';
     let isCursorEnabled = true;
 
-    if (isBookingAlreadyExists) {
+    if (!user.isPayed) {
+      buttonText = 'NOT PAYED YET';
+      isCursorEnabled = false;
+    } else if (isBookingAlreadyExists) {
       buttonText = 'RESERVED';
       isCursorEnabled = false;
     } else if (isExpiredEvent) {
@@ -153,10 +156,11 @@ function Event() {
       <Button
         className="fs-5 max-vw-25 d-flex align-items-center gap-1"
         onClick={handleReserveClick}
-        disabled={isSoldOut || isExpiredEvent || isBookingAlreadyExists}
+        disabled={isSoldOut || isExpiredEvent || isBookingAlreadyExists || !user.isPayed}
         style={{ pointerEvents: isCursorEnabled ? 'pointer' : 'none' }}
       >
-        {buttonText} {isBookingAlreadyExists || isSoldOut ? '' : <MdOutlineCalendarMonth />}
+        {buttonText}{' '}
+        {!user.isPayed || isBookingAlreadyExists || isSoldOut ? '' : <MdOutlineCalendarMonth />}
       </Button>
     );
   };

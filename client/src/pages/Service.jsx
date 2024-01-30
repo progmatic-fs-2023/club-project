@@ -64,6 +64,62 @@ function Service() {
     return false;
   };
 
+  const renderContent = () => {
+    if (user.isPayed && isAuthenticated && syncBookingButtonWithMembership()) {
+      return (
+        <>
+          <NavLink
+            to={`/booking/${service.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-decoration-none"
+          >
+            <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1">
+              BOOKING <MdOutlineCalendarMonth />
+            </Button>
+          </NavLink>
+          ;
+        </>
+      );
+    }
+    if (!user.isPayed) {
+      return (
+        <span className="d-inline-block">
+          <Button
+            className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+            disabled
+            style={{ pointerEvents: 'none' }}
+          >
+            NOT PAYED YET
+          </Button>
+        </span>
+      );
+    }
+    return (
+      <>
+        <OverlayTrigger
+          overlay={
+            <Tooltip id="tooltip-disabled">
+              {' '}
+              {isAuthenticated ? 'UPGRADE YOUR MEMBERSHIP' : 'LOG IN TO BOOK!'}
+            </Tooltip>
+          }
+        >
+          <span className="d-inline-block">
+            <Button
+              className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+              disabled
+              style={{ pointerEvents: 'none' }}
+            >
+              BOOKING <MdOutlineCalendarMonth />
+            </Button>
+          </span>
+        </OverlayTrigger>
+        ;
+      </>
+    );
+  };
+
   return (
     <div className="d-flex flex-column">
       <Image className="header-image w-100 object-fit-cover" src={service.headerImg} />
@@ -78,39 +134,7 @@ function Service() {
           </div>
           <div className="p-3 d-flex justify-content-center">{service.moreDetails}</div>
           <div className="p-3 d-flex justify-content-center flex-wrap">
-            <div className="p-3 d-flex align-items-center">
-              {isAuthenticated && syncBookingButtonWithMembership() ? (
-                <NavLink
-                  to={`/booking/${service.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-decoration-none"
-                >
-                  <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1">
-                    BOOKING <MdOutlineCalendarMonth />
-                  </Button>
-                </NavLink>
-              ) : (
-                <OverlayTrigger
-                  overlay={
-                    <Tooltip id="tooltip-disabled">
-                      {' '}
-                      {isAuthenticated ? 'UPGRADE YOUR MEMBERSHIP' : 'LOG IN TO BOOK!'}
-                    </Tooltip>
-                  }
-                >
-                  <span className="d-inline-block">
-                    <Button
-                      className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
-                      disabled
-                      style={{ pointerEvents: 'none' }}
-                    >
-                      BOOKING <MdOutlineCalendarMonth />
-                    </Button>
-                  </span>
-                </OverlayTrigger>
-              )}
-            </div>
+            <div className="p-3 d-flex align-items-center">{renderContent()}</div>
             <div className="p-3">
               <Nav className="d-flex justify-content-evenly">
                 <Nav.Link as={NavLink} to="/services">
