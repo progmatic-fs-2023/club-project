@@ -107,6 +107,11 @@ function AdminBookings() {
         return formattedEndTime <= formatDate(searchDate);
       }
 
+      if (fieldName === 'bookingId') {
+        const fieldValueString = fieldValue.toString();
+        return fieldValueString.includes(searchValue);
+      }
+
       if (typeof fieldValue === 'string') {
         return fieldValue.toLowerCase().includes(searchValue.toLowerCase());
       }

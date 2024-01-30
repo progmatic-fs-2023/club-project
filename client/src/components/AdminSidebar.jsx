@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 import { BsPeopleFill } from 'react-icons/bs';
 import { FaMoneyCheckAlt } from 'react-icons/fa';
-import { MdOutlineSportsTennis } from 'react-icons/md';
 import { LuPartyPopper } from 'react-icons/lu';
 import { IoIosBook } from 'react-icons/io';
 
@@ -55,11 +54,6 @@ function AdminSidebar({ openSidebarToggle, OpenSidebar }) {
           <li className="p-4 fs-6 bg-dark m-0">
             {' '}
             <FaMoneyCheckAlt className="m-1 fs-5" /> Finance
-          </li>
-        </Link>
-        <Link to="admin/services" className="link-light-gray text-decoration-none">
-          <li className="p-4 fs-6 bg-dark m-0 ">
-            <MdOutlineSportsTennis className="m-1 fs-5" /> Services
           </li>
         </Link>
         <Link to="admin/servicebookings" className="link-light-gray text-decoration-none">
