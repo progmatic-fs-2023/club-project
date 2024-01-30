@@ -40,13 +40,14 @@ const sendUserDataToDatabase = async (userId, eventId) => {
   return result.rows;
 };
 
-// GET A WEEK LIST BY ID
+// GET BOOKED EVENT STATUS
 const getBookedEventByMemberId = async (id, eventId) => {
   const response = await db.query(
     `SELECT EXISTS (
       SELECT 1 FROM public.booking_members_events WHERE member_id = $1 AND event_id = $2)`,
     [id, eventId],
   );
+
   return response.rows[0];
 };
 

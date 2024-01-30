@@ -30,7 +30,7 @@ const weekListById = async (req, res, next) => {
 const getEventBookingByMemberId = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { eventId } = req.body;
+    const { eventId } = req.query;
 
     const event = await getBookedEventByMemberId(id, eventId);
     if (event) {
@@ -67,7 +67,7 @@ const createBooking = async (req, res, next) => {
 const bookEvent = async (req, res) => {
   try {
     const { userId } = req.cookies;
-    const { eventId } = req.cookies;
+    const { eventId } = req.body;
 
     await sendUserDataToDatabase(userId, eventId);
 
