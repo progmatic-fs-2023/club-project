@@ -16,7 +16,6 @@ import Membership from './pages/Membership';
 import AdminLayout from './components/AdminLayout';
 import AdminFinance from './components/AdminFinance';
 import AdminMembers from './components/AdminMembers';
-import AdminServices from './components/AdminServices';
 import AdminEvents from './components/AdminEvents';
 import AdminBookings from './components/AdminBookings';
 import AdminServiceBookings from './components/AdminServiceBookings';
@@ -69,7 +68,6 @@ function App() {
           <Route path="/admin/members" element={<AdminMembers />} />
           <Route path="/admin/members/:memberId" element={<AdminMember />} />
           <Route path="/admin/finance" element={<AdminFinance />} />
-          <Route path="/admin/services" element={<AdminServices />} />
           <Route path="/admin/events" element={<AdminEvents />} />
           <Route path="/admin/bookings" element={<AdminBookings />} />
           <Route path="/admin/servicebookings" element={<AdminServiceBookings />} />

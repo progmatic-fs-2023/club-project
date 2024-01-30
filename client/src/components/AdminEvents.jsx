@@ -309,6 +309,16 @@ function AdminEvents() {
                 onChange={(e) => setEditEvent({ ...editEvent, details: e.target.value })}
               />
             </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Details:</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={6}
+                name="moreDetails"
+                value={editEvent?.moreDetails || ''}
+                onChange={(e) => setEditEvent({ ...editEvent, moreDetails: e.target.value })}
+              />
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>

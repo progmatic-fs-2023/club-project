@@ -115,6 +115,11 @@ function AdminServiceBookings() {
         return formattedEndTime <= formatDate(searchDate);
       }
 
+      if (fieldName === 'serviceBookingId') {
+        const fieldValueString = fieldValue.toString();
+        return fieldValueString.includes(searchValue);
+      }
+
       if (typeof fieldValue === 'string') {
         return fieldValue.toLowerCase().includes(searchValue.toLowerCase());
       }
