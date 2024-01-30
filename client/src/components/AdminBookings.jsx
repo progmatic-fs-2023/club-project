@@ -17,18 +17,19 @@ function AdminBookings() {
   const [selectedBookingId, setSelectedBookingId] = useState(null);
   const [loading, setLoading] = useState([]);
 
+  const fetchEventBookings = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/bookings`);
+      const result = await response.json();
+      setBookings(result);
+      setFilteredBookings(result);
+      setLoading(false);
+    } catch (error) {
+      // console.error('Error fetching events:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchEventBookings = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/bookings`);
-        const result = await response.json();
-        setBookings(result);
-        setFilteredBookings(result);
-        setLoading(false);
-      } catch (error) {
-        // console.error('Error fetching events:', error);
-      }
-    };
     fetchEventBookings();
   }, []);
 
@@ -70,6 +71,7 @@ function AdminBookings() {
         });
 
         if (deleteResponse.ok) {
+          fetchEventBookings();
           setBookings((prevBookings) =>
             prevBookings.filter((booking) => booking.bookingId !== selectedBookingId),
           );
