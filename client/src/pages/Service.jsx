@@ -15,6 +15,7 @@ function Service() {
   const [service, setService] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user, isAuthenticated } = useAuth();
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     const fetchServiceByName = async () => {
@@ -98,14 +99,27 @@ function Service() {
     return (
       <>
         <OverlayTrigger
+          show={showTooltip}
           overlay={
-            <Tooltip id="tooltip-disabled">
+            <Tooltip
+              id="tooltip-disabled"
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+            >
               {' '}
-              {isAuthenticated ? 'UPGRADE YOUR MEMBERSHIP' : 'LOG IN TO BOOK!'}
+              {isAuthenticated ? (
+                <NavLink to="/membership"> UPGRADE YOUR MEMBERSHIP </NavLink>
+              ) : (
+                'LOG IN TO BOOK!'
+              )}
             </Tooltip>
           }
         >
-          <span className="d-inline-block">
+          <span
+            className="d-inline-block"
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+          >
             <Button
               className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
               disabled
