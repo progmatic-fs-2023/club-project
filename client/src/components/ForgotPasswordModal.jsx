@@ -10,6 +10,7 @@ import NewPasswordEmailFeedbackModal from './NewPasswordEmailFeedbackModal';
 function ForgotPasswordModal({ show, handleClose }) {
   const [email, setEmail] = useState('');
   const [smShowEmailSentModal, setSmShowEmailSentModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleResetPassword = async () => {
     try {
@@ -21,15 +22,24 @@ function ForgotPasswordModal({ show, handleClose }) {
         body: JSON.stringify({ email }),
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        // console.log(data.message);
+      if (response.ok) {
+        const data = await response.text();
+        setErrorMessage(`${data}`);
+        setSmShowEmailSentModal(true);
+        /* if (data.success) {
+          console.log('Password reset successful.');
+        } else {
+          setErrorMessage(data.message);
+          setSmShowEmailSentModal(true);
+        } */
       } else {
-        // console.log(data.message);
+        const text = await response.text();
+        setErrorMessage(`${text}`);
+        setSmShowEmailSentModal(true);
       }
     } catch (error) {
-      //   console.error(error);
+      setErrorMessage('Network error. Please try again.');
+      setSmShowEmailSentModal(true);
     }
   };
   return (
@@ -63,7 +73,7 @@ function ForgotPasswordModal({ show, handleClose }) {
               handleResetPassword();
               handleClose();
               setEmail('');
-              setSmShowEmailSentModal(true);
+              // setSmShowEmailSentModal(true);
             }}
           >
             Reset Password
@@ -73,6 +83,7 @@ function ForgotPasswordModal({ show, handleClose }) {
       <NewPasswordEmailFeedbackModal
         smShowEmailSentModal={smShowEmailSentModal}
         setSmShowEmailSentModal={setSmShowEmailSentModal}
+        errorMessage={errorMessage}
       />
     </>
   );
