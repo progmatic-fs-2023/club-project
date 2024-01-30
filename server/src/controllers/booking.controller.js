@@ -30,7 +30,7 @@ const weekListById = async (req, res, next) => {
 const getEventBookingByMemberId = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { eventId } = req.query;
+    const { eventId } = req.body;
 
     const event = await getBookedEventByMemberId(id, eventId);
     if (event) {
