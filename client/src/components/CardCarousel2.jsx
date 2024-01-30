@@ -34,7 +34,9 @@ function CardCarousel2() {
         {events.map((event) => (
           <Col xs={10} md={6} lg={3} xl={3} xxl={2} key={event.id} className="my-3">
             <div className="h-100 d-flex flex-column">
-              <Card.Img variant="top" src={event.eventImg} />
+              <NavLink to={`events/${event.slugName}`}>
+                <Card.Img variant="top main-page-event" src={event.eventImg} />
+              </NavLink>
               <Card.Body className="d-flex flex-column align-items-start justify-content-between">
                 <Card.Title className="m-2 text-light-gray text-start">{event.name}</Card.Title>
                 <NavLink to={`events/${event.slugName}`}>

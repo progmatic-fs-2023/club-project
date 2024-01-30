@@ -7,6 +7,7 @@ import { API_URL } from '../constants';
 
 function Services() {
   const [services, setServices] = useState([]);
+  const [filteredServices, setFilteredServices] = useState([]);
   const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ function Services() {
         const result = await response.json();
 
         setServices(result);
+        setFilteredServices(services);
       } catch (error) {
         // console.error('Error fetching data:', error);
       }
@@ -24,23 +26,23 @@ function Services() {
     fetchServices();
   }, []);
 
+  useEffect(() => {
+    setFilteredServices(services);
+  }, [services]);
+
   const onSearch = (searchText) => {
     let filteredList = [...services];
 
     if (searchText.length >= 2) {
-      filteredList = filteredList.filter(
-        (service) =>
-          service.service.name.toLowerCase().includes(searchText.toLowerCase()) ||
-          service.service.details.toLowerCase().includes(searchText.toLowerCase()) ||
-          service.service.moreDetails.toLowerCase().includes(searchText.toLowerCase()),
+      filteredList = filteredList.filter((service) =>
+        service.name.toLowerCase().includes(searchText.toLowerCase()),
       );
 
       setNoResults(filteredList.length === 0);
     } else {
       setNoResults(false);
     }
-
-    setServices(filteredList);
+    setFilteredServices(filteredList);
 
     return filteredList;
   };
@@ -55,7 +57,7 @@ function Services() {
           <SearchBar className="search-bar" onSearch={onSearch} />
         </Col>
         {noResults && <p className="m-3 text-danger">No results found</p>}
-        <AllServices services={services} />
+        <AllServices services={filteredServices} />
       </Container>
     </Container>
   );
