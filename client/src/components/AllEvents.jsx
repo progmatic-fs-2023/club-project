@@ -29,6 +29,7 @@ function AllEvents({ events }) {
                   endTime={formatTime(event.endTime)}
                   eventImg={event.eventImg}
                   availableSeats={event.availableSeats}
+                  modifiedAvailableSeats={event.modifiedAvailableSeats}
                   details={event.details}
                 />
               </NavLink>

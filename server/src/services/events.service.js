@@ -3,7 +3,8 @@ import * as db from './db.service';
 // GET LIST ALL EVENTS
 const listAllEvents = async () => {
   const response = await db.query(
-    'SELECT id, name, start_time AS "startTime", end_time AS "endTime", available_seats AS "availableSeats", event_img AS "eventImg", header_img AS "headerImg", details, more_details AS "moreDetails", slug_name AS "slugName" FROM events',
+    'SELECT events.id, events.name, events.start_time AS "startTime", events.end_time AS "endTime", events.available_seats AS "availableSeats", events.event_img AS "eventImg", events.header_img AS "headerImg", events.details, events.more_details AS "moreDetails", events.slug_name AS "slugName", events.available_seats - COUNT(booking_members_events.event_id) AS "modifiedAvailableSeats" FROM events LEFT JOIN booking_members_events ON booking_members_events.event_id = events.id GROUP BY events.id, events.available_seats',
+    [],
   );
   return response.rows;
 };

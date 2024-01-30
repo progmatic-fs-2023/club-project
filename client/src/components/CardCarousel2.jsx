@@ -30,7 +30,13 @@ function CardCarousel2() {
   return (
     <div className="text-center">
       <h2 className="bg-dark text-light-gray pt-5 yeseva-font m-0">Upcoming events</h2>
-      <Row xs={1} md={2} lg={2} xl={4} className="p-5 bg-dark d-flex justify-content-center ">
+      <Row
+        xs={1}
+        md={2}
+        lg={2}
+        xl={4}
+        className="p-5 bg-dark d-flex justify-content-center w-100 m-0"
+      >
         {events.map((event) => (
           <Col xs={10} md={6} lg={3} xl={3} xxl={2} key={event.id} className="my-3">
             <div className="h-100 d-flex flex-column">

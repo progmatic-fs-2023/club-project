@@ -229,7 +229,9 @@ function AdminEvents() {
               <td>{event.name}</td>
               <td>{formatDateLong(event.startTime)}</td>
               <td>{formatDateLong(event.endTime)}</td>
-              <td>{event.availableSeats}</td>
+              <td>
+                {event.availableSeats}/{event.modifiedAvailableSeats}
+              </td>
               <td>
                 <Button variant="primary" onClick={() => handleEditEvent(event)}>
                   Edit
