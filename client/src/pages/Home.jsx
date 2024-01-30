@@ -1,12 +1,12 @@
 import MainCarousel from '../components/MainCarousel';
-import CardCarousel from '../components/CardCarousel';
+import CardCarousel2 from '../components/CardCarousel2';
 import AboutUsCharity from '../components/AboutUsCharity';
 
 function Home() {
   return (
     <>
       <MainCarousel />
-      <CardCarousel />
+      <CardCarousel2 />
       <AboutUsCharity />
     </>
   );

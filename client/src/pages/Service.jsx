@@ -42,22 +42,6 @@ function Service() {
     );
   }
 
-  /* let servicePrev = [];
-
-  if (service.id === 1) {
-    servicePrev = services.find((item) => item.id === services.length);
-  } else {
-    servicePrev = services.find((item) => item.id === service.id - 1);
-  }
-
-  let serviceNext = [];
-
-  if (service.id === services.length) {
-    serviceNext = services.find((item) => item.id === 1);
-  } else {
-    serviceNext = services.find((item) => item.id === service.id + 1);
-  } */
-
   const syncBookingButtonWithMembership = () => {
     if (user) {
       if (user.membership === 'silver' && service.membership === 'silver') {
@@ -129,17 +113,11 @@ function Service() {
             </div>
             <div className="p-3">
               <Nav className="d-flex justify-content-evenly">
-                {/*   <Nav.Link as={NavLink} to={`/services/${servicePrev.service.name}`}>
-              <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
-            </Nav.Link> */}
                 <Nav.Link as={NavLink} to="/services">
                   <Button className="btn-primary fs-5 max-vw-25">
                     SERVICES <RiArrowGoBackLine />
                   </Button>
                 </Nav.Link>
-                {/*     <Nav.Link as={NavLink} to={`/services/${serviceNext.service.name}`}>
-              <Button className="btn-primary fs-5 max-vw-25">Next</Button>
-            </Nav.Link> */}
               </Nav>
             </div>
           </div>
