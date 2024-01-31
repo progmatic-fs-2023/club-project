@@ -23,7 +23,6 @@ function Layout() {
   };
   const adminRole = user.id === null ? false : user.isAdmin;
   useEffect(() => {
-    // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
     if (isAuthenticated) {
       setShow('none');
     } else {
@@ -123,18 +122,6 @@ function Layout() {
                   <MdLogout className="mx-2" />
                 </Navbar.Brand>
               </OverlayTrigger>
-              {/* <Button
-                as={NavLink}
-                to="/"
-                style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
-                className="mx-3 max-vw-25 fs-5"
-                variant="outline-light"
-                onClick={() => {
-                  handleLogoutButton();
-                }}
-              >
-                Log out
-              </Button> */}
               <LoginModal
                 showButton={show}
                 setShowButton={handleCloseButton}

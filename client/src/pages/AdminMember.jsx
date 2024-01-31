@@ -78,8 +78,6 @@ function AdminMember() {
 
       if (response.ok) {
         navigate('/admin/members');
-      } else {
-        // console.error('Failed to delete member!');
       }
     } catch (error) {
       // console.error('Error deleting member:', error);

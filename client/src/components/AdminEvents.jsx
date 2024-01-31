@@ -38,8 +38,6 @@ function AdminEvents() {
 
       if (response.ok) {
         fetchEvents();
-      } else {
-        // console.error('Error deleting event');
       }
     } catch (error) {
       // console.error('Error deleting event:', error);
@@ -91,8 +89,6 @@ function AdminEvents() {
         });
 
         fetchEvents();
-      } else {
-        // console.error('Error adding event');
       }
     } catch (error) {
       // console.error('Error adding event:', error);
@@ -112,8 +108,6 @@ function AdminEvents() {
       if (response.ok) {
         fetchEvents();
         setIsEditing(false);
-      } else {
-        // console.error('Error updating event');
       }
     } catch (error) {
       // console.error('Error updating event:', error);

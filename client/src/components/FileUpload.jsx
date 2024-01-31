@@ -5,26 +5,17 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function FileUpload({ userId }) {
   const [file, setFile] = useState();
-  // console.log(userId)
   const { setUser } = useAuth();
 
   function handleFile(event) {
     setFile(event.target.files[0]);
-    // console.log(event.target.files[0])
   }
 
   async function handleUpload(event) {
     event.preventDefault();
 
     if (file) {
-      // console.log(userId)
-      // console.log(file.name)
-
-      // const formData = new FormData();
-      // formData.append('file', file, file.name);
-      // formData.append('userId', userId);
       const formData = { filePath: file.name, userId };
-      // console.log(formData)
 
       try {
         const response = await fetch(`${API_URL}/api/profile-picture`, {
@@ -37,9 +28,7 @@ export default function FileUpload({ userId }) {
 
         if (response.ok) {
           const result = await response.json();
-          // console.log('File uploaded successfully. File path:', result.data.member_img
-          // );
-          // console.log(`upload: ${result.data.id}`)
+
           setUser({
             id: result.data.id,
             firstName: result.data.first_name,
@@ -59,15 +48,10 @@ export default function FileUpload({ userId }) {
             phone: result.data.phone,
           });
           localStorage.setItem('user', JSON.stringify(result.data));
-          // console.log(result)
-        } else {
-          // console.error('File upload failed:', response.statusText);
         }
       } catch (error) {
         // console.error('File upload error:', error);
       }
-    } else {
-      // console.log('No file selected');
     }
   }
 

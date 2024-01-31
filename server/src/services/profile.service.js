@@ -5,7 +5,7 @@ const updateProfilePicture = async (imgPath, userId) => {
     imgPath,
     userId,
   ]);
-  // console.log(response.rows[0])
+
   return response.rows[0];
 };
 

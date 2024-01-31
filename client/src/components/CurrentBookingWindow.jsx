@@ -35,11 +35,11 @@ function CurrentBookingWindow({
       };
 
       try {
-        const response = await fetch(`${API_URL}/api/booking`, requestOptions);
-        const result = await response.json();
+        await fetch(`${API_URL}/api/booking`, requestOptions);
+        /* const result = await response.json();
         if (result) {
-          // window.location.reload();
-        }
+          window.location.reload();
+        } */
       } catch (error) {
         // console.error('Error during booking:', error);
       }

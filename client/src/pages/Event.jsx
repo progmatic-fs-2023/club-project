@@ -25,14 +25,12 @@ function Event() {
 
   const fetchData = async () => {
     try {
-      // Fetch event data
       const eventResponse = await fetch(`${API_URL}/api/events/${eventName}`);
       const eventData = await eventResponse.json();
 
       if (eventData) {
         setEvent(eventData);
 
-        // Fetch available seats data
         const availableSeatsResponse = await fetch(
           `${API_URL}/api/events/available-seats/${eventData.id}`,
         );
@@ -42,7 +40,6 @@ function Event() {
         }
 
         if (availableSeats && isAuthenticated) {
-          // Fetch booked event data
           const bookedEventResponse = await fetch(
             `${API_URL}/api/booking/book/${id}?eventId=${eventData.id}`,
           );
@@ -165,7 +162,7 @@ function Event() {
     );
   };
 
-  const availableSeatsStyle = availableSeats > 0 ? { color: 'green' } : {};
+  const availableSeatsStyle = availableSeats > 0 ? { color: 'green' } : { color: 'red' };
 
   return (
     <>
@@ -195,17 +192,11 @@ function Event() {
               <div className="p-3 d-flex align-items-center">{renderContent()}</div>
               <div className="p-3">
                 <Nav className="d-flex justify-content-evenly">
-                  {/*    <Nav.Link as={NavLink} to={`/events/${eventPrev.name}`}>
-              <Button className="btn-primary fs-5 max-vw-25">Prev</Button>
-            </Nav.Link> */}
                   <Nav.Link as={NavLink} to="/events">
                     <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1">
                       EVENTS <RiArrowGoBackLine />
                     </Button>
                   </Nav.Link>
-                  {/*  <Nav.Link as={NavLink} to={`/events/${eventNext.name}`}>
-              <Button className="btn-primary fs-5 max-vw-25">Next</Button>
-            </Nav.Link> */}
                 </Nav>
               </div>
             </div>

@@ -70,7 +70,6 @@ function Membership() {
   const handleSubscribe = async () => {
     try {
       if (!selectedPlan) {
-        // console.error('No membership selected');
         return;
       }
 
@@ -90,7 +89,6 @@ function Membership() {
       }
       if (response.ok) {
         const result = await response.json();
-        // console.log(`Membership: ${result}`)
         setUser(result);
         localStorage.setItem('user', JSON.stringify(result));
         setUpgradeSuccessful(true);
@@ -99,9 +97,8 @@ function Membership() {
           setUpgradeSuccessful(false);
         }, 3000);
       }
-      // localStorage.setItem('user', JSON.stringify(result.data));
     } catch (error) {
-      // console.error('Error subscribing:', error.message);
+      // console.error('Error subscribing:', error);
     }
   };
 

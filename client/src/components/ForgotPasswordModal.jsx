@@ -26,12 +26,6 @@ function ForgotPasswordModal({ show, handleClose }) {
         const data = await response.text();
         setErrorMessage(`${data}`);
         setSmShowEmailSentModal(true);
-        /* if (data.success) {
-          console.log('Password reset successful.');
-        } else {
-          setErrorMessage(data.message);
-          setSmShowEmailSentModal(true);
-        } */
       } else {
         const text = await response.text();
         setErrorMessage(`${text}`);
@@ -73,7 +67,6 @@ function ForgotPasswordModal({ show, handleClose }) {
               handleResetPassword();
               handleClose();
               setEmail('');
-              // setSmShowEmailSentModal(true);
             }}
           >
             Reset Password

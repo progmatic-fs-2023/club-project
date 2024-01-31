@@ -40,7 +40,7 @@ function AdminBookings() {
       setBookings(result);
       setFilteredBookings(result);
     } catch (error) {
-      // Handle error
+      // console.error('Error fetching original bookings:', error);
     }
   };
 
@@ -53,8 +53,6 @@ function AdminBookings() {
       </div>
     );
   }
-
-  // console.log(bookings);
 
   const handleDelete = async (bookingId) => {
     setSelectedBookingId(bookingId);
@@ -70,14 +68,10 @@ function AdminBookings() {
           method: 'DELETE',
         });
 
-        if (deleteResponse.ok) {
-          fetchEventBookings();
-          setBookings((prevBookings) =>
-            prevBookings.filter((booking) => booking.bookingId !== selectedBookingId),
-          );
-        } else {
-          /* console.error('Error deleting service booking'); */
-        }
+        if (deleteResponse.ok) fetchEventBookings();
+        setBookings((prevBookings) =>
+          prevBookings.filter((booking) => booking.bookingId !== selectedBookingId),
+        );
       } catch (error) {
         /* console.error('Error deleting service booking:', error); */
       }
