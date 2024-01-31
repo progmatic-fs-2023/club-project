@@ -24,7 +24,7 @@ function Booking() {
         />
       </div>
 
-      {selectedServiceId && (
+      {(selectedServiceId || selectedServiceName) && (
         <div className="d-flex align-items-center d-flex fs-5 fw-light pt-5 py-2">
           <Bs2CircleFill className="me-2" /> Choose the day of your arrival!
         </div>

@@ -11,7 +11,7 @@ function AdminLayout() {
   };
   return (
     <div className="bg-light">
-      <div className="grid-container min-vh-100">
+      <div className="grid-container vh-100">
         <AdminHeader OpenSidebar={OpenSidebar} />
         <AdminSidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
         <Outlet />

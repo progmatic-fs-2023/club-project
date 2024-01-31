@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { Bs3CircleFill } from 'react-icons/bs';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import PropTypes from 'prop-types';
@@ -89,12 +89,14 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
     const newStartDate = new Date(currentWeekStartDate);
     newStartDate.setDate(newStartDate.getDate() - 7);
     setCurrentWeekStartDate(newStartDate);
+    setSelectedDayData(null);
   };
 
   const handleNextWeek = () => {
     const newStartDate = new Date(currentWeekStartDate);
     newStartDate.setDate(newStartDate.getDate() + 7);
     setCurrentWeekStartDate(newStartDate);
+    setSelectedDayData(null);
   };
 
   const handleTimeSlotClick = (slotId) => {
@@ -131,6 +133,15 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
     setSelectedTimeSlotIds([]);
   };
 
+  const filteredTimeSlots = weekData.filter((timeSlot) => {
+    const timeSlotDate = new Date(timeSlot.start_time);
+    const todayDate = new Date(selectedDayData);
+    const currentTime = new Date();
+    const isSameDay = timeSlotDate.getDate() === todayDate.getDate();
+    const isFutureSlot = timeSlotDate > currentTime;
+    return isSameDay && isFutureSlot;
+  });
+
   return (
     <Col>
       <div className="d-flex flex-column flex-lg-row align-items-center justify-content-between">
@@ -138,7 +149,7 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
           xs={12}
           md={11}
           lg={9}
-          xl={8}
+          xl={9}
           className="cards-container d-flex flex-column flex-md-row justify-content-center align-items-start justify-content-md-center order-2 order-lg-1"
         >
           {groupedArray.map((data) => {
@@ -212,7 +223,9 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
               PREV WEEK
             </div>
             <div
-              className="week-button d-flex justify-content-center align-items-center px-3 py-1 m-1 border border-dark"
+              className={`week-button d-flex justify-content-center align-items-center px-3 py-1 m-1 border border-dark ${
+                weekData.length === 0 ? 'd-none' : ''
+              }`}
               onClick={handleNextWeek}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -228,71 +241,66 @@ function BookingWeeklyView({ selectedServiceId, selectedServiceName }) {
           </Col>
         )}
       </div>
-      <Col
-        xs={11}
-        md={10}
-        lg={8}
-        xl={8}
-        className="d-flex flex-column justify-content-center align-items-start"
-      >
-        {selectedDayData && (
-          <>
-            <div className="d-flex align-items-center d-flex fs-5 fw-light pt-5 py-2">
-              <Bs3CircleFill className="me-2" /> Choose available time slots!
-            </div>
-            <div className="time-slot-container text-white text-center d-flex justify-content-start align-items-center flex-wrap">
-              {weekData
-                .filter((timeSlot) => {
-                  const timeSlotDate = new Date(timeSlot.start_time);
-                  const todayDate = new Date(selectedDayData);
-                  const currentTime = new Date();
-                  const isSameDay = timeSlotDate.getDate() === todayDate.getDate();
-                  const isFutureSlot = timeSlotDate > currentTime;
-                  return isSameDay && isFutureSlot;
-                })
-                .sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
-                .map((timeSlot) => (
-                  <Col
-                    xs={3}
-                    md={2}
-                    lg={2}
-                    xl={3}
-                    key={timeSlot.id}
-                    onClick={() => handleTimeSlotClick(timeSlot.id)}
-                    className={`${timeSlot.is_reserved ? 'bg-danger reserved' : 'bg-dark'} ${
-                      selectedTimeSlotIds.includes(timeSlot.id)
-                        ? 'time-slot-card d-flex justify-content-center align-items-center selected text-white p-3 m-1'
-                        : 'time-slot-card d-flex justify-content-center align-items-center text-white p-3 m-1'
-                    }`}
-                  >
-                    <div>
-                      {new Date(timeSlot.start_time).toLocaleTimeString('en-US', {
-                        hour12: false,
-                        hour: 'numeric',
-                        minute: 'numeric',
-                      })}
-                    </div>
-                    <div>-</div>
-                    <div>
-                      {new Date(timeSlot.end_time).toLocaleTimeString('en-US', {
-                        hour12: false,
-                        hour: 'numeric',
-                        minute: 'numeric',
-                      })}
-                    </div>
-                  </Col>
-                ))}
-            </div>
-          </>
-        )}
-      </Col>
-      <Col
-        xs={12}
-        md={11}
-        lg={9}
-        xl={8}
-        className="cards-container d-flex flex-column flex-md-row justify-content-center align-items-start justify-content-md-start order-2 order-lg-1"
-      />
+
+      {selectedDayData && (
+        <div>
+          {filteredTimeSlots.length > 0 ? (
+            <Row
+              xs={10}
+              className="time-slot-main-container d-flex flex-column justify-content-center align-items-start w-100"
+            >
+              <div className="d-flex flex-row align-items-center fs-5 fw-light pt-5 py-2">
+                <Bs3CircleFill className="me-2" /> Choose available time slots!
+              </div>
+              <Col
+                xs={12}
+                md={12}
+                lg={10}
+                xl={10}
+                className="time-slot-container d-flex justify-content-start align-items-center flex-wrap text-white text-center"
+              >
+                {filteredTimeSlots
+                  .sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
+                  .map((timeSlot) => (
+                    <Col
+                      xs={5}
+                      md={3}
+                      lg={2}
+                      xl={2}
+                      key={timeSlot.id}
+                      onClick={() => {
+                        if (!selectedTimeSlotIds.includes(timeSlot.id))
+                          handleTimeSlotClick(timeSlot.id);
+                        else handleDeleteItemFromBooking(timeSlot.id);
+                      }}
+                      className={`time-slot-card d-flex justify-content-center align-items-center text-white p-3 m-1 ${
+                        timeSlot.is_reserved ? 'bg-danger reserved' : 'bg-dark'
+                      } ${selectedTimeSlotIds.includes(timeSlot.id) ? 'selected' : ''}`}
+                    >
+                      <div>
+                        {new Date(timeSlot.start_time).toLocaleTimeString('en-US', {
+                          hour12: false,
+                          hour: 'numeric',
+                          minute: 'numeric',
+                        })}
+                      </div>
+                      <div>-</div>
+                      <div>
+                        {new Date(timeSlot.end_time).toLocaleTimeString('en-US', {
+                          hour12: false,
+                          hour: 'numeric',
+                          minute: 'numeric',
+                        })}
+                      </div>
+                    </Col>
+                  ))}
+              </Col>
+            </Row>
+          ) : (
+            <div className="fs-5 mt-3">No available time slots for today.</div>
+          )}
+        </div>
+      )}
       <Col>
         <CurrentBookingWindow
           handleResetBooking={handleResetBooking}
