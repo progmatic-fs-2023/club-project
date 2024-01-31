@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
 import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { IoMdPin } from 'react-icons/io';
+import { MdLogout } from 'react-icons/md';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
 import { useAuth } from '../contexts/AuthContext';
@@ -110,7 +111,19 @@ function Layout() {
                   Booking
                 </Button>
               )}
-              <Button
+              <OverlayTrigger placement="bottom" overlay={<Tooltip>LOG OUT</Tooltip>}>
+                <Navbar.Brand
+                  as={NavLink}
+                  to="/"
+                  style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+                  onClick={() => {
+                    handleLogoutButton();
+                  }}
+                >
+                  <MdLogout className="mx-2" />
+                </Navbar.Brand>
+              </OverlayTrigger>
+              {/* <Button
                 as={NavLink}
                 to="/"
                 style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
@@ -121,7 +134,7 @@ function Layout() {
                 }}
               >
                 Log out
-              </Button>
+              </Button> */}
               <LoginModal
                 showButton={show}
                 setShowButton={handleCloseButton}
