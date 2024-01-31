@@ -52,7 +52,7 @@ function CurrentBookingWindow({
         <div className="d-flex align-items-center fs-5 fw-light pt-5 py-2">
           <Bs4CircleFill className="me-2 " /> Confirm your booking!
         </div>
-        <Col xs={12} md={9} className="">
+        <Col xs={12} lg={9} className="">
           {currentBookingItems.map((item) => (
             <div
               key={item.time_slot_id}
