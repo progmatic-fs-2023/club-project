@@ -108,7 +108,12 @@ function Service() {
             >
               {' '}
               {isAuthenticated ? (
-                <NavLink to="/membership"> UPGRADE YOUR MEMBERSHIP </NavLink>
+                <NavLink
+                  to="/membership"
+                  className="px-1 text-secondary fw-bold text-decoration-none"
+                >
+                  CLICK HERE TO UPGRADE YOUR MEMBERSHIP{' '}
+                </NavLink>
               ) : (
                 'LOG IN TO BOOK!'
               )}
