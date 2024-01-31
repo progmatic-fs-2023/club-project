@@ -130,18 +130,10 @@ function AdminMember() {
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
 
-    if (type === 'datetime-local') {
-      const formattedDate = new Date(value).toISOString().slice(0, -8);
-      setModifiedMember((prevModifiedMember) => ({
-        ...prevModifiedMember,
-        [name]: formattedDate,
-      }));
-    } else {
-      setModifiedMember((prevModifiedMember) => ({
-        ...prevModifiedMember,
-        [name]: type === 'checkbox' ? !prevModifiedMember[name] : value,
-      }));
-    }
+    setModifiedMember((prevModifiedMember) => ({
+      ...prevModifiedMember,
+      [name]: type === 'checkbox' ? !prevModifiedMember[name] : value,
+    }));
   };
 
   const handleDeleteImage = () => {
@@ -373,13 +365,19 @@ function AdminMember() {
           <Col col={1} className="d-flex justify-content-center d-none d-md-flex p-0">
             <div className="vr" />
           </Col>
-          <Col col={1} className="d-flex justify-content-center d-flex d-md-none p-0">
+          <Col
+            col={1}
+            xs={0}
+            md={0}
+            lg={1}
+            className="d-flex justify-content-center d-flex d-md-none p-0"
+          >
             <div className="w-100 p-2 mx-4 d-flex align-items-center d-flex d-md-none p-0 border-1 border-bottom" />
           </Col>
 
           <Col xs={10} md={3} lg={3} xl={3} xxl={3} className="m-2">
             <div className="d-flex flex-column w-100 w-md-75">
-              <div className="bg-dark text-light rounded p-2">
+              <div className="bg-dark text-light rounded p-3">
                 <div className="fw-bold">PAYMENT STATUS</div>
                 <div style={{ color: modifiedMember.isPayed ? 'green' : 'red' }}>
                   {modifiedMember.isPayed ? 'TRUE' : 'FALSE'}
@@ -414,11 +412,11 @@ function AdminMember() {
               <div
                 className={`${
                   isEditing ? 'border border-info px-2 rounded bg-white' : ''
-                } d-flex flex-row flex-md-column py-2 my-2`}
+                } d-flex flex-row align-items-center py-2 my-2`}
               >
                 <div className="fw-bold">EMAIL VERIFIED</div>
                 {isEditing ? (
-                  <div className="pe-2 ps-1 pb-md-3">
+                  <div className="pe-2 ps-1">
                     <input
                       type="checkbox"
                       name="isVerified"
@@ -427,27 +425,19 @@ function AdminMember() {
                     />
                   </div>
                 ) : (
-                  <div className="pe-3 ps-1 pb-md-3">
+                  <div className=" d-flex ps-3">
                     <input type="checkbox" checked={modifiedMember.isVerified} readOnly />
                   </div>
                 )}
-
-                <div className="fw-bold">ADMIN ROLE</div>
-                {isEditing ? (
-                  <div className="pe-4 ps-1 pb-md-3">
-                    <input
-                      type="checkbox"
-                      name="isAdmin"
-                      checked={modifiedMember.isAdmin}
-                      onChange={handleInputChange}
-                      readOnly={false}
-                    />
-                  </div>
-                ) : (
-                  <div className="pe-4 ps-1 pb-md-3">
-                    <input type="checkbox" checked={modifiedMember.isAdmin} readOnly />
-                  </div>
-                )}
+              </div>
+              <div className="d-flex flex-row">
+                <div className="d-flex flex-row flex-md-column">
+                  <div className="fw-bold">ADMIN ROLE</div>
+                  <div className="fw-light px-1">non-modifiable</div>
+                </div>
+                <div className="ps-1">
+                  <input type="checkbox" checked={modifiedMember.isAdmin} readOnly />
+                </div>
               </div>
             </div>
           </Col>
