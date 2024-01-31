@@ -37,6 +37,19 @@ function Layout() {
     }
   }, [isAuthenticated]);
 
+  const getColorForMembership = (membership) => {
+    switch (membership) {
+      case 'platinum':
+        return '#73c2fb';
+      case 'silver':
+        return '#acacac';
+      case 'gold':
+        return '#e1ad21';
+      default:
+        return '#000000';
+    }
+  };
+
   return (
     <div className="d-flex flex-column vh-100">
       <Navbar
@@ -79,7 +92,7 @@ function Layout() {
                 Contact
               </Nav.Link>
             </Nav>
-            <Nav.Link className="" href="#login&signup">
+            <Nav.Link className="d-flex align-items-center" href="#login&signup">
               <Navbar.Brand
                 as={NavLink}
                 to="/profile"
@@ -87,8 +100,13 @@ function Layout() {
               >
                 <img
                   src="/src/assets/manager.png"
-                  className="user-icon d-inline-block align-top"
+                  className="user-icon d-inline-block align-top p-1 border rounded"
                   alt="profile logo"
+                  style={{
+                    height: '41px',
+                    width: '41px',
+                    backgroundColor: getColorForMembership(user.membership),
+                  }}
                 />
               </Navbar.Brand>
               <Button
