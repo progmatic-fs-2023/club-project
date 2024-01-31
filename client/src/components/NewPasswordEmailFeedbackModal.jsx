@@ -28,13 +28,7 @@ function NewPasswordEmailFeedbackModal({
       onHide={() => setSmShowEmailSentModal(false)}
       aria-labelledby="example-modal-sizes-title-sm"
     >
-      <Modal.Header
-        className={
-          errorMessage
-          /* ? 'text-danger d-flex justify-content-center'
-            : 'text-success d-flex justify-content-center' */
-        }
-      >
+      <Modal.Header className={errorMessage}>
         <Modal.Title>{errorMessage}</Modal.Title>
       </Modal.Header>
     </Modal>
@@ -44,7 +38,7 @@ function NewPasswordEmailFeedbackModal({
 NewPasswordEmailFeedbackModal.propTypes = {
   smShowEmailSentModal: PropTypes.bool.isRequired,
   setSmShowEmailSentModal: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string, // Prop hozzáadása az error üzenetnek
+  errorMessage: PropTypes.string,
 };
 
 NewPasswordEmailFeedbackModal.defaultProps = {

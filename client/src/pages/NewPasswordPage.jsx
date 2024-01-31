@@ -15,18 +15,10 @@ function NewPasswordPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFormSubmit = async (values) => {
-    // console.log(values);
-
     try {
       setIsSubmitting(true);
       const urlSearchParams = new URLSearchParams(location.search);
       const emailFromUrl = urlSearchParams.get('email');
-
-      // setIsSubmitSuccessful(true);
-
-      // setTimeout(() => {
-      //   navigate('/');
-      // }, 5000);
 
       const response = await fetch(`${API_URL}/api/reset-password`, {
         method: 'POST',
@@ -35,15 +27,12 @@ function NewPasswordPage() {
         },
         body: JSON.stringify({ ...values, email: emailFromUrl }),
       });
-      // console.log(response)
+
       if (response.ok) {
         setIsSubmitSuccessful(true);
         setTimeout(() => {
           navigate('/');
         }, 3000);
-      } else {
-        // console.error('Request was not successful:', response.status, response.statusText);
-        // Itt más hibakezelést is végezhetsz a response.statusText felhasználásával
       }
     } catch (error) {
       // console.error('Network error:', error);
@@ -128,7 +117,6 @@ function NewPasswordPage() {
               variant="primary"
               onClick={() => {
                 if (isValid && !isSubmitting) {
-                  // handleClose();
                   handleSubmit();
                 }
               }}

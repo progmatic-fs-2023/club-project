@@ -20,7 +20,6 @@ function RegistrationModal({ showButton }) {
   const handleShow = () => setShow(true);
 
   const handleFormSubmit = async (values) => {
-    // event.preventDefault();
     try {
       await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
@@ -325,7 +324,6 @@ function RegistrationModal({ showButton }) {
                     onBlur={handleBlur}
                   />
                 </Form.Group>
-                {/* <Button type="submit">Submit form</Button> */}
               </Form>
             </Modal.Body>
             <Modal.Footer>

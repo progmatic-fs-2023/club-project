@@ -6,8 +6,6 @@ import FileUpload from './FileUpload';
 import { API_URL } from '../constants';
 import { formatDateLong } from '../utils/dateUtils';
 
-// import ProfileCalendar from './ProfileCalendar';
-
 export default function ProfileCard() {
   const { user, isAuthenticated } = useAuth();
   const [bookedEvents, setBookedEvents] = useState([]);
@@ -100,7 +98,6 @@ export default function ProfileCard() {
   const modifiedHeaders2 = ['Service name', 'Start time', 'End time'];
 
   if (!isAuthenticated || !user) {
-    // A felhasználó nincs bejelentkezve
     return <div>User not found or not logged in</div>;
   }
 

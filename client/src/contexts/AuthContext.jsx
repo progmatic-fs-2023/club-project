@@ -165,7 +165,6 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
     const storedIsAuthenticated = localStorage.getItem('isAuthenticated');
     const storedUser = JSON.parse(localStorage.getItem('user'));
     setIsAuthenticated(storedIsAuthenticated === 'true');

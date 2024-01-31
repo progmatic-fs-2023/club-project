@@ -30,12 +30,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
     const storedIsAuthenticated = localStorage.getItem('isAuthenticated');
 
     if (storedIsAuthenticated === 'true') {
       login();
-      // console.log('User auto-logged in');
     }
     setLoading(false);
   }, []);

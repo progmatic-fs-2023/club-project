@@ -21,23 +21,6 @@ const list = async (req, res) => {
   }
 };
 
-// GET BOOKING BY ID
-// const getBookingById = async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const booking = await findBookingByID(id);
-//     if (booking) {
-//       res.json(booking);
-//     } else {
-//       res.status(404).json({ message: 'Booking does not exist' });
-//     }
-//   } catch (err) {
-//     res.status(500).json({
-//       error: err.message,
-//     });
-//   }
-// };
-
 // GET THE DETAILS OF THE BOOKING BY ID
 const getDetailsOfBookingById = async (req, res) => {
   const { id } = req.params;

@@ -11,7 +11,7 @@ import LoginFeedbackModal from './LoginFeedbackModal';
 function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
   const [show, setShow] = useState(false);
   const [inputs, setInputs] = useState({});
-  const { authenticateUser, login } = useAuth(); // AuthContext használata
+  const { authenticateUser, login } = useAuth();
   const [smShow, setSmShow] = useState(false);
 
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
@@ -32,9 +32,6 @@ function LoginModal({ showButton, setShowButton, setShowButtonNone }) {
   };
 
   const handleSubmit = async (values) => {
-    // event.preventDefault();
-    // alert(inputs);
-    // console.log(values);
     try {
       await authenticateUser(values);
       setShowButton();
