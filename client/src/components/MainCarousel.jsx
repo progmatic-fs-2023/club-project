@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function MainCarousel() {
   return (
-    <Carousel data-bs-theme="light" interval="100000" wrap="true" pause="false">
+    <Carousel data-bs-theme="light" interval="7000" wrap="true" pause="false">
       <Carousel.Item>
         <img
           className="position-relative w-100 object-fit-cover vh-100"

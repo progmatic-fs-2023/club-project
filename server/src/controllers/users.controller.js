@@ -184,11 +184,35 @@ const verifyNewPasswords = async (req, res) => {
 const getUserByIdHeader = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({ message: 'No token provided' });
     }
 
     const token = authHeader.split(' ')[1];
+
+    if (token === 'null') {
+      const tokenNullUser = {
+        id: null,
+        firstName: null,
+        lastName: null,
+        username: null,
+        gender: null,
+        email: null,
+        memberImg: null,
+        membership: null,
+        membershipStartTime: null,
+        membershipEndTime: null,
+        newsletter: null,
+        isVerified: null,
+        isPayed: null,
+        isAdmin: null,
+        password: null,
+        phone: null,
+      };
+
+      return res.json(tokenNullUser);
+    }
 
     const user = await findUserByID(token);
 

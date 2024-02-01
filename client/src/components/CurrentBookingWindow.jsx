@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Bs4CircleFill } from 'react-icons/bs';
 import { MdDeleteForever, MdCancel } from 'react-icons/md';
+import { FaCheckCircle } from 'react-icons/fa';
 import { Col } from 'react-bootstrap';
 import { formatDateLong } from '../utils/dateUtils';
 import { useAuth } from '../contexts/AuthContext';
@@ -36,10 +37,6 @@ function CurrentBookingWindow({
 
       try {
         await fetch(`${API_URL}/api/booking`, requestOptions);
-        /* const result = await response.json();
-        if (result) {
-          window.location.reload();
-        } */
       } catch (error) {
         // console.error('Error during booking:', error);
       }
@@ -95,7 +92,7 @@ function CurrentBookingWindow({
                 handleShowModal();
               }}
             >
-              <MdCancel className="me-2" />
+              <FaCheckCircle className="me-2" />
               CONFIRM BOOKING
             </button>
           </div>

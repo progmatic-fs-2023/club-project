@@ -68,19 +68,16 @@ function Service() {
   const renderContent = () => {
     if (user.isPayed && isAuthenticated && syncBookingButtonWithMembership()) {
       return (
-        <>
-          <NavLink
-            to={`/booking/${service.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-decoration-none"
-          >
-            <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1">
-              BOOKING <MdOutlineCalendarMonth />
-            </Button>
-          </NavLink>
-          ;
-        </>
+        <NavLink
+          to={`/booking/${service.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-decoration-none"
+        >
+          <Button className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1">
+            BOOKING <MdOutlineCalendarMonth />
+          </Button>
+        </NavLink>
       );
     }
     if (!user.isPayed) {
@@ -97,45 +94,42 @@ function Service() {
       );
     }
     return (
-      <>
-        <OverlayTrigger
-          show={showTooltip}
-          overlay={
-            <Tooltip
-              id="tooltip-disabled"
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
-            >
-              {' '}
-              {isAuthenticated ? (
-                <NavLink
-                  to="/membership"
-                  className="px-1 text-secondary fw-bold text-decoration-none"
-                >
-                  CLICK HERE TO UPGRADE YOUR MEMBERSHIP{' '}
-                </NavLink>
-              ) : (
-                'LOG IN TO BOOK!'
-              )}
-            </Tooltip>
-          }
-        >
-          <span
-            className="d-inline-block"
+      <OverlayTrigger
+        show={showTooltip}
+        overlay={
+          <Tooltip
+            id="tooltip-disabled"
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
           >
-            <Button
-              className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
-              disabled
-              style={{ pointerEvents: 'none' }}
-            >
-              BOOKING <MdOutlineCalendarMonth />
-            </Button>
-          </span>
-        </OverlayTrigger>
-        ;
-      </>
+            {' '}
+            {isAuthenticated ? (
+              <NavLink
+                to="/membership"
+                className="px-1 text-secondary fw-bold text-decoration-none"
+              >
+                CLICK HERE TO UPGRADE YOUR MEMBERSHIP{' '}
+              </NavLink>
+            ) : (
+              'LOG IN TO BOOK!'
+            )}
+          </Tooltip>
+        }
+      >
+        <span
+          className="d-inline-block"
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
+        >
+          <Button
+            className="btn-primary fs-5 max-vw-25 d-flex align-items-center gap-1"
+            disabled
+            style={{ pointerEvents: 'none' }}
+          >
+            BOOKING <MdOutlineCalendarMonth />
+          </Button>
+        </span>
+      </OverlayTrigger>
     );
   };
 

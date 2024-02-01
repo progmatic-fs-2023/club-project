@@ -55,7 +55,7 @@ EventCard.propTypes = {
   unformattedEndTime: PropTypes.string.isRequired,
   endTime: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,
-  modifiedAvailableSeats: PropTypes.number.isRequired,
+  modifiedAvailableSeats: PropTypes.string.isRequired,
   eventImg: PropTypes.string.isRequired,
 };
 

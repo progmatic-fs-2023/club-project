@@ -13,7 +13,7 @@ import img9 from '../assets/gallery/img9.jpg';
 import img10 from '../assets/gallery/img10.webp';
 import img11 from '../assets/gallery/img11.webp';
 import img12 from '../assets/gallery/img12.jpg';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Gallery() {
   const imagePaths = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12];

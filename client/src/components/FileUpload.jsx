@@ -69,5 +69,5 @@ export default function FileUpload({ userId }) {
 }
 
 FileUpload.propTypes = {
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
 };
