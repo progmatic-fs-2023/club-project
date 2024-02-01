@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
 import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { IoMdPin } from 'react-icons/io';
+import { MdLogout } from 'react-icons/md';
 import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
 import { useAuth } from '../contexts/AuthContext';
@@ -22,7 +23,6 @@ function Layout() {
   };
   const adminRole = user.id === null ? false : user.isAdmin;
   useEffect(() => {
-    // Oldalbetöltéskor ellenőrizzük a bejelentkezési állapotot
     if (isAuthenticated) {
       setShow('none');
     } else {
@@ -35,6 +35,19 @@ function Layout() {
       setIsAdmin('none');
     }
   }, [isAuthenticated]);
+
+  const getColorForMembership = (membership) => {
+    switch (membership) {
+      case 'platinum':
+        return '#73c2fb';
+      case 'silver':
+        return '#acacac';
+      case 'gold':
+        return '#e1ad21';
+      default:
+        return '#000000';
+    }
+  };
 
   return (
     <div className="d-flex flex-column vh-100">
@@ -78,7 +91,7 @@ function Layout() {
                 Contact
               </Nav.Link>
             </Nav>
-            <Nav.Link className="" href="#login&signup">
+            <Nav.Link className="d-flex align-items-center" href="#login&signup">
               <Navbar.Brand
                 as={NavLink}
                 to="/profile"
@@ -86,8 +99,13 @@ function Layout() {
               >
                 <img
                   src="/src/assets/manager.png"
-                  className="user-icon d-inline-block align-top"
+                  className="user-icon d-inline-block align-top p-1 border rounded"
                   alt="profile logo"
+                  style={{
+                    height: '41px',
+                    width: '41px',
+                    backgroundColor: getColorForMembership(user.membership),
+                  }}
                 />
               </Navbar.Brand>
               <Button
@@ -110,18 +128,18 @@ function Layout() {
                   Booking
                 </Button>
               )}
-              <Button
-                as={NavLink}
-                to="/"
-                style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
-                className="mx-3 max-vw-25 fs-5"
-                variant="outline-light"
-                onClick={() => {
-                  handleLogoutButton();
-                }}
-              >
-                Log out
-              </Button>
+              <OverlayTrigger placement="bottom" overlay={<Tooltip>LOG OUT</Tooltip>}>
+                <Navbar.Brand
+                  as={NavLink}
+                  to="/"
+                  style={{ display: `${show === 'inline-block' ? 'none' : 'inline-block'}` }}
+                  onClick={() => {
+                    handleLogoutButton();
+                  }}
+                >
+                  <MdLogout className="mx-2" />
+                </Navbar.Brand>
+              </OverlayTrigger>
               <LoginModal
                 showButton={show}
                 setShowButton={handleCloseButton}

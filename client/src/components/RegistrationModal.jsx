@@ -8,6 +8,9 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import * as formik from 'formik';
 import * as yup from 'yup';
+import { NavLink } from 'react-router-dom';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import { API_URL } from '../constants';
 
 function RegistrationModal({ showButton }) {
@@ -17,7 +20,6 @@ function RegistrationModal({ showButton }) {
   const handleShow = () => setShow(true);
 
   const handleFormSubmit = async (values) => {
-    // event.preventDefault();
     try {
       await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
@@ -116,7 +118,7 @@ function RegistrationModal({ showButton }) {
                     <Form.Control
                       type="text"
                       name="firstName"
-                      placeholder="Tom"
+                      placeholder="First name"
                       value={values.firstName}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -131,7 +133,7 @@ function RegistrationModal({ showButton }) {
                     <Form.Control
                       type="text"
                       name="lastName"
-                      placeholder="Jones"
+                      placeholder="Last name"
                       value={values.lastName}
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -166,7 +168,7 @@ function RegistrationModal({ showButton }) {
                     <Form.Label>Username *</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="TomJones11"
+                      placeholder="Username"
                       name="username"
                       value={values.username}
                       onBlur={handleBlur}
@@ -219,7 +221,7 @@ function RegistrationModal({ showButton }) {
                       <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                       <Form.Control
                         type="text"
-                        placeholder="tomjones@gmail.com"
+                        placeholder="email@gmail.com"
                         aria-describedby="inputGroupPrepend"
                         name="email"
                         value={values.email}
@@ -255,7 +257,18 @@ function RegistrationModal({ showButton }) {
                     <Form.Control.Feedback type="valid">Looks good!</Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group as={Col} md="4">
-                    <Form.Label>Membership *</Form.Label>
+                    <OverlayTrigger overlay={<Tooltip>SEE MORE</Tooltip>}>
+                      <Form.Label>
+                        <NavLink
+                          className="px-1 text-secondary fw-bold"
+                          target="_blank"
+                          to="/membership"
+                        >
+                          {' '}
+                          Membership *{' '}
+                        </NavLink>{' '}
+                      </Form.Label>
+                    </OverlayTrigger>
                     <Form.Select
                       type="text"
                       name="membership"
@@ -311,7 +324,6 @@ function RegistrationModal({ showButton }) {
                     onBlur={handleBlur}
                   />
                 </Form.Group>
-                {/* <Button type="submit">Submit form</Button> */}
               </Form>
             </Modal.Body>
             <Modal.Footer>

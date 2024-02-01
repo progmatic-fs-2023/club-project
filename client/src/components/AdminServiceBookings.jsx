@@ -42,7 +42,7 @@ function AdminServiceBookings() {
       setServiceBookings(result);
       setFilteredBookings(result);
     } catch (error) {
-      // Handle error
+      /* console.error('Error fetching service bookings:', error); */
     }
   };
 
@@ -97,8 +97,6 @@ function AdminServiceBookings() {
           }
 
           setReload(!reload);
-        } else {
-          /* console.error('Error deleting service booking'); */
         }
       } catch (error) {
         /* console.error('Error deleting service booking:', error); */

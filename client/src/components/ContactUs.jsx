@@ -25,7 +25,7 @@ function ContactUs() {
 
     if (!formData.nameInput || !formData.email || !formData.subject || !formData.message) {
       setSmShow(true);
-      return; // Ne folytassuk az elküldést, ha valamelyik mező üres
+      return;
     }
 
     try {

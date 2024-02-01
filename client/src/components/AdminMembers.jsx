@@ -40,7 +40,7 @@ function AdminMembers() {
       setMembers(result);
       setFilteredMembers(result);
     } catch (error) {
-      // Handle error
+      // console.error('Error fetching data:', error);
     }
   };
 

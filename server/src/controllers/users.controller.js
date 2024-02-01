@@ -160,17 +160,13 @@ const verifyNewPasswords = async (req, res) => {
   const { password1, email } = req.body;
 
   const user = await findEmail(email);
-  // console.log(user);
+
   if (!user || email !== user.email) {
     res.status(404).send('Invalid email.');
     return;
   }
 
-  // const secret = process.env.JWT_SECRET;
-
   try {
-    // const payload = jwt.verify(token, secret);
-
     const hashedPassword = await bcrypt.hash(password1, 10);
     user.password = hashedPassword;
 
@@ -188,16 +184,14 @@ const verifyNewPasswords = async (req, res) => {
 const getUserByIdHeader = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
-    // console.log(authHeader)
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({ message: 'No token provided' });
     }
 
     const token = authHeader.split(' ')[1];
-    // console.log(token)
 
     const user = await findUserByID(token);
-    // console.log(user)
+
     if (user) {
       return res.json(user);
     }

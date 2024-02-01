@@ -27,9 +27,6 @@ function ContactUsEmailFeedbackModal({ smShowEmailSentModal, setSmShowEmailSentM
       <Modal.Header className="text-success d-flex justify-content-center">
         <Modal.Title>Email sent!</Modal.Title>
       </Modal.Header>
-      {/* <Modal.Body className="text-success d-flex justify-content-center align-items-center">
-        <p>Email sent!</p>
-      </Modal.Body> */}
     </Modal>
   );
 }

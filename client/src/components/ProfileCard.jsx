@@ -6,8 +6,6 @@ import FileUpload from './FileUpload';
 import { API_URL } from '../constants';
 import { formatDateLong } from '../utils/dateUtils';
 
-// import ProfileCalendar from './ProfileCalendar';
-
 export default function ProfileCard() {
   const { user, isAuthenticated } = useAuth();
   const [bookedEvents, setBookedEvents] = useState([]);
@@ -49,6 +47,11 @@ export default function ProfileCard() {
     fetchBookedServices();
   }, []);
 
+  const filteredBookedEvents = bookedEvents.filter((booking) => booking.username === user.username);
+  const filteredBookedServices = bookedServices.filter(
+    (serviceBooking) => serviceBooking.username === user.username,
+  );
+
   const today = new Date();
 
   const getCurrentWeekEvents = () => {
@@ -62,7 +65,7 @@ export default function ProfileCard() {
     endOfWeekDate.setHours(23, 59, 59, 999);
     endOfWeekDate.setDate(today.getDate() + (6 - currentDayOfWeek));
 
-    const eventsInCurrentWeek = bookedEvents.filter((booking) => {
+    const eventsInCurrentWeek = filteredBookedEvents.filter((booking) => {
       const eventDate = new Date(booking.start_time);
       eventDate.setHours(0, 0, 0, 0);
       return startOfWeekDate <= eventDate && eventDate <= endOfWeekDate;
@@ -82,7 +85,7 @@ export default function ProfileCard() {
     endOfWeekDate.setHours(23, 59, 59, 999);
     endOfWeekDate.setDate(today.getDate() + (6 - currentDayOfWeek));
 
-    const servicesInCurrentWeek = bookedServices.filter((booking) => {
+    const servicesInCurrentWeek = filteredBookedServices.filter((booking) => {
       const serviceDate = new Date(booking.startTime);
       serviceDate.setHours(0, 0, 0, 0);
       return startOfWeekDate <= serviceDate && serviceDate <= endOfWeekDate;
@@ -95,14 +98,8 @@ export default function ProfileCard() {
   const modifiedHeaders2 = ['Service name', 'Start time', 'End time'];
 
   if (!isAuthenticated || !user) {
-    // A felhasználó nincs bejelentkezve
     return <div>User not found or not logged in</div>;
   }
-
-  const filteredBookedEvents = bookedEvents.filter((booking) => booking.username === user.username);
-  const filteredBookedServices = bookedServices.filter(
-    (serviceBooking) => serviceBooking.username === user.username,
-  );
 
   return (
     <Container fluid className="py-5 mt-5">
