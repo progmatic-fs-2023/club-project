@@ -4,6 +4,9 @@ import {
   deleteServiceBookingById,
 } from '../services/admin.services.bookings.service';
 import 'dotenv/config';
+import { getUserEmail } from '../services/events.service';
+import { getServiceDetails } from '../services/services.service';
+import { sendServiceDeleteEmail } from '../services/email.service';
 
 // GET ALL SERVICE BOOKINGS
 const listServiceBookings = async (req, res) => {
@@ -55,5 +58,31 @@ const deleteServiceBooking = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+const emailServiceDelete = async (req, res) => {
+  try {
+    const { userId } = req.cookies;
+    const { timeSlotId } = req.body;
 
-export { listServiceBookings, getDetailsOfServiceBookings, deleteServiceBooking };
+    const email = await getUserEmail(userId);
+    const { serviceName, serviceStartTime, serviceEndTime } = await getServiceDetails(timeSlotId);
+
+    console.log(serviceName, serviceStartTime, serviceEndTime);
+
+    await sendServiceDeleteEmail(email, serviceName, serviceStartTime, serviceEndTime);
+    return res.status(201).json({
+      message: 'Event booked successfully.',
+    });
+  } catch (err) {
+    console.error('Booking error:', err);
+    return res.status(500).json({
+      message: 'Internal server error.',
+    });
+  }
+};
+
+export {
+  listServiceBookings,
+  getDetailsOfServiceBookings,
+  deleteServiceBooking,
+  emailServiceDelete,
+};

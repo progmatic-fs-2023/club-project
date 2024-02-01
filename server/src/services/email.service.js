@@ -187,10 +187,91 @@ const sendServiceBookingEmail = async (email, serviceName, serviceStartTime, ser
   });
 };
 
+const sendEventDeleteEmail = async (email, eventName, eventStartTime, eventEndTime) => {
+  const startDate = new Date(eventStartTime).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  const endDate = new Date(eventEndTime).toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  const formattedTimeRange = `${startDate} - ${endDate}`;
+
+  const mailOptions = {
+    from: 'door8projekt@gmail.com',
+    to: email,
+    subject: 'Event Cancellation Notification',
+    html: `
+    <p>We regret to inform you that the <strong>${eventName}</strong> scheduled for <strong>${formattedTimeRange}</strong> has been canceled.</p>
+<br />
+    <br />
+    <p>Sincerely,</p>
+    <p>The Event Management Team</p>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(`Email sent: ${info.response}`);
+    }
+  });
+};
+
+const sendServiceDeleteEmail = async (email, serviceName, serviceStartTime, serviceEndTime) => {
+  const startDate = new Date(serviceStartTime).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  const endDate = new Date(serviceEndTime).toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  });
+
+  const formattedTimeRange = `${startDate} - ${endDate}`;
+
+  const mailOptions = {
+    from: 'door8projekt@gmail.com',
+    to: email,
+    subject: 'Service Cancellation Notification',
+    html: `
+    <p>We regret to inform you that the <strong>${serviceName}</strong> scheduled for <strong>${formattedTimeRange}</strong> has been canceled.</p>
+<br />
+<p>Sincerely,</p>
+<p>The Event Management Team</p>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log(`Email sent: ${info.response}`);
+    }
+  });
+};
+
 export {
   sendVerificationEmail,
   welcomeContactUsEmail,
   sendNewPasswordEmail,
   sendEventBookingEmail,
   sendServiceBookingEmail,
+  sendEventDeleteEmail,
+  sendServiceDeleteEmail,
 };

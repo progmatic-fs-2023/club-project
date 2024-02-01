@@ -35,7 +35,7 @@ const getServiceDetails = async timeSlotId => {
         'WHERE ts.id = $1',
       [timeSlotId],
     );
-    console.log(result);
+
     if (result.rows.length > 0) {
       return {
         serviceStartTime: result.rows[0].servicestarttime,
@@ -44,9 +44,9 @@ const getServiceDetails = async timeSlotId => {
       };
     }
 
-    throw new Error('Event not found for the given eventId.');
+    throw new Error('Service not found for the given eventId.');
   } catch (error) {
-    console.error('Error fetching event details:', error);
+    console.error('Error fetching service details:', error);
     throw error;
   }
 };
