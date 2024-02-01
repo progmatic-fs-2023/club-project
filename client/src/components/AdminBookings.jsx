@@ -81,18 +81,12 @@ function AdminBookings() {
             method: 'DELETE',
           });
 
-          if (emailResponse.ok) {
-            console.log('Cancellation email sent successfully.');
-          } else {
-            console.error('Error sending cancellation email');
-          }
-
           fetchEventBookings();
 
           setBookings((prevBookings) =>
             prevBookings.filter((booking) => booking.bookingId !== selectedBookingId),
           );
-        } 
+        }
       } catch (error) {
         /* console.error('Error deleting service booking:', error); */
       }

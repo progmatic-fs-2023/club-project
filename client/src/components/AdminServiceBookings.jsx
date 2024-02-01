@@ -78,7 +78,7 @@ function AdminServiceBookings() {
           setServiceBookings((prevBookings) =>
             prevBookings.filter((booking) => booking.serviceBookingId !== selectedBookingId),
           );
-          const emailResponse = await fetch(
+          await fetch(
             `${API_URL}/api/servicebookings/${selectedBookingTimeSlotId}/send-cancellation-email`,
             {
               method: 'POST',
@@ -89,12 +89,6 @@ function AdminServiceBookings() {
               credentials: 'include',
             },
           );
-
-          if (emailResponse.ok) {
-            console.log('Cancellation email sent successfully.');
-          } else {
-            console.error('Error sending cancellation email');
-          }
 
           setReload(!reload);
         }
