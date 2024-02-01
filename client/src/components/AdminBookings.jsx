@@ -64,14 +64,29 @@ function AdminBookings() {
 
     if (confirmed) {
       try {
-        const deleteResponse = await fetch(`${API_URL}/api/bookings/${selectedBookingId}`, {
-          method: 'DELETE',
-        });
-
-        if (deleteResponse.ok) fetchEventBookings();
-        setBookings((prevBookings) =>
-          prevBookings.filter((booking) => booking.bookingId !== selectedBookingId),
+        const emailResponse = await fetch(
+          `${API_URL}/api/bookings/${selectedBookingId}/send-cancellation-email`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ bookingId: selectedBookingId }),
+            credentials: 'include',
+          },
         );
+
+        if (emailResponse.ok) {
+          await fetch(`${API_URL}/api/bookings/${selectedBookingId}`, {
+            method: 'DELETE',
+          });
+
+          fetchEventBookings();
+
+          setBookings((prevBookings) =>
+            prevBookings.filter((booking) => booking.bookingId !== selectedBookingId),
+          );
+        }
       } catch (error) {
         /* console.error('Error deleting service booking:', error); */
       }

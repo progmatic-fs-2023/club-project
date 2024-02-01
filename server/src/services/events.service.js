@@ -113,6 +113,30 @@ const getEventDetails = async eventId => {
   }
 };
 
+const getEventDetailsBybookingId = async bookingId => {
+  console.log('itt', bookingId);
+  try {
+    const result = await db.query(
+      'SELECT name AS "eventName", start_time AS "eventStartTime", end_time AS "eventEndTime" FROM events JOIN booking_members_events ON booking_members_events.event_id = events.id WHERE booking_members_events.id = $1',
+      [bookingId],
+    );
+    console.log(result);
+    if (result.rows.length > 0) {
+      console.log('Event details:', result.rows[0]);
+      return {
+        eventName: result.rows[0].eventName,
+        eventStartTime: result.rows[0].eventStartTime,
+        eventEndTime: result.rows[0].eventEndTime,
+      };
+    }
+    console.error('Event not found for the given bookingId.');
+    throw new Error('Event not found for the given bookingId.');
+  } catch (error) {
+    console.error('Error fetching event details:', error);
+    throw error;
+  }
+};
+
 export {
   listAllEvents,
   eventByName,
@@ -121,5 +145,6 @@ export {
   updateEventById,
   getUserEmail,
   getEventDetails,
+  getEventDetailsBybookingId,
   getAvailableSeatsForEventById,
 };

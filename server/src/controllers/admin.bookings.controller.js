@@ -4,6 +4,8 @@ import {
   deleteEventBookingById,
 } from '../services/admin.bookings.service';
 import 'dotenv/config';
+import { getUserEmail, getEventDetailsBybookingId } from '../services/events.service';
+import { sendEventDeleteEmail } from '../services/email.service';
 
 // GET ALL EVENT BOOKINGS
 const list = async (req, res) => {
@@ -55,4 +57,24 @@ const deleteEventBooking = async (req, res) => {
   }
 };
 
-export { list, getDetailsOfBookingById, deleteEventBooking };
+const emailEventDelete = async (req, res) => {
+  try {
+    const { userId } = req.cookies;
+    const { bookingId } = req.body;
+
+    const email = await getUserEmail(userId);
+    const { eventName, eventStartTime, eventEndTime } = await getEventDetailsBybookingId(bookingId);
+
+    await sendEventDeleteEmail(email, eventName, eventStartTime, eventEndTime);
+    return res.status(201).json({
+      message: 'Event booked successfully.',
+    });
+  } catch (err) {
+    console.error('Booking error:', err);
+    return res.status(500).json({
+      message: 'Internal server error.',
+    });
+  }
+};
+
+export { list, getDetailsOfBookingById, deleteEventBooking, emailEventDelete };

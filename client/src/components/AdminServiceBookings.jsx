@@ -78,6 +78,17 @@ function AdminServiceBookings() {
           setServiceBookings((prevBookings) =>
             prevBookings.filter((booking) => booking.serviceBookingId !== selectedBookingId),
           );
+          await fetch(
+            `${API_URL}/api/servicebookings/${selectedBookingTimeSlotId}/send-cancellation-email`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ timeSlotId: selectedBookingTimeSlotId }),
+              credentials: 'include',
+            },
+          );
 
           setReload(!reload);
         }
